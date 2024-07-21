@@ -1,3 +1,4 @@
 # v4
 
-Fourth iteration of my personal website
+Personal website based on gatsby
+Theme from britny chiang
