@@ -3,7 +3,7 @@ title: Getting started with Api development on Nodejs
 description:
 date: '2019-09-19'
 draft: false
-slug: '/pensieve/getting-started-with-api-develpoment-on-nodejs-52bi'
+slug: '/blog/getting-started-with-api-develpoment-on-nodejs-52bi/'
 tags:
   - Nodejs
   - Backend

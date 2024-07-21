@@ -3,7 +3,7 @@ title: Docker for nodejs
 description:
 date: '2019-09-16'
 draft: false
-slug: '/pensieve/docker-for-nodejs-3cjg'
+slug: '/blog/docker-for-nodejs-3cjg/'
 tags:
   - Nodejs
   - Docker

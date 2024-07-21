@@ -12,7 +12,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sitemap`,
-    `gatsby-plugin-preact`,
     {
       resolve: `gatsby-plugin-easter-egg`,
       options: {

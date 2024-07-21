@@ -39,7 +39,7 @@ const StyledTagsContainer = styled(Main)`
         font-size: ${fontSizes.sm};
 
         .tag {
-          margin-right: 10px;
+          margin-right: 5px;
         }
       }
     }
@@ -55,13 +55,13 @@ const TagTemplate = ({ pageContext, data, location }) => {
       <StyledTagsContainer>
         <span className="breadcrumb">
           <span className="arrow">&larr;</span>
-          <Link to="/pensieve">All memories</Link>
+          <Link to="/blog">All posts</Link>
         </span>
 
         <h1>
           <span>#{tag}</span>
           <span>
-            <Link to="/pensieve/tags">View all tags</Link>
+            <Link to="/blog/tags">View all tags</Link>
           </span>
         </h1>
 
@@ -85,7 +85,7 @@ const TagTemplate = ({ pageContext, data, location }) => {
                   {tags &&
                     tags.length > 0 &&
                     tags.map((tag, i) => (
-                      <Link key={i} to={`/pensieve/tags/${kebabCase(tag)}/`} className="tag">
+                      <Link key={i} to={`/blog/tags/${kebabCase(tag)}/`} className="tag">
                         #{tag}
                       </Link>
                     ))}
@@ -126,7 +126,7 @@ export const pageQuery = graphql`
   query ($tag: String!) {
     allMarkdownRemark(
       limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
+   sort: {frontmatter: {date: DESC}}
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       totalCount
@@ -134,7 +134,6 @@ export const pageQuery = graphql`
         node {
           frontmatter {
             title
-            description
             date
             slug
             tags

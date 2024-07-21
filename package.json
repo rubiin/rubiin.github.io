@@ -1,11 +1,11 @@
 {
   "name": "v4",
   "description": "Personal Website",
-  "version": "1.2.0",
+  "version": "2.2.0",
   "author": "Rubin Bhandari <roobin.bhandari@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rubiin/v4"
+    "url": "https://github.com/rubiin/rubiin.github.io"
   },
   "keywords": [
     "gatsby"
@@ -45,7 +45,6 @@
     "gatsby-plugin-manifest": "^5.13.1",
     "gatsby-plugin-netlify": "^5.1.1",
     "gatsby-plugin-offline": "^6.13.2",
-    "gatsby-plugin-preact": "^7.13.1",
     "gatsby-plugin-react-helmet": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-plugin-sitemap": "^6.13.1",
@@ -58,9 +57,6 @@
     "gatsby-transformer-remark": "^6.13.1",
     "gatsby-transformer-sharp": "^5.13.1",
     "lodash": "^4.17.21",
-    "mitt": "^3.0.1",
-    "preact": "^10.22.1",
-    "preact-render-to-string": "^6.5.6",
     "prismjs": "^1.29.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
@@ -83,5 +79,5 @@
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.3"
   },
-  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+  "packageManager": "pnpm@9.6.0"
 }

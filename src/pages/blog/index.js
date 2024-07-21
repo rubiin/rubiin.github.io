@@ -1,12 +1,11 @@
-import React from 'react';
+import { Layout } from '@components';
+import { Main, media, mixins, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
-import { Helmet } from 'react-helmet';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
-import { Layout } from '@components';
-import { IconZap } from '@components/icons';
+import React from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { theme, mixins, media, Main } from '@styles';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledMainContainer = styled(Main)`
@@ -97,7 +96,6 @@ const StyledDate = styled.span`
 const StyledTags = styled.ul`
   display: flex;
   align-items: flex-end;
-  flex-wrap: wrap;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -117,28 +115,19 @@ const StyledTags = styled.ul`
   }
 `;
 
-const PensievePage = ({ location, data }) => {
+const BlogPage = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges;
 
   return (
     <Layout location={location}>
       <Helmet>
-        <title>Pensieve | Rubin Bhandari</title>
-        <link rel="canonical" href="https://rubin.github.io/pensieve" />
+        <title>Blog | Rubin Bhandari</title>
+        <link rel="canonical" href="https://rubin.github.io/blog" />
       </Helmet>
 
       <StyledMainContainer>
         <header>
-          <h1 className="big-title">Pensieve</h1>
-          <p className="subtitle">
-            <a
-              href="https://www.wizardingworld.com/writing-by-jk-rowling/pensieve"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              a collection of memories
-            </a>
-          </p>
+          <h1 className="big-title">Blog</h1>
         </header>
 
         <StyledGrid>
@@ -156,7 +145,6 @@ const PensievePage = ({ location, data }) => {
                         <Link to={slug}>
                           <StyledPostHeader>
                             <StyledFolder>
-                              <IconZap />
                             </StyledFolder>
                           </StyledPostHeader>
                           <StyledPostName>{title}</StyledPostName>
@@ -168,7 +156,7 @@ const PensievePage = ({ location, data }) => {
                         <StyledTags>
                           {tags.map((tag, i) => (
                             <li key={i}>
-                              <Link to={`/pensieve/tags/${kebabCase(tag)}/`}>#{tag}</Link>
+                              <Link to={`/blog/tags/${kebabCase(tag)}/`}>#{tag}</Link>
                             </li>
                           ))}
                         </StyledTags>
@@ -184,24 +172,23 @@ const PensievePage = ({ location, data }) => {
   );
 };
 
-PensievePage.propTypes = {
+BlogPage.propTypes = {
   location: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
 };
 
-export default PensievePage;
+export default BlogPage;
 
 export const pageQuery = graphql`
   {
     allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/posts/" }, frontmatter: { draft: { ne: true } } }
-      sort: { fields: [frontmatter___date], order: DESC }
+   sort: {frontmatter: {date: DESC}}
     ) {
       edges {
         node {
           frontmatter {
             title
-            description
             slug
             date
             tags

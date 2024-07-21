@@ -3,7 +3,7 @@ title: Caching your express app
 description:
 date: '2019-11-22'
 draft: false
-slug: '/pensieve/caching-expressjs-app'
+slug: '/blog/caching-expressjs-app/'
 tags:
   - Nodejs
   - Redis

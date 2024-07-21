@@ -3,7 +3,7 @@ title: Dynamically requiring all routes in express app
 description:
 date: '2019-09-16'
 draft: false
-slug: '/pensieve/docker-for-nodejs-3cjg'
+slug: '/blog/docker-for-nodejs-3cjg/'
 tags:
   - Nodejs
   - Webdev

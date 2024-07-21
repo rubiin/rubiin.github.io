@@ -3,7 +3,7 @@ title: Custom jenkins images with plugins pre-installed
 description:
 date: '2019-10-12'
 draft: false
-slug: '/pensieve/custom-jenkins-images-with-plugins-pre-installed-1pok'
+slug: '/blog/custom-jenkins-images-with-plugins-pre-installed-1pok/'
 tags:
   - Jenkins
   - Devops

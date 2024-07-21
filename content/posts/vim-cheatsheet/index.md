@@ -3,7 +3,7 @@ title: Vim quickies/ cheatsheet
 description:
 date: '2019-11-24'
 draft: false
-slug: '/pensieve/vim-cheatsheet'
+slug: '/blog/vim-cheatsheet/'
 tags:
   - Vim
   - Editor

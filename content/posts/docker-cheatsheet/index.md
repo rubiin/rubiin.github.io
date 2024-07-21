@@ -3,7 +3,7 @@ title: Docker basics/ cheatsheet
 description:
 date: '2019-11-22'
 draft: false
-slug: '/pensieve/docker-basics-cheatsheet-2mm4'
+slug: '/blog/docker-basics-cheatsheet-2mm4/'
 tags:
   - Docker
   - Containers

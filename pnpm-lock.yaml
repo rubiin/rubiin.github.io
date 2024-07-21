@@ -53,9 +53,6 @@ importers:
       gatsby-plugin-offline:
         specifier: ^6.13.2
         version: 6.13.2(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      gatsby-plugin-preact:
-        specifier: ^7.13.1
-        version: 7.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(preact-render-to-string@6.5.6(preact@10.22.1))(preact@10.22.1)(webpack@5.93.0)
       gatsby-plugin-react-helmet:
         specifier: ^6.13.1
         version: 6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(react-helmet@6.1.0(react@18.3.1))
@@ -92,15 +89,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      mitt:
-        specifier: ^3.0.1
-        version: 3.0.1
-      preact:
-        specifier: ^10.22.1
-        version: 10.22.1
-      preact-render-to-string:
-        specifier: ^6.5.6
-        version: 6.5.6(preact@10.22.1)
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
@@ -1428,24 +1416,6 @@ packages:
   '@pnpm/npm-conf@2.2.2':
     resolution: {integrity: sha512-UA91GwWPhFExt3IizW6bOeY/pQ0BkuNwKjk9iQW9KqxluGCrg4VenZ0/L+2Y0+ZOtme72EVvg6v0zo3AMQRCeA==}
     engines: {node: '>=12'}
-
-  '@prefresh/babel-plugin@0.4.4':
-    resolution: {integrity: sha512-/EvgIFMDL+nd20WNvMO0JQnzIl1EJPgmSaSYrZUww7A+aSdKsi37aL07TljrZR1cBMuzFxcr4xvqsUQLFJEukw==}
-
-  '@prefresh/core@1.5.2':
-    resolution: {integrity: sha512-A/08vkaM1FogrCII5PZKCrygxSsc11obExBScm3JF1CryK2uDS3ZXeni7FeKCx1nYdUkj4UcJxzPzc1WliMzZA==}
-    peerDependencies:
-      preact: ^10.0.0
-
-  '@prefresh/utils@1.2.0':
-    resolution: {integrity: sha512-KtC/fZw+oqtwOLUFM9UtiitB0JsVX0zLKNyRTA332sqREqSALIIQQxdUCS1P3xR/jT1e2e8/5rwH6gdcMLEmsQ==}
-
-  '@prefresh/webpack@3.3.4':
-    resolution: {integrity: sha512-RiXS/hvXDup5cQw/267kxkKie81kxaAB7SFbkr8ppshobDEzwgUN1tbGbHNx6Uari0Ql2XByC6HIgQGpaq2Q7w==}
-    peerDependencies:
-      '@prefresh/babel-plugin': ^0.4.0
-      preact: ^10.4.0
-      webpack: ^4.0.0 || ^5.0.0
 
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
@@ -3409,14 +3379,6 @@ packages:
     peerDependencies:
       gatsby: ^5.0.0-next
 
-  gatsby-plugin-preact@7.13.1:
-    resolution: {integrity: sha512-VJmTmb3A0eF/boDkBAsTWpUDeE4V4vtm+IKeOxUCiQBYbjmGkL4IB0W5CAUK3L5cnhHqgd9x25RTb9q4+DsAdg==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      gatsby: ^5.0.0-next
-      preact: ^10.3.4
-      preact-render-to-string: ^5.1.8
-
   gatsby-plugin-react-helmet@6.13.1:
     resolution: {integrity: sha512-Fwgf2UDOo1LQgw1vUmGmDMK5hXVrIXDR92URzu4DylQWgyfycfQ3D9FdU2JZ8jB6F3OI6Yx6YHC7zL3OAL7iOw==}
     engines: {node: '>=18.0.0'}
@@ -4621,9 +4583,6 @@ packages:
   mitt@1.2.0:
     resolution: {integrity: sha512-r6lj77KlwqLhIUku9UWYes7KJtsczvolZkzp8hbaDPPaE24OmWl5s539Mytlj22siEQKosZ26qCBgda2PKwoJw==}
 
-  mitt@3.0.1:
-    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
-
   mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
 
@@ -5247,14 +5206,6 @@ packages:
   postcss@8.4.39:
     resolution: {integrity: sha512-0vzE+lAiG7hZl1/9I8yzKLx3aR9Xbof3fBHKunvMfOCYAtMhrsnccJY2iTURb9EZd5+pLuiNV9/c/GZJOHsgIw==}
     engines: {node: ^10 || ^12 || >=14}
-
-  preact-render-to-string@6.5.6:
-    resolution: {integrity: sha512-msFdv7/ooTV6OIodAnU87V4ct+m2DA1rwaRYV+DNvTYpm/ZInQfoGrcHmbTkV7TOcJaHh5wt1NjiALA46Jyxhw==}
-    peerDependencies:
-      preact: '>=10'
-
-  preact@10.22.1:
-    resolution: {integrity: sha512-jRYbDDgMpIb5LHq3hkI0bbl+l/TQ9UnkdQ0ww+lp+4MMOdqaUYdFc5qeyP+IV8FAd/2Em7drVPeKdQxsiWCf/A==}
 
   prebuild-install@7.1.2:
     resolution: {integrity: sha512-UnNke3IQb6sgarcZIDU3gbMeTp/9SSU1DAIkil7PrqG1vZlBtY5msYccSKSHDqa3hNg436IXK+SNImReuA1wEQ==}
@@ -8297,22 +8248,6 @@ snapshots:
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
 
-  '@prefresh/babel-plugin@0.4.4': {}
-
-  '@prefresh/core@1.5.2(preact@10.22.1)':
-    dependencies:
-      preact: 10.22.1
-
-  '@prefresh/utils@1.2.0': {}
-
-  '@prefresh/webpack@3.3.4(@prefresh/babel-plugin@0.4.4)(preact@10.22.1)(webpack@5.93.0)':
-    dependencies:
-      '@prefresh/babel-plugin': 0.4.4
-      '@prefresh/core': 1.5.2(preact@10.22.1)
-      '@prefresh/utils': 1.2.0
-      preact: 10.22.1
-      webpack: 5.93.0
-
   '@sideway/address@4.1.5':
     dependencies:
       '@hapi/hoek': 9.3.0
@@ -10965,18 +10900,6 @@ snapshots:
       - graphql
       - supports-color
 
-  gatsby-plugin-preact@7.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(preact-render-to-string@6.5.6(preact@10.22.1))(preact@10.22.1)(webpack@5.93.0):
-    dependencies:
-      '@babel/runtime': 7.24.8
-      '@gatsbyjs/webpack-hot-middleware': 2.25.3
-      '@prefresh/babel-plugin': 0.4.4
-      '@prefresh/webpack': 3.3.4(@prefresh/babel-plugin@0.4.4)(preact@10.22.1)(webpack@5.93.0)
-      gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3)
-      preact: 10.22.1
-      preact-render-to-string: 6.5.6(preact@10.22.1)
-    transitivePeerDependencies:
-      - webpack
-
   gatsby-plugin-react-helmet@6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(react-helmet@6.1.0(react@18.3.1)):
     dependencies:
       '@babel/runtime': 7.24.8
@@ -12543,8 +12466,6 @@ snapshots:
 
   mitt@1.2.0: {}
 
-  mitt@3.0.1: {}
-
   mkdirp-classic@0.5.3: {}
 
   mkdirp@0.5.6:
@@ -13137,12 +13058,6 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.0.1
       source-map-js: 1.2.0
-
-  preact-render-to-string@6.5.6(preact@10.22.1):
-    dependencies:
-      preact: 10.22.1
-
-  preact@10.22.1: {}
 
   prebuild-install@7.1.2:
     dependencies:
