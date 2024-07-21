@@ -4,7 +4,7 @@ import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Main, theme } from '@styles';
-import { ShareButtons, Layout } from '@components';
+import { Layout } from '@components';
 const { colors } = theme;
 
 const StyledPostContainer = styled(Main)`
@@ -67,7 +67,6 @@ const PostTemplate = ({ data, location }) => {
         </StyledPostHeader>
 
         <StyledPostContent dangerouslySetInnerHTML={{ __html: html }} />
-        <ShareButtons />
       </StyledPostContainer>
     </Layout>
   );
