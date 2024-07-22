@@ -1,4 +1,4 @@
-# v4
+# rubiin.github.io
 
 Personal website based on gatsby
-Theme from britny chiang
+

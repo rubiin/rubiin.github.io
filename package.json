@@ -1,5 +1,5 @@
 {
-  "name": "v4",
+  "name": "rubiin.github.io",
   "description": "Personal Website",
   "version": "2.2.0",
   "author": "Rubin Bhandari <roobin.bhandari@gmail.com>",
@@ -68,11 +68,9 @@
     "styled-components": "^6.1.12"
   },
   "devDependencies": {
-    "@upstatement/eslint-config": "0.4.3",
     "@upstatement/prettier-config": "^1.1.0",
     "eslint": "^9.7.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-react": "^7.35.0",
     "gatsby-remark-code-titles": "^1.1.0",
     "husky": "^9.1.1",
