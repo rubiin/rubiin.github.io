@@ -1,6 +1,6 @@
 ---
 date: '2020-10-01'
-title: 'Url minify'
+title: 'url-minify'
 github: 'https://github.com/rubiin/url-minify'
 external: 'https://github.com/rubiin/url-minify'
 tech:

@@ -1,8 +1,8 @@
 ---
 date: '2018-05-01'
 title: 'Nest-pgpromise'
-github: 'https://github.com/nest-pgpromise'
-external: 'https://rubiin.vercel.app/nest-pgpromise'
+github: 'https://github.com/NestCrafts/nestjs-pgpromise'
+external: 'https://github.com/NestCrafts/nestjs-pgpromise'
 tech:
   - Nestjs
   - Typescript
