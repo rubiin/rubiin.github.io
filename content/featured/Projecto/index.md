@@ -1,9 +1,9 @@
 ---
-date: '3'
+date: '2'
 title: 'Projecto'
 cover: './projecto.png'
 github: 'https://github.com/rubiin/projecto'
-external: 'https://rubiin.vercel.app/projecto'
+external: 'https://github.com/rubiin/projecto'
 tech:
   - Golang
   - Shell
