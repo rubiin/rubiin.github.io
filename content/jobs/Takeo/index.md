@@ -1,10 +1,10 @@
 ---
 date: '2022-08-26'
-title: 'Fullstack JS Developer'
+title: 'Senior Fullstack Developer'
 company: 'Takeo'
 location: 'Kathmandu, Nepal'
 range: 'Aug - Current'
-url: 'https://ebpearls.com.au/'
+url: 'https://takeo.ai/'
 ---
 
 - Write modern, performant, maintainable code for a diverse array of client and internal projects
