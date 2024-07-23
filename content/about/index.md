@@ -8,11 +8,11 @@ skills:
   - Vue
   - Golang
   - Python
-  - PostgreSql & MongoDB
+  - PostgreSql
   - Git
   - AWS
   - Docker
-  - Node.js
+  - MongoDB
   - Express / Nestjs
   - GraphQL
   - Blockchain
