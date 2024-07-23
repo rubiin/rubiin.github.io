@@ -11,4 +11,3 @@ showInProjects: true
 ---
 
 Projecto opens up your project folder in your specified editors.
-Check it out at [Projecto](https://rubiin.vercel.app/projecto)

@@ -100,7 +100,7 @@ const ArchivePage = ({ location, data }) => {
     <Layout location={location}>
       <Helmet>
         <title>Archive | Rubin Bhandari</title>
-        <link rel="canonical" href="https://rubiin.vercel.app/archive" />
+        <link rel="canonical" href="https://rubiin.is-a.dev.app/archive" />
       </Helmet>
 
       <StyledMainContainer>
@@ -194,7 +194,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/projects/" }
-        frontmatter: { showInProjects: { ne: false } }
+        frontmatter: { showInProjects: { eq: false } }
       }
     sort: {frontmatter: {date: DESC}}
     ) {
