@@ -5,4 +5,4 @@ subtitle: 'I turn caffeine to code.'
 contactText: 'Get In Touch'
 ---
 
-Rubin Bhandari is a software engineer based in Kathmandu, Nepal working on Takeo.ai , passionate about open source and learning new stuffs.
+Hey there! I'm Rubin Bhandari, a passionate developer dedicated to crafting elegant solutions with 7 years of experience. Explore my work and let's build something amazing together!
