@@ -18,6 +18,8 @@ skills:
   - Blockchain
 ---
 
-Hi, I'm Rubin Bhandari, a Full Stack Developer 🚀 from Nepal, currently, I'm working with <a href="https://takeo.ai">Takeo.ai</a>.I am a self taught developer, FOSS lover, linux enthusiast. I have always loved creating something out of nothing. When I was little I started with legos, moved on to painting, and then I found the digital world where it was possible to create anything! I started creating anything and everything; games, 3D models, softwares and websites.Now I like building new stuff and work with other people – nothing really interesting is ever built alone!
+I am a developer based in Kathmandu, Nepal 🚀  specializing in backend development and cloud computing. With 7 years of experience in building scalable APIs and managing database architectures, I am passionate about leveraging technology to solve real-world problems and deliver innovative solutions.
+My journey in software development began during my college years, where I discovered my passion for coding and problem-solving. Since then, I've had the opportunity to work on diverse projects, from optimizing data pipelines for e-commerce platforms to developing secure authentication systems for fintech applications.
+Currently, I am a senior developer at <a href="https://takeo.ai">Takeo.ai</a>, a cutting-edge learning management system specializing in bootcamps. At Takeo.ai, I lead the backend development team, focusing on designing robust systems that ensure data security and compliance with healthcare regulations. I am dedicated to implementing advanced algorithms for predictive analytics and machine learning models to enhance patient care and operational efficiency.
 
 Here are a few technologies I've been working with recently:
