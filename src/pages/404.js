@@ -11,6 +11,24 @@ const StyledMainContainer = styled(Main)`
   ${mixins.flexCenter};
   flex-direction: column;
 `;
+
+
+const StyledImg = styled.img`
+  object-fit: contain;
+  height: 450px;
+    &:hover,
+  &:focus {
+      transform: scale(1.1);
+      transition: 2s
+    }
+  }
+`
+
+const StyledDataContainer = styled.div`
+  ${mixins.flexCenter};
+  gap: 100px;
+`;
+
 const StyledTitle = styled.h1`
   color: ${colors.green};
   font-family: ${fonts.SFMono};
@@ -44,8 +62,17 @@ const NotFoundPage = ({ location }) => {
         {isMounted && (
           <CSSTransition timeout={500} classNames="fade">
             <StyledMainContainer className="fillHeight">
-              <StyledTitle>404</StyledTitle>
-              <StyledSubtitle>Page Not Found</StyledSubtitle>
+
+              <StyledDataContainer>
+                <div>
+                  <StyledTitle>404</StyledTitle>
+                  <StyledSubtitle>Page Not Found</StyledSubtitle>
+
+                </div>
+                <StyledImg src="https://www.salehriaz.com/404Page/img/astronaut.svg" />
+
+              </StyledDataContainer>
+
               <StyledHomeButton to="/">Go Home</StyledHomeButton>
             </StyledMainContainer>
           </CSSTransition>
