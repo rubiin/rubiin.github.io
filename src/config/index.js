@@ -6,7 +6,7 @@ module.exports = {
     'Rubin Bhandari, Rubiin, Bhandari, rubiin, software engineer, backend-end engineer, web developer, nodejs ,web developer, javascript, asian',
   siteUrl: 'https://rubiin.is-a.dev',
   siteLanguage: 'en_US',
-  googleAnalyticsID: 'UA-122359186-1 ',
+  googleAnalyticsID: 'G-ZD0B25CPH9',
   googleVerification: 'J8EFrhN9mfY_8dySyMAB6_5oZ2GwNAM6nENof-RDWm4',
   name: 'Rubin Bhandari',
   location: 'Kathmandu, Nepal',

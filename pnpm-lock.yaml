@@ -38,7 +38,7 @@ importers:
       gatsby-plugin-easter-egg:
         specifier: ^1.0.0
         version: 1.0.0
-      gatsby-plugin-google-analytics:
+      gatsby-plugin-google-gtag:
         specifier: ^5.13.1
         version: 5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       gatsby-plugin-image:
@@ -3334,8 +3334,8 @@ packages:
   gatsby-plugin-easter-egg@1.0.0:
     resolution: {integrity: sha512-MUXSyKgG9uyoNqrsrEmrRMcLOD2oUt3meBdypjhvuBy5q/FgY76jNCDED5Uzm+JNmRmMURpKSLhZWh786XU4aA==}
 
-  gatsby-plugin-google-analytics@5.13.1:
-    resolution: {integrity: sha512-6TzvUPW7CBpfpSIqpcvaRwRKTYgM3CKqSnfyRIY16vlAKYkAtZLXm3PkIbg0+mM+WzY6GRnAoeXqRkXJv0FK9A==}
+  gatsby-plugin-google-gtag@5.13.1:
+    resolution: {integrity: sha512-aaJKIDwUWwhooJnalse1uvcusBmCwCVK33pp1IrDU02E7IohMen3eR5TsjLbfKO7Z+SbfKJEqUoi/r0ozrJarA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       gatsby: ^5.0.0-next
@@ -6395,9 +6395,6 @@ packages:
 
   web-namespaces@1.1.4:
     resolution: {integrity: sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==}
-
-  web-vitals@1.1.2:
-    resolution: {integrity: sha512-PFMKIY+bRSXlMxVAQ+m2aw9c/ioUYfDgrYot0YUa+/xa0sakubWhSDyxAKwzymvXVdF4CZI71g06W+mqhzu6ig==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -10816,14 +10813,13 @@ snapshots:
 
   gatsby-plugin-easter-egg@1.0.0: {}
 
-  gatsby-plugin-google-analytics@5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  gatsby-plugin-google-gtag@5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.8
       gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3)
       minimatch: 3.1.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      web-vitals: 1.1.2
 
   gatsby-plugin-image@3.13.1(@babel/core@7.24.9)(gatsby-plugin-sharp@5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(graphql@16.9.0))(gatsby-source-filesystem@5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3)))(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.7.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.3))(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -14444,8 +14440,6 @@ snapshots:
   weak-lru-cache@1.2.2: {}
 
   web-namespaces@1.1.4: {}
-
-  web-vitals@1.1.2: {}
 
   webidl-conversions@3.0.1: {}
 
