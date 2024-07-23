@@ -20,7 +20,7 @@ module.exports = {
     },
     {
       name: 'Linkedin',
-      url: 'https://www.linkedin.com/in/xidharth',
+      url: 'https://www.linkedin.com/in/rubiin',
     },
     {
       name: 'Dev.to',
