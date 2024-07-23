@@ -17,7 +17,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "deploy": "gatsby build && gh-pages -b gh-pages"
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
@@ -56,6 +57,7 @@
     "gatsby-source-filesystem": "^5.13.1",
     "gatsby-transformer-remark": "^6.13.1",
     "gatsby-transformer-sharp": "^5.13.1",
+    "gh-pages": "^6.1.1",
     "lodash": "^4.17.21",
     "prismjs": "^1.29.0",
     "prop-types": "^15.8.1",
