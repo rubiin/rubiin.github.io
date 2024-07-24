@@ -44,19 +44,7 @@ module.exports = {
     {
       name: 'Blog',
       url: '/blog',
-    },
-    {
-      name: 'Experience',
-      url: '/#jobs',
-    },
-    {
-      name: 'Work',
-      url: '/#projects',
-    },
-    {
-      name: 'Contact',
-      url: '/#contact',
-    },
+    }
   ],
 
   navHeight: 100,
