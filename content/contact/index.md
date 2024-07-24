@@ -2,4 +2,4 @@
 title: 'Get in touch'
 ---
 
-I love connecting with different people so if you want to say hi,I would love to hear about your project and big idea.
+I’d love to hear from you! Whether you have questions, feedback, or just want to connect, feel free to reach out.
