@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
+import Img from 'gatsby-image';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledMainContainer = styled(Main)`
@@ -29,6 +30,21 @@ const StyledMainContainer = styled(Main)`
     margin-top: 20px;
     width: 100%;
   }
+`;
+const StyledFeaturedImg = styled(Img)`
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: ${theme.borderRadius};
+  position: relative;
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1) brightness(90%);
+  ${media.tablet`
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%) contrast(1) brightness(80%);
+  `};
 `;
 const StyledGrid = styled.div`
   margin-top: 50px;
