@@ -10,12 +10,16 @@ const { colors, fonts } = theme;
 const StyledMainContainer = styled(Main)`
   ${mixins.flexCenter};
   flex-direction: column;
+  overflow: hidden
 `;
 
 const StyledImg = styled.img`
-  object-fit: contain;
-  height: 450px;
-    &:hover,
+width: 30%;
+${media.phablet`width: 80%;`}
+${media.thone`width: 50%;`}
+  ${media.bigDesktop`width: 50%;`}
+  ${media.giant`width: 40%;`};
+  &:hover,
   &:focus {
       transform: scale(1.1);
       transition: 2s
@@ -25,7 +29,9 @@ const StyledImg = styled.img`
 
 const StyledDataContainer = styled.div`
   ${mixins.flexCenter};
-  gap: 100px;
+  gap: 2rem;
+  width: 80%;
+  margin: 0 auto;
 `;
 
 const StyledTitle = styled.h1`
