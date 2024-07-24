@@ -145,6 +145,58 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-feed",
+      options: {
+        query: `
+      {
+        site {
+          siteMetadata {
+            title
+            description
+            siteUrl
+            site_url: siteUrl
+          }
+        }
+      }
+    `,
+        feeds: [
+          {
+            title: "Exploring the latest trends, best practices, and in-depth insights in software engineering and web development",
+            output: "rss.xml",
+            query: `
+                {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/posts/" }, frontmatter: { draft: { ne: true } } }
+   sort: {frontmatter: {date: DESC}}
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title
+            slug
+            date
+            tags
+            draft
+          }
+          html
+        }
+      }
+    }
+          }
+        `,
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  url: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
+                })
+              })
+            },
+          }
+        ]
+      }
+    },
+    {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         trackingIds: [
