@@ -145,7 +145,7 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-feed",
+      resolve: 'gatsby-plugin-feed',
       options: {
         query: `
       {
@@ -161,8 +161,9 @@ module.exports = {
     `,
         feeds: [
           {
-            title: "Exploring the latest trends, best practices, and in-depth insights in software engineering and web development",
-            output: "rss.xml",
+            title:
+              'Exploring the latest trends, best practices, and in-depth insights in software engineering and web development',
+            output: 'rss.xml',
             query: `
                 {
     allMarkdownRemark(
@@ -189,19 +190,17 @@ module.exports = {
                 return Object.assign({}, edge.node.frontmatter, {
                   url: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
-                })
-              })
+                });
+              });
             },
-          }
-        ]
-      }
+          },
+        ],
+      },
     },
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingIds: [
-          config.googleAnalyticsID
-        ]
+        trackingIds: [config.googleAnalyticsID],
       },
     },
   ],

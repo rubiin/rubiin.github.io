@@ -44,7 +44,7 @@ module.exports = {
     {
       name: 'Blog',
       url: '/blog',
-    }
+    },
   ],
 
   navHeight: 100,

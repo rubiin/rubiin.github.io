@@ -57,8 +57,7 @@ const Footer = () => (
                 href={url}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                aria-label={name}
-              >
+                aria-label={name}>
                 {name === 'GitHub' ? (
                   <IconGitHub />
                 ) : name === 'Linkedin' ? (
@@ -86,8 +85,7 @@ const Footer = () => (
       <StyledGitHubLink
         href="https://github.com/bchiang7"
         target="_blank"
-        rel="nofollow noopener noreferrer"
-      >
+        rel="nofollow noopener noreferrer">
         <div>Theme by Brittany Chiang</div>
       </StyledGitHubLink>
     </StyledMetadata>

@@ -18,8 +18,7 @@ const IconLogo = () => (
           strokeOpacity="null"
           strokeWidth="0"
           stroke="null"
-          fill="#64ffda"
-        >
+          fill="#64ffda">
           R
         </text>
 

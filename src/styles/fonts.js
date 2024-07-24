@@ -47,14 +47,17 @@ import SFMonoSemiboldItalicWOFF2 from '@fonts/SFMono/SFMono-SemiboldItalic.woff2
 const FontFaces = css`
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreLightWOFF2}) format('woff2'), url(${CalibreLightWOFF}) format('woff'),
+    src:
+      url(${CalibreLightWOFF2}) format('woff2'),
+      url(${CalibreLightWOFF}) format('woff'),
       url(${CalibreLightTTF}) format('truetype');
     font-weight: 300;
     font-style: normal;
   }
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreLightItalicWOFF2}) format('woff2'),
+    src:
+      url(${CalibreLightItalicWOFF2}) format('woff2'),
       url(${CalibreLightItalicWOFF}) format('woff'),
       url(${CalibreLightItalicTTF}) format('truetype');
     font-weight: 300;
@@ -62,14 +65,17 @@ const FontFaces = css`
   }
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreRegularWOFF2}) format('woff2'), url(${CalibreRegularWOFF}) format('woff'),
+    src:
+      url(${CalibreRegularWOFF2}) format('woff2'),
+      url(${CalibreRegularWOFF}) format('woff'),
       url(${CalibreRegularTTF}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreRegularItalicWOFF2}) format('woff2'),
+    src:
+      url(${CalibreRegularItalicWOFF2}) format('woff2'),
       url(${CalibreRegularItalicWOFF}) format('woff'),
       url(${CalibreRegularItalicTTF}) format('truetype');
     font-weight: normal;
@@ -77,14 +83,17 @@ const FontFaces = css`
   }
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreMediumWOFF2}) format('woff2'), url(${CalibreMediumWOFF}) format('woff'),
+    src:
+      url(${CalibreMediumWOFF2}) format('woff2'),
+      url(${CalibreMediumWOFF}) format('woff'),
       url(${CalibreMediumTTF}) format('truetype');
     font-weight: 500;
     font-style: normal;
   }
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreMediumItalicWOFF2}) format('woff2'),
+    src:
+      url(${CalibreMediumItalicWOFF2}) format('woff2'),
       url(${CalibreMediumItalicWOFF}) format('woff'),
       url(${CalibreMediumItalicTTF}) format('truetype');
     font-weight: 500;
@@ -92,14 +101,17 @@ const FontFaces = css`
   }
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreSemiboldWOFF2}) format('woff2'), url(${CalibreSemiboldWOFF}) format('woff'),
+    src:
+      url(${CalibreSemiboldWOFF2}) format('woff2'),
+      url(${CalibreSemiboldWOFF}) format('woff'),
       url(${CalibreSemiboldTTF}) format('truetype');
     font-weight: 600;
     font-style: normal;
   }
   @font-face {
     font-family: 'Calibre';
-    src: url(${CalibreSemiboldItalicWOFF2}) format('woff2'),
+    src:
+      url(${CalibreSemiboldItalicWOFF2}) format('woff2'),
       url(${CalibreSemiboldItalicWOFF}) format('woff'),
       url(${CalibreSemiboldItalicTTF}) format('truetype');
     font-weight: 600;
@@ -107,14 +119,17 @@ const FontFaces = css`
   }
   @font-face {
     font-family: 'SF Mono';
-    src: url(${SFMonoRegularWOFF2}) format('woff2'), url(${SFMonoRegularWOFF}) format('woff'),
+    src:
+      url(${SFMonoRegularWOFF2}) format('woff2'),
+      url(${SFMonoRegularWOFF}) format('woff'),
       url(${SFMonoRegularTTF}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'SF Mono';
-    src: url(${SFMonoRegularItalicWOFF2}) format('woff2'),
+    src:
+      url(${SFMonoRegularItalicWOFF2}) format('woff2'),
       url(${SFMonoRegularItalicWOFF}) format('woff'),
       url(${SFMonoRegularItalicTTF}) format('truetype');
     font-weight: normal;
@@ -122,14 +137,17 @@ const FontFaces = css`
   }
   @font-face {
     font-family: 'SF Mono';
-    src: url(${SFMonoMediumWOFF2}) format('woff2'), url(${SFMonoMediumWOFF}) format('woff'),
+    src:
+      url(${SFMonoMediumWOFF2}) format('woff2'),
+      url(${SFMonoMediumWOFF}) format('woff'),
       url(${SFMonoMediumTTF}) format('truetype');
     font-weight: 500;
     font-style: normal;
   }
   @font-face {
     font-family: 'SF Mono';
-    src: url(${SFMonoMediumItalicWOFF2}) format('woff2'),
+    src:
+      url(${SFMonoMediumItalicWOFF2}) format('woff2'),
       url(${SFMonoMediumItalicWOFF}) format('woff'),
       url(${SFMonoMediumItalicTTF}) format('truetype');
     font-weight: 500;
@@ -137,14 +155,17 @@ const FontFaces = css`
   }
   @font-face {
     font-family: 'SF Mono';
-    src: url(${SFMonoSemiboldWOFF2}) format('woff2'), url(${SFMonoSemiboldWOFF}) format('woff'),
+    src:
+      url(${SFMonoSemiboldWOFF2}) format('woff2'),
+      url(${SFMonoSemiboldWOFF}) format('woff'),
       url(${SFMonoSemiboldTTF}) format('truetype');
     font-weight: 600;
     font-style: normal;
   }
   @font-face {
     font-family: 'SF Mono';
-    src: url(${SFMonoSemiboldItalicWOFF2}) format('woff2'),
+    src:
+      url(${SFMonoSemiboldItalicWOFF2}) format('woff2'),
       url(${SFMonoSemiboldItalicWOFF}) format('woff'),
       url(${SFMonoSemiboldItalicTTF}) format('truetype');
     font-weight: 600;

@@ -126,7 +126,7 @@ export const pageQuery = graphql`
   query ($tag: String!) {
     allMarkdownRemark(
       limit: 2000
-   sort: {frontmatter: {date: DESC}}
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       totalCount

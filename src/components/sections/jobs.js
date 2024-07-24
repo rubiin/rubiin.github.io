@@ -211,8 +211,7 @@ const Jobs = ({ data }) => {
                     role="tab"
                     aria-selected={activeTabId === i ? true : false}
                     aria-controls={`panel-${i}`}
-                    tabIndex={activeTabId === i ? '0' : '-1'}
-                  >
+                    tabIndex={activeTabId === i ? '0' : '-1'}>
                     <span>{company}</span>
                   </StyledTabButton>
                 </li>
@@ -233,8 +232,7 @@ const Jobs = ({ data }) => {
                 role="tabpanel"
                 aria-labelledby={`tab-${i}`}
                 tabIndex={activeTabId === i ? '0' : '-1'}
-                hidden={activeTabId !== i}
-              >
+                hidden={activeTabId !== i}>
                 <StyledJobTitle>
                   <span>{title}</span>
                   <StyledCompany>

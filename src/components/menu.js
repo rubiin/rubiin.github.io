@@ -96,8 +96,7 @@ const Menu = ({ menuOpen, toggleMenu }) => {
       menuOpen={menuOpen}
       onClick={handleMenuClick}
       aria-hidden={!menuOpen}
-      tabIndex={menuOpen ? 1 : -1}
-    >
+      tabIndex={menuOpen ? 1 : -1}>
       <Sidebar>
         <NavLinks>
           <NavList>

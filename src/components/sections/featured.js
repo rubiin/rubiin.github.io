@@ -234,8 +234,7 @@ const Featured = ({ data }) => {
                         href={external}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
-                        aria-label="External Link"
-                      >
+                        aria-label="External Link">
                         {title}
                       </a>
                     ) : (
@@ -256,8 +255,7 @@ const Featured = ({ data }) => {
                         href={github}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
-                        aria-label="GitHub Link"
-                      >
+                        aria-label="GitHub Link">
                         <IconGitHub />
                       </a>
                     )}
@@ -266,8 +264,7 @@ const Featured = ({ data }) => {
                         href={external}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
-                        aria-label="External Link"
-                      >
+                        aria-label="External Link">
                         <IconExternal />
                       </a>
                     )}
@@ -277,8 +274,7 @@ const Featured = ({ data }) => {
                 <StyledImgContainer
                   href={external ? external : github ? github : '#'}
                   target="_blank"
-                  rel="nofollow noopener noreferrer"
-                >
+                  rel="nofollow noopener noreferrer">
                   <StyledFeaturedImg fluid={cover.childImageSharp.fluid} />
                 </StyledImgContainer>
               </StyledProject>

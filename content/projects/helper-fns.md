@@ -11,4 +11,3 @@ showInProjects: true
 ---
 
 Common JavaScript packages and utilities used across my projects.
-

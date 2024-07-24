@@ -50,8 +50,7 @@ const Social = ({ isHome }) => (
               href={url}
               target="_blank"
               rel="nofollow noopener noreferrer"
-              aria-label={name}
-            >
+              aria-label={name}>
               <FormattedIcon name={name} />
             </StyledLink>
           </li>

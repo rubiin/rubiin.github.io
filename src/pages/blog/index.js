@@ -16,7 +16,8 @@ const StyledMainContainer = styled(Main)`
     a {
       &:hover,
       &:focus {
-        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>⚡</text></svg>")
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>⚡</text></svg>")
             20 0,
           auto;
       }
@@ -144,8 +145,7 @@ const BlogPage = ({ location, data }) => {
                       <header>
                         <Link to={slug}>
                           <StyledPostHeader>
-                            <StyledFolder>
-                            </StyledFolder>
+                            <StyledFolder></StyledFolder>
                           </StyledPostHeader>
                           <StyledPostName>{title}</StyledPostName>
                           <StyledPostDescription>{description}</StyledPostDescription>
@@ -183,7 +183,7 @@ export const pageQuery = graphql`
   {
     allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/posts/" }, frontmatter: { draft: { ne: true } } }
-   sort: {frontmatter: {date: DESC}}
+      sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {

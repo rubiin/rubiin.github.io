@@ -12,7 +12,6 @@ const StyledMainContainer = styled(Main)`
   flex-direction: column;
 `;
 
-
 const StyledImg = styled.img`
   object-fit: contain;
   height: 450px;
@@ -22,7 +21,7 @@ const StyledImg = styled.img`
       transition: 2s
     }
   }
-`
+`;
 
 const StyledDataContainer = styled.div`
   ${mixins.flexCenter};
@@ -62,15 +61,12 @@ const NotFoundPage = ({ location }) => {
         {isMounted && (
           <CSSTransition timeout={500} classNames="fade">
             <StyledMainContainer className="fillHeight">
-
               <StyledDataContainer>
                 <div>
                   <StyledTitle>404</StyledTitle>
                   <StyledSubtitle>Page Not Found</StyledSubtitle>
-
                 </div>
                 <StyledImg src="https://www.salehriaz.com/404Page/img/astronaut.svg" />
-
               </StyledDataContainer>
 
               <StyledHomeButton to="/">Go Home</StyledHomeButton>
