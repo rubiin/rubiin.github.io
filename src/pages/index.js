@@ -1,26 +1,183 @@
-import React from 'react';
-import { graphql } from 'gatsby';
+import { Hero, Layout } from '@components';
 import PropTypes from 'prop-types';
-import { Layout, Hero, About, Jobs, Featured, Projects, Contact } from '@components';
+import React from 'react';
 import styled from 'styled-components';
-import { Main } from '@styles';
+import { Main, media, mixins, theme } from '@styles';
+import { graphql, Link } from 'gatsby';
+import kebabCase from 'lodash/kebabCase';
+import Img from 'gatsby-image';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledMainContainer = styled(Main)`
-  counter-reset: section;
+  & > header {
+    text-align: center;
+    margin-bottom: 100px;
+
+    a {
+      &:hover,
+      &:focus {
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>⚡</text></svg>")
+            20 0,
+          auto;
+      }
+    }
+  }
+
+  footer {
+    ${mixins.flexBetween};
+    margin-top: 20px;
+    width: 100%;
+  }
+`;
+const StyledFeaturedImg = styled(Img)`
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: ${theme.borderRadius};
+  position: relative;
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1) brightness(90%);
+  ${media.tablet`
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%) contrast(1) brightness(80%);
+  `};
+`;
+const StyledGrid = styled.div`
+  margin-top: 50px;
+
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 15px;
+    position: relative;
+    ${media.desktop`grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));`};
+  }
+`;
+const StyledPostInner = styled.div`
+  ${mixins.boxShadow};
+  ${mixins.flexBetween};
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  padding: 2rem 1.75rem;
+  height: 100%;
+  border-radius: ${theme.borderRadius};
+  transition: ${theme.transition};
+  background-color: ${colors.lightNavy};
+  header,
+  a {
+    width: 100%;
+  }
+`;
+const StyledPost = styled.div`
+  transition: ${theme.transition};
+  cursor: default;
+  &:hover,
+  &:focus {
+    outline: 0;
+    ${StyledPostInner} {
+      transform: translateY(-5px);
+    }
+  }
+`;
+const StyledPostHeader = styled.div`
+  ${mixins.flexBetween};
+  margin-bottom: 30px;
+`;
+const StyledFolder = styled.div`
+  color: ${colors.green};
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+`;
+const StyledPostName = styled.h5`
+  margin: 0 0 10px;
+  font-size: ${fontSizes.xxl};
+  color: ${colors.lightestSlate};
+`;
+const StyledPostDescription = styled.div`
+  font-size: 17px;
+  color: ${colors.lightSlate};
+`;
+const StyledDate = styled.span`
+  text-transform: uppercase;
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.xs};
+  color: ${colors.lightSlate};
+`;
+const StyledTags = styled.ul`
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  li {
+    font-family: ${fonts.SFMono};
+    font-size: ${fontSizes.xs};
+    color: ${colors.green};
+    line-height: 1.75;
+    margin-right: 15px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    a {
+      ${mixins.inlineLink};
+    }
+  }
 `;
 
-const IndexPage = ({ location, data }) => (
-  <Layout location={location}>
-    <StyledMainContainer className="fillHeight">
-      <Hero data={data.hero.edges} />
-      <About data={data.about.edges} />
-      <Jobs data={data.jobs.edges} />
-      <Featured data={data.featured.edges} />
-      <Projects data={data.projects.edges} />
-      <Contact data={data.contact.edges} />
-    </StyledMainContainer>
-  </Layout>
-);
+const IndexPage = ({ location, data }) => {
+  const posts = data.posts.edges;
+  return (
+    <Layout location={location}>
+      <StyledMainContainer className="fillHeight">
+        <Hero data={data.hero.edges} />
+
+        <StyledGrid>
+          <div className="posts">
+            {posts.length > 0 &&
+              posts.map(({ node }, i) => {
+                const { frontmatter } = node;
+                const { title, description, slug, date, tags } = frontmatter;
+                const d = new Date(date);
+
+                return (
+                  <StyledPost key={i} tabIndex="0">
+                    <StyledPostInner>
+                      <header>
+                        <Link to={slug}>
+                          <StyledPostHeader>
+                            <StyledFolder></StyledFolder>
+                          </StyledPostHeader>
+                          <StyledPostName>{title}</StyledPostName>
+                          <StyledPostDescription>{description}</StyledPostDescription>
+                        </Link>
+                      </header>
+                      <footer>
+                        <StyledDate>{`${d.toLocaleDateString()}`}</StyledDate>
+                        <StyledTags>
+                          {tags.map((tag, i) => (
+                            <li key={i}>
+                              <Link to={`/blog/tags/${kebabCase(tag)}/`}>#{tag}</Link>
+                            </li>
+                          ))}
+                        </StyledTags>
+                      </footer>
+                    </StyledPostInner>
+                  </StyledPost>
+                );
+              })}
+          </div>
+        </StyledGrid>
+      </StyledMainContainer>
+    </Layout>
+  );
+};
 
 IndexPage.propTypes = {
   location: PropTypes.object.isRequired,
@@ -44,88 +201,18 @@ export const pageQuery = graphql`
         }
       }
     }
-    about: allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/about/" } }) {
-      edges {
-        node {
-          frontmatter {
-            title
-            avatar {
-              childImageSharp {
-                fluid(maxWidth: 700, quality: 90, traceSVG: { color: "#64ffda" }) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
-                }
-              }
-            }
-            skills
-          }
-          html
-        }
-      }
-    }
-    jobs: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/jobs/" } }
+    posts: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/posts/" }, frontmatter: { draft: { ne: true } } }
       sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {
           frontmatter {
             title
-            company
-            location
-            range
-            url
-          }
-          html
-        }
-      }
-    }
-    featured: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/featured/" } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
-      edges {
-        node {
-          frontmatter {
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 700, quality: 90, traceSVG: { color: "#64ffda" }) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
-                }
-              }
-            }
-            tech
-            github
-            external
-          }
-          html
-        }
-      }
-    }
-    projects: allMarkdownRemark(
-      filter: {
-        fileAbsolutePath: { regex: "/projects/" }
-        frontmatter: { showInProjects: { ne: false } }
-      }
-      sort: { frontmatter: { date: DESC } }
-    ) {
-      edges {
-        node {
-          frontmatter {
-            title
-            tech
-            github
-            external
-          }
-          html
-        }
-      }
-    }
-    contact: allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/contact/" } }) {
-      edges {
-        node {
-          frontmatter {
-            title
+            slug
+            date
+            tags
+            draft
           }
           html
         }
