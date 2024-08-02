@@ -9,6 +9,10 @@ import styled from 'styled-components';
 import Img from 'gatsby-image';
 const { colors, fontSizes, fonts } = theme;
 
+const StyledTagsContainer = styled.div`
+  max-width: 100px;
+`;
+
 const StyledMainContainer = styled(Main)`
   & > header {
     text-align: center;
@@ -29,6 +33,7 @@ const StyledMainContainer = styled(Main)`
     ${mixins.flexBetween};
     margin-top: 20px;
     width: 100%;
+    justify-content: flex-end;
   }
 `;
 const StyledFeaturedImg = styled(Img)`
@@ -48,15 +53,19 @@ const StyledFeaturedImg = styled(Img)`
 `;
 const StyledGrid = styled.div`
   margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
 
   .posts {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 10px;
     position: relative;
     ${media.desktop`grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));`};
   }
 `;
+
+
 const StyledPostInner = styled.div`
   ${mixins.boxShadow};
   ${mixins.flexBetween};
@@ -134,6 +143,7 @@ const StyledTags = styled.ul`
 
 const BlogPage = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges;
+  const group = data.allMarkdownRemark.group;
 
   return (
     <Layout location={location}>
@@ -165,10 +175,10 @@ const BlogPage = ({ location, data }) => {
                           </StyledPostHeader>
                           <StyledPostName>{title}</StyledPostName>
                           <StyledPostDescription>{description}</StyledPostDescription>
+                          <StyledDate>{`${d.toLocaleDateString()}`}</StyledDate>
                         </Link>
                       </header>
                       <footer>
-                        <StyledDate>{`${d.toLocaleDateString()}`}</StyledDate>
                         <StyledTags>
                           {tags.map((tag, i) => (
                             <li key={i}>
@@ -182,6 +192,18 @@ const BlogPage = ({ location, data }) => {
                 );
               })}
           </div>
+          <StyledTagsContainer>
+            <h1>Tags</h1>
+            <ul className="fancy-list">
+              {group.map(tag => (
+                <li key={tag.fieldValue}>
+                  <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
+                    {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </StyledTagsContainer>
         </StyledGrid>
       </StyledMainContainer>
     </Layout>
@@ -212,6 +234,10 @@ export const pageQuery = graphql`
           }
           html
         }
+      }
+      group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
       }
     }
   }
