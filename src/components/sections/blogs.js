@@ -148,9 +148,14 @@ const StyledTags = styled.ul`
 `;
 
 
+const StyledButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `
 
 const StyledMoreButton = styled(Button)`
-  margin: 100px auto 0;
+  margin: 40px auto;
 `;
 
 const Blog = ({ data }) => {
@@ -172,64 +177,68 @@ const Blog = ({ data }) => {
   const postsToShow = showMore ? posts : firstSix;
 
   return (
-      <StyledMainContainer>
-        <header>
+    <StyledMainContainer>
+      <header>
         <h1 className="medium-title">Recently published</h1>
-        </header>
+      </header>
 
-        <StyledGrid>
-          <div className="posts">
-            {posts.length > 0 &&
-              postsToShow.map(({ node }, i) => {
-                const { frontmatter } = node;
-                const { title, description, slug, date, tags } = frontmatter;
-                const d = new Date(date);
+      <StyledGrid>
+        <div className="posts">
+          {posts.length > 0 &&
+            postsToShow.map(({ node }, i) => {
+              const { frontmatter } = node;
+              const { title, description, slug, date, tags } = frontmatter;
+              const d = new Date(date);
 
-                return (
-                  <StyledPost key={i} tabIndex="0">
-                    <StyledPostInner>
-                      <header>
-                        <Link to={slug}>
-                          <StyledPostHeader>
-                            <StyledFolder></StyledFolder>
-                          </StyledPostHeader>
-                          <StyledPostName>{title}</StyledPostName>
-                          <StyledPostDescription>{description}</StyledPostDescription>
-                          <StyledDate>{`${d.toLocaleDateString()}`}</StyledDate>
-                        </Link>
-                      </header>
-                      <footer>
-                        <StyledTags>
-                          {tags.map((tag, i) => (
-                            <li key={i}>
-                              <Link to={`/blog/tags/${kebabCase(tag)}/`}>#{tag}</Link>
-                            </li>
-                          ))}
-                        </StyledTags>
-                      </footer>
-                    </StyledPostInner>
-                  </StyledPost>
-                );
-              })}
-          </div>
-          <StyledTagsContainer>
-            <h1>Categories</h1>
-            <ul className="fancy-list">
+              return (
+                <StyledPost key={i} tabIndex="0">
+                  <StyledPostInner>
+                    <header>
+                      <Link to={slug}>
+                        <StyledPostHeader>
+                          <StyledFolder></StyledFolder>
+                        </StyledPostHeader>
+                        <StyledPostName>{title}</StyledPostName>
+                        <StyledPostDescription>{description}</StyledPostDescription>
+                        <StyledDate>{`📅 ${d.toLocaleDateString()}`}</StyledDate>
+                      </Link>
+                    </header>
+                    <footer>
+                      <StyledTags>
+                        {tags.map((tag, i) => (
+                          <li key={i}>
+                            <Link to={`/blog/tags/${kebabCase(tag)}/`}>#{tag}</Link>
+                          </li>
+                        ))}
+                      </StyledTags>
+                    </footer>
+                  </StyledPostInner>
+                </StyledPost>
+              );
+            })}
+        </div>
+        <StyledTagsContainer>
+          <h1>Tags</h1>
+          <ul className="fancy-list">
             {sortTags.map(tag => (
-                <li key={tag.fieldValue}>
-                  <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-                    {tag.fieldValue} <span className="count">({tag.totalCount})</span>
-                  </Link>
-                </li>
-              ))}
-            <StyledAllCategory to={`/blog/tags`}>All Categories</StyledAllCategory>
-            </ul>
-          </StyledTagsContainer>
-        </StyledGrid>
-        <StyledMoreButton onClick={() => setShowMore(!showMore)}>
-          Show {showMore ? 'Less' : 'More'}
+              <li key={tag.fieldValue}>
+                <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
+                  {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+                </Link>
+              </li>
+            ))}
+            <StyledAllCategory to={`/blog/tags`}>All Tags</StyledAllCategory>
+          </ul>
+        </StyledTagsContainer>
+      </StyledGrid>
+      <StyledButtonContainer>
+        <StyledMoreButton to={`/blog`}>
+          View All Posts
         </StyledMoreButton>
-      </StyledMainContainer>
+
+      </StyledButtonContainer>
+
+    </StyledMainContainer>
   );
 };
 
