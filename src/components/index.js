@@ -15,6 +15,7 @@ import Jobs from './sections/jobs';
 import Featured from './sections/featured';
 import Projects from './sections/projects';
 import Contact from './sections/contact';
+import Blog from './sections/blogs';
 
 export {
   Head,
@@ -22,6 +23,7 @@ export {
   Loader,
   Nav,
   Menu,
+  Blog,
   Side,
   Social,
   Email,
