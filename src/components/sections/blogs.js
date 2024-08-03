@@ -157,7 +157,13 @@ const Blog = ({ data }) => {
 
   const posts = data.edges;
   const LIMIT = 6;
-  const group = data.group.slice(0, LIMIT);
+  const tags = data.group
+
+
+  const sortTags = tags.sort((a, b) => {
+    return b.totalCount - a.totalCount;
+  }).slice(0, 5);
+
 
   const [showMore, setShowMore] = useState(false);
 
@@ -209,7 +215,7 @@ const Blog = ({ data }) => {
           <StyledTagsContainer>
             <h1>Categories</h1>
             <ul className="fancy-list">
-              {group.map(tag => (
+            {sortTags.map(tag => (
                 <li key={tag.fieldValue}>
                   <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
                     {tag.fieldValue} <span className="count">({tag.totalCount})</span>
