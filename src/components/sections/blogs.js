@@ -124,6 +124,20 @@ const StyledDate = styled.span`
   font-size: ${fontSizes.xs};
   color: ${colors.lightSlate};
 `;
+
+const StyledReadingTime = styled.span`
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.xs};
+  color: ${colors.lightSlate};
+`;
+
+const StyledReadingTimeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  justify-content: space-between;
+`;
+
 const StyledTags = styled.ul`
   display: flex;
   align-items: flex-end;
@@ -169,7 +183,7 @@ const Blog = ({ posts, tags }) => {
   return (
     <StyledMainContainer>
       <header>
-        <h1 className="medium-title">Recently published</h1>
+        <h1 className="small-title">Recently published</h1>
       </header>
 
       <StyledGrid>
@@ -186,11 +200,15 @@ const Blog = ({ posts, tags }) => {
                     <header>
                       <Link to={slug}>
                         <StyledPostHeader>
-                          <StyledFolder></StyledFolder>
+                        <StyledFolder></StyledFolder>
                         </StyledPostHeader>
                         <StyledPostName>{title}</StyledPostName>
-                        <StyledPostDescription>{description}</StyledPostDescription>
-                        <StyledDate>{`📅 ${d.toLocaleDateString()}`}</StyledDate>
+                        <StyledReadingTimeContainer>
+                          <StyledDate>{`📅 ${d.toLocaleDateString()}`}</StyledDate>
+                          <StyledReadingTime>{`⏱️ 5 min read`}</StyledReadingTime>
+
+                        </StyledReadingTimeContainer>
+
                       </Link>
                     </header>
                     <footer>
