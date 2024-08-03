@@ -89,6 +89,14 @@ const GlobalStyle = createGlobalStyle`
       ${media.desktop`font-size: 50px;`};
       ${media.tablet`font-size: 40px;`};
     }
+
+      &.small-title {
+      font-size: 40px;
+      line-height: 1.1;
+      margin: 0;
+      ${media.desktop`font-size: 30px;`};
+      ${media.tablet`font-size: 20px;`};
+    }
   }
 
   img {
