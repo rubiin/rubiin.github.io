@@ -62,6 +62,7 @@ const StyledGrid = styled.div`
     display: flex;
     flex-direction: column;
     width:800px;
+    gap: 10px;
   }
 `;
 
