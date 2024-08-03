@@ -61,7 +61,7 @@ const StyledGrid = styled.div`
   .posts {
     display: flex;
     flex-direction: column;
-    width:800px;
+    width: 800px;
     gap: 10px;
   }
 `;
@@ -141,8 +141,6 @@ const StyledTags = styled.ul`
   }
 `;
 
-
-
 const StyledMoreButton = styled(Button)`
   margin: 100px auto 0;
 `;
@@ -152,7 +150,6 @@ const BlogPage = ({ location, data }) => {
   const group = data.allMarkdownRemark.group;
 
   const [showMore, setShowMore] = useState(false);
-
 
   const GRID_LIMIT = 6;
   const firstSix = posts.slice(0, GRID_LIMIT);

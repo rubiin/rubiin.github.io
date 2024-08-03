@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 const { colors, fontSizes, fonts } = theme;
 
@@ -58,12 +58,11 @@ const StyledGrid = styled.div`
   gap: 10%;
   justify-content: space-around;
 
-
   .posts {
     display: flex;
     flex-direction: column;
-    width:80%;
-    gap: .5rem;
+    width: 80%;
+    gap: 0.5rem;
   }
 `;
 
@@ -85,8 +84,8 @@ const StyledPostInner = styled.div`
 `;
 
 const StyledAllCategory = styled(Link)`
-    margin-top: 20px;
-`
+  margin-top: 20px;
+`;
 
 const StyledPost = styled.div`
   transition: ${theme.transition};
@@ -147,34 +146,25 @@ const StyledTags = styled.ul`
   }
 `;
 
-
 const StyledButtonContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const StyledMoreButton = styled(Button)`
   margin: 40px auto;
 `;
 
-const Blog = ({ data }) => {
+const Blog = ({ posts, tags }) => {
+  const postsData = posts.edges;
+  const tagsData = tags.group;
 
-  const posts = data.edges;
-  const LIMIT = 6;
-  const tags = data.group
-
-
-  const sortTags = tags.sort((a, b) => {
-    return b.totalCount - a.totalCount;
-  }).slice(0, 5);
-
-
-  const [showMore, setShowMore] = useState(false);
-
-
-  const firstSix = posts.slice(0, LIMIT);
-  const postsToShow = showMore ? posts : firstSix;
+  const sortTags = tagsData
+    .sort((a, b) => {
+      return b.totalCount - a.totalCount;
+    })
+    .slice(0, 5);
 
   return (
     <StyledMainContainer>
@@ -184,8 +174,8 @@ const Blog = ({ data }) => {
 
       <StyledGrid>
         <div className="posts">
-          {posts.length > 0 &&
-            postsToShow.map(({ node }, i) => {
+          {postsData.length > 0 &&
+            postsData.map(({ node }, i) => {
               const { frontmatter } = node;
               const { title, description, slug, date, tags } = frontmatter;
               const d = new Date(date);
@@ -232,18 +222,15 @@ const Blog = ({ data }) => {
         </StyledTagsContainer>
       </StyledGrid>
       <StyledButtonContainer>
-        <StyledMoreButton to={`/blog`}>
-          View All Posts
-        </StyledMoreButton>
-
+        <StyledMoreButton to={`/blog`}>View All Posts</StyledMoreButton>
       </StyledButtonContainer>
-
     </StyledMainContainer>
   );
 };
 
 Blog.propTypes = {
-  data: PropTypes.object.isRequired,
+  posts: PropTypes.object.isRequired,
+  tags: PropTypes.object.isRequired,
 };
 
 export default Blog;
