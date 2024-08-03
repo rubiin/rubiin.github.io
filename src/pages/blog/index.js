@@ -1,9 +1,9 @@
 import { Layout } from '@components';
-import { Main, media, mixins, theme } from '@styles';
+import { Main, media, mixins, theme, Button } from '@styles';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import Img from 'gatsby-image';
@@ -11,6 +11,8 @@ const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
   max-width: 100px;
+  ${media.bigDesktop`display:none;`};
+  ${media.phablet`display: none;`};
 `;
 
 const StyledMainContainer = styled(Main)`
@@ -57,14 +59,11 @@ const StyledGrid = styled.div`
   justify-content: space-between;
 
   .posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(1100px, 1fr));
-    grid-gap: 10px;
-    position: relative;
-    ${media.desktop`grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));`};
+    display: flex;
+    flex-direction: column;
+    width:800px;
   }
 `;
-
 
 const StyledPostInner = styled.div`
   ${mixins.boxShadow};
@@ -141,9 +140,22 @@ const StyledTags = styled.ul`
   }
 `;
 
+
+
+const StyledMoreButton = styled(Button)`
+  margin: 100px auto 0;
+`;
+
 const BlogPage = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges;
   const group = data.allMarkdownRemark.group;
+
+  const [showMore, setShowMore] = useState(false);
+
+
+  const GRID_LIMIT = 6;
+  const firstSix = posts.slice(0, GRID_LIMIT);
+  const postsToShow = showMore ? posts : firstSix;
 
   return (
     <Layout location={location}>
@@ -160,7 +172,7 @@ const BlogPage = ({ location, data }) => {
         <StyledGrid>
           <div className="posts">
             {posts.length > 0 &&
-              posts.map(({ node }, i) => {
+              postsToShow.map(({ node }, i) => {
                 const { frontmatter } = node;
                 const { title, description, slug, date, tags } = frontmatter;
                 const d = new Date(date);
@@ -205,6 +217,9 @@ const BlogPage = ({ location, data }) => {
             </ul>
           </StyledTagsContainer>
         </StyledGrid>
+        <StyledMoreButton onClick={() => setShowMore(!showMore)}>
+          Show {showMore ? 'Less' : 'More'}
+        </StyledMoreButton>
       </StyledMainContainer>
     </Layout>
   );
