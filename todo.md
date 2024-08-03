@@ -5,4 +5,3 @@
 [] minute read
 [x] limit tags
 [] paginate
-

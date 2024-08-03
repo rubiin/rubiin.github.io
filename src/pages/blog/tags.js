@@ -41,11 +41,9 @@ const TagsPage = ({
   },
   location,
 }) => {
-
-  const sortTags = tags.sort((a, b) => {
+  const sortTags = group.sort((a, b) => {
     return b.totalCount - a.totalCount;
-  })
-
+  });
 
   return (
     <Layout location={location}>
@@ -68,11 +66,9 @@ const TagsPage = ({
           ))}
         </ul>
       </StyledTagsContainer>
-    </Layout>);
-
-}
-
-
+    </Layout>
+  );
+};
 
 TagsPage.propTypes = {
   data: PropTypes.shape({

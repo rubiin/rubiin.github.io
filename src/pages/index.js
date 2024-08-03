@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
-import { Layout, Hero , Blog} from '@components';
+import { Layout, Hero, Blog } from '@components';
 import styled from 'styled-components';
 import { Main } from '@styles';
 
@@ -13,8 +13,7 @@ const IndexPage = ({ location, data }) => (
   <Layout location={location}>
     <StyledMainContainer className="fillHeight">
       <Hero data={data.hero.edges} />
-      <Blog data={data.posts} />
-
+      <Blog posts={data.posts} tags={data.group} />
     </StyledMainContainer>
   </Layout>
 );
@@ -45,7 +44,7 @@ export const pageQuery = graphql`
     posts: allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/posts/" }, frontmatter: { draft: { ne: true } } }
       sort: { frontmatter: { date: DESC } }
-      limit : 4
+      limit: 5
     ) {
       edges {
         node {
@@ -54,16 +53,15 @@ export const pageQuery = graphql`
             slug
             date
             tags
-            draft
           }
-          html
         }
       }
+    }
+    group: allMarkdownRemark(limit: 2000, filter: { frontmatter: { draft: { ne: true } } }) {
       group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount
       }
     }
-
   }
 `;
