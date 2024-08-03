@@ -40,29 +40,39 @@ const TagsPage = ({
     },
   },
   location,
-}) => (
-  <Layout location={location}>
-    <Helmet title={title} />
+}) => {
 
-    <StyledTagsContainer>
-      <span className="breadcrumb">
-        <span className="arrow">&larr;</span>
-        <Link to="/blog">All posts</Link>
-      </span>
+  const sortTags = tags.sort((a, b) => {
+    return b.totalCount - a.totalCount;
+  })
 
-      <h1>Tags</h1>
-      <ul className="fancy-list">
-        {group.map(tag => (
-          <li key={tag.fieldValue}>
-            <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-              {tag.fieldValue} <span className="count">({tag.totalCount})</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </StyledTagsContainer>
-  </Layout>
-);
+
+  return (
+    <Layout location={location}>
+      <Helmet title={title} />
+
+      <StyledTagsContainer>
+        <span className="breadcrumb">
+          <span className="arrow">&larr;</span>
+          <Link to="/blog">All posts</Link>
+        </span>
+
+        <h1>Tags</h1>
+        <ul className="fancy-list">
+          {sortTags.map(tag => (
+            <li key={tag.fieldValue}>
+              <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
+                {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </StyledTagsContainer>
+    </Layout>);
+
+}
+
+
 
 TagsPage.propTypes = {
   data: PropTypes.shape({
