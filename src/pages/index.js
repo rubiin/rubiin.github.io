@@ -54,6 +54,7 @@ export const pageQuery = graphql`
             date
             tags
           }
+          timeToRead
         }
       }
     }
