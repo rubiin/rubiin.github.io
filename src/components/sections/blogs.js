@@ -190,8 +190,8 @@ const Blog = ({ posts, tags }) => {
         <div className="posts">
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
-              const { frontmatter } = node;
-              const { title, description, slug, date, tags } = frontmatter;
+              const { frontmatter, timeToRead } = node;
+              const { title, slug, date, tags } = frontmatter;
               const d = new Date(date);
 
               return (
@@ -205,7 +205,7 @@ const Blog = ({ posts, tags }) => {
                         <StyledPostName>{title}</StyledPostName>
                         <StyledReadingTimeContainer>
                           <StyledDate>{`📅 ${d.toLocaleDateString()}`}</StyledDate>
-                          <StyledReadingTime>{`⏱️ 5 min read`}</StyledReadingTime>
+                          <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
 
                         </StyledReadingTimeContainer>
 
