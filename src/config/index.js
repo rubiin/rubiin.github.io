@@ -38,8 +38,12 @@ module.exports = {
 
   navLinks: [
     {
+      name: 'Home',
+      url: '/',
+    },
+    {
       name: 'About me',
-      url: '/#about',
+      url: '/about',
     },
     {
       name: 'Blog',
