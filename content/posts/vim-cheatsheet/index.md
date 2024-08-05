@@ -1,6 +1,6 @@
 ---
 title: Vim quickies/ cheatsheet
-description:
+description: "I’ve compiled a list of essential Vim commands that I use every day. I have then given a few instructions on how to make Vim as great as it should be, because it’s painful without configuration."
 date: '2019-11-24'
 draft: false
 slug: '/blog/vim-cheatsheet/'

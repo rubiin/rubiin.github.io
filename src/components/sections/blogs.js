@@ -7,6 +7,8 @@ import React from 'react';
 import styled from 'styled-components';
 const { colors, fontSizes, fonts } = theme;
 
+
+
 const StyledTagsContainer = styled.div`
   max-width: fit-content;
   ${media.bigDesktop`display:none;`};
@@ -115,7 +117,8 @@ const StyledPostName = styled.h5`
   color: ${colors.lightestSlate};
 `;
 const StyledPostDescription = styled.div`
-  font-size: 17px;
+  margin-top: 1rem;
+  font-size: 1.1rem;
   color: ${colors.lightSlate};
 `;
 const StyledDate = styled.span`
@@ -132,6 +135,7 @@ const StyledReadingTime = styled.span`
 `;
 
 const StyledReadingTimeContainer = styled.div`
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   margin-top: 10px;
@@ -190,9 +194,13 @@ const Blog = ({ posts, tags }) => {
         <div className="posts">
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
-              const { frontmatter, timeToRead } = node;
-              const { title, slug, date, tags } = frontmatter;
+              const { frontmatter, timeToRead , html} = node;
+
+              const { title, slug, date, tags, description } = frontmatter;
               const d = new Date(date);
+
+
+              const sampleDisplay = html.substring(1, 200)+ `....`;
 
               return (
                 <StyledPost key={i} tabIndex="0">
@@ -202,12 +210,12 @@ const Blog = ({ posts, tags }) => {
                         <StyledPostHeader>
                         <StyledFolder></StyledFolder>
                         </StyledPostHeader>
-                        <StyledPostName>{title}</StyledPostName>
                         <StyledReadingTimeContainer>
                           <StyledDate>{`📅 ${d.toLocaleDateString()}`}</StyledDate>
                           <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
-
                         </StyledReadingTimeContainer>
+                        <StyledPostName>{title}</StyledPostName>
+                          <StyledPostDescription>{description}</StyledPostDescription>
 
                       </Link>
                     </header>

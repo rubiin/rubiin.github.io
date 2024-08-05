@@ -1,6 +1,8 @@
 ---
 title: Custom jenkins images with plugins pre-installed
-description:
+description: "
+If you are doing continous delivery or continous integration, you may frequntly run into jenkins.
+Jenkins is a core part of our Continuous Integration and Continuous Deployment (CI/CD) pipeline"
 date: '2019-10-12'
 draft: false
 slug: '/blog/custom-jenkins-images-with-plugins-pre-installed-1pok/'
@@ -12,17 +14,10 @@ tags:
 
 ![Draft fail](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)
 
----
-
-title:
-published: true
-description:
-tags: jenkins,ci/cd,devops
-cover_image: https://miro.medium.com/max/3200/1*n7ba3rjWYs_lZeYbKogKdw.jpeg
 
 ---
 
-If you are doing continous delivery or continous integration, you may frequntly run into jenkins.
+If you are doing continuous delivery or continuous integration, you may frequently run into jenkins.
 Jenkins is a core part of our Continuous Integration and Continuous Deployment (CI/CD) pipeline. Here are the top 3 reasons we love Jenkins:
 
 - It is an open system that is platform, language, and methodology agnostic allowing us to support our diverse client base with one non-proprietary CI/CD platform.
