@@ -118,21 +118,18 @@ const StyledPostName = styled.h5`
 `;
 const StyledPostDescription = styled.div`
   margin-top: 1rem;
-  font-size: 1.1rem;
+  font-size: ${fontSizes.lg};
   color: ${colors.lightSlate};
 `;
-const StyledDate = styled.span`
-  text-transform: uppercase;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.xs};
-  color: ${colors.lightSlate};
-`;
-
 const StyledReadingTime = styled.span`
   font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.xs};
+  font-size: ${fontSizes.smish};
   color: ${colors.lightSlate};
 `;
+const StyledDate = styled(StyledReadingTime)`
+  text-transform: uppercase;
+`;
+
 
 const StyledReadingTimeContainer = styled.div`
   margin-bottom: 1rem;
@@ -184,6 +181,9 @@ const Blog = ({ posts, tags }) => {
     })
     .slice(0, 5);
 
+  const options = {year: 'numeric', month: 'short', day: 'numeric' };
+
+
   return (
     <StyledMainContainer>
       <header>
@@ -194,13 +194,10 @@ const Blog = ({ posts, tags }) => {
         <div className="posts">
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
-              const { frontmatter, timeToRead , html} = node;
+              const { frontmatter, timeToRead } = node;
 
               const { title, slug, date, tags, description } = frontmatter;
               const d = new Date(date);
-
-
-              const sampleDisplay = html.substring(1, 200)+ `....`;
 
               return (
                 <StyledPost key={i} tabIndex="0">
@@ -211,7 +208,7 @@ const Blog = ({ posts, tags }) => {
                         <StyledFolder></StyledFolder>
                         </StyledPostHeader>
                         <StyledReadingTimeContainer>
-                          <StyledDate>{`📅 ${d.toLocaleDateString()}`}</StyledDate>
+                          <StyledDate>{`📅 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
                           <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                         </StyledReadingTimeContainer>
                         <StyledPostName>{title}</StyledPostName>
