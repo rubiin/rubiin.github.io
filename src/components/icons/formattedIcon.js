@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IconGitHub, IconLinkedin, IconDev, IconInstagram, IconTwitter } from '@components/icons';
+import { IconGitHub, IconLinkedin, IconDev, IconInstagram, IconTwitter,IconRss } from '@components/icons';
 
 const FormattedIcon = ({ name }) => {
   switch (name) {
@@ -14,6 +14,8 @@ const FormattedIcon = ({ name }) => {
       return <IconInstagram />;
     case 'Twitter':
       return <IconTwitter />;
+    case 'Rss':
+        return <IconRss />;
     default:
       return <IconGitHub />;
   }
