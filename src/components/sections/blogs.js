@@ -53,7 +53,7 @@ const StyledFeaturedImg = styled(Img)`
     filter: grayscale(100%) contrast(1) brightness(80%);
   `};
 `;
-const StyledGrid = styled.div`
+const StyledFlex = styled.div`
   margin-top: 20px;
   display: flex;
   width: inherit;
@@ -162,13 +162,16 @@ const StyledTags = styled.ul`
 `;
 
 const StyledButtonContainer = styled.div`
+  margin: 0 auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;;
 `;
 
 const StyledMoreButton = styled(Button)`
-  margin: 40px auto;
+  margin: 40px 0;
+  padding: 1.25rem 10rem;
+  ${media.phablet`padding:1.25rem 5rem;`};
 `;
 
 const Blog = ({ posts, tags }) => {
@@ -181,7 +184,7 @@ const Blog = ({ posts, tags }) => {
     })
     .slice(0, 5);
 
-  const options = {year: 'numeric', month: 'short', day: 'numeric' };
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
 
   return (
@@ -190,7 +193,7 @@ const Blog = ({ posts, tags }) => {
         <h1 className="small-title">Recently published</h1>
       </header>
 
-      <StyledGrid>
+      <StyledFlex>
         <div className="posts">
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
@@ -205,14 +208,14 @@ const Blog = ({ posts, tags }) => {
                     <header>
                       <Link to={slug}>
                         <StyledPostHeader>
-                        <StyledFolder></StyledFolder>
+                          <StyledFolder></StyledFolder>
                         </StyledPostHeader>
                         <StyledReadingTimeContainer>
                           <StyledDate>{`📅 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
                           <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                         </StyledReadingTimeContainer>
                         <StyledPostName>{title}</StyledPostName>
-                          <StyledPostDescription>{description}</StyledPostDescription>
+                        <StyledPostDescription>{description}</StyledPostDescription>
 
                       </Link>
                     </header>
@@ -229,6 +232,10 @@ const Blog = ({ posts, tags }) => {
                 </StyledPost>
               );
             })}
+
+          <StyledButtonContainer>
+            <StyledMoreButton to={`/blog`}>View All Posts</StyledMoreButton>
+          </StyledButtonContainer>
         </div>
         <StyledTagsContainer>
           <h1>Tags</h1>
@@ -243,10 +250,7 @@ const Blog = ({ posts, tags }) => {
             <StyledAllCategory to={`/blog/tags`}>All Tags</StyledAllCategory>
           </ul>
         </StyledTagsContainer>
-      </StyledGrid>
-      <StyledButtonContainer>
-        <StyledMoreButton to={`/blog`}>View All Posts</StyledMoreButton>
-      </StyledButtonContainer>
+      </StyledFlex>
     </StyledMainContainer>
   );
 };
