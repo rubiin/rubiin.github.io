@@ -6,9 +6,9 @@ date: '2019-09-19'
 draft: false
 slug: '/blog/getting-started-with-api-develpoment-on-nodejs-52bi/'
 tags:
-  - Nodejs
-  - Backend
-  - Express
+  - nodejs
+  - backend
+  - express
 ---
 
 ![Draft fail](https://hackernoon.com/hn-images/1*26BcOdrwfRkbGk9OsREyLA.png)

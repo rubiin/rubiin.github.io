@@ -6,10 +6,10 @@ draft: false
 slug: '/blog/vim-cheatsheet/'
 cover: 'https://www.ubuntupit.com/wp-content/uploads/2019/03/Vim-Commands.jpg'
 tags:
-  - Vim
-  - Editor
-  - Linux
-  - Containers
+  - vim
+  - editor
+  - linux
+  - containers
 ---
 
 ![Draft fail](https://www.ubuntupit.com/wp-content/uploads/2019/03/Vim-Commands.jpg)

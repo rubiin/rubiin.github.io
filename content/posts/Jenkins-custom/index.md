@@ -7,9 +7,9 @@ date: '2019-10-12'
 draft: false
 slug: '/blog/custom-jenkins-images-with-plugins-pre-installed-1pok/'
 tags:
-  - Jenkins
-  - Devops
-  - CI/CD
+  - jenkins
+  - devops
+  - ci/cd
 ---
 
 ![Draft fail](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)

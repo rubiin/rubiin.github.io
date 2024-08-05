@@ -5,9 +5,9 @@ date: '2019-09-14'
 draft: false
 slug: '/blog/how-to-manage-multiple-nodejs-version-in-a-single-machine-using-nvm-170a/'
 tags:
-  - Nodejs
-  - NPM
-  - NVM
+  - nodejs
+  - npm
+  - nvm
 ---
 
 ![Draft fail](https://miro.medium.com/max/3200/1*n7ba3rjWYs_lZeYbKogKdw.jpeg)
