@@ -314,20 +314,6 @@ class Nav extends Component {
               )}
             </TransitionGroup>
 
-            <TransitionGroup component={null}>
-              {isMounted && (
-                <CSSTransition classNames={fadeDownClass} timeout={timeout}>
-                  <div style={{ transitionDelay: `${isHome ? navLinks.length * 100 : 0}ms` }}>
-                    <StyledRssLink
-                      href="rss.xml"
-                      target="_blank"
-                      rel="nofollow noopener noreferrer">
-                      <IconRss />
-                    </StyledRssLink>
-                  </div>
-                </CSSTransition>
-              )}
-            </TransitionGroup>
           </StyledLink>
         </StyledNav>
 

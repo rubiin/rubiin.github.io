@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IconGitHub, IconLinkedin, IconDev, IconInstagram, IconTwitter } from '@components/icons';
+import { IconGitHub, IconLinkedin, IconDev, IconInstagram, IconTwitter,IconRss } from '@components/icons';
 import { socialMedia } from '@config';
 import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
@@ -68,8 +68,10 @@ const Footer = () => (
                   <IconInstagram />
                 ) : name === 'Twitter' ? (
                   <IconTwitter />
-                ) : (
+                ) : name === 'Github' ? (
                   <IconGitHub />
+                ) : (
+                  <IconRss />
                 )}
               </StyledSocialLink>
             </li>

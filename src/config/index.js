@@ -34,6 +34,10 @@ module.exports = {
       name: 'Twitter',
       url: 'https://twitter.com/RubinCodes',
     },
+    {
+      name: 'Rss',
+      url: 'rss.xml',
+    },
   ],
 
   navLinks: [
