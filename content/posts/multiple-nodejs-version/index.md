@@ -1,6 +1,6 @@
 ---
 title: How to manage multiple nodejs version in a single machine using nvm
-description:
+description: "Ever got in a situation where you have to use different nodejs versions for different projects. or you want to have the stable and the latest release side by side. Installing the particular release when you need it might seem a probable solution."
 date: '2019-09-14'
 draft: false
 slug: '/blog/how-to-manage-multiple-nodejs-version-in-a-single-machine-using-nvm-170a/'

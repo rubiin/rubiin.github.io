@@ -1,6 +1,7 @@
 ---
 title: Getting started with Api development on Nodejs
-description:
+description:"Before we get our hands dirty and get a move on , I assume you have a sound knowledge of js .I am also assuming that you have nodejs installed on your machine.
+There are plenty of web frameworks for nodejs"
 date: '2019-09-19'
 draft: false
 slug: '/blog/getting-started-with-api-develpoment-on-nodejs-52bi/'

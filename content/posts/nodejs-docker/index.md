@@ -1,6 +1,6 @@
 ---
 title: Docker for nodejs
-description:
+description:"Docker is a great containerization platform with tons of out of the features out of the box. So, in this post we are going to skip the traditional hosting of app with packages like pm2"
 date: '2019-09-16'
 draft: false
 slug: '/blog/docker-for-nodejs-3cjg/'
@@ -12,7 +12,7 @@ tags:
 
 ![Draft fail](https://miro.medium.com/max/2708/1*W4DwYGZCe2tMlcUIdDF0Sg.jpeg)
 
-Docker is a great conterization platform with tons of out of the features out of the box. So, in this post we are going to skip the traditional hosting of app with packages like pm2 (although we can still use it inside docker).
+Docker is a great containerization platform with tons of out of the features out of the box. So, in this post we are going to skip the traditional hosting of app with packages like pm2 (although we can still use it inside docker).
 First of all, we will start by making a `Dockerfile`. A `Dockerfile` is a way to package your application.
 You can learn the basics on docker from the [link](https://www.docker.com/get-started)
 
