@@ -5,9 +5,9 @@ date: '2019-09-16'
 draft: false
 slug: '/blog/docker-for-nodejs-3cjg/'
 tags:
-  - Nodejs
-  - Webdev
-  - Express
+  - nodejs
+  - webdev
+  - express
 ---
 
 ## ![Draft fail](https://miro.medium.com/max/1200/1*EKW3XazCN98jcVrlEP3H8g.png)

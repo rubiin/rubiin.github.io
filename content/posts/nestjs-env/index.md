@@ -5,9 +5,9 @@ date: '2019-09-18'
 draft: false
 slug: '/blog/how-to-manage-environment-variables-on-nestjs-30ge/'
 tags:
-  - Nodejs
-  - Backend
-  - NestJS
+  - nodejs
+  - backend
+  - nestjs
 ---
 
 ![Draft fail](https://i.imgur.com/C2C2cJW.png)
