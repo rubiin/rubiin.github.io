@@ -3,6 +3,7 @@ title: How to manage environment variables on NestJS
 description: "Environment variables allow us to manage the configuration of our applications separate from our codebase. Separating configurations make it easier for our application to be deployed in different environments(development,test,production).Also,large applications tend to have many environment variables."
 date: '2019-09-18'
 draft: false
+cover: https://i.imgur.com/C2C2cJW.png)
 slug: '/blog/how-to-manage-environment-variables-on-nestjs-30ge/'
 tags:
   - nodejs
