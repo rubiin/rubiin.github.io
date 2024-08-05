@@ -1,10 +1,9 @@
 ---
 title: Custom jenkins images with plugins pre-installed
-description: "
-If you are doing continous delivery or continous integration, you may frequntly run into jenkins.
-Jenkins is a core part of our Continuous Integration and Continuous Deployment (CI/CD) pipeline"
+description: "If you are doing continuous delivery or continuous integration, you may frequently run into jenkins. Jenkins is a core part of our Continuous Integration and Continuous Deployment (CI/CD) pipeline"
 date: '2019-10-12'
 draft: false
+cover: https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png
 slug: '/blog/custom-jenkins-images-with-plugins-pre-installed-1pok/'
 tags:
   - jenkins

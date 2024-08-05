@@ -1,11 +1,9 @@
 ---
 title: Docker basics/ cheatsheet
-description: "Docker provides the ability to package and run an application in a loosely isolated environment called a container.
-The isolation and security allows you to run many containers simultaneously on a given host. Containers are
-lightweight and contain everything needed to run the application, so you do not need to rely on what is currently
-installed on the host. "
+description: "Docker provides the ability to package and run an application in a loosely isolated environment called a container.The isolation and security allows you to run many containers simultaneously on a given host. Containers arelightweight and contain everything needed to run the application, so you do not need to rely on what is currently installed on the host. "
 date: '2019-11-22'
 draft: false
+cover: https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/how-to-deploy-java-apps-with-docker-a-quick-tutorial@3x-1560x760.png
 slug: '/blog/docker-basics-cheatsheet-2mm4/'
 tags:
   - docker

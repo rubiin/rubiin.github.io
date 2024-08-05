@@ -4,6 +4,7 @@ description: "Ever got in a situation where you have to use different nodejs ver
 date: '2019-09-14'
 draft: false
 slug: '/blog/how-to-manage-multiple-nodejs-version-in-a-single-machine-using-nvm-170a/'
+cover: https://miro.medium.com/max/3200/1*n7ba3rjWYs_lZeYbKogKdw.jpeg
 tags:
   - nodejs
   - npm

@@ -1,8 +1,9 @@
 ---
 title: Docker for nodejs
-description:"Docker is a great containerization platform with tons of out of the features out of the box. So, in this post we are going to skip the traditional hosting of app with packages like pm2"
+description: "Docker is a great containerization platform with tons of out of the features out of the box. So, in this post we are going to skip the traditional hosting of app with packages like pm2"
 date: '2019-09-16'
 draft: false
+cover: https://miro.medium.com/max/2708/1*W4DwYGZCe2tMlcUIdDF0Sg.jpeg
 slug: '/blog/docker-for-nodejs-3cjg/'
 tags:
   - nodejs
