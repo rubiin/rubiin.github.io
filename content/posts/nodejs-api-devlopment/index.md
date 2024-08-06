@@ -1,6 +1,5 @@
 ---
 title: Getting started with Api development on Nodejs
-description: "Before we get our hands dirty and get a move on , I assume you have a sound knowledge of js .I am also assuming that you have nodejs installed on your machine.There are plenty of web frameworks for nodejs"
 date: '2019-09-19'
 draft: false
 cover: https://hackernoon.com/hn-images/1*26BcOdrwfRkbGk9OsREyLA.png
@@ -11,7 +10,7 @@ tags:
   - express
 ---
 
-![Draft fail](https://hackernoon.com/hn-images/1*26BcOdrwfRkbGk9OsREyLA.png)
+![](https://hackernoon.com/hn-images/1*26BcOdrwfRkbGk9OsREyLA.png)
 
 Before we get our hands dirty and get a move on , I assume you have a sound knowledge of js .I am also assuming that you have nodejs installed on your machine.
 There are plenty of web frameworks for nodejs . To point out a few popular ones, I might say express , koa and hapi. We will be going with express as it is the most used web framework for nodejs with tons of modules that are configured to work with it. Also the syntax and the learning curve is pretty easy to catch up and if you are to get stuck in a problem, there are pretty much answer to every query in stackoverflow.

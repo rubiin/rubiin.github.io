@@ -1,6 +1,5 @@
 ---
 title: Caching your express app
-description: "Fetching something over the network is both slow and expensive. Large responses require many roundtrips between the client and server, which delays when they are available and when the browser can process them, and also incurs data costs for the visitor."
 date: '2019-11-22'
 draft: false
 slug: '/blog/caching-expressjs-app/'
@@ -11,7 +10,7 @@ tags:
   - express
 ---
 
-![Draft fail](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)
+![](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)
 
 # Caching your express app
 
