@@ -53,9 +53,9 @@ export const pageQuery = graphql`
             slug
             date
             tags
-            description
           }
           timeToRead
+          excerpt
         }
       }
     }

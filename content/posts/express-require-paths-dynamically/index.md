@@ -1,6 +1,5 @@
 ---
 title: Dynamically requiring all routes in express app
-description: "If you are using express framework for developing a web application , you might be familiar with the concept of routing and how it plays an important role in your app. Routing refers to how an application’s endpoints (URIs) respond to client requests"
 date: '2019-09-16'
 draft: false
 cover: https://miro.medium.com/max/1200/1*EKW3XazCN98jcVrlEP3H8g.png
@@ -11,7 +10,7 @@ tags:
   - express
 ---
 
-## ![Draft fail](https://miro.medium.com/max/1200/1*EKW3XazCN98jcVrlEP3H8g.png)
+## ![](https://miro.medium.com/max/1200/1*EKW3XazCN98jcVrlEP3H8g.png)
 
 If you are using express framework for developing a web application , you might be familiar with the concept of routing and how it plays an important role in your app. Routing refers to how an application’s endpoints (URIs) respond to client requests. For an introduction to routing, see Basic routing.
 You define routing using methods of the Express app object that correspond to HTTP methods;

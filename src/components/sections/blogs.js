@@ -145,7 +145,6 @@ const StyledTags = styled.ul`
   padding: 0;
   margin: 0;
   list-style: none;
-
   li {
     font-family: ${fonts.SFMono};
     font-size: ${fontSizes.xs};
@@ -197,9 +196,9 @@ const Blog = ({ posts, tags }) => {
         <div className="posts">
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
-              const { frontmatter, timeToRead } = node;
+              const { frontmatter, timeToRead , excerpt} = node;
 
-              const { title, slug, date, tags, description } = frontmatter;
+              const { title, slug, date, tags } = frontmatter;
               const d = new Date(date);
 
               return (
@@ -215,7 +214,7 @@ const Blog = ({ posts, tags }) => {
                           <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                         </StyledReadingTimeContainer>
                         <StyledPostName>{title}</StyledPostName>
-                        <StyledPostDescription>{description}</StyledPostDescription>
+                        <StyledPostDescription>{excerpt}</StyledPostDescription>
 
                       </Link>
                     </header>
