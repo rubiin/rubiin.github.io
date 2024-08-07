@@ -161,7 +161,9 @@ const StyledTags = styled.ul`
 `;
 
 const StyledLatestPostHeader = styled.h1`
-    margin: 0  auto 50px auto;
+    margin: 0  auto;
+    margin-bottom: 3rem;
+}
 `
 
 const StyledButtonContainer = styled.div`
@@ -196,7 +198,7 @@ const Blog = ({ posts, tags }) => {
 
       <StyledFlex>
         <div className="posts">
-        <StyledLatestPostHeader className="medium-title">Recently published</StyledLatestPostHeader>
+        <StyledLatestPostHeader className="small-title wavy">Recent Posts</StyledLatestPostHeader>
 
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
@@ -241,7 +243,7 @@ const Blog = ({ posts, tags }) => {
           </StyledButtonContainer>
         </div>
         <StyledTagsContainer>
-          <h1>Tags</h1>
+          <h1 className="small-text">Tags</h1>
           <ul className="fancy-list">
             {sortTags.map(tag => (
               <li key={tag.fieldValue}>

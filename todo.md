@@ -4,4 +4,8 @@
 [] mobile responsive
 [] minute read
 [x] limit tags
-[] paginate
+[x] paginate
+[] add button to toggle between recent and featured
+[] add share blog
+[] add a
+cover section

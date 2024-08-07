@@ -178,7 +178,9 @@ const StyledMoreButton = styled(Button)`
 `;
 
 const StyledLatestPostHeader = styled.h1`
-    margin: 0  auto 50px auto;
+    margin: 0  auto;
+    margin-bottom: 3rem;
+}
 `
 
 const BlogPage = ({ location, data }) => {
@@ -208,14 +210,14 @@ const BlogPage = ({ location, data }) => {
     <Layout location={location}>
       <Helmet>
         <title>Blog | Rubin Bhandari</title>
-        <link rel="canonical" href="https://rubin.github.io/blog" />
+        <link rel="canonical" href="https://rubin.is-a.dev.io/blog" />
       </Helmet>
 
       <StyledMainContainer>
 
         <StyledFlex>
           <div className="posts">
-          <StyledLatestPostHeader className="medium-title">Blog</StyledLatestPostHeader>
+          <StyledLatestPostHeader className="small-title wavy">Recent Posts</StyledLatestPostHeader>
             {posts.length > 0 &&
               postsToShow.map(({ node }, i) => {
                 const { frontmatter, timeToRead, excerpt } = node;
@@ -257,7 +259,7 @@ const BlogPage = ({ location, data }) => {
             </StyledButtonContainer>
           </div>
           <StyledTagsContainer>
-          <h1>Tags</h1>
+          <h1 className="small-text">Tags</h1>
           <ul className="fancy-list">
             {sortTags.map(tag => (
               <li key={tag.fieldValue}>

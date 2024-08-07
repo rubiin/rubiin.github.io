@@ -266,6 +266,14 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  .wavy{
+    text-decoration-line: underline;
+    text-decoration-color: #2ba283;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 2px;
+    text-underline-offset: .5em;
+  }
+
   ${TransitionStyles};
 
   ${PrismStyles};
