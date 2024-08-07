@@ -10,10 +10,13 @@ import Img from 'gatsby-image';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
-  max-width: 100px;
+  max-width: fit-content;
+  margin-top: 200px;
   ${media.bigDesktop`display:none;`};
   ${media.phablet`display: none;`};
 `;
+
+
 
 const StyledMainContainer = styled(Main)`
   & > header {
@@ -92,6 +95,11 @@ const StyledPostInner = styled.div`
     width: 100%;
   }
 `;
+const StyledAllCategory = styled(Link)`
+  margin-top: 20px;
+`;
+
+
 const StyledPost = styled.div`
   transition: ${theme.transition};
   cursor: default;
@@ -169,11 +177,19 @@ const StyledMoreButton = styled(Button)`
   ${media.phablet`padding:1.25rem 5rem;`};
 `;
 
-
+const StyledLatestPostHeader = styled.h1`
+    margin: 0  auto 50px auto;
+`
 
 const BlogPage = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges;
   const group = data.allMarkdownRemark.group;
+
+  const sortTags = group
+    .sort((a, b) => {
+      return b.totalCount - a.totalCount;
+    })
+    .slice(0, 5);
 
 
   const GRID_LIMIT = 4;
@@ -196,12 +212,10 @@ const BlogPage = ({ location, data }) => {
       </Helmet>
 
       <StyledMainContainer>
-        <header>
-          <h1 className="big-title">Blog</h1>
-        </header>
 
         <StyledFlex>
           <div className="posts">
+          <StyledLatestPostHeader className="medium-title">Blog</StyledLatestPostHeader>
             {posts.length > 0 &&
               postsToShow.map(({ node }, i) => {
                 const { frontmatter, timeToRead, excerpt } = node;
@@ -243,17 +257,18 @@ const BlogPage = ({ location, data }) => {
             </StyledButtonContainer>
           </div>
           <StyledTagsContainer>
-            <h1>Tags</h1>
-            <ul className="fancy-list">
-              {group.map(tag => (
-                <li key={tag.fieldValue}>
-                  <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-                    {tag.fieldValue} <span className="count">({tag.totalCount})</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </StyledTagsContainer>
+          <h1>Tags</h1>
+          <ul className="fancy-list">
+            {sortTags.map(tag => (
+              <li key={tag.fieldValue}>
+                <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
+                  {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+                </Link>
+              </li>
+            ))}
+            <StyledAllCategory to={`/blog/tags`}>All Tags</StyledAllCategory>
+          </ul>
+        </StyledTagsContainer>
         </StyledFlex>
       </StyledMainContainer>
     </Layout>

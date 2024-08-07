@@ -75,7 +75,6 @@ const GlobalStyle = createGlobalStyle`
     &.big-title {
       font-size: 80px;
       line-height: 1.1;
-      margin: 0;
       ${media.desktop`font-size: 70px;`};
       ${media.tablet`font-size: 60px;`};
       ${media.phablet`font-size: 50px;`};
@@ -85,7 +84,6 @@ const GlobalStyle = createGlobalStyle`
     &.medium-title {
       font-size: 60px;
       line-height: 1.1;
-      margin: 0;
       ${media.desktop`font-size: 50px;`};
       ${media.tablet`font-size: 40px;`};
     }
@@ -93,7 +91,6 @@ const GlobalStyle = createGlobalStyle`
       &.small-title {
       font-size: 40px;
       line-height: 1.1;
-      margin: 0;
       ${media.desktop`font-size: 30px;`};
       ${media.tablet`font-size: 20px;`};
     }

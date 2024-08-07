@@ -11,6 +11,7 @@ const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
   max-width: fit-content;
+  margin-top: 120px;
   ${media.bigDesktop`display:none;`};
   ${media.phablet`display: none;`};
 `;
@@ -159,6 +160,10 @@ const StyledTags = styled.ul`
   }
 `;
 
+const StyledLatestPostHeader = styled.h1`
+    margin: 0  auto 50px auto;
+`
+
 const StyledButtonContainer = styled.div`
   margin: 0 auto;
   display: flex;
@@ -187,12 +192,12 @@ const Blog = ({ posts, tags }) => {
 
   return (
     <StyledMainContainer>
-      <header>
-        <h1 className="small-title">Recently published</h1>
-      </header>
+
 
       <StyledFlex>
         <div className="posts">
+        <StyledLatestPostHeader className="medium-title">Recently published</StyledLatestPostHeader>
+
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
               const { frontmatter, timeToRead , excerpt} = node;
