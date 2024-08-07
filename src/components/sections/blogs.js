@@ -87,7 +87,7 @@ const StyledPostInner = styled.div`
 `;
 
 const StyledAllCategory = styled(Link)`
-  margin-top: 20px;
+  padding: 1rem;
 `;
 
 const StyledPost = styled.div`

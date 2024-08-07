@@ -1,9 +1,9 @@
 module.exports = {
   siteTitle: 'Rubin Bhandari | Software Engineer',
   siteDescription:
-    'A Full Stack Developer who specializes in JavaScript Technologies across the whole stack (Node.js, Express, NestJs, Vue). Experience building complete web applications with backend API Systems.',
+    'Experienced Full Stack Developer in JavaScript and Golang. Expertise in crafting comprehensive web applications and API systems.',
   siteKeywords:
-    'Rubin Bhandari, Rubiin, Bhandari, rubiin, software engineer, backend-end engineer, web developer, nodejs ,web developer, javascript, asian',
+    'Rubin Bhandari, Rubiin, Bhandari, rubiin, Mohan Bhandari, software engineer, backend-end engineer, web developer, nodejs ,web developer, javascript, asian, golang , nestjs',
   siteUrl: 'https://rubiin.is-a.dev',
   siteLanguage: 'en_US',
   googleAnalyticsID: 'G-ZD0B25CPH9',

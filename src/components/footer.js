@@ -42,10 +42,7 @@ const StyledMetadata = styled.div`
   font-size: ${fontSizes.xs};
   line-height: 1;
 `;
-const StyledGitHubLink = styled.a`
-  color: ${colors.slate};
-  padding: 10px;
-`;
+
 const Footer = () => (
   <StyledContainer>
     <StyledSocial>
@@ -84,12 +81,6 @@ const Footer = () => (
           The site has some easter eggs 💜🐰🥚
         </span>
       </h4>
-      <StyledGitHubLink
-        href="https://github.com/bchiang7"
-        target="_blank"
-        rel="nofollow noopener noreferrer">
-        <div>Theme by Brittany Chiang</div>
-      </StyledGitHubLink>
     </StyledMetadata>
   </StyledContainer>
 );
