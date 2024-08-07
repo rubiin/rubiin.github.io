@@ -130,7 +130,6 @@ const StyledDate = styled(StyledReadingTime)`
   text-transform: uppercase;
 `;
 
-
 const StyledReadingTimeContainer = styled.div`
   margin-bottom: 1rem;
   display: flex;

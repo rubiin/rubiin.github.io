@@ -38,6 +38,14 @@ const StyledMainContainer = styled(Main)`
     justify-content: flex-end;
   }
 `;
+
+const StyledButtonContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;;
+`;
+
 const StyledFeaturedImg = styled(Img)`
   width: 100%;
   max-width: 100%;
@@ -53,16 +61,18 @@ const StyledFeaturedImg = styled(Img)`
     filter: grayscale(100%) contrast(1) brightness(80%);
   `};
 `;
-const StyledGrid = styled.div`
-  margin-top: 50px;
+const StyledFlex = styled.div`
+  margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  width: inherit;
+  gap: 10%;
+  justify-content: space-around;
 
   .posts {
     display: flex;
     flex-direction: column;
-    width: 800px;
-    gap: 10px;
+    width: 80%;
+    gap: 0.5rem;
   }
 `;
 
@@ -93,6 +103,23 @@ const StyledPost = styled.div`
     }
   }
 `;
+const StyledReadingTime = styled.span`
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.smish};
+  color: ${colors.lightSlate};
+`;
+const StyledDate = styled(StyledReadingTime)`
+  text-transform: uppercase;
+`;
+
+const StyledReadingTimeContainer = styled.div`
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  justify-content: space-between;
+`;
+
 const StyledPostHeader = styled.div`
   ${mixins.flexBetween};
   margin-bottom: 30px;
@@ -113,12 +140,7 @@ const StyledPostDescription = styled.div`
   font-size: 17px;
   color: ${colors.lightSlate};
 `;
-const StyledDate = styled.span`
-  text-transform: uppercase;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.xs};
-  color: ${colors.lightSlate};
-`;
+
 const StyledTags = styled.ul`
   display: flex;
   align-items: flex-end;
@@ -142,18 +164,29 @@ const StyledTags = styled.ul`
 `;
 
 const StyledMoreButton = styled(Button)`
-  margin: 100px auto 0;
+  margin: 40px 0;
+  padding: 1.25rem 10rem;
+  ${media.phablet`padding:1.25rem 5rem;`};
 `;
+
+
 
 const BlogPage = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges;
   const group = data.allMarkdownRemark.group;
 
-  const [showMore, setShowMore] = useState(false);
 
-  const GRID_LIMIT = 6;
-  const firstSix = posts.slice(0, GRID_LIMIT);
-  const postsToShow = showMore ? posts : firstSix;
+  const GRID_LIMIT = 4;
+
+
+  const  [postsToShow, setPostsToShow] = useState(posts.slice(0, GRID_LIMIT));
+
+
+  const showMore = () => {
+    setPostsToShow(posts.slice(0, postsToShow.length + GRID_LIMIT));
+  }
+
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
   return (
     <Layout location={location}>
@@ -167,12 +200,12 @@ const BlogPage = ({ location, data }) => {
           <h1 className="big-title">Blog</h1>
         </header>
 
-        <StyledGrid>
+        <StyledFlex>
           <div className="posts">
             {posts.length > 0 &&
               postsToShow.map(({ node }, i) => {
-                const { frontmatter } = node;
-                const { title, description, slug, date, tags } = frontmatter;
+                const { frontmatter, timeToRead, excerpt } = node;
+                const { title, slug, date, tags } = frontmatter;
                 const d = new Date(date);
 
                 return (
@@ -183,9 +216,13 @@ const BlogPage = ({ location, data }) => {
                           <StyledPostHeader>
                             <StyledFolder></StyledFolder>
                           </StyledPostHeader>
+                          <StyledReadingTimeContainer>
+                            <StyledDate>{`📅 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
+                            <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
+                          </StyledReadingTimeContainer>
                           <StyledPostName>{title}</StyledPostName>
-                          <StyledPostDescription>{description}</StyledPostDescription>
-                          <StyledDate>{`${d.toLocaleDateString()}`}</StyledDate>
+                          <StyledPostDescription>{excerpt}</StyledPostDescription>
+
                         </Link>
                       </header>
                       <footer>
@@ -201,6 +238,9 @@ const BlogPage = ({ location, data }) => {
                   </StyledPost>
                 );
               })}
+            <StyledButtonContainer>
+              <StyledMoreButton onClick={() => showMore()}>Show More</StyledMoreButton>
+            </StyledButtonContainer>
           </div>
           <StyledTagsContainer>
             <h1>Tags</h1>
@@ -214,10 +254,7 @@ const BlogPage = ({ location, data }) => {
               ))}
             </ul>
           </StyledTagsContainer>
-        </StyledGrid>
-        <StyledMoreButton onClick={() => setShowMore(!showMore)}>
-          Show {showMore ? 'Less' : 'More'}
-        </StyledMoreButton>
+        </StyledFlex>
       </StyledMainContainer>
     </Layout>
   );
@@ -245,7 +282,8 @@ export const pageQuery = graphql`
             tags
             draft
           }
-          html
+          excerpt
+          timeToRead
         }
       }
       group(field: { frontmatter: { tags: SELECT } }) {
