@@ -7,5 +7,5 @@
 [x] paginate
 [] add button to toggle between recent and featured
 [] add share blog
-[] add a
-cover section
+[] add a cover section
+[] fix seo
