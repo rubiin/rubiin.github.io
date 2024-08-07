@@ -10,7 +10,7 @@ const { colors, fonts } = theme;
 const StyledMainContainer = styled(Main)`
   ${mixins.flexCenter};
   flex-direction: column;
-  overflow: hidden
+  overflow: hidden;
 `;
 
 const StyledImg = styled.img`

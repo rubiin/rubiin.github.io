@@ -10,13 +10,13 @@ import Img from 'gatsby-image';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
-  max-width: fit-content;
-  margin-top: 200px;
+  outline: #4caf50 solid 1px;
+  max-width: max-content;
+  height: fit-content;
+  margin-top: 100px;
   ${media.bigDesktop`display:none;`};
   ${media.phablet`display: none;`};
 `;
-
-
 
 const StyledMainContainer = styled(Main)`
   & > header {
@@ -46,7 +46,7 @@ const StyledButtonContainer = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  align-items: center;;
+  align-items: center;
 `;
 
 const StyledFeaturedImg = styled(Img)`
@@ -98,7 +98,6 @@ const StyledPostInner = styled.div`
 const StyledAllCategory = styled(Link)`
   padding: 1rem;
 `;
-
 
 const StyledPost = styled.div`
   transition: ${theme.transition};
@@ -181,7 +180,7 @@ const StyledLatestPostHeader = styled.h1`
     margin: 0  auto;
     margin-bottom: 3rem;
 }
-`
+`;
 
 const BlogPage = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges;
@@ -193,16 +192,13 @@ const BlogPage = ({ location, data }) => {
     })
     .slice(0, 5);
 
-
   const GRID_LIMIT = 4;
 
-
-  const  [postsToShow, setPostsToShow] = useState(posts.slice(0, GRID_LIMIT));
-
+  const [postsToShow, setPostsToShow] = useState(posts.slice(0, GRID_LIMIT));
 
   const showMore = () => {
     setPostsToShow(posts.slice(0, postsToShow.length + GRID_LIMIT));
-  }
+  };
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
@@ -214,10 +210,11 @@ const BlogPage = ({ location, data }) => {
       </Helmet>
 
       <StyledMainContainer>
-
         <StyledFlex>
           <div className="posts">
-          <StyledLatestPostHeader className="small-title wavy">Recent Posts</StyledLatestPostHeader>
+            <StyledLatestPostHeader className="small-title wavy">
+              Recent Posts
+            </StyledLatestPostHeader>
             {posts.length > 0 &&
               postsToShow.map(({ node }, i) => {
                 const { frontmatter, timeToRead, excerpt } = node;
@@ -238,7 +235,6 @@ const BlogPage = ({ location, data }) => {
                           </StyledReadingTimeContainer>
                           <StyledPostName>{title}</StyledPostName>
                           <StyledPostDescription>{excerpt}</StyledPostDescription>
-
                         </Link>
                       </header>
                       <footer>
@@ -259,18 +255,18 @@ const BlogPage = ({ location, data }) => {
             </StyledButtonContainer>
           </div>
           <StyledTagsContainer>
-          <h1 className="small-text">Tags</h1>
-          <ul className="fancy-list">
-            {sortTags.map(tag => (
-              <li key={tag.fieldValue}>
-                <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-                  {tag.fieldValue} <span className="count">({tag.totalCount})</span>
-                </Link>
-              </li>
-            ))}
-            <StyledAllCategory to={`/blog/tags`}>All Tags</StyledAllCategory>
-          </ul>
-        </StyledTagsContainer>
+            <h1 className="small-text">Tags</h1>
+            <ul className="fancy-list">
+              {sortTags.map(tag => (
+                <li key={tag.fieldValue}>
+                  <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
+                    {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+                  </Link>
+                </li>
+              ))}
+              <StyledAllCategory to={`/blog/tags`}>All Tags</StyledAllCategory>
+            </ul>
+          </StyledTagsContainer>
         </StyledFlex>
       </StyledMainContainer>
     </Layout>

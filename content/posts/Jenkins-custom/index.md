@@ -13,7 +13,6 @@ tags:
 
 ![](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)
 
-
 ---
 
 If you are doing continuous delivery or continuous integration, you may frequently run into jenkins.

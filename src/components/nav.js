@@ -313,7 +313,6 @@ class Nav extends Component {
                 </CSSTransition>
               )}
             </TransitionGroup>
-
           </StyledLink>
         </StyledNav>
 

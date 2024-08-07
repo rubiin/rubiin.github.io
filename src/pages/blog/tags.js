@@ -9,8 +9,6 @@ import { theme, mixins, Main } from '@styles';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled(Main)`
-
-
   h1 {
     margin-bottom: 50px;
   }

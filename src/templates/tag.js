@@ -10,6 +10,10 @@ const { colors, fontSizes } = theme;
 const StyledTagsContainer = styled(Main)`
   max-width: 1000px;
 
+  span.tag {
+    font-size: 25px;
+  }
+
   a {
     ${mixins.inlineLink};
   }
@@ -59,7 +63,9 @@ const TagTemplate = ({ pageContext, data, location }) => {
         </span>
 
         <h1>
-          <span>#{tag}</span>
+          <span className="tag">
+            Showing Post From <span className="wavy">#{tag}</span>
+          </span>
           <span>
             <Link to="/blog/tags">View all tags</Link>
           </span>

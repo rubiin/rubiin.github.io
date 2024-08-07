@@ -7,8 +7,6 @@ import React from 'react';
 import styled from 'styled-components';
 const { colors, fontSizes, fonts } = theme;
 
-
-
 const StyledTagsContainer = styled.div`
   max-width: fit-content;
   margin-top: 120px;
@@ -164,13 +162,13 @@ const StyledLatestPostHeader = styled.h1`
     margin: 0  auto;
     margin-bottom: 3rem;
 }
-`
+`;
 
 const StyledButtonContainer = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  align-items: center;;
+  align-items: center;
 `;
 
 const StyledMoreButton = styled(Button)`
@@ -191,18 +189,15 @@ const Blog = ({ posts, tags }) => {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
-
   return (
     <StyledMainContainer>
-
-
       <StyledFlex>
         <div className="posts">
-        <StyledLatestPostHeader className="small-title wavy">Recent Posts</StyledLatestPostHeader>
+          <StyledLatestPostHeader className="small-title wavy">Recent Posts</StyledLatestPostHeader>
 
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
-              const { frontmatter, timeToRead , excerpt} = node;
+              const { frontmatter, timeToRead, excerpt } = node;
 
               const { title, slug, date, tags } = frontmatter;
               const d = new Date(date);
@@ -221,7 +216,6 @@ const Blog = ({ posts, tags }) => {
                         </StyledReadingTimeContainer>
                         <StyledPostName>{title}</StyledPostName>
                         <StyledPostDescription>{excerpt}</StyledPostDescription>
-
                       </Link>
                     </header>
                     <footer>
