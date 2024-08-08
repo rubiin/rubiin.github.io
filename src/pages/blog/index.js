@@ -41,8 +41,6 @@ const StyledMainContainer = styled(Main)`
   }
 `;
 
-
-
 const StyledButtonContainer = styled.div`
   margin: 0 auto;
   display: flex;
@@ -172,9 +170,9 @@ const StyledTags = styled.ul`
 `;
 
 const StyledToggleButton = styled(Button)`
-    padding: 0.5rem 0.7rem;
-    margin: 0.4rem;
-`
+  padding: 0.5rem 0.7rem;
+  margin: 0.4rem;
+`;
 
 const StyledMoreButton = styled(Button)`
   margin: 40px 0;
@@ -189,34 +187,31 @@ const StyledLatestPostHeader = styled.h1`
 `;
 
 const BlogPage = ({ location, data }) => {
-  const posts = data.allMarkdownRemark.edges;
   const group = data.allMarkdownRemark.group;
+  const GRID_LIMIT = 4;
 
-
-  const [toggleBtn, setToggleBtn] = useState(false);
-  const [toggleText, setToggleTxt] = useState("Featured");
+  const [posts, setPosts] = useState(data.allMarkdownRemark.edges);
+  const [toggleText, setToggleTxt] = useState('Featured');
+  const [postsToShow, setPostsToShow] = useState(posts.slice(0, GRID_LIMIT));
 
   const handleToggle = () => {
-    setToggleBtn(!toggleBtn);
+    if (toggleText === 'Featured') {
+      setToggleTxt('Recent');
 
-    if (toggleText === "Featured") {
-
-      setToggleTxt("Recent");
+      setPosts(data.allMarkdownRemark.edges);
+      console.log(posts);
+    } else {
+      setPosts(posts.filter(({ node }) => node.frontmatter.featured === true));
+      console.log(posts);
+      setToggleTxt('Featured');
     }
-    else {
-      setToggleTxt("Featured");
-    }
-  }
+  };
 
   const sortTags = group
     .sort((a, b) => {
       return b.totalCount - a.totalCount;
     })
     .slice(0, 5);
-
-  const GRID_LIMIT = 4;
-
-  const [postsToShow, setPostsToShow] = useState(posts.slice(0, GRID_LIMIT));
 
   const showMore = () => {
     setPostsToShow(posts.slice(0, postsToShow.length + GRID_LIMIT));
@@ -235,13 +230,11 @@ const BlogPage = ({ location, data }) => {
         <StyledFlex>
           <div className="posts">
             <StyledLatestPostHeader className="small-title wavy">
-              {toggleText === "Featured"? "Recent" : "Featured"} Posts
+              {toggleText === 'Featured' ? 'Recent' : 'Featured'} Posts
             </StyledLatestPostHeader>
 
             <StyledButtonContainer>
-
               <StyledToggleButton onClick={() => handleToggle()}>{toggleText}</StyledToggleButton>
-
             </StyledButtonContainer>
 
             {posts.length > 0 &&
@@ -323,6 +316,7 @@ export const pageQuery = graphql`
             date
             tags
             draft
+            featured
           }
           excerpt
           timeToRead

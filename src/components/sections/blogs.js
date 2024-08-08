@@ -234,7 +234,7 @@ const Blog = ({ posts, tags }) => {
             })}
 
           <StyledButtonContainer>
-            <StyledMoreButton onClick={() => navigate("/blog")} >View All Posts</StyledMoreButton>
+            <StyledMoreButton onClick={() => navigate('/blog')}>View All Posts</StyledMoreButton>
           </StyledButtonContainer>
         </div>
         <StyledTagsContainer>
