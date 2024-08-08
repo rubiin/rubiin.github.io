@@ -10,7 +10,6 @@ import Img from 'gatsby-image';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
-  outline: #4caf50 solid 1px;
   max-width: max-content;
   height: fit-content;
   margin-top: 100px;
@@ -41,6 +40,8 @@ const StyledMainContainer = styled(Main)`
     justify-content: flex-end;
   }
 `;
+
+
 
 const StyledButtonContainer = styled.div`
   margin: 0 auto;
@@ -170,6 +171,11 @@ const StyledTags = styled.ul`
   }
 `;
 
+const StyledToggleButton = styled(Button)`
+    padding: 0.5rem 0.7rem;
+    margin: 0.4rem;
+`
+
 const StyledMoreButton = styled(Button)`
   margin: 40px 0;
   padding: 1.25rem 10rem;
@@ -178,13 +184,29 @@ const StyledMoreButton = styled(Button)`
 
 const StyledLatestPostHeader = styled.h1`
     margin: 0  auto;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 `;
 
 const BlogPage = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges;
   const group = data.allMarkdownRemark.group;
+
+
+  const [toggleBtn, setToggleBtn] = useState(false);
+  const [toggleText, setToggleTxt] = useState("Featured");
+
+  const handleToggle = () => {
+    setToggleBtn(!toggleBtn);
+
+    if (toggleText === "Featured") {
+
+      setToggleTxt("Recent");
+    }
+    else {
+      setToggleTxt("Featured");
+    }
+  }
 
   const sortTags = group
     .sort((a, b) => {
@@ -213,8 +235,15 @@ const BlogPage = ({ location, data }) => {
         <StyledFlex>
           <div className="posts">
             <StyledLatestPostHeader className="small-title wavy">
-              Recent Posts
+              {toggleText === "Featured"? "Recent" : "Featured"} Posts
             </StyledLatestPostHeader>
+
+            <StyledButtonContainer>
+
+              <StyledToggleButton onClick={() => handleToggle()}>{toggleText}</StyledToggleButton>
+
+            </StyledButtonContainer>
+
             {posts.length > 0 &&
               postsToShow.map(({ node }, i) => {
                 const { frontmatter, timeToRead, excerpt } = node;
