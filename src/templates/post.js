@@ -1,5 +1,5 @@
 import { Head, Layout } from '@components';
-import { Main, theme } from '@styles';
+import { Main, media, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
@@ -38,6 +38,8 @@ const StyledPostContent = styled.div`
 const StyledShareContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 30px;
+  ${media.thone`justify-content: center;`};
 `;
 
 const PostTemplate = ({ data, location }) => {
@@ -48,11 +50,11 @@ const PostTemplate = ({ data, location }) => {
     title,
     description: excerpt,
     siteUrl: location.href,
-  }
+  };
 
   return (
     <Layout location={location}>
-      <Head metadata={meta}/>
+      <Head metadata={meta} />
 
       <StyledPostContainer>
         <span className="breadcrumb">

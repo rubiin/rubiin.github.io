@@ -16,7 +16,7 @@ module.exports = {
       resolve: `gatsby-plugin-easter-egg`,
       options: {
         sequence: `r u b i n`,
-        debug: true,
+        debug: false,
       },
     },
     {

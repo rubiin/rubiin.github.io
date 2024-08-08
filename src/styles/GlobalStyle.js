@@ -9,6 +9,8 @@ const { colors, fontSizes, fonts } = theme;
 
 const GlobalStyle = createGlobalStyle`
   ${FontFaces};
+  @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+
 
   html {
     box-sizing: border-box;
@@ -20,6 +22,8 @@ const GlobalStyle = createGlobalStyle`
   *:after {
     box-sizing: inherit;
   }
+
+
 
   body {
     margin: 0;
@@ -273,6 +277,39 @@ const GlobalStyle = createGlobalStyle`
     text-decoration-thickness: 2px;
     text-underline-offset: .5em;
   }
+
+
+
+.social {
+  font-size: 2.5em;
+  height: 40px;
+  overflow: hidden;
+  border-bottom: 1px solid #64ffda;
+}
+
+i {
+  position: relative;
+  top: 20px;
+  margin: 0 10px;
+  transition: all 100ms cubic-bezier(0.42, 0, 0.58, 1);
+  /* ease-in-out */
+}
+i:hover {
+  top: 5px;
+}
+
+.fb {
+  color: #3b5998;
+}
+
+.tw {
+  color: #09aeec;
+}
+
+.sk {
+  color: #00a5e6;
+}
+
 
   ${TransitionStyles};
 

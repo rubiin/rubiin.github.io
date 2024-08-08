@@ -1,5 +1,4 @@
 import React from 'react';
-import './share.css';
 
 const Share = ({ location, title }) => {
   const link = location.href;
@@ -16,13 +15,13 @@ const Share = ({ location, title }) => {
         </a>
         <a
           className="share__link "
-          href={`https://twitter.com/share?url=${link}&text=[post-title]`}
+          href={`https://twitter.com/share?url=${link}&text=${title}`}
           title="twitter">
           <i className="fa fa-twitter tw"></i>
         </a>
         <a
           className="share__link "
-          href={`https://www.linkedin.com/shareArticle?url=${link}&title=[post-title]`}
+          href={`https://www.linkedin.com/shareArticle?url=${link}&title=${title}`}
           title="linkedin">
           <i className="fa fa-linkedin sk"></i>
         </a>
