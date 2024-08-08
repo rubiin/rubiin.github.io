@@ -5,13 +5,29 @@ const Share = ({ location, title }) => {
   const link = location.href;
 
   return (
-    <div class="wrap">
-      <div class="social">
-        <i class="icon-facebook fb"></i>
-        <i class="icon-twitter tw"></i>
-        <i class="icon-linkedin sk"></i>
+    <>
+      <div className="social">
+        <a
+          className="share__link "
+          target="_blank"
+          href={`https://www.facebook.com/sharer.php?u=${link}`}
+          title="facebook">
+          <i className="fa fa-facebook fb"></i>
+        </a>
+        <a
+          className="share__link "
+          href={`https://twitter.com/share?url=${link}&text=[post-title]`}
+          title="twitter">
+          <i className="fa fa-twitter tw"></i>
+        </a>
+        <a
+          className="share__link "
+          href={`https://www.linkedin.com/shareArticle?url=${link}&title=[post-title]`}
+          title="linkedin">
+          <i className="fa fa-linkedin sk"></i>
+        </a>
       </div>
-    </div>
+    </>
   );
 };
 

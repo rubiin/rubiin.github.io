@@ -1,5 +1,5 @@
-import { Layout } from '@components';
-import { Main, media, theme } from '@styles';
+import { Head, Layout } from '@components';
+import { Main, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
@@ -38,23 +38,29 @@ const StyledPostContent = styled.div`
 const StyledShareContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  ${media.bigDesktop`display:none;`};
-  ${media.phablet`display: none;`};
 `;
 
 const PostTemplate = ({ data, location }) => {
-  const { frontmatter, html } = data.markdownRemark;
+  const { frontmatter, html, excerpt } = data.markdownRemark;
   const { title, date, tags } = frontmatter;
+
+  const meta = {
+    title,
+    description: excerpt,
+    siteUrl: location.href,
+  }
 
   return (
     <Layout location={location}>
+      <Head metadata={meta}/>
+
       <StyledPostContainer>
         <span className="breadcrumb">
           <span className="arrow">&larr;</span>
           <Link to="/blog">All posts</Link>
         </span>
         <StyledShareContainer>
-          <Share location={location} />
+          <Share location={location} title={title} />
         </StyledShareContainer>
         <StyledPostHeader>
           <h1 className="medium-title">{title}</h1>
@@ -94,11 +100,13 @@ export const pageQuery = graphql`
   query ($path: String!) {
     markdownRemark(frontmatter: { slug: { eq: $path } }) {
       html
+      excerpt
       frontmatter {
         title
         date
         slug
         tags
+        cover_image
       }
     }
   }

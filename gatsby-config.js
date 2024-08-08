@@ -13,28 +13,6 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-postcss`,
     {
-      resolve: 'gatsby-plugin-sitemap',
-      options: {
-        output: '/',
-        query: `
-        {
-          site {
-            siteMetadata {
-              siteUrl
-            }
-          }
-          allSitePage {
-            edges {
-              node {
-                path
-              }
-            }
-          }
-        }`,
-        resolvePages: data => data.allSitePage.edges.map(edge => edge.node.path),
-      },
-    },
-    {
       resolve: `gatsby-plugin-easter-egg`,
       options: {
         sequence: `r u b i n`,
