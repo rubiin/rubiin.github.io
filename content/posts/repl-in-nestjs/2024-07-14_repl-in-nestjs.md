@@ -13,7 +13,7 @@ tags:
   - typescript
 ---
 
-One of the features of Nestjs is Tte REPL (Read-Eval-Print Loop) mode, a powerful tool that allows you to interactively test and execute code within the context of your NestJS application. This is particularly useful for quick experimentation, testing services, or debugging from the terminal. Here’s a step-by-step guide on how to use the REPL mode in NestJS:
+One of the features of Nestjs is the REPL (Read-Eval-Print Loop) mode, a powerful tool that allows you to interactively test and execute code within the context of your NestJS application. This is particularly useful for quick experimentation, testing services, or debugging from the terminal. Here’s a step-by-step guide on how to use the REPL mode in NestJS:
 
 create a new file `repl.ts`
 ```ts
