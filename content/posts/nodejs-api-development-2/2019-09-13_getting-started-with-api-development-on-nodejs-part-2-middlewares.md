@@ -1,9 +1,15 @@
 ---
 title: Getting started with Api development on Nodejs Part 2 (Middlewares)
-published: true
-description: 
-tags: expressjs,nodejs,middlewares,javascript
+date: '2019-09-13'
+featured: false
+draft: false
+slug: '/blog/getting-started-with-api-development-on-nodejs-part-2-middlewares/'
+description:
 cover_image: https://hackernoon.com/hn-images/1*26BcOdrwfRkbGk9OsREyLA.png
+tags:
+  - nodejs
+  - backend
+  - middleware
 ---
 
 Last time we learnt the basics of express web framework like how to setup routes,get and post request and soon. In this part we will be talking about middleware which adds more functionality to express framework .Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application's request-response cycle. If you haven't forgtten about the last part , we used body-parser and morgan. These are the examples of 3rd party middlewares , express offers.
@@ -42,7 +48,7 @@ Think of this as a global middleware .i.e all the routes in  your application go
 It doesn't matter what router whenever a request comes in, it's always going run through .This type of middleware is handy when you want to impose certain thing on every route in your application like authentication, logging to name few.
 
 
-<b>Example:</b> 
+<b>Example:</b>
 
 ```javascript
 app.use(function (req, res, next) {
@@ -59,7 +65,7 @@ Router-level middleware works in the same way as application-level middleware, e
 const router = express.Router()
 Load router-level middleware by using the router.use() and router.METHOD() functions.
 
-<b>Example:</b> 
+<b>Example:</b>
 
 ```javascript
 const express = require('express');
@@ -81,7 +87,7 @@ The difference between the above and this one is that only the routes defined in
 
 Error handling middleware is a little different than regular middleware.  Like all the other middleware, it is a function, just it takes in one extra argument, and that's an error. As a first argument, you actually have to put that there.You don't put there, express won't think that you're making an error middleware. It will just be like, this is regular middleware. If you put error, request, response, and then next. Now, expressing those you're doing errors.
 
-<b>Example:</b> 
+<b>Example:</b>
 
 ```javascript
 
@@ -130,7 +136,7 @@ app.post('/save',(req,res)=>{
     "payload":req.body
   })
 }
-          
+
 app.listen(3000,(req,res)=>{
     console.log('server running on port')
 })
@@ -140,7 +146,7 @@ app.listen(3000,(req,res)=>{
 For a partial list of third-party middleware functions that are commonly used with Express, see: Third-party [middleware](https://expressjs.com/en/resources/middleware.html).
 
 
-Couple of things to keep in mind while using middlewares: 
+Couple of things to keep in mind while using middlewares:
 
 * The order of middlewares in your application matters, as the request would go through each one in a sequential order.
 * Forgetting to call the next() method in your middleware function can halt the processing of your request.

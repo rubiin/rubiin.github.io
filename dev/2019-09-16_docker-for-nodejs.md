@@ -1,12 +1,12 @@
 ---
 title: Docker for nodejs
 published: true
-description: 
+description:
 tags: docker,nodejs,backend,js
 cover_image: https://miro.medium.com/max/2708/1*W4DwYGZCe2tMlcUIdDF0Sg.jpeg
 ---
 
-Docker is a great conterization platform with tons of out of the features out of the box. So, in this post we are going to skip the traditional hosting of app with packages like pm2 (although we can still use it inside docker).
+Docker is a great containerization platform with tons of out of the features out of the box. So, in this post we are going to skip the traditional hosting of app with packages like pm2 (although we can still use it inside docker).
 First of all, we will start by making a `Dockerfile`. A `Dockerfile` is a way to package your application.
 You can learn the basics on docker from the [link](https://www.docker.com/get-started)
 
@@ -14,7 +14,7 @@ The content of the Dockerfile will be like this:
 
 ```Dockerfile
 
-FROM node:10
+FROM node:20.16.0
 
 
 WORKDIR /usr/src/app
@@ -80,24 +80,24 @@ server/*.spec.js
 
 Go to the directory that has your Dockerfile and run the following command to build the Docker image. The -t flag lets you tag your image so it's easier to find later using the docker images command:
 
-```sh 
+```sh
 docker build -t <your username>/node-web-app .
 ```
 ## Run the image
 Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container. Run the image you previously built:
 
-```sh 
+```sh
 docker run -p 49160:8080 -d <your username>/node-web-app
 ```
 
 However this approach doesn't reflect the changes that you made in your code after the image is built. So for every change you have to perform the build and run step again and again.
 
-Luckily docker comes with something called volume mapping which instead of copying the file maps the working directory with the files from host machine. So every time a change occurs on any file in your app, it is automatically reflected inside the container as well and wont need to build the image again. 
+Luckily docker comes with something called volume mapping which instead of copying the file maps the working directory with the files from host machine. So every time a change occurs on any file in your app, it is automatically reflected inside the container as well and wont need to build the image again.
 To use this approach , the dockerfile becomes
 
 ```Dockerfile
 
-FROM node:10
+FROM node:20.16.0
 
 WORKDIR /usr/src/app
 
@@ -112,7 +112,7 @@ Once you have modified the file, you can build the image as you did previously
 To run the built image though, there is a slight change
 
 
-```sh 
+```sh
 docker run -p 49160:8080 -v $(pwd):/usr/src/app -d <your username>/node-web-app
 
 ```
