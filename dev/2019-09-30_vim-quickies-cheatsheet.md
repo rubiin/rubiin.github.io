@@ -1,26 +1,43 @@
 ---
 title: Vim quickies/ cheatsheet
-date: '2019-11-24'
-featured: false
-draft: false
-slug: '/blog/vim-cheatsheet/'
-cover_image: 'https://www.ubuntupit.com/wp-content/uploads/2019/03/Vim-Commands.jpg'
-tags:
-  - vim
-  - editor
-  - linux
-  - containers
+published: true
+description: 
+tags: vim, unix,linux
+cover_image: https://www.ubuntupit.com/wp-content/uploads/2019/03/Vim-Commands.jpg
 ---
+Vim Cheatsheet
+==============
 
-![](https://www.ubuntupit.com/wp-content/uploads/2019/03/Vim-Commands.jpg)
 
-## Generally helpful stuff
 
+
+
+
+| Contents                    |
+| ----------------------------|
+| Generally helpful stuff     |
+| Navigating around text      | 
+| Working with multiple files |
+| Searching                   |
+|  Manipulating text          |
+|  Visual Advanced selection  |
+| Working with NERDTree       |
+|  Commands                   | 
+    
+
+
+
+
+
+
+Generally helpful stuff
+---
     Open a file for editing             :e path/to/file.txt
     Return to Normal mode               ESC   or <CTRL>+C
 
-## Navigating around text
 
+Navigating around text
+----------------------
 You have to be in Normal mode. Use ESC to get out of Visual, Replace, or Insert mode.
 
     (left)                       h
@@ -31,30 +48,34 @@ You have to be in Normal mode. Use ESC to get out of Visual, Replace, or Insert 
     Jump to the first line       gg
     Jump to the last line        G
 
-## Entering Text
+
+    
+Entering Text
+---
 
     Insert text before cursor               i
     Insert text after cursor                a
 
-## Working with multiple files
-
+Working with multiple files
+---
     Open a file in a horizontal split   :sp path/to/file.txt
     Open a file in a vertical split     :vsp path/to/file.txt
     Move to a split window page         <CTRL>+w and a direction key (h, j, k, or l)
     Move to next window pane            <CTRL>w w
     Make selected pane bigger           CTRL>w +  (yes, you need the shift key for the plus)
     Make selected pane smaller          <CTRL>w -
-
-## Searching
-
+    
+Searching
+---
     Search for a word                           /<word>
     Go to next match                            n
     Find and replace on line                    :s/<find>/<replace>
     Find and replace globally                   :%s/<find>/<replace>//gc
     Go to first quote, replace text in quotes:  ci"
 
-## Manipulating text
-
+Manipulating text
+---
+    
     cut the current line                dd
     copy the current line               yy
     paste below current line            p
@@ -65,21 +86,22 @@ You have to be in Normal mode. Use ESC to get out of Visual, Replace, or Insert 
     Delete to the end of the line       d$
 
     Remove five lines starting here     5dd
-    Copy five lines starting here       5yy
+    Copy five lines starting here       5yy 
 
     indent this line                    >>
     indent five lines starting here     5>>
 
     Replace mode (overtype)             r
 
-## Visual Advanced selection
 
+Visual Advanced selection
+---
     Visual mode                         v
     Visual Line mode                    V
     Visual Block mode                   <CTRL>v
 
-## Working with NERDTree
-
+Working with NERDTree
+---
     Open the NERDTree                   :NERDTree
     Toggle the NERDTree on and off      :NERDTreeToggle
     Open selected file                  <ENTER>
@@ -88,10 +110,12 @@ You have to be in Normal mode. Use ESC to get out of Visual, Replace, or Insert 
     File menu                           m
     Help                                ?
 
-## Commands:
+Commands:
+---
 
     Run a command                           :!<command>
     Open a shell                            :sh
 
-For interactive tutorial, try [openvim.com](https://openvim.com)
+For interactive tutorial, try openvim.com
 
+Follow me on Github: www.github.com/rubiin

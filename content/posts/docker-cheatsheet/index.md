@@ -1,9 +1,9 @@
 ---
 title: Docker basics/ cheatsheet
-date: '2019-11-22'
+date: '2019-10-01'
 featured: false
 draft: false
-blog_cover: https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/how-to-deploy-java-apps-with-docker-a-quick-tutorial@3x-1560x760.png
+cover_image: https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/how-to-deploy-java-apps-with-docker-a-quick-tutorial@3x-1560x760.png
 slug: '/blog/docker-basics-cheatsheet-2mm4/'
 tags:
   - docker

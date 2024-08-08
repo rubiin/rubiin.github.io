@@ -1,31 +1,23 @@
 ---
 title: Caching your express app
-date: '2019-9-19'
-featured: true
-draft: false
-slug: '/blog/caching-expressjs-app/'
+published: true
+description: 
+tags: expressjs,nodejs,redis,javascript
 cover_image: https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png
-tags:
-  - nodejs
-  - redis
-  - express
 ---
-
-![](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)
-
 # Caching your express app
 
-`What is caching?`
+`What is caching?` 
 Fetching something over the network is both slow and expensive. Large responses require many roundtrips between the client and server, which delays when they are available and when the browser can process them, and also incurs data costs for the visitor. As a result, the ability to cache and reuse previously fetched resources is a critical aspect of optimizing for performance
 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. Redis always serves and modifies data in the server’s main memory. The impact is system will quickly retrieve data that will be needed. Redis works to help and improve load performance from relational databases or NoSQL by creating an excellent in-memory cache to reduce access latency. Using Redis we can store cache using SET and GET, besides that redis also can work with complex type data like Lists, Sets, ordered data structures, and so forth.
 
 ## Installation
 
+
 Installing redis is pretty staright forward.You can check the [link](https://redis.io/topics/quickstart) for installation
 
 To add redis client to nodejs , simply do
-
-```shell-session
+```sh
 npm i redis
 ```
 
@@ -65,6 +57,7 @@ app.listen(3000, function() {
 This is a simple express app which retrieves data from the Dogs' API, without putting Redis on the endpoint. Fairly simple
 However , the downward side is if we have already fetched data and if the data in the server is not modified, then there is no need to fetch the data on each request
 
+
 This is the same code but this time we have added a caching layer with `Redis`
 
 ```javascript
@@ -86,24 +79,24 @@ const axios = require('axios')
 
 async getDogs(req,res) {
   try {
-
-
+  
+  
   client.get('dogsdata', (err, result) => {
     if (result) {
-
+    
      res.send(result);
-
+     
     } else {
       const dogs = await axios.get('https://dog.ceo/api/breeds/list/all');
-
+      
     // Set the string-key:dogsdata in our cache. With he contents of the cache
     // Set cache expiration to 1 hour (60 minutes)
-
+    
     client.setex('dogsdata', 3600, JSON.stringify(dogs));
     }
 
     });
-
+   
   } catch (error) {
     console.error(error)
     res.send('Something went wrong!!!');
@@ -123,3 +116,5 @@ Remember redis is a key value store thus the key with which you have set data mu
 
 If you compare both the implementation, you can see that caching reduces the time taken to serve the request by almost more than 99%
 
+
+Follow me on Github: www.github.com/rubiin
