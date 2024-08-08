@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import Img from 'gatsby-image';
+import config from '@config';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -222,8 +223,8 @@ const BlogPage = ({ location, data }) => {
   return (
     <Layout location={location}>
       <Helmet>
-        <title>Blog | Rubin Bhandari</title>
-        <link rel="canonical" href="https://rubin.is-a.dev.io/blog" />
+        <title>Blog | {config.name}</title>
+        <link rel="canonical" href={`${config.siteUrl}/blog`} />
       </Helmet>
 
       <StyledMainContainer>

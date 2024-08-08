@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import sr from '@utils/sr';
-import { srConfig } from '@config';
+import { srConfig, siteUrl, name } from '@config';
 import { Layout } from '@components';
 import { IconGitHub, IconExternal } from '@components/icons';
 import styled from 'styled-components';
@@ -99,8 +99,8 @@ const ArchivePage = ({ location, data }) => {
   return (
     <Layout location={location}>
       <Helmet>
-        <title>Archive | Rubin Bhandari</title>
-        <link rel="canonical" href="https://rubiin.is-a.dev.app/archive" />
+        <title>Archive | {name}</title>
+        <link rel="canonical" href={`${siteUrl}/archive`} />
       </Helmet>
 
       <StyledMainContainer>

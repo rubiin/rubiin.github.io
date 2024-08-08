@@ -77,15 +77,3 @@ Loads environment variables from `.env.[development|test|production][.local]` fi
 For example, <b>NODE_ENV=dev</b> will make the app read `.env.dev`
 
 > Note: The .env file also has to be in root folder
-
-## Stay in touch
-
-- Author - [Rubin Bhandari](https://github.com/rubiin)
-- Dev․to - [@rubinsays](https://dev.to/rubinsays)
-- Discord - [@rubin#1186](https://discordapp.com/)
-
-## License
-
-The package is [MIT licensed](LICENSE).
-
-Follow me on [Github](https://github.com/rubiin)
