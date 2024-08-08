@@ -94,7 +94,7 @@ const Layout = ({ children, location }) => {
             <Loader finishLoading={() => setIsLoading(false)} />
           ) : (
             <StyledContent>
-              <Nav isHome={isHome} />
+              <Nav location={location} />
               <Social isHome={isHome} />
               <Email isHome={isHome} />
 

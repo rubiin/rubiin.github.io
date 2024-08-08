@@ -98,7 +98,6 @@ grep pattern file_name
 find directory_path options
 ```
 
-
 ### ln: Create links between files
 
 ```bash
@@ -117,10 +116,6 @@ chmod permissions file_name
 chown owner:group file_name
 ```
 
-
-
-
-
 ## Process Management
 
 ### ps: Display information about active processes
@@ -129,20 +124,18 @@ chown owner:group file_name
 ps
 ```
 
-###  kill: Terminate processes
+### kill: Terminate processes
 
 ```bash
 kill process_id
 ```
 
-###  top/htop: Display system processes in real-time
+### top/htop: Display system processes in real-time
 
 ```bash
 top
 htop
 ```
-
-
 
 ## System Information
 
@@ -152,7 +145,7 @@ htop
 df options
 ```
 
-###  du: Estimate file space usage
+### du: Estimate file space usage
 
 ```bash
 du options file_name
@@ -175,8 +168,6 @@ uname -a
 ```bash
 uptime
 ```
-
-
 
 ## Network Management
 
@@ -205,8 +196,6 @@ wget URL
 curl -O URL
 ```
 
-
-
 ## System Administration
 
 ### sudo: Execute a command as the superuser (root)
@@ -214,6 +203,7 @@ curl -O URL
 ```bash
 sudo command
 ```
+
 ### shutdown/reboot: Shutdown or reboot the system
 
 ```bash
@@ -298,8 +288,6 @@ gunzip file.gz
 bzip2 file
 bunzip2 file.bz2
 ```
-
-
 
 ## Miscellaneous
 

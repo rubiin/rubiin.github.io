@@ -12,8 +12,7 @@ tags:
   - javascript
 ---
 
-
-- The `typeof` key can be used to extract type from an existing  data
+- The `typeof` key can be used to extract type from an existing data
 
 ```js
 const user = {

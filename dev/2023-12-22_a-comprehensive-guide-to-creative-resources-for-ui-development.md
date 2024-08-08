@@ -10,7 +10,6 @@ cover_image: https://images.expertmarket.co.uk/wp-content/uploads/2013/09/UI-vs-
 
 In the fast-paced and dynamic world of design, staying inspired and equipped with the right tools is crucial for producing captivating and innovative work. Whether you're a seasoned designer or just starting, having access to a diverse range of resources can make a significant difference in your creative process. In this blog post, we'll explore a plethora of websites that cover everything from color palettes and photos to icons and fonts, providing you with a one-stop destination for all your design needs.
 
-
 ## **Color Inspiration Sites:**
 
 1. [Color Hunt](https://colorhunt.co)

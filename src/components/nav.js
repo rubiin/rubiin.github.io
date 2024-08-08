@@ -42,13 +42,6 @@ const StyledNav = styled.nav`
   z-index: 12;
 `;
 
-const StyledRssLink = styled.a`
-  margin: 0 20px;
-  &:hover {
-    color: #ee802f;
-  }
-`;
-
 const StyledLogo = styled.div`
   ${mixins.flexCenter};
   a {
@@ -240,7 +233,11 @@ class Nav extends Component {
 
   render() {
     const { isMounted, menuOpen, scrollDirection } = this.state;
-    const { isHome } = this.props;
+    const { location } = this.props;
+
+    const isHome = location.pathname === '/';
+    const isAboutMe = location.pathname === '/about/';
+
     const timeout = isHome ? 3000 : 0;
     const fadeClass = isHome ? 'fade' : '';
     const fadeDownClass = isHome ? 'fadedown' : '';
@@ -298,20 +295,22 @@ class Nav extends Component {
               </TransitionGroup>
             </StyledList>
 
-            <TransitionGroup component={null}>
-              {isMounted && (
-                <CSSTransition classNames={fadeDownClass} timeout={timeout}>
-                  <div style={{ transitionDelay: `${isHome ? navLinks.length * 100 : 0}ms` }}>
-                    <StyledResumeButton
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="nofollow noopener noreferrer">
-                      Resume
-                    </StyledResumeButton>
-                  </div>
-                </CSSTransition>
-              )}
-            </TransitionGroup>
+            {isAboutMe && (
+              <TransitionGroup component={null}>
+                {isMounted && (
+                  <CSSTransition classNames={fadeDownClass} timeout={timeout}>
+                    <div style={{ transitionDelay: `${isHome ? navLinks.length * 100 : 0}ms` }}>
+                      <StyledResumeButton
+                        href="/resume.pdf"
+                        target="_blank"
+                        rel="nofollow noopener noreferrer">
+                        Resume
+                      </StyledResumeButton>
+                    </div>
+                  </CSSTransition>
+                )}
+              </TransitionGroup>
+            )}
           </StyledLink>
         </StyledNav>
 

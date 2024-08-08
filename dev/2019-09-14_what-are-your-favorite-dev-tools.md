@@ -1,7 +1,7 @@
 ---
 title: What are your favorite dev tools?
 published: true
-description: 
+description:
 tags: #discuss, programming
 cover_image: https://i.pinimg.com/originals/0f/8b/28/0f8b2870896edcde8f6149fe2733faaf.jpg
 ---
@@ -11,18 +11,17 @@ Lets discuss
 
 Mine are:
 
-* IDE (Intellij IDEA, Pycharm)
-* Code Editors (Vscode)
-* Terminal and terminal emutalors (Zsh, tilix)
-* OS (Ubuntu budgie)
-* API tester (postman)
-* Project management application (Trello)
-* Version control (git)
-* Package managers (npm,yarn, pip, apt)
-* CI/CD (Jenkins,circleci)
-* Automatic dependency management (renovatebot)
-* Online version control (Github and Gitlab)
-* Conterization (docker, docker-compose)
-
+- IDE (Intellij IDEA, Pycharm)
+- Code Editors (Vscode)
+- Terminal and terminal emutalors (Zsh, tilix)
+- OS (Ubuntu budgie)
+- API tester (postman)
+- Project management application (Trello)
+- Version control (git)
+- Package managers (npm,yarn, pip, apt)
+- CI/CD (Jenkins,circleci)
+- Automatic dependency management (renovatebot)
+- Online version control (Github and Gitlab)
+- Conterization (docker, docker-compose)
 
 Thanks a million for your comments!

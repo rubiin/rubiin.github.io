@@ -10,24 +10,28 @@ tags:
   - typescript
 ---
 
-
 - unknown type functions like any but does not allow the data method to be called
-Typescript would throw a compile time error as we are using string function without type assertion. To fix it, the correct code would look like
- ```js
- function readAny(val: unknown){
+  Typescript would throw a compile time error as we are using string function without type assertion. To fix it, the correct code would look like
 
-    if( typeof val === 'string')
-     return val.trim();
+```js
+function readAny(val: unknown){
+
+   if( typeof val === 'string')
+    return val.trim();
 }
 ```
+
 - to check null/undefined use, ==
-eg.
+  eg.
+
 ```js
 if(value == null) // check for both null and undefined
 ```
 
 - intersection types (&) behaves like inheritance in classes meaning the attributes of one type is inherited by another type without causing duplication
+
 * example:
+
 ```js
 type Point2d = {
   x: number;
@@ -42,9 +46,11 @@ const p1: Point2d = {x: 1, y:2}
 const p2: Point3d = {x: 1, y:2, z: 9}
 
 ```
+
 point 3D has all the members of point 2D plus member z. All members in intersection types are required. Not passing "z" on Point3D type will cause error
 
-- Union type is defined by pipe operator "|". It means the type can either be the single types or their combination.  All property of combination are optional
+- Union type is defined by pipe operator "|". It means the type can either be the single types or their combination. All property of combination are optional
+
 ```js
 interface A {
   a1: string,
@@ -103,7 +109,8 @@ const unionAB5: UnionAB = {
 ```
 
 - optional variables in a type are annotated with "?" . This means the values may or may not be passed. works on class variables as well
-example:
+  example:
+
 ```js
 type PointXd = {
   x: number;
@@ -119,16 +126,20 @@ console.log(p2)
 ```
 
 - Literal Types - This feature permits you to create a set of relationship values.
+
 ```js
 type Direction = "North" | "South" | "East" | "West";
 ```
+
 Literal types in this case create also a Type Guard of your field, so the compiler can detect your errors or your typos
+
 ```js
 let directionError: Direction = "east" // Type '"east"' is not assignable to type 'Direction'
 let direction: Direction = "East" // OK
 
 ```
-- keyof  operator helps us to extract the object's properties such as Literal-types
+
+- keyof operator helps us to extract the object's properties such as Literal-types
 
 ```js
 type Person = {
@@ -153,14 +164,15 @@ phone: "1252672"    // Type 'string' is not assignable to type 'number'
 ```
 
 - disciminated types
-example
+  example
 
 - Not null assertion can be made using "!" operator.
-example: https://dev.to/this-is-learning/typescript-tips-tricks-non-null-assertion-operator-21eb
+  example: https://dev.to/this-is-learning/typescript-tips-tricks-non-null-assertion-operator-21eb
 
 - Interface and type are somewhat same but types offer much feature . & can be replaced with extends for interface
 - Interface supports declaration merging which is same as union in types . if two interfaces with same name exist then their body is merged
-example:
+  example:
+
 ```js
 interface Person {
   name: string;
@@ -175,9 +187,11 @@ const person: Person =  {name: 'Max', age: 27}; // merged into a single Person i
 console.log(person);
 
 ```
+
 - see never type
--  when class implements type/interface , it should have all the attributes mentioned in the interface/types . It acts a blueprint
-example:
+- when class implements type/interface , it should have all the attributes mentioned in the interface/types . It acts a blueprint
+  example:
+
 ```js
 type Person = {
   age: number;
@@ -194,8 +208,8 @@ class Student implements Person{
 
 ```
 
-
 - definitive assignment(!) is used to tell typescript that the value will be defined and it is upto you to make sure its defined.
+
 ```js
 
 let person: string
@@ -218,8 +232,8 @@ let person!: string
 
 ```
 
-
 - Type guards are used with "is" keyword and used to assert if a value is of certain type.
+
 ```js
 type Rectangle ={
     length: number,
@@ -269,7 +283,7 @@ so its best to use the above for type checking
 
 ```
 
-- An abstract class is typically used to define common behaviors for derived classes to extend. Unlike a regular class, an abstract class cannot be instantiated directly. The unimplemented methods are  to be implemented and defined by the classes that extends it
+- An abstract class is typically used to define common behaviors for derived classes to extend. Unlike a regular class, an abstract class cannot be instantiated directly. The unimplemented methods are to be implemented and defined by the classes that extends it
 
 ```js
 abstract class Logger{
@@ -293,6 +307,7 @@ logger.log("Hello")
 ```
 
 - Object in js can be accessed with index-signature i.e Obj[key] similar to array . In typescript we can define the type of the index while accessing the object values
+
 ```js
 type Person= {
   userName: string;
@@ -326,25 +341,26 @@ console.log(persons['alex'])
 
 - Tuples are arrays with fixed length
 
-- Generic constraints are used to  require generic parameters to have a particular structure. If you don't specify them and try to access the data's property , typescript will throw error as it does not know the dats structure
+- Generic constraints are used to require generic parameters to have a particular structure. If you don't specify them and try to access the data's property , typescript will throw error as it does not know the dats structure
+
 ```js
 const addFullName = <T>(obj: T) => {
   return {...obj, fullName: `${obj.firstName} ${obj.lastName}`};
 }
 ```
 
-Here we have defined a parameter of type generic T.  If we try to access, the properties of the parameter,
+Here we have defined a parameter of type generic T. If we try to access, the properties of the parameter,
 even if it exists, we get error like ` Property 'lastName' does not exist on type 'T'`. We can fix this by adding generic constraints which tells typescript that the generic has those properties. Additionally, its also requiring the passed value to have properties `firstName` and `lastName`
 
- ```js
+```js
 type NamedVales = {firstName: string, lastName: string};
 
 const addFullName = <T extends NamedVales>(obj: T) => {
-  return {...obj, fullName: `${obj.firstName} ${obj.lastName}`};
+ return {...obj, fullName: `${obj.firstName} ${obj.lastName}`};
 }
 ```
 
-- The `typeof` key can be used to extract type from an existing  data
+- The `typeof` key can be used to extract type from an existing data
 
 ```js
 const user = {

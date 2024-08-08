@@ -149,6 +149,7 @@ const StyledPostDescription = styled.div`
 `;
 
 const StyledTags = styled.ul`
+  flex-wrap: wrap;
   display: flex;
   align-items: flex-end;
   padding: 0;

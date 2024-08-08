@@ -32,11 +32,11 @@ CMD [ "node", "server.js" ]
 
 This will tell the docker engine to use the node:10 image and perform the steps.Though the file is self-explanatory, I will still do a lil bit of explaining
 
-* First it will pull the image from dockerhub if it cannot find it in the machine
-* Then it will use the directory `/usr/src/app` as the work directory for the project
-* Thirdly, it will copy package.json and package-lock.json into the work directory and perform npm install which will inturn install all the dependencies required
+- First it will pull the image from dockerhub if it cannot find it in the machine
+- Then it will use the directory `/usr/src/app` as the work directory for the project
+- Thirdly, it will copy package.json and package-lock.json into the work directory and perform npm install which will inturn install all the dependencies required
 
-* After, the dependencies are installed, it will copy all the files in the host machine to the container. Since we already have node_modules inside container, we may want to skip it. This can be done via `.dockerignore` file. Think of `dockerignore` same as `gitignore` but for docker
+- After, the dependencies are installed, it will copy all the files in the host machine to the container. Since we already have node_modules inside container, we may want to skip it. This can be done via `.dockerignore` file. Think of `dockerignore` same as `gitignore` but for docker
 
 A sample <b>.dockerignore</b> file
 
@@ -70,11 +70,9 @@ server/*.spec.js
 
 ```
 
+- The expose command will open a port in the container follwed by the port number which is 8080 in our case. Make sure to match this with the port used by the app
 
-* The expose command will open a port in the container follwed by the port number which is 8080 in our case. Make sure to match this with the port used by the app
-
-* CMD command will execute the command passed which is `node server.js` . It can even be a npm script like `npm start` . This should be the command that spins up the server
-
+- CMD command will execute the command passed which is `node server.js` . It can even be a npm script like `npm start` . This should be the command that spins up the server
 
 ##Building your image
 
@@ -83,7 +81,9 @@ Go to the directory that has your Dockerfile and run the following command to bu
 ```sh
 docker build -t <your username>/node-web-app .
 ```
+
 ## Run the image
+
 Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container. Run the image you previously built:
 
 ```sh
@@ -111,14 +111,9 @@ Once you have modified the file, you can build the image as you did previously
 
 To run the built image though, there is a slight change
 
-
 ```sh
 docker run -p 49160:8080 -v $(pwd):/usr/src/app -d <your username>/node-web-app
 
 ```
 
 `pwd` is the command to get the current directory in linux so make sure to use the run command when you are inside the app directory
-
-
-
-

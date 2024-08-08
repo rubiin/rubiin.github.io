@@ -1,30 +1,43 @@
 ---
 title: sass mixins that are way too good
-published: true
-description: sass 
-tags: sass,css
+date: 2023-06-05
+featured: false
+draft: false
+slug: '/blog/sass-mixins-that-are-way-too-good/'
+description:
 cover_image: https://res.cloudinary.com/practicaldev/image/fetch/s--7vxCRBOI--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/hwr7c2c2najfq9p5ie5k.jpg
-# Use a ratio of 100:42 for best results.
-# published_at: 2023-06-05 15:33 +0000
+tags:
+  - sass
+  - css
 ---
 
 ## All sass font weights:
 
-```
-$font-weights: ("thin":100,"extrlight":200,"light": 300,"regular": 400, "medium": 500,"semibold":600, "bold": 700,"extrabold":800,"black":900);
+```scss
+$font-weights: (
+  'thin': 100,
+  'extrlight': 200,
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+  'extrabold': 800,
+  'black': 900,
+);
 ```
 
-### Usage: 
+### Usage:
 
-```
-.selector{
-font-weight: map-get($font-weights, thin);
+```scss
+.selector {
+  font-weight: map-get($font-weights, thin);
 }
 ```
 
 ## Add CSS vendor prefix:
 
-```
+```scss
 @mixin prefix($declarations, $prefixes: ()) {
   @each $property, $value in $declarations {
     @each $prefix in $prefixes {
@@ -38,23 +51,27 @@ font-weight: map-get($font-weights, thin);
 ```
 
 ### Usage:
-```
+
+```scss
 .selector {
-  @include prefix((
-    column-count: 3,
-    column-gap: 1.5em,
-    column-rule: 2px solid hotpink
-  ), webkit moz);
+  @include prefix(
+    (
+      column-count: 3,
+      column-gap: 1.5em,
+      column-rule: 2px solid hotpink,
+    ),
+    webkit moz
+  );
 }
 ```
 
 ## Breakpoints
 
-```
+```scss
 $bp: (
   mobile: 480px,
   tablet: 768px,
-  desktop: 1440px
+  desktop: 1440px,
 );
 
 @mixin query($display) {
@@ -68,9 +85,11 @@ $bp: (
   }
 }
 ```
+
 ### Usage:
-```
-.selector{
+
+```scss
+.selector {
   display: flex;
   @include query(mobile) {
     flex-direction: column;

@@ -38,21 +38,7 @@ const StyledMainContainer = styled(Main)`
   }
   padding: 0 0;
 `;
-const StyledFeaturedImg = styled(Img)`
-  width: 100%;
-  max-width: 100%;
-  vertical-align: middle;
-  border-radius: ${theme.borderRadius};
-  position: relative;
-  mix-blend-mode: multiply;
-  filter: grayscale(100%) contrast(1) brightness(90%);
-  ${media.tablet`
-    object-fit: cover;
-    width: auto;
-    height: 100%;
-    filter: grayscale(100%) contrast(1) brightness(80%);
-  `};
-`;
+
 const StyledFlex = styled.div`
   margin-top: 20px;
   display: flex;
@@ -141,6 +127,7 @@ const StyledReadingTimeContainer = styled.div`
 const StyledTags = styled.ul`
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
   padding: 0;
   margin: 0;
   list-style: none;

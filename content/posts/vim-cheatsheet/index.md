@@ -94,4 +94,3 @@ You have to be in Normal mode. Use ESC to get out of Visual, Replace, or Insert 
     Open a shell                            :sh
 
 For interactive tutorial, try [openvim.com](https://openvim.com)
-

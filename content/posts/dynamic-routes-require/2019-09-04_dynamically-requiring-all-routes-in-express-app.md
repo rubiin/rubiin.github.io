@@ -1,9 +1,15 @@
 ---
 title: Dynamically requiring all routes in express app
-published: true
-description: 
-tags: nodejs,expressjs,webdevelopment,routes
+date: '2019-09-04'
+featured: false
+draft: false
+slug: '/blog/dynamically-requiring-all-routes-in-express-app/'
+description:
 cover_image: https://miro.medium.com/max/1200/1*EKW3XazCN98jcVrlEP3H8g.png
+tags:
+  - nodejs
+  - express
+  - javascript
 ---
 
 If you are using express framework for developing a web application , you might be familiar with the concept of routing and how it plays an important role in your app. Routing refers to how an application’s endpoints (URIs) respond to client requests. For an introduction to routing, see Basic routing.
@@ -12,19 +18,18 @@ For example, app.get() to handle GET requests and app.post to handle POST reques
 I like to fragment my routes in separate files and like to require them in the root js file. This not only improves your code readability but also makes debugging alot easier as it is easy to pinpoint the exact location in the exact file instead of going through bulk of codes in a single file.
 To use your fragmented routes , you have to require them similar to a nodejs module and put it inside app.use . This is simple if your routes folder has a couple of routes but if you are talking about a webapp of a large scale, there may be a dozen or more routes files which means you have to require each files and the app.js file gets populated with the code for reqiring your routes .
 Also if there are multiple routes , there may be a possibility that you may forget to use a route.
-So a quick hack would be to use dynamic routing which automatically requires all your routes in routes folder thus reducing the code and 
+So a quick hack would be to use dynamic routing which automatically requires all your routes in routes folder thus reducing the code and
 requiring the routing easier.
 
 ```javascript
 /**
-* Dyanmic Routing
+* Dynamic Routing
 * Adds all routes from routes folder
 */
 fs.readdir("./routes", (err, files) => {
 files.forEach(file => {
 app.use("/", require("./routes/" + file))
 });
-})
 ```
-Here we have used the filesystem module to read all files from routes folder and using them in instance of express app.
 
+Here we have used the filesystem module to read all files from routes folder and using them in instance of express app.

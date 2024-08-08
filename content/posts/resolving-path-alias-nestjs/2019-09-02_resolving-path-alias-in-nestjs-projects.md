@@ -1,6 +1,6 @@
 ---
 title: Resolving path alias in nestjs projects
-date: "2019-09-02"
+date: '2019-09-02'
 featured: false
 draft: false
 slug: '/blog/resolving-path-alias-in-nestjs-projects/'
@@ -10,6 +10,7 @@ tags:
   - typescript
   - nodejs
   - javascript
+  - nestjs
 ---
 
 Building a nestjs project in typescript is really awesome but as the project starts to grow , your directories will grow too thus making your imports lengthy like this:
@@ -21,8 +22,11 @@ import { Article } from '../../article/model';
 import { Cache } from '../../../../cache';
 import { MongoDB } from '../../../../mongodb';
 ```
+
 # Path mapping to the rescue!
+
 TypeScript allows the use of path mapping which allows arbitrary module paths (that doesn’t start with “/” or “.”) to be specified and mapped to physical paths in the filesystem in the compiler options in tsconfig file like below:
+
 ```json
 {
   "compilerOptions": {
@@ -36,20 +40,24 @@ TypeScript allows the use of path mapping which allows arbitrary module paths (t
   }
 }
 ```
-The first property that we must add is the baseUrl property. Notice that paths are resolved relative to baseUrl .
-The second property is the paths property. This tells the compiler for any module import that matches the pattern "@datorama/utils/*" , to look in the following location:
 
+The first property that we must add is the baseUrl property. Notice that paths are resolved relative to baseUrl .
+The second property is the paths property. This tells the compiler for any module import that matches the pattern "@datorama/utils/\*" , to look in the following location:
 
 # The Problem
 
 When you run the code inline (during execution) , it works as intended but when you build it for production and try to run it, you get the following error:
+
 ```
 Error: Cannot find module '@datorama/utils'
 ```
+
 The issue mentioned is of execution with node.Actually the problem occurs when executing the built files with node dist/main.js, not during the build process with tsc.
 
 # The Solution
+
 After doing some search on the problem, I came across multiple solutions.
+
 - [Using webpack](https://github.com/dividab/tsconfig-paths-webpack-plugin)
 - [Using Module Aliases package](https://medium.com/@caludio/how-to-use-module-path-aliases-in-visual-studio-typescript-and-javascript-e7851df8eeaa)
 - Bootstraping tsc with explicit params
@@ -72,6 +80,7 @@ tsConfigPaths.register({
 ```
 
 Build the dist file normally as you do with tsc. After that, you can run it with
+
 ```sh
 node -r ./tsconfig-paths-bootstrap.js dist/main.js
 ```
@@ -79,9 +88,3 @@ node -r ./tsconfig-paths-bootstrap.js dist/main.js
 > Note: Check the file name with the filename in the command and you are good to go
 
 Shoutout to [Jay McDoniel](https://github.com/jmcdo29) for his help.
-
-Follow me on Github: www.github.com/rubiin
-
-
-
-

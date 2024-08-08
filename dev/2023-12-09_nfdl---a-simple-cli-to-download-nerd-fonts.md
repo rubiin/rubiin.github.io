@@ -7,6 +7,7 @@ cover_image: https://user-images.githubusercontent.com/15828926/37563747-5b7bee0
 # Use a ratio of 100:42 for best results.
 # published_at: 2023-12-09 13:13 +0000
 ---
+
 # Simplify Your Terminal Experience with the Nerd Fonts Downloader
 
 As developers and terminal enthusiasts, having a personalized and visually appealing command line environment is crucial. One way to enhance the aesthetics and functionality of your terminal is by using Nerd Fonts. These fonts come with a collection of patched symbols and icons that can make your terminal experience not only more stylish but also more informative.
@@ -39,7 +40,6 @@ A standout feature of the Nerd Fonts Downloader is the ability to perform bulk d
 
 The user-friendly interface of the cli ensures a straightforward installation process. With a few simple steps, users can have their chosen Nerd Fonts integrated into their terminal environment.
 
-
 ## Getting Started
 
 Getting started with the Nerd Fonts Downloader is a breeze. Here's a quick guide:
@@ -54,15 +54,15 @@ Before running the script, ensure that you have the following prerequisites inst
 
 1. Install the cli to your local machine:
 
-    ```bash
-    npm i -g nfdl
-    ```
+   ```bash
+   npm i -g nfdl
+   ```
 
 2. Run the cli:
 
-    ```bash
-    nfdl
-    ```
+   ```bash
+   nfdl
+   ```
 
 3. Select your desired Nerd Fonts from the menu and let the cli handle the rest!
 

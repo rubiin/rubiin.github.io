@@ -1,7 +1,7 @@
 ---
 title: Add custom operators to typeorm
 published: true
-cover_image: https://raw.githubusercontent.com/typeorm/typeorm/master/resources/logo_big.png 
+cover_image: https://raw.githubusercontent.com/typeorm/typeorm/master/resources/logo_big.png
 tags: nodejs,typescript,orm,typeorm
 ---
 
@@ -29,11 +29,7 @@ class FindOperatorWithExtras<T> extends FindOperator<T> {
     super(type, value, useParameter, multipleParameters);
   }
 
-  public toSql(
-    connection: Connection,
-    aliasPath: string,
-    parameters: string[],
-  ): string {
+  public toSql(connection: Connection, aliasPath: string, parameters: string[]): string {
     // @ts-ignore
     if (this._type === 'ilike') {
       return `${aliasPath} ILIKE ${parameters[0]}`;
@@ -47,16 +43,9 @@ class FindOperatorWithExtras<T> extends FindOperator<T> {
  * Find Options Operator.
  * Example: { someField: Like("%some string%") }
  */
-export function ILike<T>(
-  value: T | FindOperator<T>,
-): FindOperatorWithExtras<T> {
+export function ILike<T>(value: T | FindOperator<T>): FindOperatorWithExtras<T> {
   return new FindOperatorWithExtras('ilike', value);
 }
+```
 
-
-``` 
-
-In the example above, we are making ILike operator which is not available in typeorm by default. 
-
-
-Follow me on Github: https://github.com/rubiin
+In the example above, we are making ILike operator which is not available in typeorm by default.

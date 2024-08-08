@@ -3,7 +3,7 @@ title: Caching your express app
 date: '2019-9-19'
 featured: true
 draft: false
-slug: '/blog/caching-expressjs-app/'
+slug: '/blog/caching-express-app/'
 cover_image: https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png
 tags:
   - nodejs
@@ -122,4 +122,3 @@ Here we are first fetching the data from the cache with the tag `dogsdata`. If t
 Remember redis is a key value store thus the key with which you have set data must be equal to the key with which you fetch data in this case `dogsdata`
 
 If you compare both the implementation, you can see that caching reduces the time taken to serve the request by almost more than 99%
-
