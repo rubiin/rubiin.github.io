@@ -23,7 +23,7 @@ import { MongoDB } from '../../../../mongodb';
 ```
 # Path mapping to the rescue!
 TypeScript allows the use of path mapping which allows arbitrary module paths (that doesn’t start with “/” or “.”) to be specified and mapped to physical paths in the filesystem in the compiler options in tsconfig file like below:
-```
+```json
 {
   "compilerOptions": {
     ...
@@ -72,7 +72,7 @@ tsConfigPaths.register({
 ```
 
 Build the dist file normally as you do with tsc. After that, you can run it with
-```
+```sh
 node -r ./tsconfig-paths-bootstrap.js dist/main.js
 ```
 
