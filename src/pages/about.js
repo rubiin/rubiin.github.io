@@ -1,15 +1,15 @@
-import React from 'react';
+import { About, Contact, Featured, Jobs, Layout, Projects } from '@components';
+import { Main } from '@styles';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
-import { Layout, About, Jobs, Featured, Projects, Contact } from '@components';
+import React from 'react';
 import styled from 'styled-components';
-import { Main } from '@styles';
 
 const StyledMainContainer = styled(Main)`
   counter-reset: section;
 `;
 
-const IndexPage = ({ location, data }) => (
+const AboutPage = ({ location, data }) => (
   <Layout location={location}>
     <StyledMainContainer className="fillHeight">
       <About data={data.about.edges} />
@@ -21,12 +21,12 @@ const IndexPage = ({ location, data }) => (
   </Layout>
 );
 
-IndexPage.propTypes = {
+AboutPage.propTypes = {
   location: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
 };
 
-export default IndexPage;
+export default AboutPage;
 
 export const pageQuery = graphql`
   {

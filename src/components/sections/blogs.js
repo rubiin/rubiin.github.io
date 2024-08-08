@@ -5,6 +5,7 @@ import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import { navigate } from 'gatsby';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -233,7 +234,7 @@ const Blog = ({ posts, tags }) => {
             })}
 
           <StyledButtonContainer>
-            <StyledMoreButton to={`/blog`}>View All Posts</StyledMoreButton>
+            <StyledMoreButton onClick={() => navigate("/blog")} >View All Posts</StyledMoreButton>
           </StyledButtonContainer>
         </div>
         <StyledTagsContainer>

@@ -4,7 +4,7 @@ date: '2019-11-22'
 featured: false
 draft: false
 slug: '/blog/caching-expressjs-app/'
-cover: https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png
+blog_cover: https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png
 tags:
   - nodejs
   - redis

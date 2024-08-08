@@ -3,7 +3,7 @@ title: How to manage environment variables on NestJS
 date: '2019-09-18'
 featured: false
 draft: false
-cover: https://i.imgur.com/C2C2cJW.png)
+blog_cover: https://i.imgur.com/C2C2cJW.png)
 slug: '/blog/how-to-manage-environment-variables-on-nestjs-30ge/'
 tags:
   - nodejs

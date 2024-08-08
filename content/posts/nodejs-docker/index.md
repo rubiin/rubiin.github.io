@@ -3,7 +3,7 @@ title: Docker for nodejs
 date: '2019-09-16'
 featured: false
 draft: false
-cover: https://miro.medium.com/max/2708/1*W4DwYGZCe2tMlcUIdDF0Sg.jpeg
+blog_cover: https://miro.medium.com/max/2708/1*W4DwYGZCe2tMlcUIdDF0Sg.jpeg
 slug: '/blog/docker-for-nodejs-3cjg/'
 tags:
   - nodejs
