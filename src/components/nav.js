@@ -9,7 +9,6 @@ import { Menu } from '@components';
 import { IconLogo } from '@components/icons';
 import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
-import { IconRss } from './icons';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.header`

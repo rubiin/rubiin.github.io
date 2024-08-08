@@ -1,10 +1,11 @@
-import React from 'react';
+import { Layout } from '@components';
+import { Main, media, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
-import { Main, theme } from '@styles';
-import { Layout } from '@components';
+import Share from '../components/share';
 const { colors } = theme;
 
 const StyledPostContainer = styled(Main)`
@@ -34,6 +35,13 @@ const StyledPostContent = styled.div`
   }
 `;
 
+const StyledShareContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  ${media.bigDesktop`display:none;`};
+  ${media.phablet`display: none;`};
+`;
+
 const PostTemplate = ({ data, location }) => {
   const { frontmatter, html } = data.markdownRemark;
   const { title, date, tags } = frontmatter;
@@ -45,6 +53,9 @@ const PostTemplate = ({ data, location }) => {
           <span className="arrow">&larr;</span>
           <Link to="/blog">All posts</Link>
         </span>
+        <StyledShareContainer>
+          <Share location={location} />
+        </StyledShareContainer>
         <StyledPostHeader>
           <h1 className="medium-title">{title}</h1>
           <p className="subtitle">

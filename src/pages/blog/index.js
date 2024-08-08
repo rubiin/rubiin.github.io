@@ -1,13 +1,13 @@
 import { Layout } from '@components';
-import { Main, media, mixins, theme, Button } from '@styles';
+import config from '@config';
+import { Button, Main, media, mixins, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
+import Img from 'gatsby-image';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import Img from 'gatsby-image';
-import config from '@config';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -226,7 +226,6 @@ const BlogPage = ({ location, data }) => {
         <title>Blog | {config.name}</title>
         <link rel="canonical" href={`${config.siteUrl}/blog`} />
       </Helmet>
-
       <StyledMainContainer>
         <StyledFlex>
           <div className="posts">

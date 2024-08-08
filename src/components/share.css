@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300i,400');
+
+
+
+a {
+  text-decoration: none;
+}
+
+
+.share__icon {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.share__icon:last-of-type {
+  margin-right: 0px;
+}
+
+.share-button {
+  cursor: pointer;
+  display: inline-block;
+
+
+  -webkit-perspective: 200px;
+  -moz-perspective: 200px;
+  perspective: 200px;
+  margin-bottom: 2rem;
+
+}
+
+.share-button__back {
+  background-color: rgba(41, 61, 90, 0.99);
+  padding: 5px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.1) inset;
+}
+.share-button__front {
+  background-color: #112340;
+outline: #64ffda solid 1px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: center top;
+  -webkit-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -moz-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -ms-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -o-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}
+
+
+.share-button__text {
+  margin: 0;
+  line-height: 42px;
+  font-size: 16px;
+  text-align: center;
+  color: #64ffda;
+  font-weight: 600;
+}
+
+.share__link {
+  position: relative;
+  top: 40px;
+  display: inline-block;
+  opacity: 0;
+  -webkit-transition: top .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -moz-transition: top .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -ms-transition: top .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -o-transition: top .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: top .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+}
+
+.share-button:hover .share-button__front {
+  transform: rotateX(90deg);
+}
+
+.share-button:hover .share__link {
+  top: 0;
+  opacity: 1;
+}
+
+.share-button:hover .share__link:nth-of-type(1) {
+  transition-delay: 0.1s;
+}
+
+.share-button:hover .share__link:nth-of-type(2) {
+  transition-delay: 0.2s;
+}
+
+.share-button:hover .share__link:nth-of-type(3) {
+  transition-delay: 0.3s;
+}
+
+.share-button:hover .share__link:nth-of-type(4) {
+  transition-delay: 0.4s;
+}
