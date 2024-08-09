@@ -160,7 +160,8 @@ const StyledButtonContainer = styled.div`
 const StyledMoreButton = styled(Button)`
   margin: 40px 0;
   padding: 1.25rem 10rem;
-  ${media.phablet`padding:1.25rem 5rem;`};
+  ${media.thone`padding:1.25rem 6rem;`};
+  ${media.tiny`padding:1.25rem 4rem;`};
 `;
 
 const Blog = ({ posts, tags }) => {

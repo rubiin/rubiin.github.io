@@ -13,6 +13,7 @@ import IconFork from './fork';
 import IconZap from './zap';
 import FormattedIcon from './formattedIcon';
 import IconRss from './rss';
+import IconEmail from './email';
 
 export {
   IconLoader,
@@ -29,5 +30,6 @@ export {
   IconFork,
   IconZap,
   IconRss,
+  IconEmail,
   FormattedIcon,
 };

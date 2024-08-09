@@ -34,6 +34,7 @@
     "animejs": "^3.2.2",
     "babel-plugin-styled-components": "^2.1.4",
     "babel-preset-gatsby": "^3.13.2",
+    "convertkit-react": "^1.5.5",
     "gatsby": "^5.13.7",
     "gatsby-image": "^3.11.0",
     "gatsby-link": "^5.13.1",

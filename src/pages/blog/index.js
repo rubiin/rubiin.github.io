@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
+import Newsletter from '../../components/newsletter';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -162,7 +163,9 @@ const StyledToggleButton = styled(Button)`
 const StyledMoreButton = styled(Button)`
   margin: 40px 0;
   padding: 1.25rem 10rem;
-  ${media.phablet`padding:1.25rem 5rem;`};
+  ${media.thone`padding:1.25rem 6rem;`};
+  ${media.thone`padding:1.25rem 4rem;`};
+  ${media.tiny`padding:1.25rem 4rem;`};
 `;
 
 const StyledLatestPostHeader = styled.h1`
@@ -218,6 +221,7 @@ const BlogPage = ({ location, data }) => {
         <title>Blog | {config.name}</title>
         <link rel="canonical" href={`${config.siteUrl}/blog`} />
       </Helmet>
+
       <StyledMainContainer>
         <StyledFlex>
           <div className="posts">
@@ -244,7 +248,7 @@ const BlogPage = ({ location, data }) => {
                             <StyledFolder></StyledFolder>
                           </StyledPostHeader>
                           <StyledReadingTimeContainer>
-                            <StyledDate>{`📅 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
+                            <StyledDate>{`📆 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
                             <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                           </StyledReadingTimeContainer>
                           <StyledPostName>{title}</StyledPostName>
