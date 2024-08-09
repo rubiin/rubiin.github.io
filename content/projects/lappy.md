@@ -4,8 +4,8 @@ title: 'Lappy ball'
 github: 'https://github.com/rubiin/Lappy-Ball'
 external: 'https://github.com/rubiin/Lappy-Ball'
 tech:
-  - Android
-  - Unity
+  - android
+  - unity
 company: ''
 showInProjects: true
 ---

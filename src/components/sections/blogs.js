@@ -126,9 +126,9 @@ const StyledReadingTimeContainer = styled.div`
 const StyledTags = styled.div`
   display: flex;
   flex-wrap: wrap;
-      a {
-      ${mixins.inlineLink};
-    }
+  a {
+    ${mixins.inlineLink};
+  }
 `;
 
 const StyledLatestPostHeader = styled.h1`

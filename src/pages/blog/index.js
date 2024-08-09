@@ -135,9 +135,9 @@ const StyledPostDescription = styled.div`
 const StyledTags = styled.div`
   display: flex;
   flex-wrap: wrap;
-      a {
-      ${mixins.inlineLink};
-    }
+  a {
+    ${mixins.inlineLink};
+  }
 `;
 
 const StyledToggleButton = styled(Button)`

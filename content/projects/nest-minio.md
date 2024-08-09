@@ -4,9 +4,9 @@ title: 'nestjs-minio'
 github: 'https://github.com/NestCrafts/nestjs-minio'
 external: 'https://github.com/NestCrafts/nestjs-minio'
 tech:
-  - Nestjs
-  - Typescript
-  - Minio
+  - nestjs
+  - typescript
+  - minio
 company: ''
 showInProjects: true
 ---

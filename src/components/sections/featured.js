@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
 import sr from '@utils/sr';
@@ -6,7 +6,15 @@ import { srConfig } from '@config';
 import { IconGitHub, IconExternal } from '@components/icons';
 import styled from 'styled-components';
 import { theme, mixins, media, Section, Heading } from '@styles';
+import { IconStar } from '../icons';
+import { getStar } from '../../utils';
 const { colors, fontSizes, fonts } = theme;
+
+const StyledStarDiv = styled.div`
+  ${mixins.flexCenter};
+  font-size: 1rem;
+  gap: 0.2rem;
+`;
 
 const StyledContainer = styled(Section)`
   ${mixins.flexCenter};
@@ -207,6 +215,18 @@ const StyledProject = styled.div`
 const Featured = ({ data }) => {
   const featuredProjects = data.filter(({ node }) => node);
 
+  const repos = featuredProjects.map(
+    item => item.node.frontmatter.github.split('https://github.com/')[1],
+  );
+
+  const [stars, setStars] = useState([]);
+
+  useEffect(async () => {
+    const allStars = await Promise.all(repos.map(repo => getStar(repo)));
+    setStars(allStars);
+    console.log({ allStars });
+  }, []);
+
   const revealTitle = useRef(null);
   const revealProjects = useRef([]);
   useEffect(() => {
@@ -250,6 +270,11 @@ const Featured = ({ data }) => {
                     </StyledTechList>
                   )}
                   <StyledLinkWrapper>
+                    <StyledStarDiv>
+                      <IconStar />
+                      <span>{stars[i]}</span>
+                    </StyledStarDiv>
+
                     {github && (
                       <a
                         href={github}

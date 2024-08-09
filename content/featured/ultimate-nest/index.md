@@ -1,15 +1,15 @@
 ---
-date: '1'
+date: '4'
 title: 'Ultimate Nestjs'
 cover: './image.png'
 github: 'https://github.com/rubiin/ultimate-nest'
 external: 'https://github.com/rubiin/ultimate-nest'
 tech:
-  - Dockerr
-  - Nestjs
-  - Typescript
-  - Postgres
-  - AWS
+  - docker
+  - nestjs
+  - typescript
+  - postgres
+  - aws
 showInProjects: true
 ---
 

@@ -4,9 +4,9 @@ title: 'nestjs-cloudinary'
 github: 'https://github.com/NestCrafts/nestjs-cloudinary'
 external: 'https://github.com/NestCrafts/nestjs-cloudinary'
 tech:
-  - Nestjs
-  - Typescript
-  - Cloudinary
+  - nestjs
+  - typescript
+  - cloudinary
 company: ''
 showInProjects: true
 ---

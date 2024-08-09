@@ -1,5 +1,9 @@
 const config = require('./src/config');
 
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
     title: config.siteTitle,

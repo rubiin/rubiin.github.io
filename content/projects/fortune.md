@@ -4,9 +4,9 @@ title: 'fortune.lua'
 github: 'https://github.com/rubiin/fortune.nvim'
 external: 'https://github.com/rubiin/fortune.nvim'
 tech:
-  - Neovim
-  - Vim
-  - Lua
+  - neovim
+  - vim
+  - lua
 company: ''
 showInProjects: true
 ---

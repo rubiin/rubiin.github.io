@@ -4,8 +4,8 @@ title: 'Smart Pad - Note pad clone in java'
 github: 'https://github.com/rubiin/SmartPad'
 external: 'https://github.com/rubiin/SmartPad'
 tech:
-  - Java
-  - Swing
+  - java
+  - swing
 showInProjects: true
 ---
 
