@@ -175,19 +175,19 @@ const BlogPage = ({ location, data }) => {
   const group = data.allMarkdownRemark.group;
   const GRID_LIMIT = 4;
 
-  const [posts, setPosts] = useState(data.allMarkdownRemark.edges);
+  const posts = data.allMarkdownRemark.edges;
   const [toggleText, setToggleTxt] = useState('Featured');
   const [postsToShow, setPostsToShow] = useState(posts.slice(0, GRID_LIMIT));
 
   const handleToggle = () => {
+    // if toggleText is Featured, show featured posts
     if (toggleText === 'Featured') {
       setToggleTxt('Recent');
 
-      setPosts(data.allMarkdownRemark.edges);
-      console.log(posts);
+      setPostsToShow(posts.filter(({ node }) => node.frontmatter.featured).slice(0, GRID_LIMIT));
     } else {
-      setPosts(posts.filter(({ node }) => node.frontmatter.featured === true));
-      console.log(posts);
+      setPostsToShow(posts.slice(0, GRID_LIMIT));
+
       setToggleTxt('Featured');
     }
   };
@@ -199,7 +199,15 @@ const BlogPage = ({ location, data }) => {
     .slice(0, 5);
 
   const showMore = () => {
-    setPostsToShow(posts.slice(0, postsToShow.length + GRID_LIMIT));
+    if (toggleText === 'Featured') {
+      setPostsToShow(posts.slice(0, postsToShow.length + GRID_LIMIT));
+    } else {
+      setPostsToShow(
+        posts
+          .filter(({ node }) => node.frontmatter.featured === true)
+          .slice(0, postsToShow.length + GRID_LIMIT),
+      );
+    }
   };
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
