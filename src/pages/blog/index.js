@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import Newsletter from '../../components/newsletter';
+import TagItem from '@components/tag';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -132,27 +132,12 @@ const StyledPostDescription = styled.div`
   color: ${colors.lightSlate};
 `;
 
-const StyledTags = styled.ul`
-  flex-wrap: wrap;
+const StyledTags = styled.div`
   display: flex;
-  align-items: flex-end;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  li {
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.xs};
-    color: ${colors.green};
-    line-height: 1.75;
-    margin-right: 15px;
-    &:last-of-type {
-      margin-right: 0;
-    }
-    a {
+  flex-wrap: wrap;
+      a {
       ${mixins.inlineLink};
     }
-  }
 `;
 
 const StyledToggleButton = styled(Button)`
@@ -258,9 +243,7 @@ const BlogPage = ({ location, data }) => {
                       <footer>
                         <StyledTags>
                           {tags.map((tag, i) => (
-                            <li key={i}>
-                              <Link to={`/blog/tags/${kebabCase(tag)}/`}>#{tag}</Link>
-                            </li>
+                            <TagItem key={i} text={tag}></TagItem>
                           ))}
                         </StyledTags>
                       </footer>

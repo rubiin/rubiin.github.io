@@ -7,7 +7,10 @@ import Menu from './menu';
 import Side from './side';
 import Social from './social';
 import Email from './email';
+import TagItem from './tag';
 import Footer from './footer';
+import NewsLetter from './newsletter';
+import Share from './share';
 // Sections
 import Hero from './sections/hero';
 import About from './sections/about';
@@ -31,7 +34,10 @@ export {
   About,
   Jobs,
   Featured,
+  NewsLetter,
+  Share,
   Projects,
   Contact,
   Footer,
+  TagItem as Tag,
 };

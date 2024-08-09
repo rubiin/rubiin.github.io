@@ -5,7 +5,7 @@ import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Share from '../components/share';
+import Share from '@components/share';
 import Newsletter from '../components/newsletter';
 const { colors } = theme;
 

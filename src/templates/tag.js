@@ -7,6 +7,15 @@ import styled from 'styled-components';
 import { theme, mixins, Main } from '@styles';
 const { colors, fontSizes } = theme;
 
+const StyledTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+      a {
+      ${mixins.inlineLink};
+    }
+`;
+
+
 const StyledTagsContainer = styled(Main)`
   max-width: 1000px;
 
