@@ -5,9 +5,9 @@
 [x] minute read
 [x] limit tags
 [x] paginate
-[] add button to toggle between recent and featured
+[x] add button to toggle between recent and featured
 [] add share blog
 [] add a cover section
 [] fix seo
-[] get stars for projects
-[] tags use bubble
+[x] get stars for projects
+[x] tags use bubble

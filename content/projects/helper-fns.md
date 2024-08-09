@@ -10,4 +10,4 @@ company: ''
 showInProjects: true
 ---
 
-Common JavaScript packages and utilities used across my projects.
+This library provides a comprehensive collection of utility functions designed to simplify common tasks across various data types, including arrays, objects, strings, and more. These helper functions are intended to streamline your development process by offering reusable solutions for frequently encountered problems, thereby improving code readability and maintainability.

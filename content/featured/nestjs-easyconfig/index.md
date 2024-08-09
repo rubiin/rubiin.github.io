@@ -1,13 +1,13 @@
 ---
-date: '4'
+date: '2'
 title: 'Nestjs-easyconfig'
 cover: 'nest.png'
 github: 'https://github.com/NestCrafts/nestjs-easyconfig'
 external: 'https://github.com/NestCrafts/nestjs-easyconfig'
 tech:
-  - Nest.js
+  - nestjs
   - dotenv
-  - Typescript
+  - typescript
 showInProjects: true
 ---
 

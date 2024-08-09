@@ -4,8 +4,8 @@ title: 'jenkins'
 github: 'https://github.com/rubiin/jenkins'
 external: 'https://github.com/rubiin/jenkins'
 tech:
-  - CI
-  - Devops
+  - ci
+  - devops
 company: ''
 showInProjects: true
 ---

@@ -4,8 +4,8 @@ title: 'Jazz - Music player (fork of the original)'
 github: 'https://github.com/rubiin/jazz-music-player'
 external: ''
 tech:
-  - Android
-  - Java
+  - android
+  - java
 company: ''
 showInProjects: true
 ---

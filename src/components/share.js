@@ -1,7 +1,7 @@
 import React from 'react';
+
 const Share = ({ location, title }) => {
   const link = location.href;
-
   return (
     <>
       <div className="social">
@@ -30,7 +30,3 @@ const Share = ({ location, title }) => {
 };
 
 export default Share;
-
-// linkedin https://www.linkedin.com/shareArticle?url=[post-url]&title=[post-title]
-// twitter https://twitter.com/share?url=[post-url]&text=[post-title]
-// https://twitter.com/intent/tweet/?text=${post.frontmatter.title

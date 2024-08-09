@@ -1,35 +1,35 @@
-import IconLoader from './loader';
-import IconLogo from './logo';
-import IconGitHub from './github';
-import IconLinkedin from './linkedin';
 import IconDev from './codepen';
-import IconInstagram from './instagram';
-import IconTwitter from './twitter';
+import IconEmail from './email';
 import IconExternal from './external';
 import IconFolder from './folder';
-import IconLocation from './location';
-import IconStar from './star';
 import IconFork from './fork';
-import IconZap from './zap';
 import FormattedIcon from './formattedIcon';
+import IconGitHub from './github';
+import IconInstagram from './instagram';
+import IconLinkedin from './linkedin';
+import IconLoader from './loader';
+import IconLocation from './location';
+import IconLogo from './logo';
 import IconRss from './rss';
-import IconEmail from './email';
+import IconStar from './star';
+import IconTwitter from './twitter';
+import IconZap from './zap';
 
 export {
-  IconLoader,
-  IconLogo,
-  IconGitHub,
-  IconLinkedin,
+  FormattedIcon,
   IconDev,
-  IconInstagram,
-  IconTwitter,
+  IconEmail,
   IconExternal,
   IconFolder,
-  IconLocation,
-  IconStar,
   IconFork,
-  IconZap,
+  IconGitHub,
+  IconInstagram,
+  IconLinkedin,
+  IconLoader,
+  IconLocation,
+  IconLogo,
   IconRss,
-  IconEmail,
-  FormattedIcon,
+  IconStar,
+  IconTwitter,
+  IconZap,
 };

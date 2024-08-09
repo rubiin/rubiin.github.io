@@ -4,9 +4,9 @@ title: 'nestjs-pgpromise'
 github: 'https://github.com/NestCrafts/nestjs-pgpromise'
 external: 'https://github.com/NestCrafts/nestjs-pgpromise'
 tech:
-  - Nestjs
-  - Typescript
-  - Postgres
+  - nestjs
+  - typescript
+  - postgres
 company: ''
 showInProjects: true
 ---

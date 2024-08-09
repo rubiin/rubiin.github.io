@@ -1,4 +1,5 @@
-import { Layout } from '@components';
+import { Head, Layout } from '@components';
+import TagItem from '@components/tag';
 import { Main, mixins, theme } from '@styles';
 import { Link, graphql } from 'gatsby';
 import PropTypes from 'prop-types';
@@ -63,7 +64,7 @@ const TagTemplate = ({ pageContext, data, location }) => {
 
   const meta = {
     title: 'All tags',
-    description: excerpt,
+    description: 'A list of all tags on the site',
     siteUrl: location.href,
   };
 
@@ -103,7 +104,7 @@ const TagTemplate = ({ pageContext, data, location }) => {
                   </time>
                   <StyledTags>
                     <span>&nbsp;&mdash;&nbsp;</span>
-                    {tags && tags.length > 0 && tags.map((tag, i) => TagI)}
+                    {tags && tags.length > 0 && tags.map((tag, i) => <TagItem key={i} tag={tag} />)}
                   </StyledTags>
                 </p>
               </li>
@@ -148,6 +149,7 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
+          excerpt
           frontmatter {
             title
             date

@@ -10,7 +10,7 @@ import Email from './email';
 import TagItem from './tag';
 import Footer from './footer';
 import NewsLetter from './newsletter';
-import Share from './share';
+import ShareLink from './share';
 // Sections
 import Hero from './sections/hero';
 import About from './sections/about';
@@ -35,9 +35,9 @@ export {
   Jobs,
   Featured,
   NewsLetter,
-  Share,
+  ShareLink,
   Projects,
   Contact,
   Footer,
-  TagItem as Tag,
+  TagItem,
 };

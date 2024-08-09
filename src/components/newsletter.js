@@ -1,6 +1,5 @@
-import React from 'react';
-import { Component } from 'react';
-import { Main, media, mixins } from '@styles';
+import { media } from '@styles';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const StyledSubscribeForm = styled.div`
@@ -10,7 +9,6 @@ const StyledSubscribeForm = styled.div`
     font-size: 13px;
     font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
   }
-
   .formkit-submit {
     background-color: transparent !important;
     border: 1px solid #64ffda !important;
