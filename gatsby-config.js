@@ -38,6 +38,20 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: config.siteUrl,
+        sitemap: `${config.siteUrl}/sitemap-index.xml`,
+        policy: [
+          {
+            userAgent: "*",
+            allow: ["/"],
+            disallow: [],
+          }
+        ],
+      },
+    },
+    {
       resolve: `gatsby-plugin-easter-egg`,
       options: {
         sequence: `r u b i n`,
