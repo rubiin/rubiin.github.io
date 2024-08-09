@@ -2,7 +2,6 @@ import { Layout } from '@components';
 import config from '@config';
 import { Button, Main, media, mixins, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
-import Img from 'gatsby-image';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -11,8 +10,7 @@ import styled from 'styled-components';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
-  max-width: max-content;
-  height: fit-content;
+  width: 200px;
   margin-top: 100px;
   ${media.bigDesktop`display:none;`};
   ${media.phablet`display: none;`};
@@ -49,21 +47,6 @@ const StyledButtonContainer = styled.div`
   align-items: center;
 `;
 
-const StyledFeaturedImg = styled(Img)`
-  width: 100%;
-  max-width: 100%;
-  vertical-align: middle;
-  border-radius: ${theme.borderRadius};
-  position: relative;
-  mix-blend-mode: multiply;
-  filter: grayscale(100%) contrast(1) brightness(90%);
-  ${media.tablet`
-    object-fit: cover;
-    width: auto;
-    height: 100%;
-    filter: grayscale(100%) contrast(1) brightness(80%);
-  `};
-`;
 const StyledFlex = styled.div`
   margin-top: 20px;
   display: flex;
@@ -287,7 +270,7 @@ const BlogPage = ({ location, data }) => {
                   </Link>
                 </li>
               ))}
-              <StyledAllCategory to={`/blog/tags`}>All Tags</StyledAllCategory>
+              <StyledAllCategory to={`/blog/tags`}>Read more on</StyledAllCategory>
             </ul>
           </StyledTagsContainer>
         </StyledFlex>

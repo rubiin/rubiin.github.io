@@ -1,16 +1,14 @@
 import { Button, Main, media, mixins, theme } from '@styles';
-import { Link } from 'gatsby';
-import Img from 'gatsby-image';
+import { Link, navigate } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { navigate } from 'gatsby';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
-  max-width: fit-content;
-  margin-top: 120px;
+  width: 200px;
+  margin-top: 100px;
   ${media.bigDesktop`display:none;`};
   ${media.phablet`display: none;`};
 `;
@@ -234,7 +232,7 @@ const Blog = ({ posts, tags }) => {
                 </Link>
               </li>
             ))}
-            <StyledAllCategory to={`/blog/tags`}>All Tags</StyledAllCategory>
+            <StyledAllCategory to={`/blog/tags`}>Read more on</StyledAllCategory>
           </ul>
         </StyledTagsContainer>
       </StyledFlex>
