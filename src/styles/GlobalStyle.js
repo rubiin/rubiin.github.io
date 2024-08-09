@@ -8,9 +8,12 @@ import PrismStyles from './PrismStyles';
 const { colors, fontSizes, fonts } = theme;
 
 const GlobalStyle = createGlobalStyle`
-  ${FontFaces};
-  @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
 
+
+
+
+  ${FontFaces};
 
   html {
     box-sizing: border-box;
@@ -22,8 +25,6 @@ const GlobalStyle = createGlobalStyle`
   *:after {
     box-sizing: inherit;
   }
-
-
 
   body {
     margin: 0;
@@ -306,8 +307,24 @@ i:hover {
   color: #09aeec;
 }
 
+.yt {
+  color: #aa2a25;
+}
+
+.dr {
+  color: #ea4c89;
+}
+
 .sk {
   color: #00a5e6;
+}
+
+.db {
+  color: #000;
+}
+
+.apple {
+  color: #ccc;
 }
 
 

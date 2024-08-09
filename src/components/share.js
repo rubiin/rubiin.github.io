@@ -1,5 +1,4 @@
 import React from 'react';
-
 const Share = ({ location, title }) => {
   const link = location.href;
 
