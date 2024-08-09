@@ -1,3 +1,4 @@
+const { node } = require('prop-types');
 const config = require('./src/config');
 
 require('dotenv').config({
@@ -16,6 +17,26 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-postcss`,
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        query: `
+{
+  allSitePage {
+    nodes {
+      path
+    }
+  }
+}
+      `,
+        resolveSiteUrl: () => config.siteUrl,
+        serialize: ({ path }) => {
+          return {
+            url: path,
+          };
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-easter-egg`,
       options: {
