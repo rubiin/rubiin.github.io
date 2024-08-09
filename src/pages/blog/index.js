@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
+import TagItem from '@components/tag';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -131,27 +132,12 @@ const StyledPostDescription = styled.div`
   color: ${colors.lightSlate};
 `;
 
-const StyledTags = styled.ul`
-  flex-wrap: wrap;
+const StyledTags = styled.div`
   display: flex;
-  align-items: flex-end;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  li {
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.xs};
-    color: ${colors.green};
-    line-height: 1.75;
-    margin-right: 15px;
-    &:last-of-type {
-      margin-right: 0;
-    }
-    a {
+  flex-wrap: wrap;
+      a {
       ${mixins.inlineLink};
     }
-  }
 `;
 
 const StyledToggleButton = styled(Button)`
@@ -162,7 +148,9 @@ const StyledToggleButton = styled(Button)`
 const StyledMoreButton = styled(Button)`
   margin: 40px 0;
   padding: 1.25rem 10rem;
-  ${media.phablet`padding:1.25rem 5rem;`};
+  ${media.thone`padding:1.25rem 6rem;`};
+  ${media.thone`padding:1.25rem 4rem;`};
+  ${media.tiny`padding:1.25rem 4rem;`};
 `;
 
 const StyledLatestPostHeader = styled.h1`
@@ -218,6 +206,7 @@ const BlogPage = ({ location, data }) => {
         <title>Blog | {config.name}</title>
         <link rel="canonical" href={`${config.siteUrl}/blog`} />
       </Helmet>
+
       <StyledMainContainer>
         <StyledFlex>
           <div className="posts">
@@ -244,7 +233,7 @@ const BlogPage = ({ location, data }) => {
                             <StyledFolder></StyledFolder>
                           </StyledPostHeader>
                           <StyledReadingTimeContainer>
-                            <StyledDate>{`📅 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
+                            <StyledDate>{`📆 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
                             <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                           </StyledReadingTimeContainer>
                           <StyledPostName>{title}</StyledPostName>
@@ -254,9 +243,7 @@ const BlogPage = ({ location, data }) => {
                       <footer>
                         <StyledTags>
                           {tags.map((tag, i) => (
-                            <li key={i}>
-                              <Link to={`/blog/tags/${kebabCase(tag)}/`}>#{tag}</Link>
-                            </li>
+                            <TagItem key={i} text={tag}></TagItem>
                           ))}
                         </StyledTags>
                       </footer>

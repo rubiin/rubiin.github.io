@@ -9,3 +9,5 @@
 [] add share blog
 [] add a cover section
 [] fix seo
+[] get stars for projects
+[] tags use bubble

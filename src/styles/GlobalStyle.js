@@ -97,7 +97,7 @@ const GlobalStyle = createGlobalStyle`
       font-size: 40px;
       line-height: 1.1;
       ${media.desktop`font-size: 30px;`};
-      ${media.tablet`font-size: 20px;`};
+      ${media.tiny`font-size: 20px;`};
     }
   }
 

@@ -1,11 +1,12 @@
 import { Head, Layout } from '@components';
 import { Main, media, theme } from '@styles';
+import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
-import Share from '../components/share';
+import Share from '@components/share';
+import Newsletter from '../components/newsletter';
 const { colors } = theme;
 
 const StyledPostContainer = styled(Main)`
@@ -87,6 +88,8 @@ const PostTemplate = ({ data, location }) => {
 
         <StyledPostContent dangerouslySetInnerHTML={{ __html: html }} />
       </StyledPostContainer>
+
+      <Newsletter />
     </Layout>
   );
 };
