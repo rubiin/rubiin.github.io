@@ -261,7 +261,7 @@ const BlogPage = ({ location, data }) => {
             </StyledButtonContainer>
           </div>
           <StyledTagsContainer>
-            <h1 className="small-text">Tags</h1>
+            <h2 className="small-text">Read more on</h2>
             <ul className="fancy-list">
               {sortTags.map(tag => (
                 <li key={tag.fieldValue}>
@@ -270,7 +270,7 @@ const BlogPage = ({ location, data }) => {
                   </Link>
                 </li>
               ))}
-              <StyledAllCategory to={`/blog/tags`}>Read more on</StyledAllCategory>
+              <StyledAllCategory to={`/blog/tags`}>All tags</StyledAllCategory>
             </ul>
           </StyledTagsContainer>
         </StyledFlex>
