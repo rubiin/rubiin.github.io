@@ -5,16 +5,17 @@ import PropTypes from 'prop-types';
 import { Layout } from '@components';
 import styled from 'styled-components';
 import { theme, mixins, Main } from '@styles';
+import TagItem from '../components/tag';
 const { colors, fontSizes } = theme;
 
 const StyledTags = styled.div`
   display: flex;
+  justify-content: flex-end;
   flex-wrap: wrap;
-      a {
-      ${mixins.inlineLink};
-    }
+  a {
+    ${mixins.inlineLink};
+  }
 `;
-
 
 const StyledTagsContainer = styled(Main)`
   max-width: 1000px;
@@ -96,14 +97,11 @@ const TagTemplate = ({ pageContext, data, location }) => {
                       day: 'numeric',
                     })}
                   </time>
-                  <span>&nbsp;&mdash;&nbsp;</span>
-                  {tags &&
-                    tags.length > 0 &&
-                    tags.map((tag, i) => (
-                      <Link key={i} to={`/blog/tags/${kebabCase(tag)}/`} className="tag">
-                        #{tag}
-                      </Link>
-                    ))}
+                  <StyledTags>
+                    {tags &&
+                      tags.length > 0 &&
+                      tags.map((tag, i) => <TagItem key={i} text={tag}></TagItem>)}
+                  </StyledTags>
                 </p>
               </li>
             );
