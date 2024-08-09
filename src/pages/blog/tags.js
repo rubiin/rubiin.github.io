@@ -1,11 +1,10 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Head, Layout } from '@components';
+import { Main, mixins, theme } from '@styles';
 import { Link, graphql } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
-import { Layout } from '@components';
+import React from 'react';
 import styled from 'styled-components';
-import { theme, mixins, Main } from '@styles';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled(Main)`
@@ -44,9 +43,15 @@ const TagsPage = ({
     return b.totalCount - a.totalCount;
   });
 
+  const meta = {
+    title,
+    siteUrl: location.href,
+    description: 'A list of all tags on the blog',
+  };
+
   return (
     <Layout location={location}>
-      <Helmet title={title} />
+      <Head metadata={meta} />
 
       <StyledTagsContainer>
         <span className="breadcrumb">

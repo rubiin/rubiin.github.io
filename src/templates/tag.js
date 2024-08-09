@@ -1,16 +1,13 @@
-import React from 'react';
-import { Link, graphql } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
-import PropTypes from 'prop-types';
 import { Layout } from '@components';
+import { Main, mixins, theme } from '@styles';
+import { Link, graphql } from 'gatsby';
+import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
-import { theme, mixins, Main } from '@styles';
-import TagItem from '../components/tag';
 const { colors, fontSizes } = theme;
 
 const StyledTags = styled.div`
   display: flex;
-  justify-content: flex-end;
   flex-wrap: wrap;
   a {
     ${mixins.inlineLink};
@@ -64,8 +61,15 @@ const TagTemplate = ({ pageContext, data, location }) => {
   const { tag } = pageContext;
   const { edges } = data.allMarkdownRemark;
 
+  const meta = {
+    title: 'All tags',
+    description: excerpt,
+    siteUrl: location.href,
+  };
+
   return (
     <Layout location={location}>
+      <Head metadata={meta} />
       <StyledTagsContainer>
         <span className="breadcrumb">
           <span className="arrow">&larr;</span>
@@ -98,9 +102,8 @@ const TagTemplate = ({ pageContext, data, location }) => {
                     })}
                   </time>
                   <StyledTags>
-                    {tags &&
-                      tags.length > 0 &&
-                      tags.map((tag, i) => <TagItem key={i} text={tag}></TagItem>)}
+                    <span>&nbsp;&mdash;&nbsp;</span>
+                    {tags && tags.length > 0 && tags.map((tag, i) => TagI)}
                   </StyledTags>
                 </p>
               </li>
