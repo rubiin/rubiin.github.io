@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # or the branch you want to deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Specify your Node.js version
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Deploy with gh-pages
+        run: |
+          git remote set-url origin https://git:${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}.git
+          pnpm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
