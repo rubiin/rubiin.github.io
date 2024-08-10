@@ -1,7 +1,7 @@
 ---
 title: '👋 Hi, my name is '
 name: 'Rubin Bhandari'
-subtitle: 'I turn caffeine to code.'
+subtitle: 'Turning caffeine boosts to code breakthrough'
 contactText: 'Get In Touch'
 ---
 
