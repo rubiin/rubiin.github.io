@@ -80,6 +80,9 @@ importers:
       gatsby-react-router-scroll:
         specifier: ^6.13.1
         version: 6.13.1(@gatsbyjs/reach-router@2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      gatsby-remark-autolink-headers:
+        specifier: ^6.13.1
+        version: 6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       gatsby-remark-external-links:
         specifier: 0.0.4
         version: 0.0.4
@@ -3550,6 +3553,14 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@gatsbyjs/reach-router': ^2.0.0
+      react: ^18.0.0 || ^0.0.0
+      react-dom: ^18.0.0 || ^0.0.0
+
+  gatsby-remark-autolink-headers@6.13.1:
+    resolution: {integrity: sha512-nKmmA2n4xJnMV6AR+QPU7eQzjxoseLfGcNlT7k43goPRhDkRgL4DsXOMs8d06ZrAmJf8Wps5LVg+KtUUGBkjxw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      gatsby: ^5.0.0-next
       react: ^18.0.0 || ^0.0.0
       react-dom: ^18.0.0 || ^0.0.0
 
@@ -11362,6 +11373,17 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  gatsby-remark-autolink-headers@6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.24.8
+      gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)
+      github-slugger: 1.5.0
+      lodash: 4.17.21
+      mdast-util-to-string: 2.0.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      unist-util-visit: 2.0.3
 
   gatsby-remark-code-titles@1.1.0:
     dependencies:
