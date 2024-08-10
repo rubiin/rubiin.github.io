@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { email } from '@config';
 import styled from 'styled-components';
-import { theme, mixins, media, Section } from '@styles';
+import { theme, mixins, media, Section, GlitchButton } from '@styles';
+import { email } from '@config';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled(Section)`
@@ -35,7 +35,7 @@ const StyledTitle = styled.h2`
   ${media.phone`font-size: 40px;`};
 `;
 const StyledSubtitle = styled.h3`
-  font-size: 80px;
+  font-size: 60px;
   line-height: 1.1;
   color: ${colors.slate};
   ${media.desktop`font-size: 70px;`};
@@ -82,8 +82,8 @@ const Hero = ({ data }) => {
     />
   );
   const five = () => (
-    <div style={{ transitionDelay: '500ms' }}>
-      <StyledEmailLink href={`mailto:${email}`}>Get In Touch</StyledEmailLink>
+    <div style={{ transitionDelay: '500ms', marginTop: '50px' }}>
+      <GlitchButton href={`mailto:${email}`}>Get In Touch</GlitchButton>
     </div>
   );
 
