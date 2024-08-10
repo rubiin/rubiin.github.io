@@ -13,4 +13,3 @@ Luckily I found a niche tool call node-prune which does help in shrinking your n
 node-prune is a small tool to prune unnecessary files from ./node_modules, such as markdown, typescript source files, and soon.
 So I ended up building my own custom imagr with the tool in built.You can check it out at (tinynode)[github.com/rubiin/tinynode]. The usage is fairly simple and you could also look a sample in the readme.
 Try it and let me know what you think
-{% github rubiin/tinynode %}

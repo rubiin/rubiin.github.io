@@ -9,7 +9,6 @@ cover_image: https://i.imgur.com/yifhSsW.png
 tags:
   - typescript
   - nodejs
-  - javascript
   - nestjs
 ---
 

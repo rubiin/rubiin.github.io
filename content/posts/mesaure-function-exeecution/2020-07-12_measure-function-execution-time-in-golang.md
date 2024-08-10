@@ -9,7 +9,6 @@ cover_image: https://yourbasic.org/golang/100m-sprint.jpg
 tags:
   - golang
   - function
-  - go
 ---
 
 For some reason you may want to keep a track of how much long a function takes to do a certain task in golang, maybe for performance evaluation.Here is a function that tracks the execution time of a complete function call with this one-liner, which logs the result to the standard output.

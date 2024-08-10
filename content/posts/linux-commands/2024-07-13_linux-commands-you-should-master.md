@@ -1,7 +1,7 @@
 ---
 title: Linux Commands You Should Master
 date: 2024-07-13
-featured: false
+featured: true
 draft: false
 slug: '/blog/linux-commands-you-should-master/'
 description:
@@ -10,7 +10,6 @@ cover_image: https://www.redhat.com/sysadmin/sites/default/files/styles/full/pub
 tags:
   - linux
   - terminal
-  - cli
   - unix
 ---
 

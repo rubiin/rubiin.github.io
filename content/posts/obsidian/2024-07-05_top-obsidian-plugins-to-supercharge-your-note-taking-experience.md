@@ -1,7 +1,7 @@
 ---
 title: Top Obsidian Plugins to Supercharge Your Note-Taking Experience
 date: 2024-07-05
-featured: false
+featured: true
 draft: false
 slug: '/blog/top-obsidian-plugins-to-supercharge-your-note-taking-experience/'
 description:

@@ -10,7 +10,6 @@ tags:
   - python
   - nodejs
   - javascript
-  - cheatsheet
 ---
 
 Navigating between programming languages can be a daunting task for developers, especially when transitioning between Python and Node.js. Whether you're considering a switch or simply need to work in both environments, understanding the equivalents and differences between these two powerful languages is crucial for efficient and effective development.

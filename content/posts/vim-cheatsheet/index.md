@@ -1,7 +1,7 @@
 ---
 title: Vim quickies/ cheatsheet
 date: '2019-11-24'
-featured: false
+featured: true
 draft: false
 slug: '/blog/vim-cheatsheet/'
 cover_image: 'https://www.ubuntupit.com/wp-content/uploads/2019/03/Vim-Commands.jpg'

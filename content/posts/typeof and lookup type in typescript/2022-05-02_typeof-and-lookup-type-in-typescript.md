@@ -9,7 +9,6 @@ cover_image: https://blog.logrocket.com/wp-content/uploads/2022/02/extending-obj
 tags:
   - typescript
   - types
-  - javascript
 ---
 
 - The `typeof` key can be used to extract type from an existing data

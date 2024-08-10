@@ -9,7 +9,6 @@ cover_image: https://miro.medium.com/max/9986/1*hohK6EONXCAy4mTRkT8K8A.png
 tags:
   - typescript
   - docker
-  - backend
   - express
 ---
 

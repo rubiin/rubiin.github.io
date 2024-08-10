@@ -4,8 +4,8 @@ title: 'helper-fns'
 github: 'https://github.com/rubiin/helper-fns'
 external: 'https://github.com/rubiin/helper-fns'
 tech:
-  - Javascript
-  - Typescript
+  - javascript
+  - typescript
 company: ''
 showInProjects: true
 ---

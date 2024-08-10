@@ -1,14 +1,13 @@
 ---
 title: REPL in Nestjs
 date: '2024-07-14'
-featured: false
+featured: true
 draft: false
 description:
 slug: '/blog/repl-in-nestjs/'
 cover_image: https://docs.nestjs.com/assets/repl.gif
 tags:
   - nestjs
-  - nodejs
   - repl
   - typescript
 ---

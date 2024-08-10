@@ -38,16 +38,16 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-robots-txt",
+      resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: config.siteUrl,
         sitemap: `${config.siteUrl}/sitemap-index.xml`,
         policy: [
           {
-            userAgent: "*",
-            allow: ["/"],
+            userAgent: '*',
+            allow: ['/'],
             disallow: [],
-          }
+          },
         ],
       },
     },

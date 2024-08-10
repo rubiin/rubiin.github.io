@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@upstatement/prettier-config": "^1.1.0",
-    "eslint": "^9.8.0",
+    "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.35.0",
     "gatsby-remark-code-titles": "^1.1.0",

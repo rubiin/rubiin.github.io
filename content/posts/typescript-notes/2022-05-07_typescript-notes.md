@@ -1,7 +1,7 @@
 ---
 title: Typescript notes
 date: 2022-05-07
-featured: false
+featured: true
 draft: false
 slug: '/blog/typescript-notes/'
 description:
