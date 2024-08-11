@@ -8,11 +8,6 @@ import PrismStyles from './PrismStyles';
 const { colors, fontSizes, fonts } = theme;
 
 const GlobalStyle = createGlobalStyle`
-@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
-
-
-
-
   ${FontFaces};
 
   html {

@@ -82,6 +82,9 @@ const Head = ({ metadata }) => (
     <meta name="msapplication-TileColor" content={config.navyColor} />
     <meta name="msapplication-TileImage" content={msIcon144x144} />
     <meta name="theme-color" content={config.navyColor} />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"></link>
   </Helmet>
 );
 

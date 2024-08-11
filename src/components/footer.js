@@ -82,7 +82,7 @@ const Footer = () => (
           ))}
       </StyledSocialList>
     </StyledSocial>
-    <StyledMetadata tabindex="-1">
+    <StyledMetadata tabIndex="-1">
       <h4>
         <span role="img" aria-label="easter">
           The site has some easter eggs 💜🐰🥚

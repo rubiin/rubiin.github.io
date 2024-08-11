@@ -6,6 +6,19 @@ import styled from 'styled-components';
 import { GlobalStyle, theme } from '@styles';
 const { colors, fontSizes, fonts } = theme;
 
+import { StyleSheetManager } from 'styled-components';
+import isPropValid from '@emotion/is-prop-valid';
+
+// This implements the default behavior from styled-components v5
+function shouldForwardProp(propName, target) {
+  if (typeof target === 'string') {
+    // For HTML elements, forward the prop if it is a valid HTML attribute
+    return isPropValid(propName);
+  }
+  // For other elements, forward all props
+  return true;
+}
+
 // https://medium.com/@chrisfitkin/how-to-smooth-scroll-links-in-gatsby-3dc445299558
 if (typeof window !== 'undefined') {
   // eslint-disable-next-line global-require
@@ -87,23 +100,24 @@ const Layout = ({ children, location }) => {
           <Head metadata={site.siteMetadata} />
 
           <GlobalStyle />
+          <StyleSheetManager shouldForwardProp={shouldForwardProp}>
+            <SkipToContent href="#content">Skip to Content</SkipToContent>
 
-          <SkipToContent href="#content">Skip to Content</SkipToContent>
+            {isLoading && isHome ? (
+              <Loader finishLoading={() => setIsLoading(false)} />
+            ) : (
+              <StyledContent>
+                <Nav location={location} />
+                <Social isHome={isHome} />
+                <Email isHome={isHome} />
 
-          {isLoading && isHome ? (
-            <Loader finishLoading={() => setIsLoading(false)} />
-          ) : (
-            <StyledContent>
-              <Nav location={location} />
-              <Social isHome={isHome} />
-              <Email isHome={isHome} />
-
-              <div id="content">
-                {children}
-                <Footer />
-              </div>
-            </StyledContent>
-          )}
+                <div id="content">
+                  {children}
+                  <Footer />
+                </div>
+              </StyledContent>
+            )}
+          </StyleSheetManager>
         </div>
       )}
     />
