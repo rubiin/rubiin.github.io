@@ -11,3 +11,4 @@
 [] fix seo
 [x] get stars for projects
 [x] tags use bubble
+[x] use jstags on functions

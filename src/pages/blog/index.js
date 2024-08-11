@@ -10,6 +10,12 @@ import styled from 'styled-components';
 import TagItem from '@components/tag';
 const { colors, fontSizes, fonts } = theme;
 
+
+const POST_TAGS = Object.freeze({
+  RECENT: 'Recent',
+  FEATURED: 'Featured',
+})
+
 const StyledTagsContainer = styled.div`
   width: 200px;
   margin-top: 100px;
@@ -164,19 +170,19 @@ const BlogPage = ({ location, data }) => {
   const GRID_LIMIT = 4;
 
   const posts = data.allMarkdownRemark.edges;
-  const [toggleText, setToggleTxt] = useState('Featured');
+  const [toggleText, setToggleTxt] = useState(POST_TAGS.FEATURED);
   const [postsToShow, setPostsToShow] = useState(posts.slice(0, GRID_LIMIT));
 
   const handleToggle = () => {
     // if toggleText is Featured, show featured posts
-    if (toggleText === 'Featured') {
-      setToggleTxt('Recent');
+    if (toggleText === POST_TAGS.FEATURED) {
+      setToggleTxt(POST_TAGS.RECENT);
 
       setPostsToShow(posts.filter(({ node }) => node.frontmatter.featured).slice(0, GRID_LIMIT));
     } else {
       setPostsToShow(posts.slice(0, GRID_LIMIT));
 
-      setToggleTxt('Featured');
+      setToggleTxt(POST_TAGS.FEATURED);
     }
   };
 
@@ -184,10 +190,10 @@ const BlogPage = ({ location, data }) => {
     .sort((a, b) => {
       return b.totalCount - a.totalCount;
     })
-    .slice(0, 5);
+    .slice(0, GRID_LIMIT);
 
   const showMore = () => {
-    if (toggleText === 'Featured') {
+    if (toggleText === POST_TAGS.FEATURED) {
       setPostsToShow(posts.slice(0, postsToShow.length + GRID_LIMIT));
     } else {
       setPostsToShow(
@@ -211,7 +217,7 @@ const BlogPage = ({ location, data }) => {
         <StyledFlex>
           <div className="posts">
             <StyledLatestPostHeader className="small-title wavy">
-              {toggleText === 'Featured' ? 'Recent' : 'Featured'} Posts
+              {toggleText === POST_TAGS.FEATURED ? POST_TAGS.RECENT: POST_TAGS.FEATURED} Posts
             </StyledLatestPostHeader>
 
             <StyledButtonContainer>
