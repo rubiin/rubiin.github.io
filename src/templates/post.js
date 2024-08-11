@@ -45,7 +45,7 @@ const StyledShareContainer = styled.div`
 
 const PostTemplate = ({ data, location }) => {
   const { frontmatter, html, excerpt } = data.markdownRemark;
-  const { title, date, tags ,cover_image} = frontmatter;
+  const { title, date, tags, cover_image } = frontmatter;
 
   const meta = {
     title,

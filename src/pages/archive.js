@@ -1,13 +1,13 @@
-import React, { useRef, useEffect } from 'react';
-import { graphql } from 'gatsby';
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
-import sr from '@utils/sr';
-import { srConfig, siteUrl, name } from '@config';
 import { Layout } from '@components';
-import { IconGitHub, IconExternal } from '@components/icons';
+import { IconExternal, IconGitHub } from '@components/icons';
+import { srConfig, name } from '@config';
+import { Main, media, mixins, theme } from '@styles';
+import sr from '@utils/sr';
+import { graphql } from 'gatsby';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { theme, mixins, media, Main } from '@styles';
+import Head from '../components/head';
 const { colors, fonts, fontSizes } = theme;
 
 const StyledMainContainer = styled(Main)``;
@@ -96,12 +96,15 @@ const ArchivePage = ({ location, data }) => {
     revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 10)));
   }, []);
 
+  const meta = {
+    title: `Archive | ${name}`,
+    siteUrl: location.href,
+    description: 'A list of blog posts',
+  };
+
   return (
     <Layout location={location}>
-      <Helmet>
-        <title>Archive | {name}</title>
-        <link rel="canonical" href={`${siteUrl}/archive`} />
-      </Helmet>
+      <Head metadata={meta} />
 
       <StyledMainContainer>
         <header ref={revealTitle}>

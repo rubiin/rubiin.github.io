@@ -59,7 +59,7 @@ const TagsPage = ({
           <Link to="/blog">All posts</Link>
         </span>
 
-        <h1>Tags</h1>
+        <h1 className="big-title">Tags</h1>
         <ul className="fancy-list">
           {sortTags.map(tag => (
             <li key={tag.fieldValue}>

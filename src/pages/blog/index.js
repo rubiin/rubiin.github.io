@@ -1,20 +1,19 @@
 import { Layout } from '@components';
+import TagItem from '@components/tag';
 import config from '@config';
 import { Button, Main, media, mixins, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import TagItem from '@components/tag';
+import Head from '../../components/head';
 const { colors, fontSizes, fonts } = theme;
-
 
 const POST_TAGS = Object.freeze({
   RECENT: 'Recent',
   FEATURED: 'Featured',
-})
+});
 
 const StyledTagsContainer = styled.div`
   width: 200px;
@@ -206,18 +205,21 @@ const BlogPage = ({ location, data }) => {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
+  const meta = {
+    title: ` Blog | ${config.name}`,
+    siteUrl: location.href,
+    description: 'A list of blog posts',
+  };
+
   return (
     <Layout location={location}>
-      <Helmet>
-        <title>Blog | {config.name}</title>
-        <link rel="canonical" href={`${config.siteUrl}/blog`} />
-      </Helmet>
+      <Head metadata={meta} />
 
       <StyledMainContainer>
         <StyledFlex>
           <div className="posts">
             <StyledLatestPostHeader className="small-title wavy">
-              {toggleText === POST_TAGS.FEATURED ? POST_TAGS.RECENT: POST_TAGS.FEATURED} Posts
+              {toggleText === POST_TAGS.FEATURED ? POST_TAGS.RECENT : POST_TAGS.FEATURED} Posts
             </StyledLatestPostHeader>
 
             <StyledButtonContainer>

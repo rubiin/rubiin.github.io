@@ -5,6 +5,7 @@ import { Link, graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import config from '../config';
 const { colors, fontSizes } = theme;
 
 const StyledTags = styled.div`
@@ -63,7 +64,7 @@ const TagTemplate = ({ pageContext, data, location }) => {
   const { edges } = data.allMarkdownRemark;
 
   const meta = {
-    title: 'All tags',
+    title: `All tags | ${config.name}`,
     description: 'A list of all tags on the site',
     siteUrl: location.href,
   };
