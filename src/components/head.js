@@ -19,6 +19,12 @@ import favicon96x96 from '@images/favicons/favicon-96x96.png';
 import favicon16x16 from '@images/favicons/favicon-16x16.png';
 import msIcon144x144 from '@images/favicons/ms-icon-144x144.png';
 
+
+/**
+ * Get the Open Graph image for the page.
+ * @param {meta}  - The meta object
+ * @returns {string} - The Open Graph image
+ */
 const getOgImage = (meta) => {
 
   if (meta?.ogImage) {

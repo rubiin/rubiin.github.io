@@ -10,23 +10,11 @@ export const throttle = (func, wait = 100) => {
   };
 };
 
-export function calculateReadingTime(text) {
-  const wordsPerMinute = 200; // Average reading speed
-  const words = text.split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return minutes;
-}
-
-export function getRepoName(url) {
-  const regex = /github\.com\/([^\/]+)\/([^\/]+)/;
-  const match = url.match(regex);
-  if (match) {
-    return match[2];
-  } else {
-    return null; // or handle the error as needed
-  }
-}
-
+/**
+ * Gets the number of stars for a github repo
+ * @constructor
+ * @param {string} repoWithUsername - The repo with the username
+ */
 export function getStar(repoWithUsername) {
   const url = `https://api.github.com/repos/${repoWithUsername}`;
   fetch(url)
