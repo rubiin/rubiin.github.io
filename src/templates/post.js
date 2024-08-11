@@ -1,12 +1,12 @@
-import { Head, Layout } from '@components';
 import { Main, media, theme } from '@styles';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Share from '@components/share';
-import Newsletter from '../components/newsletter';
+import { ShareLink, Head, Layout } from '@components';
+import { NewsLetter } from '../components';
+
 const { colors } = theme;
 
 const StyledPostContainer = styled(Main)`
@@ -64,7 +64,7 @@ const PostTemplate = ({ data, location }) => {
           <Link to="/blog">All posts</Link>
         </span>
         <StyledShareContainer>
-          <Share location={location} title={title} />
+          <ShareLink location={location} title={title} />
         </StyledShareContainer>
         <StyledPostHeader>
           <h1 className="medium-title">{title}</h1>
@@ -90,7 +90,7 @@ const PostTemplate = ({ data, location }) => {
         <StyledPostContent dangerouslySetInnerHTML={{ __html: html }} />
       </StyledPostContainer>
 
-      <Newsletter />
+      <NewsLetter />
     </Layout>
   );
 };

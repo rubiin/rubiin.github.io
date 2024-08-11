@@ -1,5 +1,4 @@
-import { Head, Layout } from '@components';
-import TagItem from '@components/tag';
+import { Head, Layout, TagItem } from '@components';
 import { Main, mixins, theme } from '@styles';
 import { Link, graphql } from 'gatsby';
 import PropTypes from 'prop-types';

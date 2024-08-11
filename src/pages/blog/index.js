@@ -1,5 +1,4 @@
-import { Layout } from '@components';
-import TagItem from '@components/tag';
+import { Layout, TagItem, Head } from '@components';
 import config from '@config';
 import { Button, Main, media, mixins, theme } from '@styles';
 import { graphql, Link } from 'gatsby';
@@ -7,7 +6,6 @@ import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Head from '../../components/head';
 const { colors, fontSizes, fonts } = theme;
 
 const POST_TAGS = Object.freeze({

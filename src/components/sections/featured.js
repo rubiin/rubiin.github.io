@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
 import sr from '@utils/sr';
 import { srConfig } from '@config';
-import { IconGitHub, IconExternal } from '@components/icons';
+import { IconGitHub, IconExternal, IconStar } from '@components/icons';
 import styled from 'styled-components';
 import { theme, mixins, media, Section, Heading } from '@styles';
-import { IconStar } from '../icons';
 import { getStar } from '../../utils';
 const { colors, fontSizes, fonts } = theme;
 

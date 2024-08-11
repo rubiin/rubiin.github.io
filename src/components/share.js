@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Share = ({ location, title }) => {
+const ShareLink = ({ location, title }) => {
   const link = location.href;
   return (
     <>
@@ -29,4 +29,4 @@ const Share = ({ location, title }) => {
   );
 };
 
-export default Share;
+export default ShareLink;

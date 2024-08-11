@@ -4,7 +4,7 @@ import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import TagItem from '@components/tag';
+import { TagItem } from '@components';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`

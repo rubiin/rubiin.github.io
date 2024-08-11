@@ -61,7 +61,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'RubinBhandari',
+        name: config.name,
         short_name: 'RubinBhandari',
         start_url: '/',
         background_color: config.darkNavyColor,

@@ -1,4 +1,4 @@
-import { Layout } from '@components';
+import { Layout, Head } from '@components';
 import { IconExternal, IconGitHub } from '@components/icons';
 import { srConfig, name } from '@config';
 import { Main, media, mixins, theme } from '@styles';
@@ -7,7 +7,6 @@ import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import Head from '../components/head';
 const { colors, fonts, fontSizes } = theme;
 
 const StyledMainContainer = styled(Main)``;
