@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/measure-function-execution-time-in-golang/'
 description:
-cover_image: https://yourbasic.org/golang/100m-sprint.jpg
+cover_image: "./cover.jpg"
 tags:
   - golang
   - function

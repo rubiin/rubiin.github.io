@@ -3,7 +3,7 @@ title: Getting started with Api development on Nodejs
 date: '2019-09-19'
 featured: false
 draft: false
-cover_image: https://hackernoon.com/hn-images/1*26BcOdrwfRkbGk9OsREyLA.png
+cover_image: "../nodejs-api-development-2/cover.png"
 slug: '/blog/getting-started-with-api-development-on-nodejs-52bi/'
 tags:
   - nodejs

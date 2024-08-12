@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/python-for-nodejs-developers/'
 description:
-cover_image: https://tbtech.co/wp-content/uploads/2022/06/2902c05c6bdff69359e60da6a.14.23-1246x548.png
+cover_image: "./cover.png"
 tags:
   - python
   - nodejs

@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/terminal-101---xargs/'
 description:
-cover_image: https://shapeshed.com/unix-xargs/images/hero_hu9721cd899e5ce367f375e3e80fabbabf_81781_1600x0_resize_q80_h2_lanczos_3.webp
+cover_image: "./cover.png"
 # Use a ratio of 100:42 for best results.
 tags:
   - linux

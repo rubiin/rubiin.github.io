@@ -7,7 +7,7 @@ description:
 tags:
   - linux
   - oss
-cover_image: http://1024x.net/wallpapers/30b/Linux_It_All_Starts_Here.jpg
+cover_image: "./cover.jpg"
 date: 2019-09-15
 ---
 

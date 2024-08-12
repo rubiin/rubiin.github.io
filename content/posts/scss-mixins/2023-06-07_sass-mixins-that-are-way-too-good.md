@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/sass-mixins-that-are-way-too-good/'
 description:
-cover_image: https://res.cloudinary.com/practicaldev/image/fetch/s--7vxCRBOI--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/hwr7c2c2najfq9p5ie5k.jpg
+cover_image: "./cover.jpg"
 tags:
   - sass
   - css

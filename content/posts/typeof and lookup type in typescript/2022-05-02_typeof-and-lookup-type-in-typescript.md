@@ -5,7 +5,7 @@ description:
 featured: false
 draft: false
 slug: '/blog/typeof-and-lookup-type-in-typescript/'
-cover_image: https://blog.logrocket.com/wp-content/uploads/2022/02/extending-object-like-types-interfaces-typescript.png
+cover_image: "../unknown-type-in-ts/cover.png"
 tags:
   - typescript
   - types

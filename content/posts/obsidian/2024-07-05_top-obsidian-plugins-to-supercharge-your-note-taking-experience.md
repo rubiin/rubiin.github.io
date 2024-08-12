@@ -5,7 +5,7 @@ featured: true
 draft: false
 slug: '/blog/top-obsidian-plugins-to-supercharge-your-note-taking-experience/'
 description:
-cover_image: https://dannb.org/images/blog/2024/03/obsidian-tips-lead.jpg
+cover_image: "./cover.jpg"
 # Use a ratio of 100:42 for best results.
 tags:
   - obsidian

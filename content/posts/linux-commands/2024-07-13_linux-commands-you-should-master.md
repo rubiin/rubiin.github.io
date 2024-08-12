@@ -5,7 +5,7 @@ featured: true
 draft: false
 slug: '/blog/linux-commands-you-should-master/'
 description:
-cover_image: https://www.redhat.com/sysadmin/sites/default/files/styles/full/public/2020-02/blur-bright-business-codes-207580.jpg?itok=eUyGgeea
+cover_image: "./cover.png"
 # Use a ratio of 100:42 for best results.
 tags:
   - linux

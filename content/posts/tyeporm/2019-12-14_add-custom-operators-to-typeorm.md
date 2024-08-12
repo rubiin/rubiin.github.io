@@ -4,7 +4,7 @@ date: 2019-02-12
 featured: true
 draft: false
 slug: '/blog/add-custom-operators-to-typeorm/'
-cover_image: https://raw.githubusercontent.com/typeorm/typeorm/master/resources/logo_big.png
+cover_image: "./cover.png"
 tags:
   - nodejs
   - typescript

@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/useful-aliases-for-docker/'
 description:
-cover_image: https://blog.codewithdan.com/wp-content/uploads/2023/06/Docker-Logo-1024x576.png
+cover_image: "/cover.png"
 # Use a ratio of 100:42 for best results.
 tags:
   - docker

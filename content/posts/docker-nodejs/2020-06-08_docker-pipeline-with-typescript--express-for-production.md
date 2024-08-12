@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/docker-pipeline-express/'
 description:
-cover_image: https://miro.medium.com/max/9986/1*hohK6EONXCAy4mTRkT8K8A.png
+cover_image: "./cover.png"
 tags:
   - typescript
   - docker

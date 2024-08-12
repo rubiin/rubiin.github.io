@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/dynamically-requiring-all-routes-in-express-app/'
 description:
-cover_image: https://miro.medium.com/max/1200/1*EKW3XazCN98jcVrlEP3H8g.png
+cover_image: "./cover.png"
 tags:
   - nodejs
   - express

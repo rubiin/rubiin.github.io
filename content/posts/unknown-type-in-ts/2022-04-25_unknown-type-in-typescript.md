@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/unknown-type-in-typescript/'
 description:
-cover_image: https://blog.logrocket.com/wp-content/uploads/2022/02/extending-object-like-types-interfaces-typescript.png
+cover_image: "./cover.png"
 tags:
   - typescript
   - types

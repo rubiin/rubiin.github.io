@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/why-commit-signing-is-necessary/'
 description:
-cover_image: https://res.cloudinary.com/practicaldev/image/fetch/s--OPEh7WV8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://zupimages.net/up/19/14/0oul.png
+cover_image: './cover.png'
 tags:
   - git
   - security

@@ -3,8 +3,8 @@ title: Ubuntu Increase Inotify Watcher (File Watch Limit)
 date: '2020-11-01'
 featured: false
 draft: false
-slug: '/blog/caching-expressjs-app/'
-cover_image: https://scx1.b-cdn.net/csz/news/800/2019/ubuntu.jpg
+slug: '/blog/ubuntu-increase-file-watcher/'
+cover_image: "./cover.png"
 tags:
   - ubuntu
   - linux
