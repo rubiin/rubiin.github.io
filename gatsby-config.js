@@ -109,6 +109,14 @@ module.exports = {
             },
           },
           {
+            resolve: `gatsby-remark-classes`,
+            options: {
+              classMap: {
+                img: 'post-image',
+              },
+            },
+          },
+          {
             // https://www.gatsbyjs.org/packages/gatsby-remark-external-links
             resolve: 'gatsby-remark-external-links',
             options: {
@@ -212,8 +220,7 @@ module.exports = {
     `,
         feeds: [
           {
-            title:
-              config.postPageDescription,
+            title: config.postPageDescription,
             output: 'rss.xml',
             query: `
                 {

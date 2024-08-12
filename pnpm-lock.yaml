@@ -83,6 +83,9 @@ importers:
       gatsby-remark-autolink-headers:
         specifier: ^6.13.1
         version: 6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      gatsby-remark-classes:
+        specifier: ^1.0.2
+        version: 1.0.2
       gatsby-remark-external-links:
         specifier: 0.0.4
         version: 0.0.4
@@ -3564,6 +3567,9 @@ packages:
       react: ^18.0.0 || ^0.0.0
       react-dom: ^18.0.0 || ^0.0.0
 
+  gatsby-remark-classes@1.0.2:
+    resolution: {integrity: sha512-axPrsd7zCu9hU39C5m6HpIRrGsUrvXlvQ8YmoJGmFQo+0KkA2z+hCHb/FpjWyC6N6P9KXZFNQqzBX4cugDcS6A==}
+
   gatsby-remark-code-titles@1.1.0:
     resolution: {integrity: sha512-RuNqziXi99eBIj5NJP0TgdzAxzWFL+ArGRb3961Ff9Tto/nCvmyqR1qySaWKXtkOgeqoVUlqAFNUCyEAyNuc8w==}
 
@@ -4929,6 +4935,9 @@ packages:
   npm-run-path@5.3.0:
     resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  nth-check@1.0.2:
+    resolution: {integrity: sha512-WeBOdju8SnzPN5vTUJYxYUxLeXpCaVP5i5e0LF8fg7WORF2Wd7wFX/pk0tYZk7s8T+J7VLy0Da6J1+wCT0AtHg==}
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
@@ -6533,6 +6542,9 @@ packages:
 
   unist-util-remove-position@3.0.0:
     resolution: {integrity: sha512-17kIOuolVuK16LMb9KyMJlqdfCtlfQY5FjY3Sdo9iC7F5wqdXhNjMq0PBvMpkVNNnAmHxXssUW+rZ9T2zbP0Rg==}
+
+  unist-util-select@2.0.2:
+    resolution: {integrity: sha512-Yv5Z5ShMxv7Z9Dw175tKvOiRVXV4FrMHG778DSD9Z0jALgb3wAx9DoeInr3200QlYp71rYUXzzJdCb76xKdrCw==}
 
   unist-util-select@3.0.4:
     resolution: {integrity: sha512-xf1zCu4okgPqGLdhCDpRnjwBNyv3EqjiXRUbz2SdK1+qnLMB7uXXajfzuBvvbHoQ+JLyp4AEbFCGndmc6S72sw==}
@@ -11385,6 +11397,10 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       unist-util-visit: 2.0.3
 
+  gatsby-remark-classes@1.0.2:
+    dependencies:
+      unist-util-select: 2.0.2
+
   gatsby-remark-code-titles@1.1.0:
     dependencies:
       query-string: 6.0.0
@@ -13076,6 +13092,10 @@ snapshots:
   npm-run-path@5.3.0:
     dependencies:
       path-key: 4.0.0
+
+  nth-check@1.0.2:
+    dependencies:
+      boolbase: 1.0.0
 
   nth-check@2.1.1:
     dependencies:
@@ -14857,6 +14877,14 @@ snapshots:
   unist-util-remove-position@3.0.0:
     dependencies:
       unist-util-visit: 2.0.3
+
+  unist-util-select@2.0.2:
+    dependencies:
+      css-selector-parser: 1.4.1
+      not: 0.1.0
+      nth-check: 1.0.2
+      unist-util-is: 3.0.0
+      zwitch: 1.0.5
 
   unist-util-select@3.0.4:
     dependencies:

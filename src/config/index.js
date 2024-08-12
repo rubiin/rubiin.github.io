@@ -12,7 +12,8 @@ module.exports = {
   location: 'Kathmandu, Nepal',
   email: 'roobin.bhandari@gmail.com',
   github: 'https://github.com/rubiin',
-  postPageDescription: 'Exploring the latest trends, best practices, and in-depth insights in software engineering and web development',
+  postPageDescription:
+    'Exploring the latest trends, best practices, and in-depth insights in software engineering and web development',
   twitterHandle: '@rubiin',
   socialMedia: [
     {
