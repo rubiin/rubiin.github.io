@@ -18,16 +18,22 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-postcss`,
     {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `rubiin-is-a-dev`,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-sitemap',
       options: {
         query: `
-{
-  allSitePage {
-    nodes {
-      path
-    }
-  }
-}
+      {
+        allSitePage {
+            nodes {
+            path
+            }
+          }
+          }
       `,
         resolveSiteUrl: () => config.siteUrl,
         serialize: ({ path }) => {

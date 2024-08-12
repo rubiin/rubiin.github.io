@@ -6,8 +6,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ShareLink, Head, Layout } from '@components';
 import { NewsLetter } from '../components';
+import { Disqus } from 'gatsby-plugin-disqus';
 
 const { colors } = theme;
+
+const StyledDisqusContainer = styled.div`
+  padding: 2rem;
+  margin: 0 auto;
+  width: 70%;
+  ${media.phone`display: none;`};
+`;
 
 const StyledPostContainer = styled(Main)`
   max-width: 1000px;
@@ -45,13 +53,19 @@ const StyledShareContainer = styled.div`
 
 const PostTemplate = ({ data, location }) => {
   const { frontmatter, html, excerpt } = data.markdownRemark;
-  const { title, date, tags, cover_image } = frontmatter;
+  const { title, date, tags, cover_image, slug } = frontmatter;
 
   const meta = {
     title,
     description: excerpt,
     siteUrl: location.href,
     ogImage: cover_image,
+  };
+
+  const disqusConfig = {
+    url: location.href,
+    identifier: slug,
+    title,
   };
 
   return (
@@ -93,6 +107,9 @@ const PostTemplate = ({ data, location }) => {
       </StyledPostContainer>
 
       <NewsLetter />
+      <StyledDisqusContainer>
+        <Disqus config={disqusConfig} />
+      </StyledDisqusContainer>
     </Layout>
   );
 };

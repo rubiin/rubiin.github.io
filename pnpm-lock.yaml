@@ -17,6 +17,9 @@ importers:
       '@babel/preset-react':
         specifier: ^7.24.7
         version: 7.24.7(@babel/core@7.25.2)
+      '@emotion/is-prop-valid':
+        specifier: ^1.3.0
+        version: 1.3.0
       animejs:
         specifier: ^3.2.2
         version: 3.2.2
@@ -38,6 +41,9 @@ importers:
       gatsby-link:
         specifier: ^5.13.1
         version: 5.13.1(@gatsbyjs/reach-router@2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      gatsby-plugin-disqus:
+        specifier: ^1.2.6
+        version: 1.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       gatsby-plugin-easter-egg:
         specifier: ^1.0.0
         version: 1.0.0
@@ -95,6 +101,9 @@ importers:
       gatsby-remark-prismjs:
         specifier: ^7.13.1
         version: 7.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(prismjs@1.29.0)
+      gatsby-remark-responsive-iframe:
+        specifier: ^6.13.1
+        version: 6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))
       gatsby-source-filesystem:
         specifier: ^5.13.1
         version: 5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))
@@ -913,8 +922,14 @@ packages:
   '@emotion/is-prop-valid@1.2.2':
     resolution: {integrity: sha512-uNsoYd37AFmaCdXlg6EYD1KaPOaRWRByMCYzbKUX4+hhMfrxdVSelShywL4JVaAeM/eHUOSprYBQls+/neX3pw==}
 
+  '@emotion/is-prop-valid@1.3.0':
+    resolution: {integrity: sha512-SHetuSLvJDzuNbOdtPVbq6yMMMlLoW5Q94uDqJZqy50gcmAjxFkVqmzqSGEFq9gT2iMuIeKV1PXVWmvUhuZLlQ==}
+
   '@emotion/memoize@0.8.1':
     resolution: {integrity: sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==}
+
+  '@emotion/memoize@0.9.0':
+    resolution: {integrity: sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==}
 
   '@emotion/unitless@0.8.1':
     resolution: {integrity: sha512-KOEGMu6dmJZtpadb476IsZBclKvILjopjUii3V+7MnXIQCYh8W3NgNcgwo21n9LXZX6EDIKvqfjYxXebDwxKmQ==}
@@ -3435,6 +3450,12 @@ packages:
     peerDependencies:
       '@parcel/core': ^2.0.0
 
+  gatsby-plugin-disqus@1.2.6:
+    resolution: {integrity: sha512-lGa6q7oldF3cxbwcS1dvndaxDevEBfYOIweUYOARheU0AhbDzYp4lyIvUkUwBYEWsAzIsuJNiugI6yIcQXy09g==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+
   gatsby-plugin-easter-egg@1.0.0:
     resolution: {integrity: sha512-MUXSyKgG9uyoNqrsrEmrRMcLOD2oUt3meBdypjhvuBy5q/FgY76jNCDED5Uzm+JNmRmMURpKSLhZWh786XU4aA==}
 
@@ -3589,6 +3610,12 @@ packages:
     peerDependencies:
       gatsby: ^5.0.0-next
       prismjs: ^1.15.0
+
+  gatsby-remark-responsive-iframe@6.13.1:
+    resolution: {integrity: sha512-lNC1YQGTX9bngJT/YyBS79ZS5nRPkKD3jSqLb04mFXZTwmfDomYJEF5b+kZIVdKy9JZW6LDzFlEcL6CvqK1klA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      gatsby: ^5.0.0-next
 
   gatsby-script@2.13.0:
     resolution: {integrity: sha512-TGNQGerf1NMJrgJkWxWrW6FFMAuC0L76WlyZgGXmhckPW/x7V1SxZrm0a2Q99kRHyoC59RYl2gTQWHaIwV+ZjA==}
@@ -7912,7 +7939,13 @@ snapshots:
     dependencies:
       '@emotion/memoize': 0.8.1
 
+  '@emotion/is-prop-valid@1.3.0':
+    dependencies:
+      '@emotion/memoize': 0.9.0
+
   '@emotion/memoize@0.8.1': {}
+
+  '@emotion/memoize@0.9.0': {}
 
   '@emotion/unitless@0.8.1': {}
 
@@ -11184,6 +11217,11 @@ snapshots:
       '@parcel/transformer-js': 2.8.3(@parcel/core@2.8.3)
       '@parcel/transformer-json': 2.8.3(@parcel/core@2.8.3)
 
+  gatsby-plugin-disqus@1.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   gatsby-plugin-easter-egg@1.0.0: {}
 
   gatsby-plugin-feed@5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
@@ -11434,6 +11472,15 @@ snapshots:
       gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)
       parse-numeric-range: 1.3.0
       prismjs: 1.29.0
+      unist-util-visit: 2.0.3
+
+  gatsby-remark-responsive-iframe@6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)):
+    dependencies:
+      '@babel/runtime': 7.24.8
+      cheerio: 1.0.0-rc.12
+      common-tags: 1.8.2
+      gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)
+      lodash: 4.17.21
       unist-util-visit: 2.0.3
 
   gatsby-script@2.13.0(@gatsbyjs/reach-router@2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
