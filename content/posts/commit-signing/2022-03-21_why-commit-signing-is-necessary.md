@@ -22,5 +22,4 @@ Signing a commit involves using your private key to create a unique digital fing
 
 ### Further reading
 
-- https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits
-- https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/
+https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits
