@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/resolving-path-alias-in-nestjs-projects/'
 description:
-cover_image: https://i.imgur.com/yifhSsW.png
+cover_image: './cover.png'
 tags:
   - typescript
   - nodejs

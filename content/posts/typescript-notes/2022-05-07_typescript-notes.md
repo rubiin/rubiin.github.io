@@ -5,7 +5,7 @@ featured: true
 draft: false
 slug: '/blog/typescript-notes/'
 description:
-cover_image: "../unknown-type-in-ts/cover.png"
+cover_image: '../unknown-type-in-ts/cover.png'
 tags:
   - typescript
 ---

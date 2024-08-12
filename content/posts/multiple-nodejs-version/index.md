@@ -4,14 +4,14 @@ date: '2019-09-14'
 featured: false
 draft: false
 slug: '/blog/how-to-manage-multiple-nodejs-version-in-a-single-machine-using-nvm-170a/'
-cover_image: "./cover.jpeg"
+cover_image: './cover.png'
 tags:
   - nodejs
   - npm
   - nvm
 ---
 
-![](https://miro.medium.com/max/3200/1*n7ba3rjWYs_lZeYbKogKdw.jpeg)
+![](./cover.png)
 
 Ever got in a situation where you have to use different nodejs versions for different projects. or you want to have the stable and the latest release side by side. Installing the particular release when you need it might seem a probable solution. But what if you need multiple node versions frequently. The above process seems kind of illogical for the purpose. So NVM aka node version manager comes to the rescue allowing you to have more than one version of node on your machine so you can switch the version with just a command.For Mac and Linux the link is http://github.com/creationix/nvm .For windows http://github.com/coreybutler/nvm-windows . All you have to do is go to the links depending upon your machine’s OS and download the latest release.
 Getting started

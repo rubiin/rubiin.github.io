@@ -5,7 +5,7 @@ description:
 featured: false
 draft: false
 slug: '/blog/typeof-and-lookup-type-in-typescript/'
-cover_image: "../unknown-type-in-ts/cover.png"
+cover_image: '../unknown-type-in-ts/cover.png'
 tags:
   - typescript
   - types

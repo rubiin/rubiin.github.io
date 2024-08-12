@@ -5,7 +5,7 @@ featured: true
 draft: false
 description:
 slug: '/blog/repl-in-nestjs/'
-cover_image: https://docs.nestjs.com/assets/repl.gif
+cover_image: './repl.gif'
 tags:
   - nestjs
   - repl

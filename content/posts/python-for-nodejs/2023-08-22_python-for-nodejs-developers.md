@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/python-for-nodejs-developers/'
 description:
-cover_image: "./cover.png"
+cover_image: './cover.png'
 tags:
   - python
   - nodejs

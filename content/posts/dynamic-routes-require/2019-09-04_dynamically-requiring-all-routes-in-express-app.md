@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/dynamically-requiring-all-routes-in-express-app/'
 description:
-cover_image: "./cover.png"
+cover_image: './cover.png'
 tags:
   - nodejs
   - express

@@ -4,7 +4,7 @@ date: '2019-10-12'
 featured: false
 draft: false
 slug: '/blog/custom-jenkins-images-with-plugins-pre-installed-1pok/'
-cover_image: "./cover.png"
+cover_image: './cover.jpeg'
 tags:
   - jenkins
   - devops

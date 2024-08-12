@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/docker-pipeline-express/'
 description:
-cover_image: "./cover.png"
+cover_image: './cover.png'
 tags:
   - typescript
   - docker

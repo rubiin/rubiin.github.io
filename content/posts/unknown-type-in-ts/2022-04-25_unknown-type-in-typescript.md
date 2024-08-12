@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: '/blog/unknown-type-in-typescript/'
 description:
-cover_image: "./cover.png"
+cover_image: './cover.png'
 tags:
   - typescript
   - types

@@ -87,7 +87,7 @@ const PostTemplate = ({ data, location }) => {
           </p>
         </StyledPostHeader>
 
-        <img className="post-image" src={cover_image} alt={title} />
+        <img className="post-image" src={cover_image.publicURL} alt={title} />
 
         <StyledPostContent dangerouslySetInnerHTML={{ __html: html }} />
       </StyledPostContainer>
@@ -114,7 +114,9 @@ export const pageQuery = graphql`
         date
         slug
         tags
-        cover_image
+        cover_image {
+          publicURL
+        }
       }
     }
   }
