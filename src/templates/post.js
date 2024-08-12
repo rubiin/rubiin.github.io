@@ -19,7 +19,7 @@ const StyledPostHeader = styled.header`
   }
 `;
 const StyledPostContent = styled.div`
-  margin-bottom: 100px;
+  margin: 50px 0 100px 0;
   h1,
   h2,
   h3,
@@ -42,6 +42,12 @@ const StyledShareContainer = styled.div`
   margin-bottom: 30px;
   ${media.thone`justify-content: center;`};
 `;
+
+const StyledImg = styled.img`
+object-fit: cover;
+
+`;
+
 
 const PostTemplate = ({ data, location }) => {
   const { frontmatter, html, excerpt } = data.markdownRemark;
@@ -86,6 +92,8 @@ const PostTemplate = ({ data, location }) => {
               ))}
           </p>
         </StyledPostHeader>
+
+        <StyledImg src={cover_image} alt={title} />
 
         <StyledPostContent dangerouslySetInnerHTML={{ __html: html }} />
       </StyledPostContainer>

@@ -7,7 +7,7 @@
 [x] paginate
 [x] add button to toggle between recent and featured
 [x] add share blog
-[] add a cover section
+[x] add a cover section
 [] fix seo
 [x] get stars for projects
 [x] tags use bubble
