@@ -213,7 +213,7 @@ module.exports = {
         feeds: [
           {
             title:
-              'Exploring the latest trends, best practices, and in-depth insights in software engineering and web development',
+              config.postPageDescription,
             output: 'rss.xml',
             query: `
                 {

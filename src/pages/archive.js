@@ -98,7 +98,7 @@ const ArchivePage = ({ location, data }) => {
   const meta = {
     title: `Archive | ${name}`,
     siteUrl: location.href,
-    description: 'A list of blog posts',
+    description: 'A big list of things I’ve worked on',
   };
 
   return (

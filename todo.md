@@ -6,7 +6,7 @@
 [x] limit tags
 [x] paginate
 [x] add button to toggle between recent and featured
-[] add share blog
+[x] add share blog
 [] add a cover section
 [] fix seo
 [x] get stars for projects

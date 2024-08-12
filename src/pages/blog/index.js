@@ -206,7 +206,7 @@ const BlogPage = ({ location, data }) => {
   const meta = {
     title: ` Blog | ${config.name}`,
     siteUrl: location.href,
-    description: 'A list of blog posts',
+    description: config.postPageDescription,
   };
 
   return (
