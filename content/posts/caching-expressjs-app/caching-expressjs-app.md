@@ -21,7 +21,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
 ## Installation
 
-Installing redis is pretty staright forward.You can check the [link](https://redis.io/topics/quickstart) for installation
+Installing redis is pretty straight forward.You can check the [link](https://redis.io/topics/quickstart) for installation
 
 To add redis client to nodejs , simply do
 

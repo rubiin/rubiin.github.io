@@ -30,7 +30,7 @@ const logger = new Logger('Repl');
 async function bootstrap() {
   const replServer = await repl(AppModule);
 
-  // OPTIONAL: sets up persistant history file for repl,
+  // OPTIONAL: sets up persistent history file for repl,
   const cacheDirectory = join('node_modules', '.cache');
 
   if (!existsSync(cacheDirectory)) mkdirSync(cacheDirectory);

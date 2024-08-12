@@ -1,31 +1,32 @@
-name: Deploy to GitHub Pages
+name: Eleventy Build
 
 on:
   push:
     branches:
-      - main  # or the branch you want to deploy from
+      - master
+  schedule:
+    # everyday at 8 PM UTC
+    - cron: '0 20 * * *'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
         with:
-          node-version: '20'  # Specify your Node.js version
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: pnpm
+      - run: pnpm install --shamefully-hoist
+      - run: pnpm build
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Deploy with gh-pages
-        run: |
-          git remote set-url origin https://git:${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}.git
-          pnpm run deploy
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v1.1.0
         env:
+          PUBLISH_DIR: public
+          CNAME: rubiin.is-a.dev
+          PUBLISH_BRANCH: gh-pages
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}

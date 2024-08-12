@@ -1,5 +1,5 @@
 ---
-title: typeof and lookup type in typescript
+title: Typeof and lookup type in typescript
 date: 2022-05-02
 description:
 featured: false

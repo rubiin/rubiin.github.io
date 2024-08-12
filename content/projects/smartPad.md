@@ -9,4 +9,4 @@ tech:
 showInProjects: true
 ---
 
-Smartpad or Jpad is a text editor based on java. I tried to clone notepad app on windows and added some extra featues.
+Smartpad or Jpad is a text editor based on java. I tried to clone notepad app on windows and added some extra features.

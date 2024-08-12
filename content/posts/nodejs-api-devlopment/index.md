@@ -29,7 +29,7 @@ Hit enter and that should install and update the dependencies in package.json fi
 
 <b>Body-parser</b> is Node.js body parsing middleware. It parses incoming request bodies in a middleware before your handlers, available under the req.body property.
 
-After all the modules have been installed , create a file app.js in the root folder and open it in your favorite editor. I use visual studio code but you could go with any any text editor of your perference.
+After all the modules have been installed , create a file app.js in the root folder and open it in your favorite editor. I use visual studio code but you could go with any any text editor of your preference.
 Basic Setup
 Open app.js in the editor and require express module with
 

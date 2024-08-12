@@ -59,7 +59,7 @@ After doing some search on the problem, I came across multiple solutions.
 
 - [Using webpack](https://github.com/dividab/tsconfig-paths-webpack-plugin)
 - [Using Module Aliases package](https://medium.com/@caludio/how-to-use-module-path-aliases-in-visual-studio-typescript-and-javascript-e7851df8eeaa)
-- Bootstraping tsc with explicit params
+- Bootstrapping tsc with explicit params
 
 Although there are bunch of solutions above, the first and second one didn't work for me. So I went with the third one which was actually mentioned in the docs of [tsconfig-paths](https://github.com/dividab/tsconfig-paths) which nest uses to resolve these paths at runtime.
 
