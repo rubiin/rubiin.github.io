@@ -59,10 +59,8 @@ const StyledLoadComments = styled(Button)`
 `;
 
 const PostTemplate = ({ data, location }) => {
-  const { frontmatter, html, excerpt } = data.markdownRemark;
-  const { title, date, tags, cover_image, slug } = frontmatter;
-
-  const [showDisqus, setShowDisqus] = React.useState(false);
+  const { frontmatter, html, excerpt, tableOfContents } = data.markdownRemark;
+  const { title, date, tags, cover_image } = frontmatter;
 
   const meta = {
     title,
@@ -108,6 +106,12 @@ const PostTemplate = ({ data, location }) => {
                 </Link>
               ))}
           </p>
+          {tableOfContents !== '' && (
+            <Toc>
+              <h2>Table of contents</h2>
+              <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
+            </Toc>
+          )}
         </StyledPostHeader>
 
         <img className="post-image" src={cover_image.publicURL} alt={title} />
@@ -142,6 +146,7 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { slug: { eq: $path } }) {
       html
       excerpt
+      tableOfContents
       frontmatter {
         title
         date
