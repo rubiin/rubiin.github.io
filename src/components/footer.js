@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import {
   IconGitHub,
   IconLinkedin,
@@ -7,10 +7,10 @@ import {
   IconInstagram,
   IconTwitter,
   IconRss,
-} from '@components/icons';
-import { socialMedia } from '@config';
-import styled from 'styled-components';
-import { theme, mixins, media } from '@styles';
+} from "@components/icons";
+import { socialMedia } from "@config";
+import styled from "styled-components";
+import { theme, mixins, media } from "@styles";
 const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.footer`
@@ -61,18 +61,19 @@ const Footer = () => (
                 href={url}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                aria-label={name}>
-                {name === 'GitHub' ? (
+                aria-label={name}
+              >
+                {name === "GitHub" ? (
                   <IconGitHub />
-                ) : name === 'Linkedin' ? (
+                ) : name === "Linkedin" ? (
                   <IconLinkedin />
-                ) : name === 'Dev.to' ? (
+                ) : name === "Dev.to" ? (
                   <IconDev />
-                ) : name === 'Instagram' ? (
+                ) : name === "Instagram" ? (
                   <IconInstagram />
-                ) : name === 'Twitter' ? (
+                ) : name === "Twitter" ? (
                   <IconTwitter />
-                ) : name === 'Github' ? (
+                ) : name === "Github" ? (
                   <IconGitHub />
                 ) : (
                   <IconRss />

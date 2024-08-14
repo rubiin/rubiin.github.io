@@ -3,9 +3,9 @@ title: Why commit signing is necessary
 date: 2022-03-21
 featured: false
 draft: false
-slug: '/blog/why-commit-signing-is-necessary/'
+slug: "/blog/why-commit-signing-is-necessary/"
 description:
-cover_image: './cover.png'
+cover_image: "./cover.png"
 tags:
   - git
   - security

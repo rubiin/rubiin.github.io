@@ -1,13 +1,13 @@
 ---
-date: '2018-05-01'
-title: 'nestjs-pgpromise'
-github: 'https://github.com/NestCrafts/nestjs-pgpromise'
-external: 'https://github.com/NestCrafts/nestjs-pgpromise'
+date: "2018-05-01"
+title: "nestjs-pgpromise"
+github: "https://github.com/NestCrafts/nestjs-pgpromise"
+external: "https://github.com/NestCrafts/nestjs-pgpromise"
 tech:
   - nestjs
   - typescript
   - postgres
-company: ''
+company: ""
 showInProjects: true
 ---
 

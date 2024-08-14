@@ -18,8 +18,8 @@ export const throttle = (func, wait = 100) => {
 export function getStar(repoWithUsername) {
   const url = `https://api.github.com/repos/${repoWithUsername}`;
   fetch(url)
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       console.log({ data });
       return data.stargazers_count;
     });

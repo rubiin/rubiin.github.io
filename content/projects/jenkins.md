@@ -1,12 +1,12 @@
 ---
-date: '2019-11-12'
-title: 'jenkins'
-github: 'https://github.com/rubiin/jenkins'
-external: 'https://github.com/rubiin/jenkins'
+date: "2019-11-12"
+title: "jenkins"
+github: "https://github.com/rubiin/jenkins"
+external: "https://github.com/rubiin/jenkins"
 tech:
   - ci
   - devops
-company: ''
+company: ""
 showInProjects: true
 ---
 

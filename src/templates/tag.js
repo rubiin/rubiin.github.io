@@ -1,10 +1,10 @@
-import { Head, Layout, TagItem } from '@components';
-import { Main, mixins, theme } from '@styles';
-import { Link, graphql } from 'gatsby';
-import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
-import config from '../config';
+import { Head, Layout, TagItem } from "@components";
+import { Main, mixins, theme } from "@styles";
+import { Link, graphql } from "gatsby";
+import PropTypes from "prop-types";
+import React from "react";
+import styled from "styled-components";
+import config from "../config";
 const { colors, fontSizes } = theme;
 
 const StyledTags = styled.div`
@@ -64,7 +64,7 @@ const TagTemplate = ({ pageContext, data, location }) => {
 
   const meta = {
     title: `All tags | ${config.name}`,
-    description: 'A list of all tags on the site',
+    description: "A list of all tags on the site",
     siteUrl: location.href,
   };
 
@@ -96,15 +96,17 @@ const TagTemplate = ({ pageContext, data, location }) => {
                 </h2>
                 <p className="subtitle">
                   <time>
-                    {new Date(date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
+                    {new Date(date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                   </time>
                   <StyledTags>
                     <span>&nbsp;&mdash;&nbsp;</span>
-                    {tags && tags.length > 0 && tags.map((tag, i) => <TagItem key={i} tag={tag} />)}
+                    {tags &&
+                      tags.length > 0 &&
+                      tags.map((tag, i) => <TagItem key={i} tag={tag} />)}
                   </StyledTags>
                 </p>
               </li>

@@ -3,9 +3,9 @@ title: Typescript notes
 date: 2022-05-07
 featured: true
 draft: false
-slug: '/blog/typescript-notes/'
+slug: "/blog/typescript-notes/"
 description:
-cover_image: '../unknown-type-in-ts/cover.png'
+cover_image: "../unknown-type-in-ts/cover.png"
 tags:
   - typescript
 ---

@@ -1,16 +1,16 @@
-import { Layout, TagItem, Head } from '@components';
-import config from '@config';
-import { Button, Main, media, mixins, theme } from '@styles';
-import { graphql, Link } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import { Layout, TagItem, Head } from "@components";
+import config from "@config";
+import { Button, Main, media, mixins, theme } from "@styles";
+import { graphql, Link } from "gatsby";
+import kebabCase from "lodash/kebabCase";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import styled from "styled-components";
 const { colors, fontSizes, fonts } = theme;
 
 const POST_TAGS = Object.freeze({
-  RECENT: 'Recent',
-  FEATURED: 'Featured',
+  RECENT: "Recent",
+  FEATURED: "Featured",
 });
 
 const StyledTagsContainer = styled.div`
@@ -175,7 +175,11 @@ const BlogPage = ({ location, data }) => {
     if (toggleText === POST_TAGS.FEATURED) {
       setToggleTxt(POST_TAGS.RECENT);
 
-      setPostsToShow(posts.filter(({ node }) => node.frontmatter.featured).slice(0, GRID_LIMIT));
+      setPostsToShow(
+        posts
+          .filter(({ node }) => node.frontmatter.featured)
+          .slice(0, GRID_LIMIT),
+      );
     } else {
       setPostsToShow(posts.slice(0, GRID_LIMIT));
 
@@ -201,7 +205,7 @@ const BlogPage = ({ location, data }) => {
     }
   };
 
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  const options = { year: "numeric", month: "short", day: "numeric" };
 
   const meta = {
     title: ` Blog | ${config.name}`,
@@ -217,11 +221,16 @@ const BlogPage = ({ location, data }) => {
         <StyledFlex>
           <div className="posts">
             <StyledLatestPostHeader className="small-title wavy">
-              {toggleText === POST_TAGS.FEATURED ? POST_TAGS.RECENT : POST_TAGS.FEATURED} Posts
+              {toggleText === POST_TAGS.FEATURED
+                ? POST_TAGS.RECENT
+                : POST_TAGS.FEATURED}{" "}
+              Posts
             </StyledLatestPostHeader>
 
             <StyledButtonContainer>
-              <StyledToggleButton onClick={() => handleToggle()}>{toggleText}</StyledToggleButton>
+              <StyledToggleButton onClick={() => handleToggle()}>
+                {toggleText}
+              </StyledToggleButton>
             </StyledButtonContainer>
 
             {posts.length > 0 &&
@@ -239,11 +248,13 @@ const BlogPage = ({ location, data }) => {
                             <StyledFolder></StyledFolder>
                           </StyledPostHeader>
                           <StyledReadingTimeContainer>
-                            <StyledDate>{`📆 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
+                            <StyledDate>{`📆 ${d.toLocaleDateString("en-us", options)}`}</StyledDate>
                             <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                           </StyledReadingTimeContainer>
                           <StyledPostName>{title}</StyledPostName>
-                          <StyledPostDescription>{excerpt}</StyledPostDescription>
+                          <StyledPostDescription>
+                            {excerpt}
+                          </StyledPostDescription>
                         </Link>
                       </header>
                       <footer>
@@ -258,16 +269,19 @@ const BlogPage = ({ location, data }) => {
                 );
               })}
             <StyledButtonContainer>
-              <StyledMoreButton onClick={() => showMore()}>Show More</StyledMoreButton>
+              <StyledMoreButton onClick={() => showMore()}>
+                Show More
+              </StyledMoreButton>
             </StyledButtonContainer>
           </div>
           <StyledTagsContainer>
             <h2 className="small-text">Read more on</h2>
             <ul className="fancy-list">
-              {sortTags.map(tag => (
+              {sortTags.map((tag) => (
                 <li key={tag.fieldValue}>
                   <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-                    {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+                    {tag.fieldValue}{" "}
+                    <span className="count">({tag.totalCount})</span>
                   </Link>
                 </li>
               ))}
@@ -290,7 +304,10 @@ export default BlogPage;
 export const pageQuery = graphql`
   {
     allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/posts/" }, frontmatter: { draft: { ne: true } } }
+      filter: {
+        fileAbsolutePath: { regex: "/posts/" }
+        frontmatter: { draft: { ne: true } }
+      }
       sort: { frontmatter: { date: DESC } }
     ) {
       edges {

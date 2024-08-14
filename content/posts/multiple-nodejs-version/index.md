@@ -1,10 +1,10 @@
 ---
 title: How to manage multiple nodejs version in a single machine using nvm
-date: '2019-09-14'
+date: "2019-09-14"
 featured: false
 draft: false
-slug: '/blog/how-to-manage-multiple-nodejs-version-in-a-single-machine-using-nvm-170a/'
-cover_image: './cover.png'
+slug: "/blog/how-to-manage-multiple-nodejs-version-in-a-single-machine-using-nvm-170a/"
+cover_image: "./cover.png"
 tags:
   - nodejs
   - npm

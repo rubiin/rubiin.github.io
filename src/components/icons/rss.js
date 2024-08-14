@@ -1,7 +1,14 @@
-import React from 'react';
+import React from "react";
 
 const IconRss = () => (
-  <svg fill="#000000" version="1.1" viewBox="0 0 504.4 504.4" width="20" height="20" role="img">
+  <svg
+    fill="#000000"
+    version="1.1"
+    viewBox="0 0 504.4 504.4"
+    width="20"
+    height="20"
+    role="img"
+  >
     <g>
       <g>
         <path

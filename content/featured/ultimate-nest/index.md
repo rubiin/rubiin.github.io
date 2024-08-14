@@ -1,9 +1,9 @@
 ---
-date: '4'
-title: 'Ultimate Nestjs'
-cover: './image.png'
-github: 'https://github.com/rubiin/ultimate-nest'
-external: 'https://github.com/rubiin/ultimate-nest'
+date: "4"
+title: "Ultimate Nestjs"
+cover: "./image.png"
+github: "https://github.com/rubiin/ultimate-nest"
+external: "https://github.com/rubiin/ultimate-nest"
 tech:
   - docker
   - nestjs

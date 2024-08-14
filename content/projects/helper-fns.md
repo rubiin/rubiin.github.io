@@ -1,12 +1,12 @@
 ---
-date: '2022-01-01'
-title: 'helper-fns'
-github: 'https://github.com/rubiin/helper-fns'
-external: 'https://github.com/rubiin/helper-fns'
+date: "2022-01-01"
+title: "helper-fns"
+github: "https://github.com/rubiin/helper-fns"
+external: "https://github.com/rubiin/helper-fns"
 tech:
   - javascript
   - typescript
-company: ''
+company: ""
 showInProjects: true
 ---
 

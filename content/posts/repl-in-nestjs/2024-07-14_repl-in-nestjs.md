@@ -1,11 +1,11 @@
 ---
 title: REPL in Nestjs
-date: '2024-07-14'
+date: "2024-07-14"
 featured: true
 draft: false
 description:
-slug: '/blog/repl-in-nestjs/'
-cover_image: './repl.gif'
+slug: "/blog/repl-in-nestjs/"
+cover_image: "./repl.gif"
 tags:
   - nestjs
   - repl
@@ -17,27 +17,30 @@ One of the features of Nestjs is the REPL (Read-Eval-Print Loop) mode, a powerfu
 create a new file `repl.ts`
 
 ```ts
-import { existsSync, mkdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, mkdirSync } from "node:fs";
+import { join } from "node:path";
 
-import { Logger } from '@nestjs/common';
-import { repl } from '@nestjs/core';
+import { Logger } from "@nestjs/common";
+import { repl } from "@nestjs/core";
 
-import { AppModule } from './app.module';
+import { AppModule } from "./app.module";
 
-const logger = new Logger('Repl');
+const logger = new Logger("Repl");
 
 async function bootstrap() {
   const replServer = await repl(AppModule);
 
   // OPTIONAL: sets up persistent history file for repl,
-  const cacheDirectory = join('node_modules', '.cache');
+  const cacheDirectory = join("node_modules", ".cache");
 
   if (!existsSync(cacheDirectory)) mkdirSync(cacheDirectory);
 
-  replServer.setupHistory(join(cacheDirectory, '.nestjs_repl_history'), error => {
-    if (error) logger.error(error);
-  });
+  replServer.setupHistory(
+    join(cacheDirectory, ".nestjs_repl_history"),
+    (error) => {
+      if (error) logger.error(error);
+    },
+  );
 }
 bootstrap();
 ```

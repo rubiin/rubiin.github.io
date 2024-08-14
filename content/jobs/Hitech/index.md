@@ -1,10 +1,10 @@
 ---
-date: '2016-01-21'
-title: 'Intern'
-company: 'Hitech Nepal'
-location: 'Kathmandu, Nepal'
-range: 'Jan - Mar 2016'
-url: 'http://hitechnepal.com.np/'
+date: "2016-01-21"
+title: "Intern"
+company: "Hitech Nepal"
+location: "Kathmandu, Nepal"
+range: "Jan - Mar 2016"
+url: "http://hitechnepal.com.np/"
 ---
 
 - Developed restaurant management mobile app system using php, mysql and android

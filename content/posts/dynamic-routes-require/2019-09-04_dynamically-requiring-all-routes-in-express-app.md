@@ -1,11 +1,11 @@
 ---
 title: Dynamically requiring all routes in express app
-date: '2019-09-04'
+date: "2019-09-04"
 featured: false
 draft: false
-slug: '/blog/dynamically-requiring-all-routes-in-express-app/'
+slug: "/blog/dynamically-requiring-all-routes-in-express-app/"
 description:
-cover_image: './cover.png'
+cover_image: "./cover.png"
 tags:
   - nodejs
   - express

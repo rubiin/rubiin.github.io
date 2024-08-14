@@ -2,12 +2,12 @@
 title: Journey To Linux
 featured: true
 draft: false
-slug: '/blog/journey-to-linux/'
+slug: "/blog/journey-to-linux/"
 description:
 tags:
   - linux
   - oss
-cover_image: './cover.jpg'
+cover_image: "./cover.jpg"
 date: 2019-09-15
 ---
 

@@ -1,13 +1,13 @@
 ---
-date: '2020-10-01'
-title: 'nestjs-minio'
-github: 'https://github.com/NestCrafts/nestjs-minio'
-external: 'https://github.com/NestCrafts/nestjs-minio'
+date: "2020-10-01"
+title: "nestjs-minio"
+github: "https://github.com/NestCrafts/nestjs-minio"
+external: "https://github.com/NestCrafts/nestjs-minio"
 tech:
   - nestjs
   - typescript
   - minio
-company: ''
+company: ""
 showInProjects: true
 ---
 

@@ -3,8 +3,8 @@ title: Add custom operators to typeorm
 date: 2019-02-12
 featured: true
 draft: false
-slug: '/blog/add-custom-operators-to-typeorm/'
-cover_image: './cover.png'
+slug: "/blog/add-custom-operators-to-typeorm/"
+cover_image: "./cover.png"
 tags:
   - nodejs
   - typescript
@@ -21,11 +21,11 @@ While the framework gives you many features out of the box, it also gives you th
 To make a new operator in typeorm for repository pattern is pretty straight forward,
 
 ```ts
-import { Connection, FindOperator, FindOperatorType } from 'typeorm';
+import { Connection, FindOperator, FindOperatorType } from "typeorm";
 
 class FindOperatorWithExtras<T> extends FindOperator<T> {
   constructor(
-    type: FindOperatorType | 'ilike',
+    type: FindOperatorType | "ilike",
     value: FindOperator<T> | T,
     useParameter?: boolean,
     multipleParameters?: boolean,
@@ -34,9 +34,13 @@ class FindOperatorWithExtras<T> extends FindOperator<T> {
     super(type, value, useParameter, multipleParameters);
   }
 
-  public toSql(connection: Connection, aliasPath: string, parameters: string[]): string {
+  public toSql(
+    connection: Connection,
+    aliasPath: string,
+    parameters: string[],
+  ): string {
     // @ts-ignore
-    if (this._type === 'ilike') {
+    if (this._type === "ilike") {
       return `${aliasPath} ILIKE ${parameters[0]}`;
     }
 
@@ -48,8 +52,10 @@ class FindOperatorWithExtras<T> extends FindOperator<T> {
  * Find Options Operator.
  * Example: { someField: Like("%some string%") }
  */
-export function ILike<T>(value: T | FindOperator<T>): FindOperatorWithExtras<T> {
-  return new FindOperatorWithExtras('ilike', value);
+export function ILike<T>(
+  value: T | FindOperator<T>,
+): FindOperatorWithExtras<T> {
+  return new FindOperatorWithExtras("ilike", value);
 }
 ```
 

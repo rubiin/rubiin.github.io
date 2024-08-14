@@ -1,13 +1,13 @@
 ---
-date: '2020-10-01'
-title: 'nestjs-cloudinary'
-github: 'https://github.com/NestCrafts/nestjs-cloudinary'
-external: 'https://github.com/NestCrafts/nestjs-cloudinary'
+date: "2020-10-01"
+title: "nestjs-cloudinary"
+github: "https://github.com/NestCrafts/nestjs-cloudinary"
+external: "https://github.com/NestCrafts/nestjs-cloudinary"
 tech:
   - nestjs
   - typescript
   - cloudinary
-company: ''
+company: ""
 showInProjects: true
 ---
 

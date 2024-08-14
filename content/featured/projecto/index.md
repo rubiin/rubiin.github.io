@@ -1,9 +1,9 @@
 ---
-date: '1'
-title: 'Projecto'
-cover: './projecto.png'
-github: 'https://github.com/rubiin/projecto'
-external: 'https://github.com/rubiin/projecto'
+date: "1"
+title: "Projecto"
+cover: "./projecto.png"
+github: "https://github.com/rubiin/projecto"
+external: "https://github.com/rubiin/projecto"
 tech:
   - golang
   - shell

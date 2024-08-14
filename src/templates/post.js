@@ -1,12 +1,12 @@
-import { Main, media, theme, Button } from '@styles';
-import styled from 'styled-components';
-import { graphql, Link } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { ShareLink, Head, Layout } from '@components';
-import { NewsLetter } from '../components';
-import { Disqus } from 'gatsby-plugin-disqus';
+import { Main, media, theme, Button } from "@styles";
+import styled from "styled-components";
+import { graphql, Link } from "gatsby";
+import kebabCase from "lodash/kebabCase";
+import PropTypes from "prop-types";
+import React from "react";
+import { ShareLink, Head, Layout } from "@components";
+import { NewsLetter } from "../components";
+import { Disqus } from "gatsby-plugin-disqus";
 
 const { colors } = theme;
 
@@ -126,29 +126,35 @@ const PostTemplate = ({ data, location }) => {
           <h1 className="medium-title">{title}</h1>
           <p className="subtitle">
             <time>
-              {new Date(date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
+              {new Date(date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </time>
             <span>&nbsp;&mdash;&nbsp;</span>
             {tags &&
               tags.length > 0 &&
               tags.map((tag, i) => (
-                <Link key={i} to={`/blog/tags/${kebabCase(tag)}/`} className="tag">
+                <Link
+                  key={i}
+                  to={`/blog/tags/${kebabCase(tag)}/`}
+                  className="tag"
+                >
                   #{tag}
                 </Link>
               ))}
           </p>
-          {tableOfContents !== '' && (
+          {tableOfContents !== "" && (
             <StyledToc>
               <h2 className="big-title">Table of contents</h2>
               <p onClick={() => setShowToc(!showToc)}>
                 <span>🢒</span>
                 <span>Click to expand!</span>
               </p>
-              {showToc && <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />}
+              {showToc && (
+                <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
+              )}
             </StyledToc>
           )}
         </StyledPostHeader>
@@ -161,7 +167,9 @@ const PostTemplate = ({ data, location }) => {
       <NewsLetter />
 
       {!showDisqus && (
-        <StyledLoadComments onClick={() => setShowDisqus(true)}>Load comments</StyledLoadComments>
+        <StyledLoadComments onClick={() => setShowDisqus(true)}>
+          Load comments
+        </StyledLoadComments>
       )}
 
       {showDisqus && (

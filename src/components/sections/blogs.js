@@ -1,10 +1,10 @@
-import { Button, Main, media, mixins, theme } from '@styles';
-import { Link, navigate } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
-import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
-import { TagItem } from '@components';
+import { Button, Main, media, mixins, theme } from "@styles";
+import { Link, navigate } from "gatsby";
+import kebabCase from "lodash/kebabCase";
+import PropTypes from "prop-types";
+import React from "react";
+import styled from "styled-components";
+import { TagItem } from "@components";
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -161,13 +161,15 @@ const Blog = ({ posts, tags }) => {
     })
     .slice(0, 5);
 
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  const options = { year: "numeric", month: "short", day: "numeric" };
 
   return (
     <StyledMainContainer>
       <StyledFlex>
         <div className="posts">
-          <StyledLatestPostHeader className="small-title wavy">Recent Posts</StyledLatestPostHeader>
+          <StyledLatestPostHeader className="small-title wavy">
+            Recent Posts
+          </StyledLatestPostHeader>
 
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
@@ -185,7 +187,7 @@ const Blog = ({ posts, tags }) => {
                           <StyledFolder></StyledFolder>
                         </StyledPostHeader>
                         <StyledReadingTimeContainer>
-                          <StyledDate>{`📅 ${d.toLocaleDateString('en-us', options)}`}</StyledDate>
+                          <StyledDate>{`📅 ${d.toLocaleDateString("en-us", options)}`}</StyledDate>
                           <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                         </StyledReadingTimeContainer>
                         <StyledPostName>{title}</StyledPostName>
@@ -205,16 +207,19 @@ const Blog = ({ posts, tags }) => {
             })}
 
           <StyledButtonContainer>
-            <StyledMoreButton onClick={() => navigate('/blog')}>View All Posts</StyledMoreButton>
+            <StyledMoreButton onClick={() => navigate("/blog")}>
+              View All Posts
+            </StyledMoreButton>
           </StyledButtonContainer>
         </div>
         <StyledTagsContainer>
           <h2 className="small-text">Read more on</h2>
           <ul className="fancy-list">
-            {sortTags.map(tag => (
+            {sortTags.map((tag) => (
               <li key={tag.fieldValue}>
                 <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-                  {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+                  {tag.fieldValue}{" "}
+                  <span className="count">({tag.totalCount})</span>
                 </Link>
               </li>
             ))}

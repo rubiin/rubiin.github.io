@@ -1,13 +1,13 @@
 ---
-date: '2020-10-01'
-title: 'url-minify'
-github: 'https://github.com/rubiin/url-minify'
-external: 'https://github.com/rubiin/url-minify'
+date: "2020-10-01"
+title: "url-minify"
+github: "https://github.com/rubiin/url-minify"
+external: "https://github.com/rubiin/url-minify"
 tech:
   - typescript
   - url
   - javascript
-company: ''
+company: ""
 showInProjects: true
 ---
 

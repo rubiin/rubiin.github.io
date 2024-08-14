@@ -1,11 +1,11 @@
 ---
 title: Measure function execution time in golang
-date: '2020-07-12'
+date: "2020-07-12"
 featured: false
 draft: false
-slug: '/blog/measure-function-execution-time-in-golang/'
+slug: "/blog/measure-function-execution-time-in-golang/"
 description:
-cover_image: './cover.jpg'
+cover_image: "./cover.jpg"
 tags:
   - golang
   - function

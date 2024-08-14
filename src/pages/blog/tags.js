@@ -1,10 +1,10 @@
-import { Head, Layout } from '@components';
-import { Main, mixins, theme } from '@styles';
-import { Link, graphql } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
-import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
+import { Head, Layout } from "@components";
+import { Main, mixins, theme } from "@styles";
+import { Link, graphql } from "gatsby";
+import kebabCase from "lodash/kebabCase";
+import PropTypes from "prop-types";
+import React from "react";
+import styled from "styled-components";
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled(Main)`
@@ -46,7 +46,7 @@ const TagsPage = ({
   const meta = {
     title,
     siteUrl: location.href,
-    description: 'A list of all tags on the blog',
+    description: "A list of all tags on the blog",
   };
 
   return (
@@ -61,10 +61,11 @@ const TagsPage = ({
 
         <h1 className="big-title">Tags</h1>
         <ul className="fancy-list">
-          {sortTags.map(tag => (
+          {sortTags.map((tag) => (
             <li key={tag.fieldValue}>
               <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-                {tag.fieldValue} <span className="count">({tag.totalCount})</span>
+                {tag.fieldValue}{" "}
+                <span className="count">({tag.totalCount})</span>
               </Link>
             </li>
           ))}
@@ -102,7 +103,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(limit: 2000, filter: { frontmatter: { draft: { ne: true } } }) {
+    allMarkdownRemark(
+      limit: 2000
+      filter: { frontmatter: { draft: { ne: true } } }
+    ) {
       group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount

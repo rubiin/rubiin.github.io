@@ -3,9 +3,9 @@ title: Unknown type in typescript
 date: 2022-04-25
 featured: false
 draft: false
-slug: '/blog/unknown-type-in-typescript/'
+slug: "/blog/unknown-type-in-typescript/"
 description:
-cover_image: './cover.png'
+cover_image: "./cover.png"
 tags:
   - typescript
   - types

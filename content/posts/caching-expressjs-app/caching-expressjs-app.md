@@ -1,10 +1,10 @@
 ---
 title: Caching your express app
-date: '2019-9-19'
+date: "2019-9-19"
 featured: true
 draft: false
-slug: '/blog/caching-express-app/'
-cover_image: './cover.png'
+slug: "/blog/caching-express-app/"
+cover_image: "./cover.png"
 tags:
   - nodejs
   - redis

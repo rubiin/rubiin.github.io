@@ -1,10 +1,10 @@
 ---
-date: '2017-05-14'
-title: 'Blockchain Developer'
-company: 'Rosebay Consult'
-location: 'Kathmandu, Nepal'
-range: 'June - Feb 2018'
-url: 'https://rosebayconsult.com/'
+date: "2017-05-14"
+title: "Blockchain Developer"
+company: "Rosebay Consult"
+location: "Kathmandu, Nepal"
+range: "June - Feb 2018"
+url: "https://rosebayconsult.com/"
 ---
 
 - Researched on blockchain, ethereum and similar cryptocurrency techs to develop distributed apps

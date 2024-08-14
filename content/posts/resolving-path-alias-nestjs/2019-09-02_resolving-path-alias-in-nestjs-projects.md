@@ -1,11 +1,11 @@
 ---
 title: Resolving path alias in nestjs projects
-date: '2019-09-02'
+date: "2019-09-02"
 featured: false
 draft: false
-slug: '/blog/resolving-path-alias-in-nestjs-projects/'
+slug: "/blog/resolving-path-alias-in-nestjs-projects/"
 description:
-cover_image: './cover.png'
+cover_image: "./cover.png"
 tags:
   - typescript
   - nodejs
@@ -15,11 +15,11 @@ tags:
 Building a nestjs project in typescript is really awesome but as the project starts to grow , your directories will grow too thus making your imports lengthy like this:
 
 ```javascript
-import { User } from '../../user/model';
-import { Article } from '../../article/model';
+import { User } from "../../user/model";
+import { Article } from "../../article/model";
 
-import { Cache } from '../../../../cache';
-import { MongoDB } from '../../../../mongodb';
+import { Cache } from "../../../../cache";
+import { MongoDB } from "../../../../mongodb";
 ```
 
 # Path mapping to the rescue!
@@ -68,10 +68,10 @@ To apply the solution, make a file named tsconfig-paths-bootstrap.js (The name i
 ```javascript
 // tsconfig-paths-bootstrap.js
 
-const tsConfig = require('./tsconfig.json');
-const tsConfigPaths = require('tsconfig-paths');
+const tsConfig = require("./tsconfig.json");
+const tsConfigPaths = require("tsconfig-paths");
 
-const baseUrl = './dist'; // Either absolute or relative path. If relative it's resolved to current working directory.
+const baseUrl = "./dist"; // Either absolute or relative path. If relative it's resolved to current working directory.
 tsConfigPaths.register({
   baseUrl,
   paths: tsConfig.compilerOptions.paths,

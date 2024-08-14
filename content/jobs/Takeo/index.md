@@ -1,10 +1,10 @@
 ---
-date: '2022-08-26'
-title: 'Senior Fullstack Developer'
-company: 'Takeo'
-location: 'Kathmandu, Nepal'
-range: 'Aug - Current'
-url: 'https://takeo.ai/'
+date: "2022-08-26"
+title: "Senior Fullstack Developer"
+company: "Takeo"
+location: "Kathmandu, Nepal"
+range: "Aug - Current"
+url: "https://takeo.ai/"
 ---
 
 - Write modern, performant, maintainable code for a diverse array of client and internal projects

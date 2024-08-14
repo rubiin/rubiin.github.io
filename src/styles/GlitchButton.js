@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components';
-import theme from './theme';
-import { Link } from 'gatsby-link';
+import styled, { keyframes } from "styled-components";
+import theme from "./theme";
+import { Link } from "gatsby-link";
 const { colors, fontSizes, fonts } = theme;
 
 // Keyframes for the glitch animation
@@ -76,7 +76,7 @@ const StyledButton = styled.a`
     --slice-4: inset(40% -6px 43% 0);
     --slice-5: inset(80% -6px 5% 0);
 
-    content: 'Get in touch';
+    content: "Get in touch";
     display: block;
     position: absolute;
     top: 0;

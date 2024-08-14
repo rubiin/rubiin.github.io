@@ -3,9 +3,9 @@ title: Top Obsidian Plugins to Supercharge Your Note-Taking Experience
 date: 2024-07-05
 featured: true
 draft: false
-slug: '/blog/top-obsidian-plugins-to-supercharge-your-note-taking-experience/'
+slug: "/blog/top-obsidian-plugins-to-supercharge-your-note-taking-experience/"
 description:
-cover_image: './cover.jpg'
+cover_image: "./cover.jpg"
 # Use a ratio of 100:42 for best results.
 tags:
   - obsidian

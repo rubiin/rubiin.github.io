@@ -1,10 +1,10 @@
 ---
 title: How to manage environment variables on NestJS
-date: '2019-09-18'
+date: "2019-09-18"
 featured: false
 draft: false
-cover_image: './cover.png'
-slug: '/blog/how-to-manage-environment-variables-on-nestjs-30ge/'
+cover_image: "./cover.png"
+slug: "/blog/how-to-manage-environment-variables-on-nestjs-30ge/"
 tags:
   - nodejs
   - backend
@@ -34,11 +34,11 @@ $ yarn add nestjs-easyconfig
 ### With config file supplied (basic):
 
 ```javascript
-import { Module } from '@nestjs/common';
-import { EasyconfigModule } from 'nestjs-easyconfig';
+import { Module } from "@nestjs/common";
+import { EasyconfigModule } from "nestjs-easyconfig";
 
 @Module({
-  imports: [EasyconfigModule.register({ path: './config/.env' })],
+  imports: [EasyconfigModule.register({ path: "./config/.env" })],
 })
 export class AppModule {}
 ```
@@ -46,11 +46,11 @@ export class AppModule {}
 ### With config file supplied and safe set to true:
 
 ```javascript
-import { Module } from '@nestjs/common';
-import { EasyconfigModule } from 'nestjs-easyconfig';
+import { Module } from "@nestjs/common";
+import { EasyconfigModule } from "nestjs-easyconfig";
 
 @Module({
-  imports: [EasyconfigModule.register({ path: './config/.env', safe: true })],
+  imports: [EasyconfigModule.register({ path: "./config/.env", safe: true })],
 })
 export class AppModule {}
 ```
@@ -63,8 +63,8 @@ file with the sample env file to find missing keys. If any keys which are in .en
 ### Without config file supplied:
 
 ```javascript
-import { Module } from '@nestjs/common';
-import { EasyconfigModule } from 'nestjs-easyconfig';
+import { Module } from "@nestjs/common";
+import { EasyconfigModule } from "nestjs-easyconfig";
 
 @Module({
   imports: [EasyconfigModule.register({})],

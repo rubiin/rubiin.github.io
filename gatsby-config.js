@@ -1,7 +1,7 @@
-const { node } = require('prop-types');
-const config = require('./src/config');
+const { node } = require("prop-types");
+const config = require("./src/config");
 
-require('dotenv').config({
+require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
@@ -16,7 +16,6 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
@@ -24,7 +23,7 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-sitemap',
+      resolve: "gatsby-plugin-sitemap",
       options: {
         query: `
       {
@@ -44,14 +43,14 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-robots-txt',
+      resolve: "gatsby-plugin-robots-txt",
       options: {
         host: config.siteUrl,
         sitemap: `${config.siteUrl}/sitemap-index.xml`,
         policy: [
           {
-            userAgent: '*',
-            allow: ['/'],
+            userAgent: "*",
+            allow: ["/"],
             disallow: [],
           },
         ],
@@ -68,19 +67,19 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: config.name,
-        short_name: 'RubinBhandari',
-        start_url: '/',
+        short_name: "RubinBhandari",
+        start_url: "/",
         background_color: config.darkNavyColor,
         theme_color: config.navyColor,
-        display: 'minimal-ui',
-        icon: 'src/images/logo.png',
+        display: "minimal-ui",
+        icon: "src/images/logo.png",
       },
     },
     `gatsby-plugin-offline`,
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'content',
+        name: "content",
         path: `${__dirname}/content/`,
       },
     },
@@ -98,11 +97,11 @@ module.exports = {
         name: `projects`,
       },
     },
-    'gatsby-plugin-catch-links',
+    "gatsby-plugin-catch-links",
     {
-      resolve: 'gatsby-plugin-page-progress',
+      resolve: "gatsby-plugin-page-progress",
       options: {
-        includePaths: [{ regex: '^/blog' }],
+        includePaths: [{ regex: "^/blog" }],
         height: 4,
         prependToBody: false,
         color: `#64ffda`,
@@ -118,32 +117,32 @@ module.exports = {
             resolve: `gatsby-remark-classes`,
             options: {
               classMap: {
-                img: 'post-image',
+                img: "post-image",
               },
             },
           },
           {
             // https://www.gatsbyjs.org/packages/gatsby-remark-external-links
-            resolve: 'gatsby-remark-external-links',
+            resolve: "gatsby-remark-external-links",
             options: {
-              target: '_blank',
-              rel: 'nofollow noopener noreferrer',
+              target: "_blank",
+              rel: "nofollow noopener noreferrer",
             },
           },
           {
             // https://www.gatsbyjs.org/packages/gatsby-remark-images
-            resolve: 'gatsby-remark-images',
+            resolve: "gatsby-remark-images",
             options: {
               maxWidth: 700,
               linkImagesToOriginal: true,
-              loading: 'lazy',
+              loading: "lazy",
               quality: 90,
-              tracedSVG: { color: '#64ffda' },
+              tracedSVG: { color: "#64ffda" },
             },
           },
           {
             // https://www.gatsbyjs.org/packages/gatsby-remark-code-titles/
-            resolve: 'gatsby-remark-code-titles',
+            resolve: "gatsby-remark-code-titles",
           }, // IMPORTANT: this must be ahead of other plugins that use code blocks
           {
             resolve: `gatsby-remark-autolink-headers`,
@@ -160,7 +159,7 @@ module.exports = {
               // you may use this to prevent Prism from re-processing syntax.
               // This is an uncommon use-case though;
               // If you're unsure, it's best to use the default value.
-              classPrefix: 'language-',
+              classPrefix: "language-",
               // This is used to allow setting a language for inline code
               // (i.e. single backticks) by creating a separator.
               // This separator is a string and will do no white-space
@@ -190,8 +189,8 @@ module.exports = {
               // existing language" below.
               languageExtensions: [
                 {
-                  language: 'superscript',
-                  extend: 'javascript',
+                  language: "superscript",
+                  extend: "javascript",
                   definition: {
                     superscript_types: /(SuperType)/,
                   },
@@ -205,8 +204,8 @@ module.exports = {
               // Customize the prompt used in shell output
               // Values below are default
               prompt: {
-                user: 'root',
-                host: 'localhost',
+                user: "root",
+                host: "localhost",
                 global: false,
               },
             },
@@ -215,7 +214,7 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-feed',
+      resolve: "gatsby-plugin-feed",
       options: {
         query: `
       {
@@ -232,7 +231,7 @@ module.exports = {
         feeds: [
           {
             title: config.postPageDescription,
-            output: 'rss.xml',
+            output: "rss.xml",
             query: `
                 {
     allMarkdownRemark(
@@ -255,7 +254,7 @@ module.exports = {
           }
         `,
             serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
+              return allMarkdownRemark.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   url: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,

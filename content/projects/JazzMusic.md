@@ -1,12 +1,12 @@
 ---
-date: '2019-11-12'
-title: 'Jazz - Music player (fork of the original)'
-github: 'https://github.com/rubiin/jazz-music-player'
-external: ''
+date: "2019-11-12"
+title: "Jazz - Music player (fork of the original)"
+github: "https://github.com/rubiin/jazz-music-player"
+external: ""
 tech:
   - android
   - java
-company: ''
+company: ""
 showInProjects: true
 ---
 

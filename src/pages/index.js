@@ -1,9 +1,9 @@
-import React from 'react';
-import { graphql } from 'gatsby';
-import PropTypes from 'prop-types';
-import { Layout, Hero, Blog } from '@components';
-import styled from 'styled-components';
-import { Main } from '@styles';
+import React from "react";
+import { graphql } from "gatsby";
+import PropTypes from "prop-types";
+import { Layout, Hero, Blog } from "@components";
+import styled from "styled-components";
+import { Main } from "@styles";
 
 const StyledMainContainer = styled(Main)`
   counter-reset: section;
@@ -42,7 +42,10 @@ export const pageQuery = graphql`
     }
 
     posts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/posts/" }, frontmatter: { draft: { ne: true } } }
+      filter: {
+        fileAbsolutePath: { regex: "/posts/" }
+        frontmatter: { draft: { ne: true } }
+      }
       sort: { frontmatter: { date: DESC } }
       limit: 5
     ) {
@@ -59,7 +62,10 @@ export const pageQuery = graphql`
         }
       }
     }
-    group: allMarkdownRemark(limit: 2000, filter: { frontmatter: { draft: { ne: true } } }) {
+    group: allMarkdownRemark(
+      limit: 2000
+      filter: { frontmatter: { draft: { ne: true } } }
+    ) {
       group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount
