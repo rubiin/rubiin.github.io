@@ -1,4 +1,4 @@
-import { Main, media, theme } from '@styles';
+import { Main, media, theme, Button } from '@styles';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
@@ -14,7 +14,7 @@ const StyledDisqusContainer = styled.div`
   padding: 2rem;
   margin: 0 auto;
   width: 70%;
-  ${media.phone`display: none;`};
+  ${media.phablet`display: none;`};
 `;
 
 const StyledPostContainer = styled(Main)`
@@ -51,9 +51,18 @@ const StyledShareContainer = styled.div`
   ${media.thone`justify-content: center;`};
 `;
 
+const StyledLoadComments = styled(Button)`
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  ${media.phablet`display: none;`};
+`;
+
 const PostTemplate = ({ data, location }) => {
   const { frontmatter, html, excerpt } = data.markdownRemark;
   const { title, date, tags, cover_image, slug } = frontmatter;
+
+  const [showDisqus, setShowDisqus] = React.useState(false);
 
   const meta = {
     title,
@@ -107,9 +116,16 @@ const PostTemplate = ({ data, location }) => {
       </StyledPostContainer>
 
       <NewsLetter />
-      <StyledDisqusContainer>
-        <Disqus config={disqusConfig} />
-      </StyledDisqusContainer>
+
+      {!showDisqus && (
+        <StyledLoadComments onClick={() => setShowDisqus(true)}>Load comments</StyledLoadComments>
+      )}
+
+      {showDisqus && (
+        <StyledDisqusContainer>
+          <Disqus config={disqusConfig} />
+        </StyledDisqusContainer>
+      )}
     </Layout>
   );
 };
