@@ -46,19 +46,19 @@ alias di="docker images"
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 ```
 
-### Run daemonized container, e.g., $dkd base /bin/echo hello
+### Run daemonized container
 
 ```bash
 alias dkd="docker run -d -P"
 ```
 
-### Run interactive container, e.g., $dki base /bin/bash
+### Run interactive container
 
 ```bash
 alias dki="docker run -i -t -P"
 ```
 
-### Execute interactive container, e.g., $dex base /bin/bash
+### Execute interactive container
 
 ```bash
 alias dex="docker exec -i -t"
@@ -88,7 +88,7 @@ alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias dri='docker rmi $(docker images -q)'
 ```
 
-### Dockerfile build, e.g., $dbu tcnksm/test
+### Dockerfile build
 
 ```bash
 alias dbu='docker build -t=$1 .'

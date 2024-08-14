@@ -11,8 +11,6 @@ tags:
   - unix
 ---
 
-![](https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/how-to-deploy-java-apps-with-docker-a-quick-tutorial@3x-1560x760.png)
-
 ### Create image using this directory's Dockerfile
 
 ```shell-session

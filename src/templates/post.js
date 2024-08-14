@@ -10,6 +10,19 @@ import { Disqus } from 'gatsby-plugin-disqus';
 
 const { colors } = theme;
 
+const StyledToc = styled.div`
+  margin: 20px 0;
+  scroll-behavior: smooth;
+  color ${colors.slate};
+  font-size: 16px;
+  font-family: SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, monospace;
+    ul {
+    color: ${colors.lightSlate};
+    columns: 2;
+
+}
+`;
+
 const StyledDisqusContainer = styled.div`
   padding: 2rem;
   margin: 0 auto;
@@ -60,7 +73,9 @@ const StyledLoadComments = styled(Button)`
 
 const PostTemplate = ({ data, location }) => {
   const { frontmatter, html, excerpt, tableOfContents } = data.markdownRemark;
-  const { title, date, tags, cover_image } = frontmatter;
+  const { title, date, tags, cover_image, slug } = frontmatter;
+
+  const [showDisqus, setShowDisqus] = React.useState(false);
 
   const meta = {
     title,
@@ -107,10 +122,10 @@ const PostTemplate = ({ data, location }) => {
               ))}
           </p>
           {tableOfContents !== '' && (
-            <Toc>
-              <h2>Table of contents</h2>
+            <StyledToc>
+              <h2 className="medium-title">Contents</h2>
               <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
-            </Toc>
+            </StyledToc>
           )}
         </StyledPostHeader>
 

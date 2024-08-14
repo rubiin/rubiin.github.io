@@ -14,15 +14,31 @@ const StyledMainContainer = styled(Main)`
 `;
 
 const StyledImg = styled.img`
-width: 30%;
-${media.phablet`width: 80%;`}
-${media.thone`width: 50%;`}
+  max-width: 300px;
+  ${media.giant`width: 30%;`};
   ${media.bigDesktop`width: 50%;`}
-  ${media.giant`width: 40%;`};
-  &:hover,
-  &:focus {
-      transform: scale(1.1);
-      transition: 2s
+  ${media.desktop`width: 40%;`}
+${media.phablet`width: 70%;`}
+${media.thone`width: 50%;`}
+-webkit-animation:slide-top 2s ease-in-out infinite alternate-reverse;
+  animation:slide-top 2s ease-in-out infinite alternate-reverse @-webkit-keyframes slide-top {
+    0% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+    100% {
+      -webkit-transform: translateY(-15px);
+      transform: translateY(-15px);
+    }
+  }
+  @keyframes slide-top {
+    0% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+    100% {
+      -webkit-transform: translateY(-15px);
+      transform: translateY(-15px);
     }
   }
 `;
@@ -32,6 +48,7 @@ const StyledDataContainer = styled.div`
   gap: 2rem;
   width: 80%;
   margin: 0 auto;
+  ${media.phone`flex-direction: column;`}
 `;
 
 const StyledTitle = styled.h1`
