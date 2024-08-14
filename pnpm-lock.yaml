@@ -65,6 +65,9 @@ importers:
       gatsby-plugin-offline:
         specifier: ^6.13.2
         version: 6.13.2(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      gatsby-plugin-page-progress:
+        specifier: ^2.2.1
+        version: 2.2.1
       gatsby-plugin-postcss:
         specifier: ^6.13.1
         version: 6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(postcss@8.4.41)(typescript@5.5.4)(webpack@5.93.0)
@@ -3515,6 +3518,9 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       gatsby: ^5.0.0-next
+
+  gatsby-plugin-page-progress@2.2.1:
+    resolution: {integrity: sha512-ItrUyMQOyhMjtEsJ+IKQVKNJ7qa+8E4P16mQSPd1fsxTUcmEn5vNT47pCVnePjT5MuxarFRTbvy1mcHARgp0ew==}
 
   gatsby-plugin-postcss@6.13.1:
     resolution: {integrity: sha512-5b/6D2Y91nAYpPVIwVO1PgrknQc+CDHQDrM7C7/SeUcT01ghQWtLo99v5PseNiGiO3XEkps4dbuLfNR7VzZYZA==}
@@ -11328,6 +11334,8 @@ snapshots:
       - encoding
       - graphql
       - supports-color
+
+  gatsby-plugin-page-progress@2.2.1: {}
 
   gatsby-plugin-postcss@6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(postcss@8.4.41)(typescript@5.5.4)(webpack@5.93.0):
     dependencies:

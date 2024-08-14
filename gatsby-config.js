@@ -99,6 +99,17 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-page-progress',
+      options: {
+        includePaths: ['/', { regex: '^/blog' }],
+        height: 3,
+        prependToBody: false,
+        color: `#64ffda`,
+        footerHeight: 500,
+        headerHeight: 0,
+      },
+    },
+    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
