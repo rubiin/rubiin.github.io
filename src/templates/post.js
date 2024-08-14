@@ -13,14 +13,28 @@ const { colors } = theme;
 const StyledToc = styled.div`
   margin: 20px 0;
   scroll-behavior: smooth;
-  color ${colors.slate};
-  font-size: 16px;
-  font-family: SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, monospace;
-    ul {
-    color: ${colors.lightSlate};
-    columns: 2;
+  font-size: 1.4rem;
 
-}
+  h2 {
+    font-size: 2.5rem;
+  }
+  ul {
+    li {
+      color: #64ffda;
+    }
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    color: #64ffda;
+    cursor: pointer;
+  }
+
+  span:nth-child(1) {
+    font-size: 1.5rem;
+    padding-right: 5px;
+  }
 `;
 
 const StyledDisqusContainer = styled.div`
@@ -54,7 +68,10 @@ const StyledPostContent = styled.div`
     margin: 1em 0;
     line-height: 1.5;
     color: ${colors.lightSlate};
+    }
   }
+
+
 `;
 
 const StyledShareContainer = styled.div`
@@ -71,11 +88,14 @@ const StyledLoadComments = styled(Button)`
   ${media.phablet`display: none;`};
 `;
 
+// add some texts before toc
+
 const PostTemplate = ({ data, location }) => {
   const { frontmatter, html, excerpt, tableOfContents } = data.markdownRemark;
   const { title, date, tags, cover_image, slug } = frontmatter;
 
   const [showDisqus, setShowDisqus] = React.useState(false);
+  const [showToc, setShowToc] = React.useState(false);
 
   const meta = {
     title,
@@ -123,8 +143,12 @@ const PostTemplate = ({ data, location }) => {
           </p>
           {tableOfContents !== '' && (
             <StyledToc>
-              <h2 className="medium-title">Contents</h2>
-              <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
+              <h2 className="big-title">Table of contents</h2>
+              <p onClick={() => setShowToc(!showToc)}>
+                <span>🢒</span>
+                <span>Click to expand!</span>
+              </p>
+              {showToc && <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />}
             </StyledToc>
           )}
         </StyledPostHeader>
