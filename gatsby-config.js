@@ -98,11 +98,12 @@ module.exports = {
         name: `projects`,
       },
     },
+    'gatsby-plugin-catch-links',
     {
       resolve: 'gatsby-plugin-page-progress',
       options: {
-        includePaths: ['/', { regex: '^/blog' }],
-        height: 3,
+        includePaths: [{ regex: '^/blog' }],
+        height: 4,
         prependToBody: false,
         color: `#64ffda`,
         footerHeight: 500,

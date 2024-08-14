@@ -18,7 +18,7 @@ const StyledDisqusContainer = styled.div`
 `;
 
 const StyledPostContainer = styled(Main)`
-  max-width: 1000px;
+  max-width: 1200px;
 `;
 const StyledPostHeader = styled.header`
   margin-bottom: 50px;

@@ -41,6 +41,9 @@ importers:
       gatsby-link:
         specifier: ^5.13.1
         version: 5.13.1(@gatsbyjs/reach-router@2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      gatsby-plugin-catch-links:
+        specifier: ^5.13.1
+        version: 5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))
       gatsby-plugin-disqus:
         specifier: ^1.2.6
         version: 1.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3452,6 +3455,12 @@ packages:
     engines: {parcel: 2.x}
     peerDependencies:
       '@parcel/core': ^2.0.0
+
+  gatsby-plugin-catch-links@5.13.1:
+    resolution: {integrity: sha512-lU0AxsXWTEMzPhZZPSCQAAQyQkcfcrK1fVinxQ2Zc85A/d+3k76SsuH+G14LsqjhidknltwBddKtPdRE0DOSRA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      gatsby: ^5.0.0-next
 
   gatsby-plugin-disqus@1.2.6:
     resolution: {integrity: sha512-lGa6q7oldF3cxbwcS1dvndaxDevEBfYOIweUYOARheU0AhbDzYp4lyIvUkUwBYEWsAzIsuJNiugI6yIcQXy09g==}
@@ -11222,6 +11231,12 @@ snapshots:
       '@parcel/runtime-js': 2.8.3(@parcel/core@2.8.3)
       '@parcel/transformer-js': 2.8.3(@parcel/core@2.8.3)
       '@parcel/transformer-json': 2.8.3(@parcel/core@2.8.3)
+
+  gatsby-plugin-catch-links@5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)):
+    dependencies:
+      '@babel/runtime': 7.24.8
+      escape-string-regexp: 1.0.5
+      gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)
 
   gatsby-plugin-disqus@1.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

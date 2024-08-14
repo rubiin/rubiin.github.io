@@ -3,25 +3,24 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const StyledSubscribeForm = styled.div`
-  width: 40%;
   .formkit-form[data-uid='589be1abe0'] {
     border: none !important;
+    max-width: 100% !important;
+    width: 40% !important;
     font-size: 13px;
     font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+    ${media.giant`width: 70% !important;`};
+    ${media.bigDesktop`width: 70% !important;`};
+    ${media.desktop`width: 80% !important;`};
+    ${media.tablet`width: 80% !important;`};
+    ${media.thone`width: 100% !important;`};
   }
   .formkit-submit {
     background-color: transparent !important;
     border: 1px solid #64ffda !important;
   }
-
-  ${media.tablet`width: 80%;`};
-  ${media.phablet`width: 100%;`};
-`;
-
-const SubscribeDiv = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 class Newsletter extends Component {
@@ -34,11 +33,7 @@ class Newsletter extends Component {
   }
 
   render() {
-    return (
-      <SubscribeDiv>
-        <StyledSubscribeForm ref={el => (this.instance = el)}></StyledSubscribeForm>
-      </SubscribeDiv>
-    );
+    return <StyledSubscribeForm ref={el => (this.instance = el)}></StyledSubscribeForm>;
   }
 }
 
