@@ -168,7 +168,7 @@ const PostTemplate = ({ data, location }) => {
 
       {!showDisqus && (
         <StyledLoadComments onClick={() => setShowDisqus(true)}>
-          Load comments
+          Post a comment
         </StyledLoadComments>
       )}
 
