@@ -11,9 +11,7 @@ tags:
   - express
 ---
 
-![](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)
-
-# Caching your express app
+## Overview
 
 `What is caching?`
 Fetching something over the network is both slow and expensive. Large responses require many roundtrips between the client and server, which delays when they are available and when the browser can process them, and also incurs data costs for the visitor. As a result, the ability to cache and reuse previously fetched resources is a critical aspect of optimizing for performance
@@ -25,9 +23,11 @@ Installing redis is pretty straight forward.You can check the [link](https://red
 
 To add redis client to nodejs , simply do
 
-```shell-session
+```sh
 npm i redis
 ```
+
+## Implementation
 
 For the sake of simplicity, we will use this example where I am fetching some data from an external api in an express app
 
@@ -122,3 +122,7 @@ Here we are first fetching the data from the cache with the tag `dogsdata`. If t
 Remember redis is a key value store thus the key with which you have set data must be equal to the key with which you fetch data in this case `dogsdata`
 
 If you compare both the implementation, you can see that caching reduces the time taken to serve the request by almost more than 99%
+
+## Conclusion
+
+Effective caching can greatly enhance system performance and user experience, but it requires careful planning to balance speed, memory usage, and data accuracy.

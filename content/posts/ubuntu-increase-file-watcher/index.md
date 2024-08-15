@@ -10,7 +10,7 @@ tags:
   - linux
 ---
 
-## Technical Details
+## Overview
 
 > Possible cause of Vue.js hot reload or LiveReload not working and failed file watchers on IDE
 
@@ -43,3 +43,7 @@ sudo sysctl -p
 ```sh
 sudo sysctl -p
 ```
+
+## Conclusion
+
+Increasing the inotify watchers can prevent issues related to file system monitoring, especially for applications like development tools or servers that handle numerous files or directories.Adjusting the number of inotify watchers on Ubuntu is crucial for applications that monitor many files or directories, such as development tools and servers. By increasing the fs.inotify.max_user_watches limit, you can prevent issues related to file monitoring limits and ensure your application runs smoothly. This adjustment can be made temporarily or permanently, depending on your needs, and helps maintain optimal performance and functionality for applications relying on file system events.

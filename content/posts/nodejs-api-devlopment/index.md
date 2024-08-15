@@ -11,11 +11,13 @@ tags:
   - express
 ---
 
-![](https://hackernoon.com/hn-images/1*26BcOdrwfRkbGk9OsREyLA.png)
+## Overview
 
 Before we get our hands dirty and get a move on , I assume you have a sound knowledge of js .I am also assuming that you have nodejs installed on your machine.
 There are plenty of web frameworks for nodejs . To point out a few popular ones, I might say express , koa and hapi. We will be going with express as it is the most used web framework for nodejs with tons of modules that are configured to work with it. Also the syntax and the learning curve is pretty easy to catch up and if you are to get stuck in a problem, there are pretty much answer to every query in stackoverflow.
 To get started, lets create a directory and head over to it.After you are in the project directory, open up terminal/console and run npm init to start a nodejs project. Fill in the details as you like.After you are done , type in
+
+## Installation
 
 ```sh
 npm i — save express body-parser morgan nodemon
@@ -39,7 +41,8 @@ Now create an express instance with
 var app= express()
 ```
 
-##Routes
+## Routes
+
 Now lets define some routes . A route method is derived from one of the HTTP methods, and is attached to an instance of the express class.
 The following code is an example of routes that are defined for the GET and the POST methods to the root of the app.
 
@@ -77,7 +80,8 @@ app.get("/about", function (req, res) {
 
 You can also use regular expressions in routes to make your routes more dynamic.
 
-##Route parameters
+### Route parameters
+
 To define routes with route parameters, simply specify the route parameters in the path of the route as shown below.This will simply output all parameters i.e userId and bookId as an object.You can also access a single param by using
 req.params.paramname
 
@@ -117,4 +121,9 @@ app.post("/post", function (req, res) {
 app.listen(8000);
 ```
 
-Thats all for this part .
+## Conclusion
+
+Building APIs with Express.js provides a fast and flexible framework for creating server-side applications in Node.js. Express offers a lightweight structure for handling HTTP requests, middleware integration, and routing, making it a popular choice for developing RESTful APIs.
+Thats all for this part . In the next part , we will be looking at middlewares and how to use them in expressjs.
+
+Happy coding!

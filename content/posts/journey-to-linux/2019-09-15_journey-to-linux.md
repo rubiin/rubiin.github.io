@@ -11,6 +11,8 @@ cover_image: "./cover.jpg"
 date: 2019-09-15
 ---
 
+## Overview
+
 Before we move on to the topic, Linux is actually a kernel not an operating system. The Operating system is actually GNU/ Linux (I assume you already know that) . But for the sake of simplicity I will be address it with Linux.
 
 On mid of december 2010, I booted into windows for the last time as my primary OS. From then on, my primary computing environment - at least on a laptop computer - was GNU/Linux. It was not a quick decision but a result of millions rolled eyeball and torture I faced while I was using windows.
@@ -53,3 +55,7 @@ Here are the few reasons that I love linux:
 - Easy software installation (Use terminal or GUI)
 
 ![](https://www.howtogeek.com/wp-content/uploads/2014/06/install-software-on-ubuntu-linux.png)
+
+## Conclusion
+
+Switching to Linux is often driven by a desire for more control and freedom over your computer. At first, it can be a bit overwhelming, with many different versions (called distributions) to choose from and a focus on using the command line. But as you get familiar with it, Linux opens up a world of customization and powerful tools that can be tailored to your needs. Many people start with a user-friendly version like Ubuntu, then gradually explore more advanced options. The journey to Linux can be challenging at times, but it’s incredibly rewarding, giving you a deeper understanding of how computers work and the satisfaction of truly owning your system.

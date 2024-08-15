@@ -11,7 +11,7 @@ tags:
   - nestjs
 ---
 
-![](https://i.imgur.com/C2C2cJW.png)
+## Overview
 
 Environment variables allow us to manage the configuration of our applications separate from our codebase. Separating configurations make it easier for our application to be deployed in different environments(development,test,production).Also,large applications tend to have many environment variables.
 
@@ -77,3 +77,7 @@ Loads environment variables from `.env.[development|test|production][.local]` fi
 For example, <b>NODE_ENV=dev</b> will make the app read `.env.dev`
 
 > Note: The .env file also has to be in root folder
+
+## Conclusion
+
+The .env file is a crucial tool for managing environment-specific configuration in a secure and organized manner. It helps separate sensitive data and configuration settings from the application code, making it easier to manage different environments (such as development, testing, and production) while keeping sensitive information safe. By using .env files, developers can streamline configuration management, enhance security, and ensure consistency across various deployment environments.

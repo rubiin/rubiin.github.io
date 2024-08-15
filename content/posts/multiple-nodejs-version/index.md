@@ -11,8 +11,6 @@ tags:
   - nvm
 ---
 
-![](./cover.png)
-
 Ever got in a situation where you have to use different nodejs versions for different projects. or you want to have the stable and the latest release side by side. Installing the particular release when you need it might seem a probable solution. But what if you need multiple node versions frequently. The above process seems kind of illogical for the purpose. So NVM aka node version manager comes to the rescue allowing you to have more than one version of node on your machine so you can switch the version with just a command.For Mac and Linux the link is http://github.com/creationix/nvm .For windows http://github.com/coreybutler/nvm-windows . All you have to do is go to the links depending upon your machine’s OS and download the latest release.
 Getting started
 After getting nvm installed on your machines , open up terminal or cmd and type in

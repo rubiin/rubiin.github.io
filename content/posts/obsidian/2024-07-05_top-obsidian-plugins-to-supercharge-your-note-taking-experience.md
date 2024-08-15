@@ -13,6 +13,8 @@ tags:
   - productivity
 ---
 
+## Overview
+
 Obsidian is a powerful and flexible note-taking application that has gained a loyal following among productivity enthusiasts, researchers, and writers. One of the key features that makes Obsidian so versatile is its plugin ecosystem. With a wide array of plugins available, users can customize and enhance their Obsidian experience to suit their specific needs. In this article, we'll explore some of the most popular and useful Obsidian plugins that has made using obsidian an absolute fun for me
 
 ## 1. [Calendar](https://github.com/denolehov/obsidian-git)

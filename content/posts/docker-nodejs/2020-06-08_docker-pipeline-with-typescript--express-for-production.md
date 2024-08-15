@@ -12,6 +12,8 @@ tags:
   - express
 ---
 
+## Overview
+
 This post will guide you through how to setup docker for a express app on typescript. This also works for other frameworks besides express.
 This post assumes you have used docker.
 We will be using multi stage builds on docker as we have to
@@ -49,3 +51,7 @@ The important lines here are, we are only installing dependencies for production
 
 The full project can be found at:
 https://github.com/rubiin/dockerpipeline-with-typescript-express
+
+## Conclusion
+
+Docker simplifies deploying Node.js applications by packaging the app and its environment into a container. This ensures consistent behavior across different systems, regardless of local dependencies. With Docker, you can create lightweight, isolated containers that include the Node.js runtime, your application code, and any required modules. This approach streamlines development, testing, and deployment, making it easier to scale and manage Node.js applications across various environments, from local machines to cloud platforms.

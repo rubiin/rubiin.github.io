@@ -11,15 +11,14 @@ tags:
   - ci/cd
 ---
 
-![](https://www.sohamkamani.com/static/18122218f0260b8206bc3bb69197ba7e/8ff1e/logo.png)
-
----
+## Overview
 
 If you are doing continuous delivery or continuous integration, you may frequently run into jenkins.
 Jenkins is a core part of our Continuous Integration and Continuous Deployment (CI/CD) pipeline. Here are the top 3 reasons we love Jenkins:
 
 - It is an open system that is platform, language, and methodology agnostic allowing us to support our diverse client base with one non-proprietary CI/CD platform.
-- It is the industry reference implementation for what a CI / CD system should be with a rich ecosystem of more than 1,100 plug-ins has emerged, enabling customers to add all sorts of functionality and integrate Jenkins with everything from Active Directory to GitHub to the OpenShift PaaS
+- It is the industry reference implementation for what a CI / CD system should be with a rich ecosystem of more than 1,100 plug-ins has emerged, enabling customers to
+  add all sorts of functionality and integrate Jenkins with everything from Active Directory to GitHub to the OpenShift PaaS
 - It is focused on CI/CD, and is not trying to be what it is not (Git repository, Chat client, Docker storage, etc.)
   The beauty of using Jenkins is that you are not locked into any proprietary vendor. It has major support in the industry and many engineers are already familiar with it.
 - Plus it offers plethora of features out of the box so you don't have to

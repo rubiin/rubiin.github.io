@@ -4,7 +4,7 @@ date: "2019-10-01"
 featured: true
 draft: false
 cover_image: "./cover.png"
-slug: "/blog/docker-basics-cheatsheet-2mm4/"
+slug: "/blog/docker-cheatsheet-2mm4/"
 tags:
   - docker
   - dontainers

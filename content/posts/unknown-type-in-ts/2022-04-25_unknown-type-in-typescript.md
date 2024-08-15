@@ -41,3 +41,7 @@ Typescript would throw a compile time error as we are using string function with
      return val.trim();
 }
 ```
+
+## Conclusion
+
+The unknown type in TypeScript provides a safe alternative to any, offering type safety while still allowing flexibility in dynamic programming. When a value is of type unknown, it forces developers to perform type checks before using the value, reducing the risk of runtime errors. This encourages more deliberate and safer code practices compared to any, which bypasses type checking. The unknown type is particularly useful in scenarios involving user input or third-party APIs, where the exact type may not be known at compile-time, making it a vital tool for maintaining type safety in uncertain conditions.
