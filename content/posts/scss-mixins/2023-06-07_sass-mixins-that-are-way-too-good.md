@@ -27,7 +27,7 @@ $font-weights: (
 );
 ```
 
-### Usage:
+### Usage
 
 ```scss
 .selector {
@@ -50,7 +50,7 @@ $font-weights: (
 }
 ```
 
-### Usage:
+### Usage
 
 ```scss
 .selector {
@@ -86,7 +86,7 @@ $bp: (
 }
 ```
 
-### Usage:
+### Usage
 
 ```scss
 .selector {

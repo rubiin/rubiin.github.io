@@ -62,18 +62,12 @@ importers:
       gatsby-plugin-manifest:
         specifier: ^5.13.1
         version: 5.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(graphql@16.9.0)
-      gatsby-plugin-netlify:
-        specifier: ^5.1.1
-        version: 5.1.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(webpack@5.93.0)
       gatsby-plugin-offline:
         specifier: ^6.13.2
         version: 6.13.2(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       gatsby-plugin-page-progress:
         specifier: ^2.2.1
         version: 2.2.1
-      gatsby-plugin-postcss:
-        specifier: ^6.13.1
-        version: 6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(postcss@8.4.41)(typescript@5.5.4)(webpack@5.93.0)
       gatsby-plugin-react-helmet:
         specifier: ^6.13.1
         version: 6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-helmet@6.1.0(react@18.3.1))
@@ -2537,15 +2531,6 @@ packages:
     resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
     engines: {node: '>=10'}
 
-  cosmiconfig@8.3.6:
-    resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      typescript: '>=4.9.5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   create-gatsby@3.13.1:
     resolution: {integrity: sha512-CCg8Vz/iQs1cgMEzyRlVGMvNs8ivE/2w+TL6yS56FVe1JjOou8nKYHzxnWxRmBUtC7rTfjxVaTESIotuYBsltQ==}
     hasBin: true
@@ -3508,12 +3493,6 @@ packages:
     peerDependencies:
       gatsby: ^5.0.0-next
 
-  gatsby-plugin-netlify@5.1.1:
-    resolution: {integrity: sha512-CembvYjbP7NJvVIdffqWaBKXMHIxYBKBEoXFGvCKX+8phRNkfmjnvoljoOakv0ypHBpgjgtpa7Nvc3PI+IjB1A==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      gatsby: ^4.0.0 || ^5.0.0
-
   gatsby-plugin-offline@6.13.2:
     resolution: {integrity: sha512-wPi9MgNQVWlYn/HZrM3rWcTym7ld98+DMdZYO9hdGafBl4cfivdFBGsFbl9NIgvYDNq8an2z0xx90wxfeGKCyQ==}
     engines: {node: '>=18.0.0'}
@@ -3530,13 +3509,6 @@ packages:
 
   gatsby-plugin-page-progress@2.2.1:
     resolution: {integrity: sha512-ItrUyMQOyhMjtEsJ+IKQVKNJ7qa+8E4P16mQSPd1fsxTUcmEn5vNT47pCVnePjT5MuxarFRTbvy1mcHARgp0ew==}
-
-  gatsby-plugin-postcss@6.13.1:
-    resolution: {integrity: sha512-5b/6D2Y91nAYpPVIwVO1PgrknQc+CDHQDrM7C7/SeUcT01ghQWtLo99v5PseNiGiO3XEkps4dbuLfNR7VzZYZA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      gatsby: ^5.0.0-next
-      postcss: ^8.0.5
 
   gatsby-plugin-react-helmet@6.13.1:
     resolution: {integrity: sha512-Fwgf2UDOo1LQgw1vUmGmDMK5hXVrIXDR92URzu4DylQWgyfycfQ3D9FdU2JZ8jB6F3OI6Yx6YHC7zL3OAL7iOw==}
@@ -4420,9 +4392,6 @@ packages:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
 
-  kebab-hash@0.1.2:
-    resolution: {integrity: sha512-BTZpq3xgISmQmAVzkISy4eUutsUA7s4IEFlCwOBJjvSFOwyR7I+fza+tBc/rzYWK/NrmFHjfU1IhO3lu29Ib/w==}
-
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -4509,9 +4478,6 @@ packages:
   lock@1.1.0:
     resolution: {integrity: sha512-NZQIJJL5Rb9lMJ0Yl1JoVr9GSdo4HTPsUEWsSFzB8dE8DSoiLCVavWZPi7Rnlv/o73u6I24S/XYc/NmG4l8EKA==}
 
-  lockfile@1.0.4:
-    resolution: {integrity: sha512-cvbTwETRfsFh4nHsL1eGWapU1XFi5Ot9E85sWAwia7Y7EgB7vfqcZhTKZ+l7hCGxSPoushMv5GKhT5PdLv03WA==}
-
   lodash._reinterpolate@3.0.0:
     resolution: {integrity: sha512-xYHt68QRoYGjeeM/XOE1uJtvXQAgvszfBhjV4yvsQH0u2i9I6cI6c6/eG4Hh3UAOVn0y/xAXwmTzEay49Q//HA==}
 
@@ -4533,17 +4499,8 @@ packages:
   lodash.foreach@4.5.0:
     resolution: {integrity: sha512-aEXTF4d+m05rVOAUG3z4vZZ4xVexLKZGF0lIxuHZ1Hplpk/3B6Z1+/ICICYRLm7c41Z2xiejbkCkJoTlypoXhQ==}
 
-  lodash.get@4.4.2:
-    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
-
-  lodash.has@4.5.2:
-    resolution: {integrity: sha512-rnYUdIo6xRCJnQmbVFEwcxF144erlD+M3YcJUVesflU9paQaE8p+fJDcIQrlMYbxoANFL+AB9hZrzSBBk5PL+g==}
-
   lodash.iteratee@4.7.0:
     resolution: {integrity: sha512-yv3cSQZmfpbIKo4Yo45B1taEvxjNvcpF1CEOc0Y6dEyvhPIfEJE3twDwPgWTPQubcSgXyBwBKG6wpQvWMDOf6Q==}
-
-  lodash.kebabcase@4.1.1:
-    resolution: {integrity: sha512-N8XRTIMMqqDgSy4VLKPnJ/+hpGZN+PHQiJnSenYqPaVV/NCqEogTnAdZLQiGKhxX+JCs8waWq2t1XHWKOmlY8g==}
 
   lodash.map@4.6.0:
     resolution: {integrity: sha512-worNHGKLDetmcEYDvh2stPCrrQRkP20E4l0iIS7F8EvzMqBBi7ltvFN5m1HvTf1P7Jk1txKhvFcmYsCr8O2F1Q==}
@@ -4556,9 +4513,6 @@ packages:
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
-
-  lodash.mergewith@4.6.2:
-    resolution: {integrity: sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==}
 
   lodash.template@4.5.0:
     resolution: {integrity: sha512-84vYFxIkmidUiFxidA/KjjH9pAycqW+h980j7Fuz5qxRtO9pgB7MDFTdys1N7A5mcucRiDyEq4fusljItR1T/A==}
@@ -5316,13 +5270,6 @@ packages:
   postcss-loader@5.3.0:
     resolution: {integrity: sha512-/+Z1RAmssdiSLgIZwnJHwBMnlABPgF7giYzTN2NOfr9D21IJZ4mQC1R2miwp80zno9M4zMD/umGI8cR+2EL5zw==}
     engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      postcss: ^7.0.0 || ^8.0.1
-      webpack: ^5.0.0
-
-  postcss-loader@7.3.4:
-    resolution: {integrity: sha512-iW5WTTBSC5BfsBJ9daFMPVrLT36MrNiC6fqOZTTaHjBNX6Pfd5p+hSBqe/fEeNd7pc13QiAyGt7VdGMw4eRC4A==}
-    engines: {node: '>= 14.15.0'}
     peerDependencies:
       postcss: ^7.0.0 || ^8.0.1
       webpack: ^5.0.0
@@ -6709,12 +6656,6 @@ packages:
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-
-  webpack-assets-manifest@5.2.1:
-    resolution: {integrity: sha512-MsEcXVio1GY6R+b4dVfTHIDMB0RB90KajQG8neRbH92vE2S1ClGw9mNa9NPlratYBvZOhExmN0qqMNFTaCTuIg==}
-    engines: {node: '>=10.13.0'}
-    peerDependencies:
-      webpack: ^5.2.0
 
   webpack-dev-middleware@4.3.0:
     resolution: {integrity: sha512-PjwyVY95/bhBh6VUqt6z4THplYcsvQ8YNNBTBM873xLVmw8FLeALn0qurHbs9EmcfhzQis/eoqypSnZeuUz26w==}
@@ -9920,15 +9861,6 @@ snapshots:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  cosmiconfig@8.3.6(typescript@5.5.4):
-    dependencies:
-      import-fresh: 3.3.0
-      js-yaml: 4.1.0
-      parse-json: 5.2.0
-      path-type: 4.0.0
-    optionalDependencies:
-      typescript: 5.5.4
-
   create-gatsby@3.13.1:
     dependencies:
       '@babel/runtime': 7.24.8
@@ -11305,18 +11237,6 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-  gatsby-plugin-netlify@5.1.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(webpack@5.93.0):
-    dependencies:
-      '@babel/runtime': 7.24.8
-      fs-extra: 11.2.0
-      gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)
-      gatsby-core-utils: 4.13.1
-      kebab-hash: 0.1.2
-      lodash.mergewith: 4.6.2
-      webpack-assets-manifest: 5.2.1(webpack@5.93.0)
-    transitivePeerDependencies:
-      - webpack
-
   gatsby-plugin-offline@6.13.2(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.8
@@ -11351,16 +11271,6 @@ snapshots:
       - supports-color
 
   gatsby-plugin-page-progress@2.2.1: {}
-
-  gatsby-plugin-postcss@6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(postcss@8.4.41)(typescript@5.5.4)(webpack@5.93.0):
-    dependencies:
-      '@babel/runtime': 7.24.8
-      gatsby: 5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4)
-      postcss: 8.4.41
-      postcss-loader: 7.3.4(postcss@8.4.41)(typescript@5.5.4)(webpack@5.93.0)
-    transitivePeerDependencies:
-      - typescript
-      - webpack
 
   gatsby-plugin-react-helmet@6.13.1(gatsby@5.13.7(babel-eslint@10.1.0(eslint@9.9.0(jiti@1.21.6)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.5.4))(react-helmet@6.1.0(react@18.3.1)):
     dependencies:
@@ -12484,7 +12394,8 @@ snapshots:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  jiti@1.21.6: {}
+  jiti@1.21.6:
+    optional: true
 
   joi@17.13.3:
     dependencies:
@@ -12543,10 +12454,6 @@ snapshots:
       array.prototype.flat: 1.3.2
       object.assign: 4.1.5
       object.values: 1.2.0
-
-  kebab-hash@0.1.2:
-    dependencies:
-      lodash.kebabcase: 4.1.1
 
   keyv@4.5.4:
     dependencies:
@@ -12660,10 +12567,6 @@ snapshots:
 
   lock@1.1.0: {}
 
-  lockfile@1.0.4:
-    dependencies:
-      signal-exit: 3.0.7
-
   lodash._reinterpolate@3.0.0: {}
 
   lodash.clonedeep@4.5.0: {}
@@ -12678,13 +12581,7 @@ snapshots:
 
   lodash.foreach@4.5.0: {}
 
-  lodash.get@4.4.2: {}
-
-  lodash.has@4.5.2: {}
-
   lodash.iteratee@4.7.0: {}
-
-  lodash.kebabcase@4.1.1: {}
 
   lodash.map@4.6.0: {}
 
@@ -12693,8 +12590,6 @@ snapshots:
   lodash.memoize@4.1.2: {}
 
   lodash.merge@4.6.2: {}
-
-  lodash.mergewith@4.6.2: {}
 
   lodash.template@4.5.0:
     dependencies:
@@ -13494,16 +13389,6 @@ snapshots:
       postcss: 8.4.41
       semver: 7.6.3
       webpack: 5.93.0
-
-  postcss-loader@7.3.4(postcss@8.4.41)(typescript@5.5.4)(webpack@5.93.0):
-    dependencies:
-      cosmiconfig: 8.3.6(typescript@5.5.4)
-      jiti: 1.21.6
-      postcss: 8.4.41
-      semver: 7.6.3
-      webpack: 5.93.0
-    transitivePeerDependencies:
-      - typescript
 
   postcss-merge-longhand@5.1.7(postcss@8.4.41):
     dependencies:
@@ -15077,17 +14962,6 @@ snapshots:
   web-namespaces@1.1.4: {}
 
   webidl-conversions@3.0.1: {}
-
-  webpack-assets-manifest@5.2.1(webpack@5.93.0):
-    dependencies:
-      chalk: 4.1.2
-      deepmerge: 4.3.1
-      lockfile: 1.0.4
-      lodash.get: 4.4.2
-      lodash.has: 4.5.2
-      schema-utils: 3.3.0
-      tapable: 2.2.1
-      webpack: 5.93.0
 
   webpack-dev-middleware@4.3.0(webpack@5.93.0):
     dependencies:
