@@ -68,6 +68,8 @@ const TagTemplate = ({ pageContext, data, location }) => {
     siteUrl: location.href,
   };
 
+  console.log({ edges });
+
   return (
     <Layout location={location}>
       <Head metadata={meta} />
@@ -103,10 +105,9 @@ const TagTemplate = ({ pageContext, data, location }) => {
                     })}
                   </time>
                   <StyledTags>
-                    <span>&nbsp;&mdash;&nbsp;</span>
-                    {tags &&
-                      tags.length > 0 &&
-                      tags.map((tag, i) => <TagItem key={i} tag={tag} />)}
+                    {tags.map((tag, i) => (
+                      <TagItem key={i} text={tag}></TagItem>
+                    ))}
                   </StyledTags>
                 </p>
               </li>
