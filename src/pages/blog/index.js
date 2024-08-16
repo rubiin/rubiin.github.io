@@ -44,13 +44,6 @@ const StyledMainContainer = styled(Main)`
   }
 `;
 
-const StyledButtonContainer = styled.div`
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const StyledFlex = styled.div`
   margin-top: 20px;
   display: flex;
@@ -67,16 +60,13 @@ const StyledFlex = styled.div`
 `;
 
 const StyledPostInner = styled.div`
-  ${mixins.boxShadow};
   ${mixins.flexBetween};
   flex-direction: column;
   align-items: flex-start;
   position: relative;
   padding: 2rem 1.75rem;
   height: 100%;
-  border-radius: ${theme.borderRadius};
   transition: ${theme.transition};
-  background-color: ${colors.lightNavy};
   header,
   a {
     width: 100%;
@@ -148,9 +138,18 @@ const StyledToggleButton = styled(Button)`
   margin: 0.4rem;
 `;
 
+
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+
 const StyledMoreButton = styled(Button)`
   margin: 40px 0;
-  padding: 1.25rem 10rem;
+  padding: 1rem 4rem;
   ${media.thone`padding:1.25rem 6rem;`};
   ${media.thone`padding:1.25rem 4rem;`};
   ${media.tiny`padding:1.25rem 4rem;`};
