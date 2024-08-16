@@ -54,16 +54,13 @@ const StyledFlex = styled.div`
 `;
 
 const StyledPostInner = styled.div`
-  ${mixins.boxShadow};
   ${mixins.flexBetween};
   flex-direction: column;
   align-items: flex-start;
   position: relative;
   padding: 2rem 1.75rem;
   height: 100%;
-  border-radius: ${theme.borderRadius};
   transition: ${theme.transition};
-  background-color: ${colors.lightNavy};
   header,
   a {
     width: 100%;

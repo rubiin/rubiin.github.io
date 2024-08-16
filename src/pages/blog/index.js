@@ -44,6 +44,13 @@ const StyledMainContainer = styled(Main)`
   }
 `;
 
+const StyledButtonContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const StyledFlex = styled.div`
   margin-top: 20px;
   display: flex;
@@ -138,18 +145,9 @@ const StyledToggleButton = styled(Button)`
   margin: 0.4rem;
 `;
 
-
-
-const StyledButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-
 const StyledMoreButton = styled(Button)`
   margin: 40px 0;
-  padding: 1rem 4rem;
+  padding: 1.25rem 10rem;
   ${media.thone`padding:1.25rem 6rem;`};
   ${media.thone`padding:1.25rem 4rem;`};
   ${media.tiny`padding:1.25rem 4rem;`};
