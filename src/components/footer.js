@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
 import {
-  IconGitHub,
-  IconLinkedin,
   IconDev,
+  IconGitHub,
   IconInstagram,
-  IconTwitter,
+  IconLinkedin,
   IconRss,
+  IconTwitter,
 } from "@components/icons";
 import { socialMedia } from "@config";
+import { media, mixins, theme } from "@styles";
+import PropTypes from "prop-types";
+import React from "react";
 import styled from "styled-components";
-import { theme, mixins, media } from "@styles";
 const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.footer`
@@ -19,9 +19,8 @@ const StyledContainer = styled.footer`
   padding: 15px;
   background-color: ${colors.darkNavy};
   color: ${colors.slate};
-  text-align: center;
   height: auto;
-  min-height: 70px;
+  min-height: 100px;
 `;
 const StyledSocial = styled.div`
   color: ${colors.lightSlate};
@@ -45,9 +44,12 @@ const StyledSocialLink = styled.a`
   }
 `;
 const StyledMetadata = styled.div`
+   margin-left: -320px;
   font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.xs};
+  font-size: ${fontSizes.sm};
   line-height: 1;
+  ${media.thone`font-size: ${fontSizes.xs};`};
+  ${media.bigDesktop`margin-left: 0;`};
 `;
 
 const Footer = () => (
@@ -85,8 +87,8 @@ const Footer = () => (
     </StyledSocial>
     <StyledMetadata tabIndex="-1">
       <h4>
-        <span role="img" aria-label="easter">
-          The site has some easter eggs 💜🐰🥚
+        <span role="img" aria-label="copyright">
+        Copyright © {new Date().getFullYear()} Rubin Bhandari.
         </span>
       </h4>
     </StyledMetadata>
