@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: "/blog/useful-aliases-for-docker/"
 description:
-cover_image: "./cover.png"
+cover_image: "./cover.webp"
 # Use a ratio of 100:42 for best results.
 tags:
   - docker

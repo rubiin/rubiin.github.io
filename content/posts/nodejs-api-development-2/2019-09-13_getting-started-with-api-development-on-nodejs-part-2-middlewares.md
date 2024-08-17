@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: "/blog/getting-started-with-api-development-on-nodejs-part-2-middlewares/"
 description:
-cover_image: "./cover.png"
+cover_image: "../nodejs-api-devlopment/cover.webp"
 tags:
   - nodejs
   - backend

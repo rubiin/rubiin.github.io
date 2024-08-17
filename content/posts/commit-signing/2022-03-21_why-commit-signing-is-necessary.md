@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: "/blog/why-commit-signing-is-necessary/"
 description:
-cover_image: "./cover.png"
+cover_image: "./cover.webp"
 tags:
   - git
   - security

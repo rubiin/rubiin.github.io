@@ -68,7 +68,6 @@ const TagTemplate = ({ pageContext, data, location }) => {
     siteUrl: location.href,
   };
 
-  console.log({ edges });
 
   return (
     <Layout location={location}>

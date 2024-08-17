@@ -5,7 +5,7 @@ featured: true
 draft: false
 slug: "/blog/linux-commands-you-should-master/"
 description:
-cover_image: "./cover.png"
+cover_image: "./cover.webp"
 # Use a ratio of 100:42 for best results.
 tags:
   - linux

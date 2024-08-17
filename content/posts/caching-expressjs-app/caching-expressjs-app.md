@@ -4,7 +4,7 @@ date: "2019-9-19"
 featured: true
 draft: false
 slug: "/blog/caching-express-app/"
-cover_image: "./cover.png"
+cover_image: "./cover.webp"
 tags:
   - nodejs
   - redis

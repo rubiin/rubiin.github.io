@@ -3,7 +3,7 @@ title: Docker basics/ cheatsheet
 date: "2019-10-01"
 featured: true
 draft: false
-cover_image: "./cover.png"
+cover_image: "./cover.webp"
 slug: "/blog/docker-cheatsheet-2mm4/"
 tags:
   - docker

@@ -5,7 +5,7 @@ featured: false
 draft: false
 slug: "/blog/sass-mixins-that-are-way-too-good/"
 description:
-cover_image: "./cover.jpg"
+cover_image: "./cover.webp"
 tags:
   - sass
   - css

@@ -4,7 +4,7 @@ date: "2019-11-24"
 featured: true
 draft: false
 slug: "/blog/vim-cheatsheet/"
-cover_image: "./cover.jpg"
+cover_image: "./cover.webp"
 tags:
   - vim
   - editor

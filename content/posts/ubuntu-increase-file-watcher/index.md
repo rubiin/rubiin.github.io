@@ -4,7 +4,7 @@ date: "2020-11-01"
 featured: false
 draft: false
 slug: "/blog/ubuntu-increase-file-watcher/"
-cover_image: "./cover.png"
+cover_image: "./cover.webp"
 tags:
   - ubuntu
   - linux

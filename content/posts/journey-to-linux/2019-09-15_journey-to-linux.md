@@ -7,7 +7,7 @@ description:
 tags:
   - linux
   - oss
-cover_image: "./cover.jpg"
+cover_image: "./cover.webp"
 date: 2019-09-15
 ---
 
