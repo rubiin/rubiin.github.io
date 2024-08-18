@@ -196,7 +196,7 @@ const Jobs = ({ data }) => {
 
   return (
     <StyledContainer id="jobs" ref={revealContainer}>
-      <Heading>Where I&apos;ve Worked</Heading>
+      <Heading>Places I&apos;ve Worked</Heading>
       <StyledTabs>
         <StyledTabList
           role="tablist"

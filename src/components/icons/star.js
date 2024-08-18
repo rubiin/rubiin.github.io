@@ -5,9 +5,15 @@ const IconStar = () => (
     aria-label="stars"
     viewBox="0 0 14 16"
     version="1.1"
-    width="14"
+    strokeWidth={1.5}
+    style={{
+      fill: "none",
+    }}
     height="16"
     role="img"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
   >
     <path
       fillRule="evenodd"
