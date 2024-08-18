@@ -11,4 +11,4 @@ company: ""
 showInProjects: true
 ---
 
-This's a nest-minio module for Nest. This quickstart guide will show you how to install the client SDK and execute an example JavaScript program. For a complete list of APIs and examples, please take a look at the JavaScript Client API Reference documentation.
+This's a nest-minio module for Nest. This quickstart guide will show you how to install the client SDK and execute an example JavaScript program.

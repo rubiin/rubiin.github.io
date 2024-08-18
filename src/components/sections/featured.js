@@ -9,9 +9,8 @@ import { theme, mixins, media, Section, Heading } from "@styles";
 import { getStar } from "../../utils";
 const { colors, fontSizes, fonts } = theme;
 
-const StyledStarDiv = styled.div`
+const StyledGithubStat = styled.div`
   ${mixins.flexCenter};
-  font-size: 1rem;
   gap: 0.2rem;
 `;
 
@@ -277,10 +276,10 @@ const Featured = ({ data }) => {
                     </StyledTechList>
                   )}
                   <StyledLinkWrapper>
-                    <StyledStarDiv>
+                    <StyledGithubStat>
                       <IconStar />
                       <span>{stars[i]}</span>
-                    </StyledStarDiv>
+                    </StyledGithubStat>
 
                     {github && (
                       <a

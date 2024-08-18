@@ -44,7 +44,7 @@ const StyledSocialLink = styled.a`
   }
 `;
 const StyledMetadata = styled.div`
-   margin-left: -320px;
+  margin-left: -320px;
   font-family: ${fonts.SFMono};
   font-size: ${fontSizes.sm};
   line-height: 1;
@@ -88,7 +88,7 @@ const Footer = () => (
     <StyledMetadata tabIndex="-1">
       <h4>
         <span role="img" aria-label="copyright">
-        Copyright © {new Date().getFullYear()} Rubin Bhandari.
+          Copyright © {new Date().getFullYear()} Rubin Bhandari.
         </span>
       </h4>
     </StyledMetadata>

@@ -68,7 +68,6 @@ const TagTemplate = ({ pageContext, data, location }) => {
     siteUrl: location.href,
   };
 
-
   return (
     <Layout location={location}>
       <Head metadata={meta} />
