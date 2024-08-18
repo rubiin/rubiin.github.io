@@ -25,7 +25,6 @@ import msIcon144x144 from "@images/favicons/ms-icon-144x144.png";
  * @returns {string} - The Open Graph image
  */
 const getOgImage = (meta) => {
-  console.log(meta);
   if (meta?.ogImage) {
     return `${config.siteUrl}${meta.ogImage}`;
   }

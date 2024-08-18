@@ -13,6 +13,7 @@ const prismColors = {
   red: `#ef6b73`,
   grey: `#a2aabc`,
   comment: `#8695b799`,
+  variable: `#f8f8f2`,
 };
 
 // https://www.gatsbyjs.org/packages/gatsby-remark-prismjs

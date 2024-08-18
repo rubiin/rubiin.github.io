@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import theme from "./theme";
-import { Link } from "gatsby-link";
 const { colors, fontSizes, fonts } = theme;
 
 // Keyframes for the glitch animation
@@ -59,6 +58,7 @@ const StyledButton = styled.a`
   font-family: ${fonts.SFMono};
   background: linear-gradient(45deg, transparent 5%, rgba(41, 61, 90, 0.99) 5%);
   border: 0;
+  border-radius: ${theme.borderRadius};
   cursor: pointer;
   decoration: none;
   letter-spacing: 3px;
