@@ -101,7 +101,7 @@ const PostTemplate = ({ data, location }) => {
     title,
     description: excerpt,
     siteUrl: location.href,
-    ogImage: cover_image,
+    ogImage: cover_image.publicURL,
   };
 
   const disqusConfig = {
