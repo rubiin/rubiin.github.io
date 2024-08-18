@@ -11,7 +11,30 @@ import { media, mixins, theme } from "@styles";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
+import { IconLogo } from "./icons";
 const { colors, fontSizes, fonts } = theme;
+
+const StyledLogo = styled.div`
+  ${mixins.flexCenter};
+  a {
+    display: block;
+    color: ${colors.green};
+    width: 42px;
+    height: 42px;
+    &:hover,
+    &:focus {
+      svg {
+        fill: ${colors.transGreen};
+      }
+    }
+    svg {
+      fill: none;
+      transition: ${theme.transition};
+      user-select: none;
+    }
+  }
+  ${media.tablet`display: none;`};
+`;
 
 const StyledContainer = styled.footer`
   ${mixins.flexCenter};
@@ -44,11 +67,13 @@ const StyledSocialLink = styled.a`
   }
 `;
 const StyledMetadata = styled.div`
-  margin-left: -320px;
+  ${mixins.flexCenter};
+  gap: 2rem;
   font-family: ${fonts.SFMono};
   font-size: ${fontSizes.sm};
   line-height: 1;
-  ${media.thone`font-size: ${fontSizes.xs};`};
+  margin-left: -15rem;
+  ${media.tablet`font-size: ${fontSizes.xs};`};
   ${media.bigDesktop`margin-left: 0;`};
 `;
 
@@ -85,7 +110,13 @@ const Footer = () => (
           ))}
       </StyledSocialList>
     </StyledSocial>
+
     <StyledMetadata tabIndex="-1">
+      <StyledLogo>
+        <a href="/" aria-label="home">
+          <IconLogo />
+        </a>
+      </StyledLogo>
       <h4>
         <span role="img" aria-label="copyright">
           Copyright © {new Date().getFullYear()} Rubin Bhandari.
