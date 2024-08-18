@@ -1,4 +1,4 @@
-import IconDev from "./codepen";
+import IconDev from "./dev.to";
 import IconEmail from "./email";
 import IconExternal from "./external";
 import IconFolder from "./folder";
