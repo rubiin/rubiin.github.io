@@ -14,13 +14,20 @@ const { colors, fonts, fontSizes } = theme;
 const StyledNextPrev = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
   font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.md};
+  font-size: ${fontSizes.sm};
   i {
     span {
-      padding-left: 10px;
+      padding-left: 5px;
       font-family: ${fonts.SFMono};
     }
+  }
+
+  .next-prev{
+  display: flex;
+  justify-content: space-between;
   }
 `;
 
@@ -174,9 +181,14 @@ const PostTemplate = ({ data, location }) => {
         <StyledNextPrev>
           <div className="author">
             <i className="fa fa-user">
-              <span>Rubin Bhandari | {date}</span>
+              <span><span style={{color: "#ffffff"}}>Rubin Bhandari</span> | {formatDate(date)}</span>
             </i>
           </div>
+
+          <div className="next-prev">
+            <Button to="/blog">Next</Button>
+            <Button to="/blog">Next</Button>
+            </div>
         </StyledNextPrev>
       </StyledPostContainer>
 
