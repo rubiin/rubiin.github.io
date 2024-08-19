@@ -10,6 +10,14 @@ export const throttle = (func, wait = 100) => {
   };
 };
 
+export function formatDate(date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 /**
  * Gets the number of stars for a github repo
  * @constructor

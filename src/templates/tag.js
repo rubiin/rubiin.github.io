@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import config from "../config";
+import { formatDate } from "../utils";
 const { colors, fontSizes } = theme;
 
 const StyledTags = styled.div`
@@ -95,13 +96,7 @@ const TagTemplate = ({ pageContext, data, location }) => {
                   <Link to={slug}>{title}</Link>
                 </h2>
                 <p className="subtitle">
-                  <time>
-                    {new Date(date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
+                  <time>{formatDate(date)}</time>
                   <StyledTags>
                     {tags.map((tag, i) => (
                       <TagItem key={i} text={tag}></TagItem>

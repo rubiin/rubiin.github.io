@@ -287,14 +287,14 @@ box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !importan
   border-bottom: 1px solid #64ffda;
 }
 
-i {
+i.share {
   position: relative;
   top: 20px;
   margin: 0 10px;
   transition: all 100ms cubic-bezier(0.42, 0, 0.58, 1);
   /* ease-in-out */
 }
-i:hover {
+i.share:hover {
   top: 5px;
 }
 

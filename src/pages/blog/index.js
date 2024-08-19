@@ -6,6 +6,7 @@ import kebabCase from "lodash/kebabCase";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { formatDate } from "../../utils";
 const { colors, fontSizes, fonts } = theme;
 
 const POST_TAGS = Object.freeze({
@@ -205,8 +206,6 @@ const BlogPage = ({ location, data }) => {
     }
   };
 
-  const options = { year: "numeric", month: "short", day: "numeric" };
-
   const meta = {
     title: ` Blog | ${config.name}`,
     siteUrl: location.href,
@@ -237,7 +236,6 @@ const BlogPage = ({ location, data }) => {
               postsToShow.map(({ node }, i) => {
                 const { frontmatter, timeToRead, excerpt } = node;
                 const { title, slug, date, tags } = frontmatter;
-                const d = new Date(date);
 
                 return (
                   <StyledPost key={i} tabIndex="0">
@@ -248,7 +246,7 @@ const BlogPage = ({ location, data }) => {
                             <StyledFolder></StyledFolder>
                           </StyledPostHeader>
                           <StyledReadingTimeContainer>
-                            <StyledDate>{`📆 ${d.toLocaleDateString("en-us", options)}`}</StyledDate>
+                            <StyledDate>{`📆 ${formatDate(date)}`}</StyledDate>
                             <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                           </StyledReadingTimeContainer>
                           <StyledPostName>{title}</StyledPostName>

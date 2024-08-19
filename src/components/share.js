@@ -11,21 +11,21 @@ const ShareLink = ({ location, title }) => {
           href={`https://www.facebook.com/sharer.php?u=${link}`}
           title="facebook"
         >
-          <i className="fa fa-facebook fb"></i>
+          <i className="share fa fa-facebook fb"></i>
         </a>
         <a
           className="share__link "
           href={`https://twitter.com/share?url=${link}&text=${title}`}
           title="twitter"
         >
-          <i className="fa fa-twitter tw"></i>
+          <i className="share fa fa-twitter tw"></i>
         </a>
         <a
           className="share__link "
           href={`https://www.linkedin.com/shareArticle?url=${link}&title=${title}`}
           title="linkedin"
         >
-          <i className="fa fa-linkedin sk"></i>
+          <i className="share fa fa-linkedin sk"></i>
         </a>
       </div>
     </>

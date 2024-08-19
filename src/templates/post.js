@@ -1,4 +1,4 @@
-import { Main, media, theme, Button } from "@styles";
+import { Main, media, theme, Button, mixins } from "@styles";
 import styled from "styled-components";
 import { graphql, Link } from "gatsby";
 import kebabCase from "lodash/kebabCase";
@@ -7,8 +7,22 @@ import React from "react";
 import { ShareLink, Head, Layout } from "@components";
 import { NewsLetter } from "../components";
 import { Disqus } from "gatsby-plugin-disqus";
+import { formatDate } from "../utils";
 
-const { colors } = theme;
+const { colors, fonts, fontSizes } = theme;
+
+const StyledNextPrev = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.md};
+  i {
+    span {
+      padding-left: 10px;
+      font-family: ${fonts.SFMono};
+    }
+  }
+`;
 
 const StyledToc = styled.div`
   margin: 20px 0;
@@ -125,13 +139,7 @@ const PostTemplate = ({ data, location }) => {
         <StyledPostHeader>
           <h1 className="medium-title">{title}</h1>
           <p className="subtitle">
-            <time>
-              {new Date(date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
+            <time>{formatDate(date)}</time>
             <span>&nbsp;&mdash;&nbsp;</span>
             {tags &&
               tags.length > 0 &&
@@ -162,6 +170,14 @@ const PostTemplate = ({ data, location }) => {
         <img className="post-image" src={cover_image.publicURL} alt={title} />
 
         <StyledPostContent dangerouslySetInnerHTML={{ __html: html }} />
+
+        <StyledNextPrev>
+          <div className="author">
+            <i className="fa fa-user">
+              <span>Rubin Bhandari | {date}</span>
+            </i>
+          </div>
+        </StyledNextPrev>
       </StyledPostContainer>
 
       <NewsLetter />

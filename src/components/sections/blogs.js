@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import { TagItem } from "@components";
+import { formatDate } from "../../utils";
 const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
@@ -161,8 +162,6 @@ const Blog = ({ posts, tags }) => {
     })
     .slice(0, 5);
 
-  const options = { year: "numeric", month: "short", day: "numeric" };
-
   return (
     <StyledMainContainer>
       <StyledFlex>
@@ -176,7 +175,6 @@ const Blog = ({ posts, tags }) => {
               const { frontmatter, timeToRead, excerpt } = node;
 
               const { title, slug, date, tags } = frontmatter;
-              const d = new Date(date);
 
               return (
                 <StyledPost key={i} tabIndex="0">
@@ -187,7 +185,7 @@ const Blog = ({ posts, tags }) => {
                           <StyledFolder></StyledFolder>
                         </StyledPostHeader>
                         <StyledReadingTimeContainer>
-                          <StyledDate>{`📅 ${d.toLocaleDateString("en-us", options)}`}</StyledDate>
+                          <StyledDate>{`📅 ${formatDate(date)}`}</StyledDate>
                           <StyledReadingTime>{`⏱️ ${timeToRead} min read`}</StyledReadingTime>
                         </StyledReadingTimeContainer>
                         <StyledPostName>{title}</StyledPostName>
