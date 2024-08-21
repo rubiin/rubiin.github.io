@@ -321,13 +321,10 @@ i.share:hover {
   color: #00a5e6;
 }
 
-.db {
-  color: #000;
-}
+ .em{
+  color: #e7c9a9;
+ }
 
-.apple {
-  color: #ccc;
-}
 
 
   ${TransitionStyles};

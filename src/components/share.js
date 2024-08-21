@@ -27,6 +27,14 @@ const ShareLink = ({ location, title }) => {
         >
           <i className="share fa fa-linkedin sk"></i>
         </a>
+
+        <a
+          className="share__link "
+          href={`mailto:?&subject=Here's a Blog Post I Think You'll Love!&cc=&bcc=&body=Check out this quick read at ${link}%0A`}
+          title="email"
+        >
+          <i className="share fa fa-envelope em"></i>
+        </a>
       </div>
     </>
   );
