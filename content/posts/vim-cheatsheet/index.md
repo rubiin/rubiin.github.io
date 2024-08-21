@@ -12,8 +12,6 @@ tags:
   - containers
 ---
 
-![](https://www.ubuntupit.com/wp-content/uploads/2019/03/Vim-Commands.jpg)
-
 ## Generally helpful stuff
 
     Open a file for editing             :e path/to/file.txt

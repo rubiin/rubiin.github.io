@@ -24,11 +24,6 @@ const StyledNextPrev = styled.div`
       font-family: ${fonts.SFMono};
     }
   }
-
-  .next-prev{
-  display: flex;
-  justify-content: space-between;
-  }
 `;
 
 const StyledToc = styled.div`
@@ -74,8 +69,8 @@ const StyledPostHeader = styled.header`
     margin-right: 10px;
   }
 `;
-const StyledPostContent = styled.div`
-  margin: 50px 0 100px 0;
+const StyledPostContent = styled.article`
+  margin: 50px 0 70px 0;
   h1,
   h2,
   h3,
@@ -104,7 +99,7 @@ const StyledShareContainer = styled.div`
 
 const StyledLoadComments = styled(Button)`
   display: flex;
-  margin: 0 auto;
+  margin: 100px auto;
   margin-bottom: 50px;
   ${media.phablet`display: none;`};
 `;
@@ -181,23 +176,25 @@ const PostTemplate = ({ data, location }) => {
         <StyledNextPrev>
           <div className="author">
             <i className="fa fa-user">
-              <span><span style={{color: "#ffffff"}}>Rubin Bhandari</span> | {formatDate(date)}</span>
+              <span>
+                <span style={{ color: "#ffffff" }}>Rubin Bhandari</span> |{" "}
+                {formatDate(date)}
+              </span>
             </i>
           </div>
-
-          <div className="next-prev">
-            <Button to="/blog">Next</Button>
-            <Button to="/blog">Next</Button>
-            </div>
         </StyledNextPrev>
       </StyledPostContainer>
 
+      <hr />
       <NewsLetter />
 
       {!showDisqus && (
-        <StyledLoadComments onClick={() => setShowDisqus(true)}>
-          Post a comment
-        </StyledLoadComments>
+        <>
+          <hr />
+          <StyledLoadComments onClick={() => setShowDisqus(true)}>
+            Post a comment
+          </StyledLoadComments>
+        </>
       )}
 
       {showDisqus && (
