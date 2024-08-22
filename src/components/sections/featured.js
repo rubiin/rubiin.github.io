@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import Img from "gatsby-image";
-import sr from "@utils/sr";
+import { IconExternal, IconGitHub, IconStar } from "@components/icons";
 import { srConfig } from "@config";
-import { IconGitHub, IconExternal, IconStar } from "@components/icons";
+import { Heading, media, mixins, Section, theme } from "@styles";
+import sr from "@utils/sr";
+import Img from "gatsby-image";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { theme, mixins, media, Section, Heading } from "@styles";
-import { getStar } from "../../utils";
 const { colors, fontSizes, fonts } = theme;
 
 const StyledGithubStat = styled.div`
@@ -219,11 +218,6 @@ const Featured = ({ data }) => {
 
   const [stars, setStars] = useState([]);
 
-  useEffect(async () => {
-    const allStars = await Promise.all(repos.map((repo) => getStar(repo)));
-    setStars(allStars);
-    console.log({ allStars });
-  }, []);
 
   const revealTitle = useRef(null);
   const revealProjects = useRef([]);
