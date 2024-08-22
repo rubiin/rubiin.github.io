@@ -4,10 +4,12 @@ import Img from "gatsby-image";
 import sr from "@utils/sr";
 import { srConfig, github } from "@config";
 import styled from "styled-components";
-import { theme, mixins, media, Section, Heading } from "@styles";
+import { theme, mixins, media } from "@styles";
 const { colors, fontSizes, fonts } = theme;
 
-const StyledContainer = styled(Section)`
+const { Heading } = mixins;
+
+const StyledContainer = styled(mixins.section)`
   position: relative;
 `;
 const StyledFlexContainer = styled.div`

@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import sr from "@utils/sr";
 import { srConfig } from "@config";
 import styled from "styled-components";
-import { theme, mixins, media, Section, Heading } from "@styles";
+import { theme, mixins, media } from "@styles";
 const { colors, fontSizes, fonts } = theme;
+const { Heading } = mixins;
 
-const StyledContainer = styled(Section)`
+const StyledContainer = styled(mixins.section)`
   position: relative;
   max-width: 700px;
 `;

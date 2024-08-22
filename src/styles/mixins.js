@@ -2,6 +2,130 @@ import { css } from "styled-components";
 import theme from "./theme";
 import media from "./media";
 const { colors, fontSizes, fonts } = theme;
+import styled, { keyframes } from "styled-components";
+
+// Keyframes for the glitch animation
+const glitchAnimation = keyframes`
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-20px, -10px);
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(10px, 10px);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 10px);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0px, 5px);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-5px, 0px);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(5px, 0px);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(5px, 10px);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(20px, -10px);
+  }
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 0px);
+  }
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+`;
+
+// Styled component for the button
+const GlitchButton = styled.a`
+  padding: 0.5rem 1rem;
+  color: ${colors.green};
+  font-size: ${fontSizes.xs};
+  font-family: ${fonts.SFMono};
+  background: linear-gradient(45deg, transparent 5%, rgba(41, 61, 90, 0.99) 5%);
+  border: 0;
+  border-radius: ${theme.borderRadius};
+  cursor: pointer;
+  decoration: none;
+  letter-spacing: 3px;
+  line-height: 3.5rem;
+  box-shadow: 6px 0px 0px #00e6f6;
+  outline: transparent;
+  font-weight: bold;
+  position: relative;
+
+  &::after {
+    --slice-0: inset(50% 50% 50% 50%);
+    --slice-1: inset(80% -6px 0 0);
+    --slice-2: inset(50% -6px 30% 0);
+    --slice-3: inset(10% -6px 85% 0);
+    --slice-4: inset(40% -6px 43% 0);
+    --slice-5: inset(80% -6px 5% 0);
+
+    content: "Get in touch";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 3%,
+      #00e6f6 3%,
+      #00e6f6 5%,
+      rgba(41, 61, 90, 0.99) 5%
+    );
+    text-shadow:
+      -3px -3px 0px #f8f005,
+      3px 3px 0px #00e6f6;
+    clip-path: var(--slice-0);
+  }
+
+  &:hover::after {
+    animation: ${glitchAnimation} 1s steps(2, end);
+  }
+`;
+
+const button = styled.button`
+  color: ${colors.green};
+  background-color: transparent;
+  border: 1px solid ${colors.green};
+  border-radius: ${theme.borderRadius};
+  font-size: ${fontSizes.smish};
+  font-family: ${fonts.SFMono};
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: ${theme.transition};
+  padding: 1.25rem 1.75rem;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: ${colors.transGreen};
+    outline: none;
+  }
+  &:after {
+    display: none !important;
+  }
+`;
 
 const mixins = {
   flexCenter: css`
@@ -34,6 +158,23 @@ const mixins = {
       color: ${colors.green};
       outline: 0;
     }
+  `,
+  button,
+  GlitchButton,
+  header: styled.header`
+    width: 100%;
+  `,
+  footer: styled.footer`
+    margin: 0;
+    padding: ${theme.margin};
+  `,
+
+  section: styled.section`
+    margin: 0 auto;
+    padding: 150px 0;
+    max-width: 1000px;
+
+    ${media.tablet`padding: 100px 0;`};
   `,
 
   inlineLink: css`
@@ -89,6 +230,43 @@ const mixins = {
     }
     &:after {
       display: none !important;
+    }
+  `,
+  Heading: styled.h3`
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 10px 0 40px;
+    width: 100%;
+    white-space: nowrap;
+    font-size: ${fontSizes.h3};
+    ${media.tablet`font-size: 24px;`};
+
+    &:before {
+      counter-increment: section;
+      content: "0" counter(section) ".";
+      margin-right: 10px;
+      font-family: ${fonts.SFMono};
+      font-weight: normal;
+      color: ${colors.green};
+      font-size: ${fontSizes.xl};
+      position: relative;
+      bottom: 4px;
+      ${media.tablet`font-size: ${fontSizes.lg};`};
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      height: 1px;
+      width: 300px;
+      background-color: ${colors.mediumGrey};
+      position: relative;
+      top: -5px;
+      margin-left: 20px;
+      ${media.desktop`width: 200px`};
+      ${media.tablet`width: 100%;`};
+      ${media.thone`margin-left: 10px;`};
     }
   `,
 

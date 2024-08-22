@@ -1,6 +1,6 @@
 import { Layout, TagItem, Head } from "@components";
 import config from "@config";
-import { Button, Main, media, mixins, theme } from "@styles";
+import { Main, media, mixins, theme } from "@styles";
 import { graphql, Link } from "gatsby";
 import kebabCase from "lodash/kebabCase";
 import PropTypes from "prop-types";
@@ -144,12 +144,12 @@ const StyledTags = styled.div`
   }
 `;
 
-const StyledToggleButton = styled(Button)`
+const StyledToggleButton = styled(mixins.button)`
   padding: 0.5rem 0.7rem;
   margin: 0.4rem;
 `;
 
-const StyledMoreButton = styled(Button)`
+const StyledMoreButton = styled(mixins.button)`
   margin: 40px 0;
   padding: 1.25rem 10rem;
   ${media.thone`padding:1.25rem 6rem;`};

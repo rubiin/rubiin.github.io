@@ -1,10 +1,10 @@
-import { Button, Main, media, mixins, theme } from "@styles";
+import { TagItem } from "@components";
+import { Main, media, mixins, theme } from "@styles";
 import { Link, navigate } from "gatsby";
 import kebabCase from "lodash/kebabCase";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
-import { TagItem } from "@components";
 import { formatDate } from "../../utils";
 const { colors, fontSizes, fonts } = theme;
 
@@ -145,7 +145,7 @@ const StyledButtonContainer = styled.div`
   align-items: center;
 `;
 
-const StyledMoreButton = styled(Button)`
+const StyledMoreButton = styled(mixins.button)`
   margin: 40px 0;
   padding: 1.25rem 10rem;
   ${media.thone`padding:1.25rem 6rem;`};

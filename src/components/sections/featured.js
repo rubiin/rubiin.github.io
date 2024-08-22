@@ -1,19 +1,20 @@
 import { IconExternal, IconGitHub, IconStar } from "@components/icons";
 import { srConfig } from "@config";
-import { Heading, media, mixins, Section, theme } from "@styles";
+import { media, mixins, theme } from "@styles";
 import sr from "@utils/sr";
 import Img from "gatsby-image";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 const { colors, fontSizes, fonts } = theme;
+const { Heading } = mixins;
 
 const StyledGithubStat = styled.div`
   ${mixins.flexCenter};
   gap: 0.2rem;
 `;
 
-const StyledContainer = styled(Section)`
+const StyledContainer = styled(mixins.section)`
   ${mixins.flexCenter};
   flex-direction: column;
   align-items: flex-start;
@@ -217,7 +218,6 @@ const Featured = ({ data }) => {
   );
 
   const [stars, setStars] = useState([]);
-
 
   const revealTitle = useRef(null);
   const revealProjects = useRef([]);

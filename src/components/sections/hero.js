@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled from "styled-components";
-import { theme, mixins, media, Section, GlitchButton } from "@styles";
+import { theme, mixins, media } from "@styles";
 import { email } from "@config";
 const { colors, fontSizes, fonts } = theme;
 
-const StyledContainer = styled(Section)`
+const { GlitchButton } = mixins;
+
+const StyledContainer = styled(mixins.section)`
   ${mixins.flexCenter};
   flex-direction: column;
   align-items: flex-start;

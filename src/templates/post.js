@@ -1,4 +1,4 @@
-import { Main, media, theme, Button, mixins } from "@styles";
+import { Main, media, theme, mixins } from "@styles";
 import styled from "styled-components";
 import { graphql, Link } from "gatsby";
 import kebabCase from "lodash/kebabCase";
@@ -97,7 +97,7 @@ const StyledShareContainer = styled.div`
   ${media.thone`justify-content: center;`};
 `;
 
-const StyledLoadComments = styled(Button)`
+const StyledLoadComments = styled(mixins.button)`
   display: flex;
   margin: 100px auto;
   margin-bottom: 50px;

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import sr from "@utils/sr";
 import { srConfig, email } from "@config";
 import styled from "styled-components";
-import { theme, mixins, media, Section, Heading } from "@styles";
+import { theme, mixins, media } from "@styles";
 const { colors, fontSizes, fonts } = theme;
 
-const StyledContainer = styled(Section)`
+const StyledContainer = styled(mixins.section)`
   text-align: center;
   max-width: 600px;
   margin: 0 auto 100px;
@@ -14,7 +14,7 @@ const StyledContainer = styled(Section)`
     ${mixins.inlineLink};
   }
 `;
-const StyledHeading = styled(Heading)`
+const StyledHeading = styled(mixins.Heading)`
   display: block;
   color: ${colors.green};
   font-size: ${fontSizes.md};

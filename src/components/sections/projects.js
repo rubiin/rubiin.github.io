@@ -6,10 +6,10 @@ import sr from "@utils/sr";
 import { srConfig } from "@config";
 import { IconGitHub, IconExternal, IconFolder } from "@components/icons";
 import styled from "styled-components";
-import { theme, mixins, media, Section, Button } from "@styles";
+import { theme, mixins, media, Button } from "@styles";
 const { colors, fontSizes, fonts } = theme;
 
-const StyledContainer = styled(Section)`
+const StyledContainer = styled(mixins.section)`
   ${mixins.flexCenter};
   flex-direction: column;
   align-items: flex-start;
@@ -122,7 +122,7 @@ const StyledTechList = styled.ul`
     }
   }
 `;
-const StyledMoreButton = styled(Button)`
+const StyledMoreButton = styled(mixins.button)`
   margin: 100px auto 0;
 `;
 
