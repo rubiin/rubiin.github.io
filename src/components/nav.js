@@ -125,14 +125,14 @@ const StyledHamburgerInner = styled.div`
     top: ${(props) => (props.menuOpen ? `0` : `-10px`)};
     opacity: ${(props) => (props.menuOpen ? 0 : 1)};
     transition: ${(props) =>
-      props.menuOpen ? theme.hamBeforeActive : theme.hamBefore};
+  props.menuOpen ? 'var(--ham-before-active)' : 'var(--ham-before)'};
   }
   &:after {
     width: ${(props) => (props.menuOpen ? `100%` : `80%`)};
     bottom: ${(props) => (props.menuOpen ? `0` : `-10px`)};
     transform: rotate(${(props) => (props.menuOpen ? `-90deg` : `0`)});
     transition: ${(props) =>
-      props.menuOpen ? theme.hamAfterActive : theme.hamAfter};
+  props.menuOpen ? 'var(--ham-after-active)' : 'var(--ham-after)'};
   }
 `;
 const StyledLink = styled.div`

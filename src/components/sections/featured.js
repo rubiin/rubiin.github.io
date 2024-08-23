@@ -85,7 +85,7 @@ const StyledTechList = styled.ul`
     font-family: var(--font-mono);
     font-size: var(--fz-xs);
     color:  var(--slate);
-    margin-right: ${theme.margin};
+    margin-right: 20px;
     margin-bottom: 7px;
     white-space: nowrap;
     &:last-of-type {
@@ -134,7 +134,7 @@ const StyledImgContainer = styled.a`
   position: relative;
   z-index: 1;
   background-color: var(--green);
-  border-radius: ${theme.radius + 1}px;
+  border-radius: var(--border-radius);
   transition: var(--transition);
   ${media.tablet`height: 100%;`};
   ${media.thone`
@@ -190,7 +190,7 @@ const StyledProject = styled.div`
     ${StyledTechList} {
       justify-content: flex-end;
       li {
-        margin-left: ${theme.margin};
+        margin-left: 20px;
         margin-right: 0;
       }
     }
