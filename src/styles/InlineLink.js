@@ -7,7 +7,7 @@ const InlineLink = styled.a`
   text-decoration: none;
   text-decoration-skip-ink: auto;
   position: relative;
-  transition: ${theme.transition};
+  transition: var(--transition);
   cursor: pointer;
 
   &:hover,
@@ -27,7 +27,7 @@ const InlineLink = styled.a`
     position: relative;
     bottom: 0.37em;
     background-color: var(--green);
-    transition: ${theme.transition};
+    transition: var(--transition);
   }
 `;
 

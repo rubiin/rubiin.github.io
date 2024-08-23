@@ -27,7 +27,7 @@ const StyledTable = styled.table`
   }
 
   tbody tr {
-    transition: ${theme.transition};
+    transition: var(--transition);
 
     &:hover,
     &:focus {
@@ -50,22 +50,22 @@ const StyledTable = styled.table`
     &.year {
       width: 10%;
       ${media.tablet`
-        font-size: var( --fz-sm);
+        font-size: var(--fz-sm);
       `};
     }
     &.title {
       padding-top: 15px;
       color: var(--lightest-slate);
-      font-size: var( --fz-xl);
+      font-size: var(--fz-xl);
       font-weight: 700;
     }
     &.company {
       width: 15%;
       padding-top: 15px;
-      font-size: var( --fz-lg);
+      font-size: var(--fz-lg);
     }
     &.tech {
-      font-size: var( --fz-xxs);
+      font-size: var(--fz-xxs);
       font-family: var(--font-mono);
     }
     &.links {

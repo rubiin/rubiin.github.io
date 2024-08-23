@@ -17,7 +17,7 @@ const StyledContainer = styled.header`
   top: 0;
   padding: 0px 50px;
   background-color: var(--navy);
-  transition: ${theme.transition};
+  transition: var(--transition);
   z-index: 11;
   filter: none !important;
   pointer-events: auto !important;
@@ -31,7 +31,7 @@ const StyledContainer = styled.header`
       : "none"};
   transform: translateY(
     ${(props) =>
-      props.scrollDirection === "down" ? `-${theme.navScrollHeight}` : "0px"}
+  props.scrollDirection === "down" ? "calc(var(--nav-scroll-height) * -1)": "0px"}
   );
   ${media.desktop`padding: 0 40px;`};
   ${media.tablet`padding: 0 25px;`};
@@ -61,7 +61,7 @@ const StyledLogo = styled.div`
     }
     svg {
       fill: none;
-      transition: ${theme.transition};
+      transition: var(--transition);
       user-select: none;
     }
   }
@@ -85,13 +85,13 @@ const StyledHamburger = styled.div`
 const StyledHamburgerBox = styled.div`
   position: relative;
   display: inline-block;
-  width: ${theme.hamburgerWidth}px;
+  width: var(--hamburger-width);
   height: 24px;
 `;
 const StyledHamburgerInner = styled.div`
   background-color: var(--green);
   position: absolute;
-  width: ${theme.hamburgerWidth}px;
+  width: var(--hamburger-width);
   height: 2px;
   border-radius: ${theme.borderRadius};
   top: 50%;
@@ -113,7 +113,7 @@ const StyledHamburgerInner = styled.div`
     position: absolute;
     left: auto;
     right: 0;
-    width: ${theme.hamburgerWidth}px;
+    width: var(--hamburger-width);
     height: 2px;
     transition-timing-function: ease;
     transition-duration: 0.15s;
@@ -149,13 +149,13 @@ const StyledList = styled.ol`
 const StyledListItem = styled.li`
   margin: 0 10px;
   position: relative;
-  font-size: var( --fz-xs);
+  font-size: var(--fz-xs);
   counter-increment: item 1;
   &:before {
     content: "0" counter(item) ".";
     text-align: right;
     color: var(--green);
-    font-size: var( --fz-xxs);
+    font-size: var(--fz-xxs);
   }
 `;
 const StyledListLink = styled(Link)`
@@ -164,7 +164,7 @@ const StyledListLink = styled(Link)`
 const StyledResumeButton = styled.a`
   ${mixins.smallButton};
   margin-left: 10px;
-  font-size: var( --fz-xs);
+  font-size: var(--fz-xs);
 `;
 
 const DELTA = 5;

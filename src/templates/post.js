@@ -16,7 +16,7 @@ const StyledNextPrev = styled.div`
   flex-direction: column;
   gap: 20px;
   font-family: var(--font-mono);
-  font-size: var( --fz-sm);
+  font-size: var(--fz-sm);
   i {
     span {
       padding-left: 5px;

@@ -15,7 +15,7 @@ const StyledTagsContainer = styled(Main)`
     color: var(--light-slate);
     columns: 3;
     li {
-      font-size: var( --fz-xxl);
+      font-size: var(--fz-xxl);
 
       a {
         ${mixins.inlineLink};
@@ -23,7 +23,7 @@ const StyledTagsContainer = styled(Main)`
         .count {
           color:  var(--slate);
           font-family: var(--font-mono);
-          font-size: var( --fz-md);
+          font-size: var(--fz-md);
         }
       }
     }

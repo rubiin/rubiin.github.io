@@ -34,8 +34,8 @@ const GlobalStyle = createGlobalStyle`
     color:  var(--slate);
     line-height: 1.3;
     font-family: var(--font-sans);
-    font-size: var( --fz-xl);
-    ${media.phablet`font-size: var( --fz-lg);`}
+    font-size: var(--fz-xl);
+    ${media.phablet`font-size: var(--fz-lg);`}
 
     &.hidden {
       overflow: hidden;
@@ -44,7 +44,7 @@ const GlobalStyle = createGlobalStyle`
       overflow: hidden;
       #root > #content > * {
         filter: blur(5px) brightness(0.7);
-        transition: ${theme.transition};
+        transition: var(--transition);
         pointer-events: none;
         user-select: none;
       }
@@ -118,7 +118,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration-skip-ink: auto;
     color: inherit;
     position: relative;
-    transition: ${theme.transition};
+    transition: var(--transition);
     cursor: pointer;
 
     &:hover,
@@ -165,7 +165,7 @@ const GlobalStyle = createGlobalStyle`
     & > code {
       background-color: var(--light-navy);
       color: var(--white);
-      font-size: var( --fz-sm);
+      font-size: var(--fz-sm);
       border-radius: ${theme.borderRadius};
       padding: 0.3em 0.5em;
     }
@@ -176,7 +176,7 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
       margin: 0;
       list-style: none;
-      font-size: var( --fz-lg);
+      font-size: var(--fz-lg);
       li {
         position: relative;
         padding-left: 30px;
@@ -220,25 +220,25 @@ const GlobalStyle = createGlobalStyle`
 
   code {
     font-family: var(--font-mono);
-    font-size: var( --fz-md);
+    font-size: var(--fz-md);
   }
 
   .overline {
     color: var(--green);
     font-family: var(--font-mono);
-    font-size: var( --fz-md);
+    font-size: var(--fz-md);
     font-weight: normal;
   }
 
   .subtitle {
     color: var(--green);
     margin: 0 0 20px 0;
-    font-size: var( --fz-md);
+    font-size: var(--fz-md);
     font-family: var(--font-mono);
     font-weight: normal;
     line-height: 1.5;
-    ${media.desktop`font-size: var( --fz-sm);`};
-    ${media.tablet`font-size: var( --fz-xs);`};
+    ${media.desktop`font-size: var(--fz-sm);`};
+    ${media.tablet`font-size: var(--fz-xs);`};
 
     a {
       ${mixins.inlineLink};
@@ -260,7 +260,7 @@ const GlobalStyle = createGlobalStyle`
     a {
       ${mixins.inlineLink};
       font-family: var(--font-mono);
-      font-size: var( --fz-sm);
+      font-size: var(--fz-sm);
       font-weight: bold;
       line-height: 1.5;
       text-transform: uppercase;

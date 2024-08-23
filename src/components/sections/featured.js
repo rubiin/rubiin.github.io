@@ -31,7 +31,7 @@ const StyledContent = styled.div`
   ${media.phablet`padding: 30px 25px 20px;`};
 `;
 const StyledLabel = styled.h4`
-  font-size: var( --fz-xs);
+  font-size: var(--fz-xs);
   font-weight: normal;
   color: var(--green);
   font-family: var(--font-mono);
@@ -55,7 +55,7 @@ const StyledDescription = styled.div`
   padding: 25px;
   background-color: var(--light-navy);
   color: var(--light-slate);
-  font-size: var( --fz-lg);
+  font-size: var(--fz-lg);
   border-radius: ${theme.borderRadius};
   ${media.thone`
     background-color: transparent;
@@ -83,7 +83,7 @@ const StyledTechList = styled.ul`
 
   li {
     font-family: var(--font-mono);
-    font-size: var( --fz-xs);
+    font-size: var(--fz-xs);
     color:  var(--slate);
     margin-right: ${theme.margin};
     margin-bottom: 7px;
@@ -135,7 +135,7 @@ const StyledImgContainer = styled.a`
   z-index: 1;
   background-color: var(--green);
   border-radius: ${theme.radius + 1}px;
-  transition: ${theme.transition};
+  transition: var(--transition);
   ${media.tablet`height: 100%;`};
   ${media.thone`
     grid-column: 1 / -1;
@@ -160,7 +160,7 @@ const StyledImgContainer = styled.a`
     right: 0;
     bottom: 0;
     z-index: 3;
-    transition: ${theme.transition};
+    transition: var(--transition);
     background-color: var(--navy);
     mix-blend-mode: screen;
   }

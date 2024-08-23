@@ -21,11 +21,11 @@ const StyledContainer = styled(mixins.section)`
 const StyledOverline = styled.h1`
   color: var(--green);
   margin: 0 0 20px 3px;
-  font-size: var( --fz-md);
+  font-size: var(--fz-md);
   font-family: var(--font-mono);
   font-weight: normal;
-  ${media.desktop`font-size: var( --fz-sm);`};
-  ${media.tablet`font-size: var( --fz-xs);`};
+  ${media.desktop`font-size: var(--fz-sm);`};
+  ${media.tablet`font-size: var(--fz-xs);`};
 `;
 const StyledTitle = styled.h2`
   font-size: 80px;

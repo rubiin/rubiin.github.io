@@ -43,12 +43,12 @@ const SkipToContent = styled.a`
     background-color: var(--light-navy);
     border-radius: ${theme.borderRadius};
     padding: 18px 23px;
-    font-size: var( --fz-sm);
+    font-size: var(--fz-sm);
     font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
-    transition: ${theme.transition};
+    transition: var(--transition);
     top: 0;
     left: 0;
     width: auto;

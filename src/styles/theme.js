@@ -1,21 +1,10 @@
 const theme = {
-
-  easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
-  transition: "all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)",
-
-  borderRadius: "3px",
   navHeight: "100px",
-  navScrollHeight: "70px",
   margin: "20px",
-
   tabHeight: 42,
   tabWidth: 120,
   radius: 3,
-
-  gradient: `linear-gradient(0.4turn, #64d6ff, #64ffda)`,
-
   loaderDelay: `6`,
-
   hamburgerWidth: 30,
   hamBefore: `top 0.1s ease-in 0.25s, opacity 0.1s ease-in`,
   hamBeforeActive: `top 0.1s ease-out, opacity 0.1s ease-out 0.12s`,

@@ -17,16 +17,16 @@ const StyledContainer = styled(mixins.section)`
 const StyledHeading = styled(mixins.Heading)`
   display: block;
   color: var(--green);
-  font-size: var( --fz-md);
+  font-size: var(--fz-md);
   font-family: var(--font-mono);
   font-weight: normal;
   margin-bottom: 20px;
   justify-content: center;
-  ${media.desktop`font-size: var( --fz-sm);`};
+  ${media.desktop`font-size: var(--fz-sm);`};
   &:before {
     bottom: 0;
-    font-size: var( --fz-sm);
-    ${media.desktop`font-size: var( --fz-xs);`};
+    font-size: var(--fz-sm);
+    ${media.desktop`font-size: var(--fz-xs);`};
   }
   &:after {
     display: none;

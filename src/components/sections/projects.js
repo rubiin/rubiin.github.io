@@ -16,7 +16,7 @@ const StyledContainer = styled(mixins.section)`
 `;
 const StyledTitle = styled.h4`
   margin: 0 auto;
-  font-size: var( --fz-heading);
+  font-size: var(--fz-heading);
   ${media.tablet`font-size: 24px;`};
   a {
     display: block;
@@ -27,7 +27,7 @@ const StyledArchiveLink = styled(Link)`
   text-align: center;
   margin: 0 auto;
   font-family: var(--font-mono);
-  font-size: var( --fz-sm);
+  font-size: var(--fz-sm);
   &:after {
     bottom: 0.1em;
   }
@@ -52,11 +52,11 @@ const StyledProjectInner = styled.div`
   padding: 2rem 1.75rem;
   height: 100%;
   border-radius: ${theme.borderRadius};
-  transition: ${theme.transition};
+  transition: var(--transition);
   background-color: var(--light-navy);
 `;
 const StyledProject = styled.div`
-  transition: ${theme.transition};
+  transition: var(--transition);
   cursor: default;
   &:hover,
   &:focus {
@@ -92,7 +92,7 @@ const StyledIconLink = styled.a`
 `;
 const StyledProjectName = styled.h5`
   margin: 0 0 10px;
-  font-size: var( --fz-xxl);
+  font-size: var(--fz-xxl);
   color: var(--lightest-slate);
 `;
 const StyledProjectDescription = styled.div`
@@ -113,7 +113,7 @@ const StyledTechList = styled.ul`
 
   li {
     font-family: var(--font-mono);
-    font-size: var( --fz-xxs);
+    font-size: var(--fz-xxs);
     color:  var(--slate);
     line-height: 1.75;
     margin-right: 15px;

@@ -15,7 +15,7 @@ const StyledContainer = styled.div`
   height: 100vh;
   z-index: 10;
   outline: 0;
-  transition: ${theme.transition};
+  transition: var(--transition);
   transform: translateX(${(props) => (props.menuOpen ? 0 : 100)}vw);
   visibility: ${(props) => (props.menuOpen ? "visible" : "hidden")};
   display: none;
@@ -53,18 +53,18 @@ const NavList = styled.ol`
 const NavListItem = styled.li`
   margin: 0 auto 20px;
   position: relative;
-  font-size: var( --fz-lg);
+  font-size: var(--fz-lg);
   counter-increment: item 1;
   ${media.thone`
     margin: 0 auto 10px;
-    font-size: var( --fz-md);
+    font-size: var(--fz-md);
   `};
-  ${media.tiny`font-size: var( --fz-xs);`};
+  ${media.tiny`font-size: var(--fz-xs);`};
   &:before {
     display: block;
     content: "0" counter(item) ".";
     color: var(--green);
-    font-size: var( --fz-sm);
+    font-size: var(--fz-sm);
     margin-bottom: 5px;
   }
 `;

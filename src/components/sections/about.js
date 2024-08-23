@@ -38,14 +38,14 @@ const Skill = styled.li`
   margin-bottom: 10px;
   padding-left: 20px;
   font-family: var(--font-mono);
-  font-size: var( --fz-xs);
+  font-size: var(--fz-xs);
   color:  var(--slate);
   &:before {
     content: "▹";
     position: absolute;
     left: 0;
     color: var(--green);
-    font-size: var( --fz-sm);
+    font-size: var(--fz-sm);
     line-height: 12px;
   }
 `;
@@ -67,7 +67,7 @@ const StyledAvatar = styled(Img)`
   mix-blend-mode: multiply;
   filter: grayscale(100%) contrast(1);
   border-radius: ${theme.borderRadius};
-  transition: ${theme.transition};
+  transition: var(--transition);
 `;
 const StyledAvatarLink = styled.a`
   ${mixins.boxShadow};
@@ -96,7 +96,7 @@ const StyledAvatarLink = styled.a`
     width: 100%;
     height: 100%;
     border-radius: ${theme.borderRadius};
-    transition: ${theme.transition};
+    transition: var(--transition);
   }
   &:before {
     top: 0;

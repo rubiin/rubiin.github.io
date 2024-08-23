@@ -63,7 +63,7 @@ const StyledPostInner = styled.div`
   padding: 2rem 1.75rem;
   height: 100%;
   border-radius: ${theme.borderRadius};
-  transition: ${theme.transition};
+  transition: var(--transition);
   background-color: var(--light-navy);
   header,
   a {
@@ -76,7 +76,7 @@ const StyledAllCategory = styled(Link)`
 `;
 
 const StyledPost = styled.div`
-  transition: ${theme.transition};
+  transition: var(--transition);
   cursor: default;
   &:hover,
   &:focus {
@@ -99,17 +99,17 @@ const StyledFolder = styled.div`
 `;
 const StyledPostName = styled.h5`
   margin: 0 0 10px;
-  font-size: var( --fz-xxl);
+  font-size: var(--fz-xxl);
   color: var(--lightest-slate);
 `;
 const StyledPostDescription = styled.div`
   margin-top: 1rem;
-  font-size: var( --fz-lg);
+  font-size: var(--fz-lg);
   color: var(--light-slate);
 `;
 const StyledReadingTime = styled.span`
   font-family: var(--font-mono);
-  font-size: var( --fz-xs);
+  font-size: var(--fz-xs);
   color: var(--light-slate);
 `;
 const StyledDate = styled(StyledReadingTime)`

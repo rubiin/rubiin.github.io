@@ -56,7 +56,7 @@ const glitchAnimation = keyframes`
 const GlitchButton = styled.a`
   padding: 0.5rem 1rem;
   color: var(--green);
-  font-size: var( --fz-xxs);
+  font-size: var(--fz-xxs);
   font-family: var(--font-mono);
   background: linear-gradient(45deg, transparent 5%, rgba(41, 61, 90, 0.99) 5%);
   border: 0;
@@ -108,12 +108,12 @@ const button = styled.button`
   background-color: transparent;
   border: 1px solid var(--green);
   border-radius: ${theme.borderRadius};
-  font-size: var( --fz-xs);
+  font-size: var(--fz-xs);
   font-family: var(--font-mono);
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: ${theme.transition};
+  transition: var(--transition);
   padding: 1.25rem 1.75rem;
 
   &:hover,
@@ -150,7 +150,7 @@ const mixins = {
     text-decoration-skip-ink: auto;
     color: inherit;
     position: relative;
-    transition: ${theme.transition};
+    transition: var(--transition);
     cursor: pointer;
     &:hover,
     &:active,
@@ -182,7 +182,7 @@ const mixins = {
     text-decoration: none;
     text-decoration-skip-ink: auto;
     position: relative;
-    transition: ${theme.transition};
+    transition: var(--transition);
     cursor: pointer;
     color: var(--green);
     &:hover,
@@ -195,7 +195,7 @@ const mixins = {
       }
       & > * {
         color: var(--green) !important;
-        transition: ${theme.transition};
+        transition: var(--transition);
       }
     }
     &:after {
@@ -206,7 +206,7 @@ const mixins = {
       position: relative;
       bottom: 0.37em;
       background-color: var(--green);
-      transition: ${theme.transition};
+      transition: var(--transition);
       opacity: 0.5;
     }
   `,
@@ -217,12 +217,12 @@ const mixins = {
     border: 1px solid var(--green);
     border-radius: ${theme.borderRadius};
     padding: 0.75rem 1rem;
-    font-size: var( --fz-xs);
+    font-size: var(--fz-xs);
     font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
-    transition: ${theme.transition};
+    transition: var(--transition);
     &:hover,
     &:focus,
     &:active {
@@ -239,7 +239,7 @@ const mixins = {
     margin: 10px 0 40px;
     width: 100%;
     white-space: nowrap;
-    font-size: var( --fz-heading);
+    font-size: var(--fz-heading);
     ${media.tablet`font-size: 24px;`};
 
     &:before {
@@ -249,10 +249,10 @@ const mixins = {
       font-family: var(--font-mono);
       font-weight: normal;
       color: var(--green);
-      font-size: var( --fz-xl);
+      font-size: var(--fz-xl);
       position: relative;
       bottom: 4px;
-      ${media.tablet`font-size: var( --fz-lg);`};
+      ${media.tablet`font-size: var(--fz-lg);`};
     }
 
     &:after {
@@ -276,12 +276,12 @@ const mixins = {
     border: 1px solid var(--green);
     border-radius: ${theme.borderRadius};
     padding: 1.25rem 1.75rem;
-    font-size: var( --fz-sm);
+    font-size: var(--fz-sm);
     font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
-    transition: ${theme.transition};
+    transition: var(--transition);
     &:hover,
     &:focus,
     &:active {
@@ -301,7 +301,7 @@ const mixins = {
 
   boxShadow: css`
     box-shadow: 0 10px 30px -15px var(--navy-shadow);
-    transition: ${theme.transition};
+    transition: var(--transition);
 
     &:hover,
     &:focus {
@@ -313,7 +313,7 @@ const mixins = {
     padding: 0;
     margin: 0;
     list-style: none;
-    font-size: var( --fz-lg);
+    font-size: var(--fz-lg);
     li {
       position: relative;
       padding-left: 30px;

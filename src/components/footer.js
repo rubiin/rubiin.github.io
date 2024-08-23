@@ -29,7 +29,7 @@ const StyledLogo = styled.div`
     }
     svg {
       fill: none;
-      transition: ${theme.transition};
+      transition: var(--transition);
       user-select: none;
     }
   }
@@ -70,10 +70,10 @@ const StyledMetadata = styled.div`
   ${mixins.flexCenter};
   gap: 2rem;
   font-family: var(--font-mono);
-  font-size: var( --fz-sm);
+  font-size: var(--fz-sm);
   line-height: 1;
   margin-left: -15rem;
-  ${media.tablet`font-size: var( --fz-xxs);`};
+  ${media.tablet`font-size: var(--fz-xxs);`};
   ${media.bigDesktop`margin-left: 0;`};
 `;
 
