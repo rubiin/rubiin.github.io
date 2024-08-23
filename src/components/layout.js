@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Head, Loader, Nav, Social, Email, Footer } from "@components";
 import styled from "styled-components";
 import { GlobalStyle, theme } from "@styles";
-const { fontSizes, fonts } = theme;
+
 
 import { StyleSheetManager } from "styled-components";
 import isPropValid from "@emotion/is-prop-valid";
@@ -43,8 +43,8 @@ const SkipToContent = styled.a`
     background-color: var(--light-navy);
     border-radius: ${theme.borderRadius};
     padding: 18px 23px;
-    font-size: ${fontSizes.sm};
-    font-family: ${fonts.SFMono};
+    font-size: var( --fz-sm);
+    font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;

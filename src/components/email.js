@@ -4,7 +4,7 @@ import { email } from "@config";
 import { Side } from "@components";
 import styled from "styled-components";
 import { theme } from "@styles";
-const { fontSizes, fonts } = theme;
+
 
 const StyledLinkWrapper = styled.div`
   display: flex;
@@ -21,8 +21,8 @@ const StyledLinkWrapper = styled.div`
   }
 `;
 const StyledEmailLink = styled.a`
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.xs};
+  font-family: var(--font-mono);
+  font-size: var( --fz-xxs);
   letter-spacing: 0.1em;
   writing-mode: vertical-rl;
   margin: 20px auto;

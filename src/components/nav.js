@@ -9,7 +9,7 @@ import { Menu } from "@components";
 import { IconLogo } from "@components/icons";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { fontSizes, fonts } = theme;
+
 
 const StyledContainer = styled.header`
   ${mixins.flexBetween};
@@ -41,7 +41,7 @@ const StyledNav = styled.nav`
   position: relative;
   width: 100%;
   color: var(--lightest-slate);
-  font-family: ${fonts.SFMono};
+  font-family: var(--font-mono);
   counter-reset: item 0;
   z-index: 12;
 `;
@@ -149,13 +149,13 @@ const StyledList = styled.ol`
 const StyledListItem = styled.li`
   margin: 0 10px;
   position: relative;
-  font-size: ${fontSizes.smish};
+  font-size: var( --fz-xs);
   counter-increment: item 1;
   &:before {
     content: "0" counter(item) ".";
     text-align: right;
     color: var(--green);
-    font-size: ${fontSizes.xs};
+    font-size: var( --fz-xxs);
   }
 `;
 const StyledListLink = styled(Link)`
@@ -164,7 +164,7 @@ const StyledListLink = styled(Link)`
 const StyledResumeButton = styled.a`
   ${mixins.smallButton};
   margin-left: 10px;
-  font-size: ${fontSizes.smish};
+  font-size: var( --fz-xs);
 `;
 
 const DELTA = 5;

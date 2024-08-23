@@ -32,7 +32,7 @@ const StyledTagsContainer = styled(Main)`
     margin-bottom: 50px;
 
     a {
-      font-size: ${fontSizes.lg};
+      font-size: var( --fz-lg);
       font-weight: 400;
     }
   }
@@ -49,7 +49,7 @@ const StyledTagsContainer = styled(Main)`
       }
       .subtitle {
         color:  var(--slate);
-        font-size: ${fontSizes.sm};
+        font-size: var( --fz-sm);
 
         .tag {
           margin-right: 5px;

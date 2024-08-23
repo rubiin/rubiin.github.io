@@ -4,7 +4,7 @@ import sr from "@utils/sr";
 import { srConfig, email } from "@config";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { fontSizes, fonts } = theme;
+
 
 const StyledContainer = styled(mixins.section)`
   text-align: center;
@@ -17,16 +17,16 @@ const StyledContainer = styled(mixins.section)`
 const StyledHeading = styled(mixins.Heading)`
   display: block;
   color: var(--green);
-  font-size: ${fontSizes.md};
-  font-family: ${fonts.SFMono};
+  font-size: var( --fz-md);
+  font-family: var(--font-mono);
   font-weight: normal;
   margin-bottom: 20px;
   justify-content: center;
-  ${media.desktop`font-size: ${fontSizes.sm};`};
+  ${media.desktop`font-size: var( --fz-sm);`};
   &:before {
     bottom: 0;
-    font-size: ${fontSizes.sm};
-    ${media.desktop`font-size: ${fontSizes.smish};`};
+    font-size: var( --fz-sm);
+    ${media.desktop`font-size: var( --fz-xs);`};
   }
   &:after {
     display: none;

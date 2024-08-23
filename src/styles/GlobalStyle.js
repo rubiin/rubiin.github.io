@@ -6,7 +6,7 @@ import PrismStyles from "./PrismStyles";
 import theme from "./theme";
 import TransitionStyles from "./TransitionStyles";
 import variables from "./variables";
-const { fontSizes, fonts } = theme;
+
 
 const GlobalStyle = createGlobalStyle`
   ${FontFaces};
@@ -33,9 +33,9 @@ const GlobalStyle = createGlobalStyle`
     background-color: var(--navy);
     color:  var(--slate);
     line-height: 1.3;
-    font-family: ${fonts.Calibre};
-    font-size: ${fontSizes.xl};
-    ${media.phablet`font-size: ${fontSizes.lg};`}
+    font-family: var(--font-sans);
+    font-size: var( --fz-xl);
+    ${media.phablet`font-size: var( --fz-lg);`}
 
     &.hidden {
       overflow: hidden;
@@ -165,7 +165,7 @@ const GlobalStyle = createGlobalStyle`
     & > code {
       background-color: var(--light-navy);
       color: var(--white);
-      font-size: ${fontSizes.sm};
+      font-size: var( --fz-sm);
       border-radius: ${theme.borderRadius};
       padding: 0.3em 0.5em;
     }
@@ -176,7 +176,7 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
       margin: 0;
       list-style: none;
-      font-size: ${fontSizes.lg};
+      font-size: var( --fz-lg);
       li {
         position: relative;
         padding-left: 30px;
@@ -219,26 +219,26 @@ const GlobalStyle = createGlobalStyle`
   }
 
   code {
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.md};
+    font-family: var(--font-mono);
+    font-size: var( --fz-md);
   }
 
   .overline {
     color: var(--green);
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.md};
+    font-family: var(--font-mono);
+    font-size: var( --fz-md);
     font-weight: normal;
   }
 
   .subtitle {
     color: var(--green);
     margin: 0 0 20px 0;
-    font-size: ${fontSizes.md};
-    font-family: ${fonts.SFMono};
+    font-size: var( --fz-md);
+    font-family: var(--font-mono);
     font-weight: normal;
     line-height: 1.5;
-    ${media.desktop`font-size: ${fontSizes.sm};`};
-    ${media.tablet`font-size: ${fontSizes.smish};`};
+    ${media.desktop`font-size: var( --fz-sm);`};
+    ${media.tablet`font-size: var( --fz-xs);`};
 
     a {
       ${mixins.inlineLink};
@@ -259,8 +259,8 @@ const GlobalStyle = createGlobalStyle`
     }
     a {
       ${mixins.inlineLink};
-      font-family: ${fonts.SFMono};
-      font-size: ${fontSizes.sm};
+      font-family: var(--font-mono);
+      font-size: var( --fz-sm);
       font-weight: bold;
       line-height: 1.5;
       text-transform: uppercase;

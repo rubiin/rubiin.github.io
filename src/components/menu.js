@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { navLinks } from "@config";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { fontSizes, fonts } = theme;
+
 
 const StyledContainer = styled.div`
   position: fixed;
@@ -31,7 +31,7 @@ const Sidebar = styled.aside`
   position: relative;
   right: 0;
   margin-left: auto;
-  font-family: ${fonts.SFMono};
+  font-family: var(--font-mono);
   box-shadow: -10px 0px 30px -15px var(--navy-shadow);
   ${media.thone`padding: 25px;`};
   ${media.phablet`width: 75vw;`};
@@ -53,18 +53,18 @@ const NavList = styled.ol`
 const NavListItem = styled.li`
   margin: 0 auto 20px;
   position: relative;
-  font-size: ${fontSizes.lg};
+  font-size: var( --fz-lg);
   counter-increment: item 1;
   ${media.thone`
     margin: 0 auto 10px;
-    font-size: ${fontSizes.md};
+    font-size: var( --fz-md);
   `};
-  ${media.tiny`font-size: ${fontSizes.smish};`};
+  ${media.tiny`font-size: var( --fz-xs);`};
   &:before {
     display: block;
     content: "0" counter(item) ".";
     color: var(--green);
-    font-size: ${fontSizes.sm};
+    font-size: var( --fz-sm);
     margin-bottom: 5px;
   }
 `;

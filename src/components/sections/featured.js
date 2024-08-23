@@ -6,7 +6,7 @@ import Img from "gatsby-image";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-const { fontSizes, fonts } = theme;
+
 const { Heading } = mixins;
 
 const StyledGithubStat = styled.div`
@@ -31,10 +31,10 @@ const StyledContent = styled.div`
   ${media.phablet`padding: 30px 25px 20px;`};
 `;
 const StyledLabel = styled.h4`
-  font-size: ${fontSizes.smish};
+  font-size: var( --fz-xs);
   font-weight: normal;
   color: var(--green);
-  font-family: ${fonts.SFMono};
+  font-family: var(--font-mono);
   margin-top: 10px;
   padding-top: 0;
 `;
@@ -55,7 +55,7 @@ const StyledDescription = styled.div`
   padding: 25px;
   background-color: var(--light-navy);
   color: var(--light-slate);
-  font-size: ${fontSizes.lg};
+  font-size: var( --fz-lg);
   border-radius: ${theme.borderRadius};
   ${media.thone`
     background-color: transparent;
@@ -82,8 +82,8 @@ const StyledTechList = styled.ul`
   list-style: none;
 
   li {
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.smish};
+    font-family: var(--font-mono);
+    font-size: var( --fz-xs);
     color:  var(--slate);
     margin-right: ${theme.margin};
     margin-bottom: 7px;

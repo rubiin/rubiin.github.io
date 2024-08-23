@@ -7,7 +7,7 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-const { fonts, fontSizes } = theme;
+
 
 const StyledMainContainer = styled(Main)``;
 const StyledTableContainer = styled.div`
@@ -50,23 +50,23 @@ const StyledTable = styled.table`
     &.year {
       width: 10%;
       ${media.tablet`
-        font-size: ${fontSizes.sm};
+        font-size: var( --fz-sm);
       `};
     }
     &.title {
       padding-top: 15px;
       color: var(--lightest-slate);
-      font-size: ${fontSizes.xl};
+      font-size: var( --fz-xl);
       font-weight: 700;
     }
     &.company {
       width: 15%;
       padding-top: 15px;
-      font-size: ${fontSizes.lg};
+      font-size: var( --fz-lg);
     }
     &.tech {
-      font-size: ${fontSizes.xs};
-      font-family: ${fonts.SFMono};
+      font-size: var( --fz-xxs);
+      font-family: var(--font-mono);
     }
     &.links {
       span {

@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import { IconLogo } from "./icons";
-const { fontSizes, fonts } = theme;
+
 
 const StyledLogo = styled.div`
   ${mixins.flexCenter};
@@ -69,11 +69,11 @@ const StyledSocialLink = styled.a`
 const StyledMetadata = styled.div`
   ${mixins.flexCenter};
   gap: 2rem;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.sm};
+  font-family: var(--font-mono);
+  font-size: var( --fz-sm);
   line-height: 1;
   margin-left: -15rem;
-  ${media.tablet`font-size: ${fontSizes.xs};`};
+  ${media.tablet`font-size: var( --fz-xxs);`};
   ${media.bigDesktop`margin-left: 0;`};
 `;
 

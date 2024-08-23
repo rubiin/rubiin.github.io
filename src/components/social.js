@@ -5,7 +5,7 @@ import { Side } from "@components";
 import { FormattedIcon } from "@components/icons";
 import styled from "styled-components";
 import { theme } from "@styles";
-const { colors } = theme;
+
 
 const StyledList = styled.ul`
   display: flex;

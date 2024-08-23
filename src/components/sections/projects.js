@@ -7,7 +7,7 @@ import { srConfig } from "@config";
 import { IconGitHub, IconExternal, IconFolder } from "@components/icons";
 import styled from "styled-components";
 import { theme, mixins, media, Button } from "@styles";
-const { fontSizes, fonts } = theme;
+
 
 const StyledContainer = styled(mixins.section)`
   ${mixins.flexCenter};
@@ -16,7 +16,7 @@ const StyledContainer = styled(mixins.section)`
 `;
 const StyledTitle = styled.h4`
   margin: 0 auto;
-  font-size: ${fontSizes.h3};
+  font-size: var( --fz-heading);
   ${media.tablet`font-size: 24px;`};
   a {
     display: block;
@@ -26,8 +26,8 @@ const StyledArchiveLink = styled(Link)`
   ${mixins.inlineLink};
   text-align: center;
   margin: 0 auto;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.sm};
+  font-family: var(--font-mono);
+  font-size: var( --fz-sm);
   &:after {
     bottom: 0.1em;
   }
@@ -92,7 +92,7 @@ const StyledIconLink = styled.a`
 `;
 const StyledProjectName = styled.h5`
   margin: 0 0 10px;
-  font-size: ${fontSizes.xxl};
+  font-size: var( --fz-xxl);
   color: var(--lightest-slate);
 `;
 const StyledProjectDescription = styled.div`
@@ -112,8 +112,8 @@ const StyledTechList = styled.ul`
   list-style: none;
 
   li {
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.xs};
+    font-family: var(--font-mono);
+    font-size: var( --fz-xxs);
     color:  var(--slate);
     line-height: 1.75;
     margin-right: 15px;

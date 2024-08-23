@@ -9,19 +9,18 @@ import { NewsLetter } from "../components";
 import { Disqus } from "gatsby-plugin-disqus";
 import { formatDate } from "../utils";
 
-const { fonts, fontSizes } = theme;
 
 const StyledNextPrev = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   gap: 20px;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.sm};
+  font-family: var(--font-mono);
+  font-size: var( --fz-sm);
   i {
     span {
       padding-left: 5px;
-      font-family: ${fonts.SFMono};
+      font-family: var(--font-mono);
     }
   }
 `;

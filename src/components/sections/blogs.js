@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import { formatDate } from "../../utils";
-const { fontSizes, fonts } = theme;
+
 
 const StyledTagsContainer = styled.div`
   width: 200px;
@@ -99,17 +99,17 @@ const StyledFolder = styled.div`
 `;
 const StyledPostName = styled.h5`
   margin: 0 0 10px;
-  font-size: ${fontSizes.xxl};
+  font-size: var( --fz-xxl);
   color: var(--lightest-slate);
 `;
 const StyledPostDescription = styled.div`
   margin-top: 1rem;
-  font-size: ${fontSizes.lg};
+  font-size: var( --fz-lg);
   color: var(--light-slate);
 `;
 const StyledReadingTime = styled.span`
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.smish};
+  font-family: var(--font-mono);
+  font-size: var( --fz-xs);
   color: var(--light-slate);
 `;
 const StyledDate = styled(StyledReadingTime)`

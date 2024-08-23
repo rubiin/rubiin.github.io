@@ -4,7 +4,7 @@ import sr from "@utils/sr";
 import { srConfig } from "@config";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { fontSizes, fonts } = theme;
+
 const { Heading } = mixins;
 
 const StyledContainer = styled(mixins.section)`
@@ -71,8 +71,8 @@ const StyledTabButton = styled.button`
   border-left: 2px solid var(--lightest-navy);
   text-align: left;
   white-space: nowrap;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.smish};
+  font-family: var(--font-mono);
+  font-size: var( --fz-xs);
   color: ${(props) => (props.isActive ? 'var(--green)' : 'var(--slate)')};
   ${media.tablet`padding: 0 15px 2px;`};
   ${media.thone`
@@ -137,7 +137,7 @@ const StyledTabContent = styled.div`
 `;
 const StyledJobTitle = styled.h4`
   color: var(--lightest-slate);
-  font-size: ${fontSizes.xxl};
+  font-size: var( --fz-xxl);
   font-weight: 500;
   margin-bottom: 5px;
 `;
@@ -145,8 +145,8 @@ const StyledCompany = styled.span`
   color: var(--green);
 `;
 const StyledJobDetails = styled.h5`
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.smish};
+  font-family: var(--font-mono);
+  font-size: var( --fz-xs);
   font-weight: normal;
   letter-spacing: 0.05em;
   color: var(--light-slate);

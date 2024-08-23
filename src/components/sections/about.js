@@ -5,7 +5,7 @@ import sr from "@utils/sr";
 import { srConfig, github } from "@config";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { fontSizes, fonts } = theme;
+
 
 const { Heading } = mixins;
 
@@ -37,15 +37,15 @@ const Skill = styled.li`
   position: relative;
   margin-bottom: 10px;
   padding-left: 20px;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.smish};
+  font-family: var(--font-mono);
+  font-size: var( --fz-xs);
   color:  var(--slate);
   &:before {
     content: "▹";
     position: absolute;
     left: 0;
     color: var(--green);
-    font-size: ${fontSizes.sm};
+    font-size: var( --fz-sm);
     line-height: 12px;
   }
 `;

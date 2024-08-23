@@ -1,23 +1,5 @@
 const theme = {
 
-  fonts: {
-    Calibre:
-      "Calibre, San Francisco, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, Roboto, Helvetica Neue, Segoe UI, Arial, sans-serif",
-    SFMono:
-      "SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, monospace",
-  },
-
-  fontSizes: {
-    xs: "12px",
-    smish: "13px",
-    sm: "14px",
-    md: "16px",
-    lg: "18px",
-    xl: "20px",
-    xxl: "22px",
-    h3: "32px",
-  },
-
   easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
   transition: "all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)",
 

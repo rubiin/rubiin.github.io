@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import theme from "./theme";
-const { fontSizes, fonts } = theme;
+
 
 const prismColors = {
   bg: `#112340`,
@@ -31,14 +31,14 @@ const PrismStyles = css`
     padding: 1.25em;
     overflow: auto;
     position: relative;
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.md};
+    font-family: var(--font-mono);
+    font-size: var( --fz-md);
   }
 
   .gatsby-highlight code[class*="language-"],
   .gatsby-highlight pre[class*="language-"] {
     height: auto !important;
-    font-size: ${fontSizes.sm};
+    font-size: var( --fz-sm);
     line-height: 1.5;
     white-space: pre;
     word-spacing: normal;
@@ -68,8 +68,8 @@ const PrismStyles = css`
   /* File names */
   .gatsby-code-title {
     padding: 1em 1.5em;
-    font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.smish};
+    font-family: var(--font-mono);
+    font-size: var( --fz-xs);
     background-color: ${prismColors.bg};
     color: ${prismColors.grey};
     border-top-left-radius: ${theme.borderRadius};
@@ -98,8 +98,8 @@ const PrismStyles = css`
   .gatsby-highlight pre[class*="language-"]::before {
     background-color: var(--lightest-navy);
     color: var(--white);
-    font-size: ${fontSizes.xs};
-    font-family: ${fonts.SFMono};
+    font-size: var( --fz-xxs);
+    font-family: var(--font-mono);
     line-height: 1.5;
     letter-spacing: 0.1em;
     text-transform: uppercase;

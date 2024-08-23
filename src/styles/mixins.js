@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 import theme from "./theme";
 import media from "./media";
-const { colors, fontSizes, fonts } = theme;
+const { colors,  fonts } = theme;
 import styled, { keyframes } from "styled-components";
 
 // Keyframes for the glitch animation
@@ -56,8 +56,8 @@ const glitchAnimation = keyframes`
 const GlitchButton = styled.a`
   padding: 0.5rem 1rem;
   color: var(--green);
-  font-size: ${fontSizes.xs};
-  font-family: ${fonts.SFMono};
+  font-size: var( --fz-xxs);
+  font-family: var(--font-mono);
   background: linear-gradient(45deg, transparent 5%, rgba(41, 61, 90, 0.99) 5%);
   border: 0;
   border-radius: ${theme.borderRadius};
@@ -108,8 +108,8 @@ const button = styled.button`
   background-color: transparent;
   border: 1px solid var(--green);
   border-radius: ${theme.borderRadius};
-  font-size: ${fontSizes.smish};
-  font-family: ${fonts.SFMono};
+  font-size: var( --fz-xs);
+  font-family: var(--font-mono);
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
@@ -217,8 +217,8 @@ const mixins = {
     border: 1px solid var(--green);
     border-radius: ${theme.borderRadius};
     padding: 0.75rem 1rem;
-    font-size: ${fontSizes.smish};
-    font-family: ${fonts.SFMono};
+    font-size: var( --fz-xs);
+    font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
@@ -239,20 +239,20 @@ const mixins = {
     margin: 10px 0 40px;
     width: 100%;
     white-space: nowrap;
-    font-size: ${fontSizes.h3};
+    font-size: var( --fz-heading);
     ${media.tablet`font-size: 24px;`};
 
     &:before {
       counter-increment: section;
       content: "0" counter(section) ".";
       margin-right: 10px;
-      font-family: ${fonts.SFMono};
+      font-family: var(--font-mono);
       font-weight: normal;
       color: var(--green);
-      font-size: ${fontSizes.xl};
+      font-size: var( --fz-xl);
       position: relative;
       bottom: 4px;
-      ${media.tablet`font-size: ${fontSizes.lg};`};
+      ${media.tablet`font-size: var( --fz-lg);`};
     }
 
     &:after {
@@ -276,8 +276,8 @@ const mixins = {
     border: 1px solid var(--green);
     border-radius: ${theme.borderRadius};
     padding: 1.25rem 1.75rem;
-    font-size: ${fontSizes.sm};
-    font-family: ${fonts.SFMono};
+    font-size: var( --fz-sm);
+    font-family: var(--font-mono);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
@@ -313,7 +313,7 @@ const mixins = {
     padding: 0;
     margin: 0;
     list-style: none;
-    font-size: ${fontSizes.lg};
+    font-size: var( --fz-lg);
     li {
       position: relative;
       padding-left: 30px;

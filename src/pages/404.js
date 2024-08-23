@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Layout } from "@components";
 import styled from "styled-components";
 import { theme, mixins, media, Main } from "@styles";
-const { fonts } = theme;
+
 
 const StyledMainContainer = styled(Main)`
   ${mixins.flexCenter};
@@ -59,7 +59,7 @@ const StyledDataContainer = styled.div`
 
 const StyledTitle = styled.h1`
   color: var(--green);
-  font-family: ${fonts.SFMono};
+  font-family: var(--font-mono);
   font-size: 12vw;
   line-height: 1;
   ${media.bigDesktop`font-size: 200px;`}

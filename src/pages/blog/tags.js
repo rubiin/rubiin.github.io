@@ -5,7 +5,7 @@ import kebabCase from "lodash/kebabCase";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
-const { fontSizes, fonts } = theme;
+
 
 const StyledTagsContainer = styled(Main)`
   h1 {
@@ -15,15 +15,15 @@ const StyledTagsContainer = styled(Main)`
     color: var(--light-slate);
     columns: 3;
     li {
-      font-size: ${fontSizes.xxl};
+      font-size: var( --fz-xxl);
 
       a {
         ${mixins.inlineLink};
         color: var(--light-slate);
         .count {
           color:  var(--slate);
-          font-family: ${fonts.SFMono};
-          font-size: ${fontSizes.md};
+          font-family: var(--font-mono);
+          font-size: var( --fz-md);
         }
       }
     }
