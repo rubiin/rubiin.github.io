@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
 import { email } from "@config";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const { GlitchButton } = mixins;
 
@@ -19,7 +19,7 @@ const StyledContainer = styled(mixins.section)`
   }
 `;
 const StyledOverline = styled.h1`
-  color: ${colors.green};
+  color: var(--green);
   margin: 0 0 20px 3px;
   font-size: ${fontSizes.md};
   font-family: ${fonts.SFMono};
@@ -39,7 +39,7 @@ const StyledTitle = styled.h2`
 const StyledSubtitle = styled.h3`
   font-size: 60px;
   line-height: 1.1;
-  color: ${colors.slate};
+  color:  var(--slate);
   ${media.desktop`font-size: 70px;`};
   ${media.tablet`font-size: 60px;`};
   ${media.phablet`font-size: 50px;`};

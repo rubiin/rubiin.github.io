@@ -1,14 +1,16 @@
 import { createGlobalStyle } from "styled-components";
-import theme from "./theme";
+import FontFaces from "./fonts";
 import media from "./media";
 import mixins from "./mixins";
-import FontFaces from "./fonts";
-import TransitionStyles from "./TransitionStyles";
 import PrismStyles from "./PrismStyles";
-const { colors, fontSizes, fonts } = theme;
+import theme from "./theme";
+import TransitionStyles from "./TransitionStyles";
+import variables from "./variables";
+const { fontSizes, fonts } = theme;
 
 const GlobalStyle = createGlobalStyle`
   ${FontFaces};
+  ${variables}
 
   html {
     box-sizing: border-box;
@@ -28,8 +30,8 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    background-color: ${colors.navy};
-    color: ${colors.slate};
+    background-color: var(--navy);
+    color:  var(--slate);
     line-height: 1.3;
     font-family: ${fonts.Calibre};
     font-size: ${fontSizes.xl};
@@ -50,7 +52,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background-color: ${colors.highlight};
+    background-color: var(--lightest-navy);
+    color: var(--lightest-slate);
   }
 
   #root {
@@ -67,7 +70,7 @@ const GlobalStyle = createGlobalStyle`
   h5,
   h6 {
     font-weight: 600;
-    color: ${colors.lightestSlate};
+    color: var(--lightest-slate);
     margin: 0 0 10px 0;
   }
 
@@ -120,7 +123,7 @@ const GlobalStyle = createGlobalStyle`
 
     &:hover,
     &:focus {
-      color: ${colors.green};
+      color: var(--green);
     }
   }
 
@@ -131,7 +134,7 @@ const GlobalStyle = createGlobalStyle`
 
     &:focus,
     &:active {
-      outline-color: ${colors.blue};
+      outline-color: var(--blue);
     }
   }
 
@@ -160,8 +163,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     & > code {
-      background-color: ${colors.lightNavy};
-      color: ${colors.offWhite};
+      background-color: var(--light-navy);
+      color: var(--white);
       font-size: ${fontSizes.sm};
       border-radius: ${theme.borderRadius};
       padding: 0.3em 0.5em;
@@ -182,14 +185,14 @@ const GlobalStyle = createGlobalStyle`
           content: '▹';
           position: absolute;
           left: 0;
-          color: ${colors.green};
+          color: var(--green);
         }
       }
     }
   }
 
   blockquote {
-    border-left-color: ${colors.green};
+    border-left-color: var(--green);
     border-left-style: solid;
     border-left-width: 1px;
     margin-left: 0px;
@@ -203,7 +206,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   hr {
-    background-color: ${colors.darkGrey};
+    background-color: var(--lightest-navy);
     height: 1px;
     border-width: 0px;
     border-style: initial;
@@ -221,14 +224,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .overline {
-    color: ${colors.green};
+    color: var(--green);
     font-family: ${fonts.SFMono};
     font-size: ${fontSizes.md};
     font-weight: normal;
   }
 
   .subtitle {
-    color: ${colors.green};
+    color: var(--green);
     margin: 0 0 20px 0;
     font-size: ${fontSizes.md};
     font-family: ${fonts.SFMono};
@@ -247,7 +250,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     margin-bottom: 50px;
-    color: ${colors.green};
+    color: var(--green);
 
     .arrow {
       display: block;

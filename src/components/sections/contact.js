@@ -4,7 +4,7 @@ import sr from "@utils/sr";
 import { srConfig, email } from "@config";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const StyledContainer = styled(mixins.section)`
   text-align: center;
@@ -16,7 +16,7 @@ const StyledContainer = styled(mixins.section)`
 `;
 const StyledHeading = styled(mixins.Heading)`
   display: block;
-  color: ${colors.green};
+  color: var(--green);
   font-size: ${fontSizes.md};
   font-family: ${fonts.SFMono};
   font-weight: normal;

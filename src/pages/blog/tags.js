@@ -5,23 +5,23 @@ import kebabCase from "lodash/kebabCase";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled(Main)`
   h1 {
     margin-bottom: 50px;
   }
   ul {
-    color: ${colors.lightSlate};
+    color: var(--light-slate);
     columns: 3;
     li {
       font-size: ${fontSizes.xxl};
 
       a {
         ${mixins.inlineLink};
-        color: ${colors.lightSlate};
+        color: var(--light-slate);
         .count {
-          color: ${colors.slate};
+          color:  var(--slate);
           font-family: ${fonts.SFMono};
           font-size: ${fontSizes.md};
         }

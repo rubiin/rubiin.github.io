@@ -6,7 +6,7 @@ import React from "react";
 import styled from "styled-components";
 import config from "../config";
 import { formatDate } from "../utils";
-const { colors, fontSizes } = theme;
+const { fontSizes } = theme;
 
 const StyledTags = styled.div`
   display: flex;
@@ -44,11 +44,11 @@ const StyledTagsContainer = styled(Main)`
         font-size: inherit;
         margin: 0;
         a {
-          color: ${colors.lightSlate};
+          color: var(--light-slate);
         }
       }
       .subtitle {
-        color: ${colors.slate};
+        color:  var(--slate);
         font-size: ${fontSizes.sm};
 
         .tag {

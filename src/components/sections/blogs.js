@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import { formatDate } from "../../utils";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
   width: 200px;
@@ -64,7 +64,7 @@ const StyledPostInner = styled.div`
   height: 100%;
   border-radius: ${theme.borderRadius};
   transition: ${theme.transition};
-  background-color: ${colors.lightNavy};
+  background-color: var(--light-navy);
   header,
   a {
     width: 100%;
@@ -91,7 +91,7 @@ const StyledPostHeader = styled.div`
   margin-bottom: 30px;
 `;
 const StyledFolder = styled.div`
-  color: ${colors.green};
+  color: var(--green);
   svg {
     width: 40px;
     height: 40px;
@@ -100,17 +100,17 @@ const StyledFolder = styled.div`
 const StyledPostName = styled.h5`
   margin: 0 0 10px;
   font-size: ${fontSizes.xxl};
-  color: ${colors.lightestSlate};
+  color: var(--lightest-slate);
 `;
 const StyledPostDescription = styled.div`
   margin-top: 1rem;
   font-size: ${fontSizes.lg};
-  color: ${colors.lightSlate};
+  color: var(--light-slate);
 `;
 const StyledReadingTime = styled.span`
   font-family: ${fonts.SFMono};
   font-size: ${fontSizes.smish};
-  color: ${colors.lightSlate};
+  color: var(--light-slate);
 `;
 const StyledDate = styled(StyledReadingTime)`
   text-transform: uppercase;

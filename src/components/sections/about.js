@@ -5,7 +5,7 @@ import sr from "@utils/sr";
 import { srConfig, github } from "@config";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const { Heading } = mixins;
 
@@ -39,12 +39,12 @@ const Skill = styled.li`
   padding-left: 20px;
   font-family: ${fonts.SFMono};
   font-size: ${fontSizes.smish};
-  color: ${colors.slate};
+  color:  var(--slate);
   &:before {
     content: "▹";
     position: absolute;
     left: 0;
-    color: ${colors.green};
+    color: var(--green);
     font-size: ${fontSizes.sm};
     line-height: 12px;
   }
@@ -74,7 +74,7 @@ const StyledAvatarLink = styled.a`
   width: 100%;
   position: relative;
   border-radius: ${theme.borderRadius};
-  background-color: ${colors.green};
+  background-color: var(--green);
   margin-left: -20px;
   &:hover,
   &:focus {
@@ -103,11 +103,11 @@ const StyledAvatarLink = styled.a`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${colors.navy};
+    background-color: var(--navy);
     mix-blend-mode: screen;
   }
   &:after {
-    border: 2px solid ${colors.green};
+    border: 2px solid var(--green);
     top: 20px;
     left: 20px;
     z-index: -1;

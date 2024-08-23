@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { navLinks } from "@config";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const StyledContainer = styled.div`
   position: fixed;
@@ -24,7 +24,7 @@ const StyledContainer = styled.div`
 const Sidebar = styled.aside`
   ${mixins.flexCenter};
   flex-direction: column;
-  background-color: ${colors.lightNavy};
+  background-color: var(--light-navy);
   padding: 50px;
   width: 50vw;
   height: 100%;
@@ -32,7 +32,7 @@ const Sidebar = styled.aside`
   right: 0;
   margin-left: auto;
   font-family: ${fonts.SFMono};
-  box-shadow: -10px 0px 30px -15px ${colors.shadowNavy};
+  box-shadow: -10px 0px 30px -15px var(--navy-shadow);
   ${media.thone`padding: 25px;`};
   ${media.phablet`width: 75vw;`};
   ${media.tiny`padding: 10px;`};
@@ -42,7 +42,7 @@ const NavLinks = styled.nav`
   width: 100%;
   flex-direction: column;
   text-align: center;
-  color: ${colors.lightestSlate};
+  color: var(--lightest-slate);
 `;
 const NavList = styled.ol`
   padding: 0;
@@ -63,7 +63,7 @@ const NavListItem = styled.li`
   &:before {
     display: block;
     content: "0" counter(item) ".";
-    color: ${colors.green};
+    color: var(--green);
     font-size: ${fontSizes.sm};
     margin-bottom: 5px;
   }

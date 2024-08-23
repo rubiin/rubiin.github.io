@@ -7,7 +7,7 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-const { colors, fonts, fontSizes } = theme;
+const { fonts, fontSizes } = theme;
 
 const StyledMainContainer = styled(Main)``;
 const StyledTableContainer = styled.div`
@@ -31,7 +31,7 @@ const StyledTable = styled.table`
 
     &:hover,
     &:focus {
-      background-color: ${colors.lightNavy};
+      background-color: var(--light-navy);
     }
   }
   th,
@@ -55,7 +55,7 @@ const StyledTable = styled.table`
     }
     &.title {
       padding-top: 15px;
-      color: ${colors.lightestSlate};
+      color: var(--lightest-slate);
       font-size: ${fontSizes.xl};
       font-weight: 700;
     }

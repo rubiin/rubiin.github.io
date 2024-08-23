@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import theme from "./theme";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const prismColors = {
   bg: `#112340`,
@@ -87,7 +87,7 @@ const PrismStyles = css`
   .gatsby-highlight-code-line {
     display: block;
     background-color: ${prismColors.lineHighlight};
-    border-left: 2px solid ${colors.green};
+    border-left: 2px solid var(--green);
     padding-left: calc(1em + 2px);
     padding-right: 1em;
     margin-right: -1.35em;
@@ -96,8 +96,8 @@ const PrismStyles = css`
 
   /* Language badges */
   .gatsby-highlight pre[class*="language-"]::before {
-    background: ${colors.mediumGrey};
-    color: ${colors.offWhite};
+    background-color: var(--lightest-navy);
+    color: var(--white);
     font-size: ${fontSizes.xs};
     font-family: ${fonts.SFMono};
     line-height: 1.5;

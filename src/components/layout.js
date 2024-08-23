@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Head, Loader, Nav, Social, Email, Footer } from "@components";
 import styled from "styled-components";
 import { GlobalStyle, theme } from "@styles";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 import { StyleSheetManager } from "styled-components";
 import isPropValid from "@emotion/is-prop-valid";
@@ -34,13 +34,13 @@ const SkipToContent = styled.a`
   overflow: hidden;
   z-index: -99;
   &:hover {
-    background-color: ${colors.darkGrey};
+      background-color: var(--lightest-navy);
   }
   &:focus,
   &:active {
     outline: 0;
-    color: ${colors.green};
-    background-color: ${colors.lightNavy};
+    color: var(--green);
+    background-color: var(--light-navy);
     border-radius: ${theme.borderRadius};
     padding: 18px 23px;
     font-size: ${fontSizes.sm};

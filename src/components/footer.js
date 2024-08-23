@@ -12,19 +12,19 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import { IconLogo } from "./icons";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const StyledLogo = styled.div`
   ${mixins.flexCenter};
   a {
     display: block;
-    color: ${colors.green};
+    color: var(--green);
     width: 42px;
     height: 42px;
     &:hover,
     &:focus {
       svg {
-        fill: ${colors.transGreen};
+        fill: var(--green);
       }
     }
     svg {
@@ -40,13 +40,13 @@ const StyledContainer = styled.footer`
   ${mixins.flexCenter};
   flex-direction: column;
   padding: 15px;
-  background-color: ${colors.darkNavy};
-  color: ${colors.slate};
+  background-color: var(--dark-navy);
+  color:  var(--slate);
   height: auto;
   min-height: 100px;
 `;
 const StyledSocial = styled.div`
-  color: ${colors.lightSlate};
+  color: var(--light-slate);
   width: 100%;
   max-width: 270px;
   margin: 0 auto 10px;

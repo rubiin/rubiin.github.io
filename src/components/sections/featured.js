@@ -6,7 +6,7 @@ import Img from "gatsby-image";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 const { Heading } = mixins;
 
 const StyledGithubStat = styled.div`
@@ -33,7 +33,7 @@ const StyledContent = styled.div`
 const StyledLabel = styled.h4`
   font-size: ${fontSizes.smish};
   font-weight: normal;
-  color: ${colors.green};
+  color: var(--green);
   font-family: ${fonts.SFMono};
   margin-top: 10px;
   padding-top: 0;
@@ -41,9 +41,9 @@ const StyledLabel = styled.h4`
 const StyledProjectName = styled.h5`
   font-size: 28px;
   margin: 0 0 20px;
-  color: ${colors.lightestSlate};
+  color: var(--lightest-slate);
   ${media.tablet`font-size: 24px;`};
-  ${media.thone`color: ${colors.white};`};
+  ${media.thone`color:var(--white);`};
   a {
     ${media.tablet`display: block;`};
   }
@@ -53,8 +53,8 @@ const StyledDescription = styled.div`
   position: relative;
   z-index: 2;
   padding: 25px;
-  background-color: ${colors.lightNavy};
-  color: ${colors.lightSlate};
+  background-color: var(--light-navy);
+  color: var(--light-slate);
   font-size: ${fontSizes.lg};
   border-radius: ${theme.borderRadius};
   ${media.thone`
@@ -84,7 +84,7 @@ const StyledTechList = styled.ul`
   li {
     font-family: ${fonts.SFMono};
     font-size: ${fontSizes.smish};
-    color: ${colors.slate};
+    color:  var(--slate);
     margin-right: ${theme.margin};
     margin-bottom: 7px;
     white-space: nowrap;
@@ -92,7 +92,7 @@ const StyledTechList = styled.ul`
       margin-right: 0;
     }
     ${media.thone`
-      color: ${colors.lightestSlate};
+      color: var(--lightest-slate);
       margin-right: 10px;
     `};
   }
@@ -103,7 +103,7 @@ const StyledLinkWrapper = styled.div`
   position: relative;
   margin-top: 10px;
   margin-left: -10px;
-  color: ${colors.lightestSlate};
+  color: var(--lightest-slate);
   a {
     padding: 10px;
     svg {
@@ -133,7 +133,7 @@ const StyledImgContainer = styled.a`
   grid-row: 1 / -1;
   position: relative;
   z-index: 1;
-  background-color: ${colors.green};
+  background-color: var(--green);
   border-radius: ${theme.radius + 1}px;
   transition: ${theme.transition};
   ${media.tablet`height: 100%;`};
@@ -161,7 +161,7 @@ const StyledImgContainer = styled.a`
     bottom: 0;
     z-index: 3;
     transition: ${theme.transition};
-    background-color: ${colors.navy};
+    background-color: var(--navy);
     mix-blend-mode: screen;
   }
 `;

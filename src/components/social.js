@@ -21,7 +21,7 @@ const StyledList = styled.ul`
     width: 1px;
     height: 90px;
     margin: 0 auto;
-    background-color: ${colors.lightSlate};
+    background-color: var(--light-slate);
   }
 
   li:last-of-type {

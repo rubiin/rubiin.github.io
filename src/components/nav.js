@@ -9,14 +9,14 @@ import { Menu } from "@components";
 import { IconLogo } from "@components/icons";
 import styled from "styled-components";
 import { theme, mixins, media } from "@styles";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const StyledContainer = styled.header`
   ${mixins.flexBetween};
   position: fixed;
   top: 0;
   padding: 0px 50px;
-  background-color: ${colors.navy};
+  background-color: var(--navy);
   transition: ${theme.transition};
   z-index: 11;
   filter: none !important;
@@ -27,7 +27,7 @@ const StyledContainer = styled.header`
     props.scrollDirection === "none" ? theme.navHeight : theme.navScrollHeight};
   box-shadow: ${(props) =>
     props.scrollDirection === "up"
-      ? `0 10px 30px -10px ${colors.shadowNavy}`
+      ? `0 10px 30px -10px var(--navy-shadow)`
       : "none"};
   transform: translateY(
     ${(props) =>
@@ -40,7 +40,7 @@ const StyledNav = styled.nav`
   ${mixins.flexBetween};
   position: relative;
   width: 100%;
-  color: ${colors.lightestSlate};
+  color: var(--lightest-slate);
   font-family: ${fonts.SFMono};
   counter-reset: item 0;
   z-index: 12;
@@ -50,13 +50,13 @@ const StyledLogo = styled.div`
   ${mixins.flexCenter};
   a {
     display: block;
-    color: ${colors.green};
+    color: var(--green);
     width: 42px;
     height: 42px;
     &:hover,
     &:focus {
       svg {
-        fill: ${colors.transGreen};
+        fill: var(--green);
       }
     }
     svg {
@@ -89,7 +89,7 @@ const StyledHamburgerBox = styled.div`
   height: 24px;
 `;
 const StyledHamburgerInner = styled.div`
-  background-color: ${colors.green};
+  background-color: var(--green);
   position: absolute;
   width: ${theme.hamburgerWidth}px;
   height: 2px;
@@ -109,7 +109,7 @@ const StyledHamburgerInner = styled.div`
   &:after {
     content: "";
     display: block;
-    background-color: ${colors.green};
+    background-color: var(--green);
     position: absolute;
     left: auto;
     right: 0;
@@ -154,7 +154,7 @@ const StyledListItem = styled.li`
   &:before {
     content: "0" counter(item) ".";
     text-align: right;
-    color: ${colors.green};
+    color: var(--green);
     font-size: ${fontSizes.xs};
   }
 `;

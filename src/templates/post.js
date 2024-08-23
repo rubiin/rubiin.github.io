@@ -9,7 +9,7 @@ import { NewsLetter } from "../components";
 import { Disqus } from "gatsby-plugin-disqus";
 import { formatDate } from "../utils";
 
-const { colors, fonts, fontSizes } = theme;
+const { fonts, fontSizes } = theme;
 
 const StyledNextPrev = styled.div`
   display: flex;
@@ -83,7 +83,7 @@ const StyledPostContent = styled.article`
   p {
     margin: 1em 0;
     line-height: 1.5;
-    color: ${colors.lightSlate};
+    color: var(--light-slate);
     }
   }
 

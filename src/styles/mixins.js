@@ -55,7 +55,7 @@ const glitchAnimation = keyframes`
 // Styled component for the button
 const GlitchButton = styled.a`
   padding: 0.5rem 1rem;
-  color: ${colors.green};
+  color: var(--green);
   font-size: ${fontSizes.xs};
   font-family: ${fonts.SFMono};
   background: linear-gradient(45deg, transparent 5%, rgba(41, 61, 90, 0.99) 5%);
@@ -104,9 +104,9 @@ const GlitchButton = styled.a`
 `;
 
 const button = styled.button`
-  color: ${colors.green};
+  color: var(--green);
   background-color: transparent;
-  border: 1px solid ${colors.green};
+  border: 1px solid var(--green);
   border-radius: ${theme.borderRadius};
   font-size: ${fontSizes.smish};
   font-family: ${fonts.SFMono};
@@ -119,7 +119,7 @@ const button = styled.button`
   &:hover,
   &:focus,
   &:active {
-    background-color: ${colors.transGreen};
+    background-color: var(--green);
     outline: none;
   }
   &:after {
@@ -155,7 +155,7 @@ const mixins = {
     &:hover,
     &:active,
     &:focus {
-      color: ${colors.green};
+      color: var(--green);
       outline: 0;
     }
   `,
@@ -184,17 +184,17 @@ const mixins = {
     position: relative;
     transition: ${theme.transition};
     cursor: pointer;
-    color: ${colors.green};
+    color: var(--green);
     &:hover,
     &:focus,
     &:active {
-      color: ${colors.green};
+      color: var(--green);
       outline: 0;
       &:after {
         width: 100%;
       }
       & > * {
-        color: ${colors.green} !important;
+        color: var(--green) !important;
         transition: ${theme.transition};
       }
     }
@@ -205,16 +205,16 @@ const mixins = {
       height: 1px;
       position: relative;
       bottom: 0.37em;
-      background-color: ${colors.green};
+      background-color: var(--green);
       transition: ${theme.transition};
       opacity: 0.5;
     }
   `,
 
   smallButton: css`
-    color: ${colors.green};
+    color: var(--green);
     background-color: transparent;
-    border: 1px solid ${colors.green};
+    border: 1px solid var(--green);
     border-radius: ${theme.borderRadius};
     padding: 0.75rem 1rem;
     font-size: ${fontSizes.smish};
@@ -226,7 +226,7 @@ const mixins = {
     &:hover,
     &:focus,
     &:active {
-      background-color: ${colors.transGreen};
+      background-color: var(--green);
     }
     &:after {
       display: none !important;
@@ -248,7 +248,7 @@ const mixins = {
       margin-right: 10px;
       font-family: ${fonts.SFMono};
       font-weight: normal;
-      color: ${colors.green};
+      color: var(--green);
       font-size: ${fontSizes.xl};
       position: relative;
       bottom: 4px;
@@ -260,7 +260,7 @@ const mixins = {
       display: block;
       height: 1px;
       width: 300px;
-      background-color: ${colors.mediumGrey};
+      background-color: var(--lightest-navy);
       position: relative;
       top: -5px;
       margin-left: 20px;
@@ -271,9 +271,9 @@ const mixins = {
   `,
 
   bigButton: css`
-    color: ${colors.green};
+    color: var(--green);
     background-color: transparent;
-    border: 1px solid ${colors.green};
+    border: 1px solid var(--green);
     border-radius: ${theme.borderRadius};
     padding: 1.25rem 1.75rem;
     font-size: ${fontSizes.sm};
@@ -285,7 +285,7 @@ const mixins = {
     &:hover,
     &:focus,
     &:active {
-      background-color: ${colors.transGreen};
+      background-color: var(--green);
     }
     &:after {
       display: none !important;
@@ -300,12 +300,12 @@ const mixins = {
   `,
 
   boxShadow: css`
-    box-shadow: 0 10px 30px -15px ${colors.shadowNavy};
+    box-shadow: 0 10px 30px -15px var(--navy-shadow);
     transition: ${theme.transition};
 
     &:hover,
     &:focus {
-      box-shadow: 0 20px 30px -15px ${colors.shadowNavy};
+      box-shadow: 0 20px 30px -15px var(--navy-shadow);
     }
   `,
 
@@ -322,7 +322,7 @@ const mixins = {
         content: "▹";
         position: absolute;
         left: 0;
-        color: ${colors.green};
+        color: var(--green);
       }
     }
   `,

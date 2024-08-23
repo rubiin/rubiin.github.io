@@ -7,7 +7,7 @@ import { srConfig } from "@config";
 import { IconGitHub, IconExternal, IconFolder } from "@components/icons";
 import styled from "styled-components";
 import { theme, mixins, media, Button } from "@styles";
-const { colors, fontSizes, fonts } = theme;
+const { fontSizes, fonts } = theme;
 
 const StyledContainer = styled(mixins.section)`
   ${mixins.flexCenter};
@@ -53,7 +53,7 @@ const StyledProjectInner = styled.div`
   height: 100%;
   border-radius: ${theme.borderRadius};
   transition: ${theme.transition};
-  background-color: ${colors.lightNavy};
+  background-color: var(--light-navy);
 `;
 const StyledProject = styled.div`
   transition: ${theme.transition};
@@ -71,7 +71,7 @@ const StyledProjectHeader = styled.div`
   margin-bottom: 30px;
 `;
 const StyledFolder = styled.div`
-  color: ${colors.green};
+  color: var(--green);
   svg {
     width: 40px;
     height: 40px;
@@ -79,7 +79,7 @@ const StyledFolder = styled.div`
 `;
 const StyledProjectLinks = styled.div`
   margin-right: -10px;
-  color: ${colors.lightSlate};
+  color: var(--light-slate);
 `;
 const StyledIconLink = styled.a`
   position: relative;
@@ -93,11 +93,11 @@ const StyledIconLink = styled.a`
 const StyledProjectName = styled.h5`
   margin: 0 0 10px;
   font-size: ${fontSizes.xxl};
-  color: ${colors.lightestSlate};
+  color: var(--lightest-slate);
 `;
 const StyledProjectDescription = styled.div`
   font-size: 17px;
-  color: ${colors.lightSlate};
+  color: var(--light-slate);
   a {
     ${mixins.inlineLink};
   }
@@ -114,7 +114,7 @@ const StyledTechList = styled.ul`
   li {
     font-family: ${fonts.SFMono};
     font-size: ${fontSizes.xs};
-    color: ${colors.slate};
+    color:  var(--slate);
     line-height: 1.75;
     margin-right: 15px;
     &:last-of-type {
