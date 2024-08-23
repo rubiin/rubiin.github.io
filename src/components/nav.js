@@ -24,7 +24,7 @@ const StyledContainer = styled.header`
   user-select: auto !important;
   width: 100%;
   height: ${(props) =>
-    props.scrollDirection === "none" ? theme.navHeight : theme.navScrollHeight};
+  props.scrollDirection === "none" ? 'var(--nav-height)' : 'var(--nav-scroll-height)'};
   box-shadow: ${(props) =>
     props.scrollDirection === "up"
       ? `0 10px 30px -10px var(--navy-shadow)`
