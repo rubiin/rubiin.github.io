@@ -22,6 +22,7 @@ const StyledTagsContainer = styled.div`
 `;
 
 const StyledMainContainer = styled(Main)`
+  padding-bottom: 0;
   & > header {
     text-align: center;
     margin-bottom: 100px;
@@ -165,7 +166,7 @@ const StyledLatestPostHeader = styled.h1`
 
 const BlogPage = ({ location, data }) => {
   const group = data.allMarkdownRemark.group;
-  const GRID_LIMIT = 4;
+  const GRID_LIMIT = 5;
 
   const posts = data.allMarkdownRemark.edges;
   const [toggleText, setToggleTxt] = useState(POST_TAGS.FEATURED);

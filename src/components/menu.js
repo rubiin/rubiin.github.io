@@ -1,9 +1,9 @@
-import React from "react";
+import { navLinks } from "@config";
+import { media, mixins, theme } from "@styles";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
-import { navLinks } from "@config";
+import React from "react";
 import styled from "styled-components";
-import { theme, mixins, media } from "@styles";
 const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.div`
@@ -80,7 +80,7 @@ const ResumeLink = styled.a`
   width: max-content;
 `;
 
-const Menu = ({ menuOpen, toggleMenu }) => {
+const Menu = ({ menuOpen, toggleMenu, location }) => {
   const handleMenuClick = (e) => {
     const target = e.target;
     const isLink = target.hasAttribute("href");
@@ -91,6 +91,7 @@ const Menu = ({ menuOpen, toggleMenu }) => {
       toggleMenu();
     }
   };
+  const isAboutMe = location.pathname === "/about/";
 
   return (
     <StyledContainer
@@ -109,13 +110,15 @@ const Menu = ({ menuOpen, toggleMenu }) => {
                 </NavListItem>
               ))}
           </NavList>
-          <ResumeLink
-            href="/resume.pdf"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-          >
-            Resume
-          </ResumeLink>
+          {isAboutMe && (
+            <ResumeLink
+              href="/resume.pdf"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              Resume
+            </ResumeLink>
+          )}
         </NavLinks>
       </Sidebar>
     </StyledContainer>
@@ -125,6 +128,7 @@ const Menu = ({ menuOpen, toggleMenu }) => {
 Menu.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export default Menu;

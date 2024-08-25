@@ -335,7 +335,11 @@ class Nav extends Component {
           </StyledLink>
         </StyledNav>
 
-        <Menu menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
+        <Menu
+          menuOpen={menuOpen}
+          toggleMenu={this.toggleMenu}
+          location={location}
+        />
       </StyledContainer>
     );
   }
