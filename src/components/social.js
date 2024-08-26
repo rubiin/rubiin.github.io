@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { socialMedia } from "@config";
-import { Side } from "@components";
-import { FormattedIcon } from "@components/icons";
-import styled from "styled-components";
-import { theme } from "@styles";
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import { socialMedia } from '@config';
+import { Side } from '@components';
+import { FormattedIcon } from '@components/icons';
+import styled from 'styled-components';
+import { theme } from '@styles';
+const { colors } = theme;
 
 const StyledList = styled.ul`
   display: flex;
@@ -16,7 +16,7 @@ const StyledList = styled.ul`
   list-style: none;
 
   &:after {
-    content: "";
+    content: '';
     display: block;
     width: 1px;
     height: 90px;
@@ -50,8 +50,7 @@ const Social = ({ isHome }) => (
               href={url}
               target="_blank"
               rel="nofollow noopener noreferrer"
-              aria-label={name}
-            >
+              aria-label={name}>
               <FormattedIcon name={name} />
             </StyledLink>
           </li>

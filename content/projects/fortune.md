@@ -1,13 +1,13 @@
 ---
-date: "2024-04-12"
-title: "fortune.lua"
-github: "https://github.com/rubiin/fortune.nvim"
-external: "https://github.com/rubiin/fortune.nvim"
+date: '2024-04-12'
+title: 'fortune.lua'
+github: 'https://github.com/rubiin/fortune.nvim'
+external: 'https://github.com/rubiin/fortune.nvim'
 tech:
   - neovim
   - vim
   - lua
-company: ""
+company: ''
 showInProjects: true
 ---
 

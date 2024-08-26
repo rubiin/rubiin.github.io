@@ -3,9 +3,9 @@ title: Docker pipeline with Typescript + Express for production
 date: 2022-06-08
 featured: false
 draft: false
-slug: "/blog/docker-pipeline-express/"
+slug: '/blog/docker-pipeline-express/'
 description:
-cover_image: "./cover.webp"
+cover_image: './cover.webp'
 tags:
   - typescript
   - docker

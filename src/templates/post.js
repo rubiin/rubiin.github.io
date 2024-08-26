@@ -1,13 +1,13 @@
-import { Main, media, theme, mixins } from "@styles";
-import styled from "styled-components";
-import { graphql, Link } from "gatsby";
-import kebabCase from "lodash/kebabCase";
-import PropTypes from "prop-types";
-import React from "react";
-import { ShareLink, Head, Layout } from "@components";
-import { NewsLetter } from "../components";
-import { Disqus } from "gatsby-plugin-disqus";
-import { formatDate } from "../utils";
+import { Main, media, theme, mixins } from '@styles';
+import styled from 'styled-components';
+import { graphql, Link } from 'gatsby';
+import kebabCase from 'lodash/kebabCase';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { ShareLink, Head, Layout } from '@components';
+import { NewsLetter } from '../components';
+import { Disqus } from 'gatsby-plugin-disqus';
+import { formatDate } from '../utils';
 
 
 const StyledNextPrev = styled.div`
@@ -145,25 +145,19 @@ const PostTemplate = ({ data, location }) => {
             {tags &&
               tags.length > 0 &&
               tags.map((tag, i) => (
-                <Link
-                  key={i}
-                  to={`/blog/tags/${kebabCase(tag)}/`}
-                  className="tag"
-                >
+                <Link key={i} to={`/blog/tags/${kebabCase(tag)}/`} className="tag">
                   #{tag}
                 </Link>
               ))}
           </p>
-          {tableOfContents !== "" && (
+          {tableOfContents !== '' && (
             <StyledToc>
               <h2 className="big-title">Table of contents</h2>
               <p onClick={() => setShowToc(!showToc)}>
                 <span>🢒</span>
                 <span>Click to expand!</span>
               </p>
-              {showToc && (
-                <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
-              )}
+              {showToc && <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />}
             </StyledToc>
           )}
         </StyledPostHeader>
@@ -176,8 +170,7 @@ const PostTemplate = ({ data, location }) => {
           <div className="author">
             <i className="fa fa-user">
               <span>
-                <span style={{ color: "#ffffff" }}>Rubin Bhandari</span> |{" "}
-                {formatDate(date)}
+                <span style={{ color: '#ffffff' }}>Rubin Bhandari</span> | {formatDate(date)}
               </span>
             </i>
           </div>

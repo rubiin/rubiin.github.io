@@ -5,36 +5,14 @@ import {
   IconLinkedin,
   IconRss,
   IconTwitter,
-} from "@components/icons";
-import { socialMedia } from "@config";
-import { media, mixins, theme } from "@styles";
-import PropTypes from "prop-types";
-import React from "react";
-import styled from "styled-components";
-import { IconLogo } from "./icons";
-
-
-const StyledLogo = styled.div`
-  ${mixins.flexCenter};
-  a {
-    display: block;
-    color: var(--green);
-    width: 42px;
-    height: 42px;
-    &:hover,
-    &:focus {
-      svg {
-        fill: var(--green);
-      }
-    }
-    svg {
-      fill: none;
-      transition: var(--transition);
-      user-select: none;
-    }
-  }
-  ${media.tablet`display: none;`};
-`;
+} from '@components/icons';
+import { socialMedia } from '@config';
+import { media, mixins, theme } from '@styles';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import { IconLogo } from './icons';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.footer`
   ${mixins.flexCenter};
@@ -66,17 +44,6 @@ const StyledSocialLink = styled.a`
     height: 20px;
   }
 `;
-const StyledMetadata = styled.div`
-  ${mixins.flexCenter};
-  gap: 2rem;
-  font-family: var(--font-mono);
-  font-size: var(--fz-sm);
-  line-height: 1;
-  margin-left: -15rem;
-  ${media.tablet`font-size: var(--fz-xxs);`};
-  ${media.bigDesktop`margin-left: 0;`};
-`;
-
 const Footer = () => (
   <StyledContainer>
     <StyledSocial>
@@ -88,19 +55,18 @@ const Footer = () => (
                 href={url}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                aria-label={name}
-              >
-                {name === "GitHub" ? (
+                aria-label={name}>
+                {name === 'GitHub' ? (
                   <IconGitHub />
-                ) : name === "Linkedin" ? (
+                ) : name === 'Linkedin' ? (
                   <IconLinkedin />
-                ) : name === "Dev.to" ? (
+                ) : name === 'Dev.to' ? (
                   <IconDev />
-                ) : name === "Instagram" ? (
+                ) : name === 'Instagram' ? (
                   <IconInstagram />
-                ) : name === "Twitter" ? (
+                ) : name === 'Twitter' ? (
                   <IconTwitter />
-                ) : name === "Github" ? (
+                ) : name === 'Github' ? (
                   <IconGitHub />
                 ) : (
                   <IconRss />
@@ -110,19 +76,6 @@ const Footer = () => (
           ))}
       </StyledSocialList>
     </StyledSocial>
-
-    <StyledMetadata tabIndex="-1">
-      <StyledLogo>
-        <a href="/" aria-label="home">
-          <IconLogo />
-        </a>
-      </StyledLogo>
-      <h4>
-        <span role="img" aria-label="copyright">
-          Copyright © {new Date().getFullYear()} Rubin Bhandari.
-        </span>
-      </h4>
-    </StyledMetadata>
   </StyledContainer>
 );
 

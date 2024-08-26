@@ -1,10 +1,10 @@
 ---
 title: Custom jenkins images with plugins pre-installed
-date: "2019-10-12"
+date: '2019-10-12'
 featured: false
 draft: false
-slug: "/blog/custom-jenkins-images-with-plugins-pre-installed-1pok/"
-cover_image: "./cover.webp"
+slug: '/blog/custom-jenkins-images-with-plugins-pre-installed-1pok/'
+cover_image: './cover.webp'
 tags:
   - jenkins
   - devops

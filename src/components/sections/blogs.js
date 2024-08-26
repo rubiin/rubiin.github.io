@@ -1,12 +1,12 @@
-import { TagItem } from "@components";
-import { Main, media, mixins, theme } from "@styles";
-import { Link, navigate } from "gatsby";
-import kebabCase from "lodash/kebabCase";
-import PropTypes from "prop-types";
-import React from "react";
-import styled from "styled-components";
-import { formatDate } from "../../utils";
-
+import { TagItem } from '@components';
+import { Main, media, mixins, theme } from '@styles';
+import { Link, navigate } from 'gatsby';
+import kebabCase from 'lodash/kebabCase';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import { formatDate } from '../../utils';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledTagsContainer = styled.div`
   width: 200px;
@@ -166,9 +166,7 @@ const Blog = ({ posts, tags }) => {
     <StyledMainContainer>
       <StyledFlex>
         <div className="posts">
-          <StyledLatestPostHeader className="small-title wavy">
-            Recent Posts
-          </StyledLatestPostHeader>
+          <StyledLatestPostHeader className="small-title wavy">Recent Posts</StyledLatestPostHeader>
 
           {postsData.length > 0 &&
             postsData.map(({ node }, i) => {
@@ -205,19 +203,16 @@ const Blog = ({ posts, tags }) => {
             })}
 
           <StyledButtonContainer>
-            <StyledMoreButton onClick={() => navigate("/blog")}>
-              View All Posts
-            </StyledMoreButton>
+            <StyledMoreButton onClick={() => navigate('/blog')}>View All Posts</StyledMoreButton>
           </StyledButtonContainer>
         </div>
         <StyledTagsContainer>
           <h2 className="small-text">Read more on</h2>
           <ul className="fancy-list">
-            {sortTags.map((tag) => (
+            {sortTags.map(tag => (
               <li key={tag.fieldValue}>
                 <Link to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}>
-                  {tag.fieldValue}{" "}
-                  <span className="count">({tag.totalCount})</span>
+                  {tag.fieldValue} <span className="count">({tag.totalCount})</span>
                 </Link>
               </li>
             ))}

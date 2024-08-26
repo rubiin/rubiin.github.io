@@ -1,14 +1,14 @@
-import { media } from "@styles";
-import React, { Component } from "react";
-import styled from "styled-components";
+import { media } from '@styles';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
 const StyledSubscribeForm = styled.div`
-  .formkit-form[data-uid="589be1abe0"] {
+  .formkit-form[data-uid='589be1abe0'] {
     border: none !important;
     max-width: 100% !important;
     width: 40% !important;
     font-size: 13px;
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
     ${media.giant`width: 70% !important;`};
     ${media.bigDesktop`width: 70% !important;`};
     ${media.desktop`width: 80% !important;`};
@@ -25,19 +25,15 @@ const StyledSubscribeForm = styled.div`
 
 class Newsletter extends Component {
   componentDidMount() {
-    const script = document.createElement("script");
-    script.src = "https://rubin-bhandari.ck.page/589be1abe0/index.js";
+    const script = document.createElement('script');
+    script.src = 'https://rubin-bhandari.ck.page/589be1abe0/index.js';
     script.async = true;
-    script.setAttribute("data-uid", "589be1abe0");
+    script.setAttribute('data-uid', '589be1abe0');
     this.instance.appendChild(script);
   }
 
   render() {
-    return (
-      <StyledSubscribeForm
-        ref={(el) => (this.instance = el)}
-      ></StyledSubscribeForm>
-    );
+    return <StyledSubscribeForm ref={el => (this.instance = el)}></StyledSubscribeForm>;
   }
 }
 

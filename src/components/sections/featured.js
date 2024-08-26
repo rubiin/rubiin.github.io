@@ -1,12 +1,12 @@
-import { IconExternal, IconGitHub, IconStar } from "@components/icons";
-import { srConfig } from "@config";
-import { media, mixins, theme } from "@styles";
-import sr from "@utils/sr";
-import Img from "gatsby-image";
-import PropTypes from "prop-types";
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-
+import { IconExternal, IconGitHub, IconStar } from '@components/icons';
+import { srConfig } from '@config';
+import { media, mixins, theme } from '@styles';
+import sr from '@utils/sr';
+import Img from 'gatsby-image';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+const { colors, fontSizes, fonts } = theme;
 const { Heading } = mixins;
 
 const StyledGithubStat = styled.div`
@@ -151,7 +151,7 @@ const StyledImgContainer = styled.a`
     }
   }
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
@@ -214,7 +214,7 @@ const Featured = ({ data }) => {
   const featuredProjects = data.filter(({ node }) => node);
 
   const repos = featuredProjects.map(
-    (item) => item.node.frontmatter.github.split("https://github.com/")[1],
+    item => item.node.frontmatter.github.split('https://github.com/')[1],
   );
 
   const [stars, setStars] = useState([]);
@@ -223,9 +223,7 @@ const Featured = ({ data }) => {
   const revealProjects = useRef([]);
   useEffect(() => {
     sr.reveal(revealTitle.current, srConfig());
-    revealProjects.current.forEach((ref, i) =>
-      sr.reveal(ref, srConfig(i * 100)),
-    );
+    revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
   }, []);
 
   return (
@@ -239,10 +237,7 @@ const Featured = ({ data }) => {
             const { external, title, tech, github, cover } = frontmatter;
 
             return (
-              <StyledProject
-                key={i}
-                ref={(el) => (revealProjects.current[i] = el)}
-              >
+              <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
                 <StyledContent>
                   <StyledLabel>Featured Projects</StyledLabel>
                   <StyledProjectName>
@@ -251,17 +246,14 @@ const Featured = ({ data }) => {
                         href={external}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
-                        aria-label="External Link"
-                      >
+                        aria-label="External Link">
                         {title}
                       </a>
                     ) : (
                       title
                     )}
                   </StyledProjectName>
-                  <StyledDescription
-                    dangerouslySetInnerHTML={{ __html: html }}
-                  />
+                  <StyledDescription dangerouslySetInnerHTML={{ __html: html }} />
                   {tech && (
                     <StyledTechList>
                       {tech.map((tech, i) => (
@@ -280,8 +272,7 @@ const Featured = ({ data }) => {
                         href={github}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
-                        aria-label="GitHub Link"
-                      >
+                        aria-label="GitHub Link">
                         <IconGitHub />
                       </a>
                     )}
@@ -290,8 +281,7 @@ const Featured = ({ data }) => {
                         href={external}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
-                        aria-label="External Link"
-                      >
+                        aria-label="External Link">
                         <IconExternal />
                       </a>
                     )}
@@ -299,10 +289,9 @@ const Featured = ({ data }) => {
                 </StyledContent>
 
                 <StyledImgContainer
-                  href={external ? external : github ? github : "#"}
+                  href={external ? external : github ? github : '#'}
                   target="_blank"
-                  rel="nofollow noopener noreferrer"
-                >
+                  rel="nofollow noopener noreferrer">
                   <StyledFeaturedImg fluid={cover.childImageSharp.fluid} />
                 </StyledImgContainer>
               </StyledProject>

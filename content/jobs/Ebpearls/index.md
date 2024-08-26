@@ -1,10 +1,10 @@
 ---
-date: "2021-05-18"
-title: "Fullstack JS Developer"
-company: "EB Pearls"
-location: "Kathmandu, Nepal"
-range: "Feb - Aug 2021"
-url: "https://ebpearls.com.au/"
+date: '2021-05-18'
+title: 'Fullstack JS Developer'
+company: 'EB Pearls'
+location: 'Kathmandu, Nepal'
+range: 'Feb - Aug 2021'
+url: 'https://ebpearls.com.au/'
 ---
 
 - Using Node.js, MongoDB, and Express, we’ll build apps that grow with your business.

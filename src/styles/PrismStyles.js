@@ -1,6 +1,6 @@
-import { css } from "styled-components";
-import theme from "./theme";
-
+import { css } from 'styled-components';
+import theme from './theme';
+const { colors, fontSizes, fonts } = theme;
 
 const prismColors = {
   bg: `#112340`,
@@ -35,8 +35,8 @@ const PrismStyles = css`
     font-size: var(--fz-md);
   }
 
-  .gatsby-highlight code[class*="language-"],
-  .gatsby-highlight pre[class*="language-"] {
+  .gatsby-highlight code[class*='language-'],
+  .gatsby-highlight pre[class*='language-'] {
     height: auto !important;
     font-size: var(--fz-sm);
     line-height: 1.5;
@@ -55,7 +55,7 @@ const PrismStyles = css`
   * 2. Always fill the visible space in .gatsby-highlight.
   * 3. Adjust the position of the line numbers
   */
-  .gatsby-highlight pre[class*="language-"] {
+  .gatsby-highlight pre[class*='language-'] {
     background-color: transparent;
     margin: 0;
     padding: 0;
@@ -95,11 +95,11 @@ const PrismStyles = css`
   }
 
   /* Language badges */
-  .gatsby-highlight pre[class*="language-"]::before {
-    background-color: var(--lightest-navy);
-    color: var(--white);
-    font-size: var(--fz-xxs);
-    font-family: var(--font-mono);
+  .gatsby-highlight pre[class*='language-']::before {
+    background: ${colors.mediumGrey};
+    color: ${colors.offWhite};
+    font-size: ${fontSizes.xs};
+    font-family: ${fonts.SFMono};
     line-height: 1.5;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -109,54 +109,54 @@ const PrismStyles = css`
     left: 1.25rem;
     padding: 0.25rem 0.5rem;
   }
-  .gatsby-highlight pre[class="language-javascript"]::before {
-    content: "js";
+  .gatsby-highlight pre[class='language-javascript']::before {
+    content: 'js';
   }
-  .gatsby-highlight pre[class="language-js"]::before {
-    content: "js";
+  .gatsby-highlight pre[class='language-js']::before {
+    content: 'js';
   }
-  .gatsby-highlight pre[class="language-jsx"]::before {
-    content: "jsx";
+  .gatsby-highlight pre[class='language-jsx']::before {
+    content: 'jsx';
   }
-  .gatsby-highlight pre[class="language-graphql"]::before {
-    content: "GraphQL";
+  .gatsby-highlight pre[class='language-graphql']::before {
+    content: 'GraphQL';
   }
-  .gatsby-highlight pre[class="language-html"]::before {
-    content: "html";
+  .gatsby-highlight pre[class='language-html']::before {
+    content: 'html';
   }
-  .gatsby-highlight pre[class="language-css"]::before {
-    content: "css";
+  .gatsby-highlight pre[class='language-css']::before {
+    content: 'css';
   }
-  .gatsby-highlight pre[class="language-mdx"]::before {
-    content: "mdx";
+  .gatsby-highlight pre[class='language-mdx']::before {
+    content: 'mdx';
   }
-  .gatsby-highlight pre[class="language-shell"]::before {
-    content: "shell";
+  .gatsby-highlight pre[class='language-shell']::before {
+    content: 'shell';
   }
-  .gatsby-highlight pre[class="language-sh"]::before {
-    content: "sh";
+  .gatsby-highlight pre[class='language-sh']::before {
+    content: 'sh';
   }
-  .gatsby-highlight pre[class="language-bash"]::before {
-    content: "bash";
+  .gatsby-highlight pre[class='language-bash']::before {
+    content: 'bash';
   }
-  .gatsby-highlight pre[class="language-yaml"]::before {
-    content: "yaml";
+  .gatsby-highlight pre[class='language-yaml']::before {
+    content: 'yaml';
   }
-  .gatsby-highlight pre[class="language-markdown"]::before {
-    content: "md";
+  .gatsby-highlight pre[class='language-markdown']::before {
+    content: 'md';
   }
-  .gatsby-highlight pre[class="language-json"]::before,
-  .gatsby-highlight pre[class="language-json5"]::before {
-    content: "json";
+  .gatsby-highlight pre[class='language-json']::before,
+  .gatsby-highlight pre[class='language-json5']::before {
+    content: 'json';
   }
-  .gatsby-highlight pre[class="language-diff"]::before {
-    content: "diff";
+  .gatsby-highlight pre[class='language-diff']::before {
+    content: 'diff';
   }
-  .gatsby-highlight pre[class="language-text"]::before {
-    content: "text";
+  .gatsby-highlight pre[class='language-text']::before {
+    content: 'text';
   }
-  .gatsby-highlight pre[class="language-flow"]::before {
-    content: "flow";
+  .gatsby-highlight pre[class='language-flow']::before {
+    content: 'flow';
   }
 
   /* Prism Styles */

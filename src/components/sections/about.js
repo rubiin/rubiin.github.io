@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import Img from "gatsby-image";
-import sr from "@utils/sr";
-import { srConfig, github } from "@config";
-import styled from "styled-components";
-import { theme, mixins, media } from "@styles";
-
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import Img from 'gatsby-image';
+import sr from '@utils/sr';
+import { srConfig, github } from '@config';
+import styled from 'styled-components';
+import { theme, mixins, media } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const { Heading } = mixins;
 
@@ -41,7 +41,7 @@ const Skill = styled.li`
   font-size: var(--fz-xs);
   color:  var(--slate);
   &:before {
-    content: "▹";
+    content: '▹';
     position: absolute;
     left: 0;
     color: var(--green);
@@ -90,7 +90,7 @@ const StyledAvatarLink = styled.a`
   }
   &:before,
   &:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     width: 100%;

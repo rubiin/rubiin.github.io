@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ShareLink = ({ location, title }) => {
   const link = location.href;
@@ -9,30 +9,26 @@ const ShareLink = ({ location, title }) => {
           className="share__link "
           target="_blank"
           href={`https://www.facebook.com/sharer.php?u=${link}`}
-          title="facebook"
-        >
+          title="facebook">
           <i className="share fa fa-facebook fb"></i>
         </a>
         <a
           className="share__link "
           href={`https://twitter.com/share?url=${link}&text=${title}`}
-          title="twitter"
-        >
+          title="twitter">
           <i className="share fa fa-twitter tw"></i>
         </a>
         <a
           className="share__link "
           href={`https://www.linkedin.com/shareArticle?url=${link}&title=${title}`}
-          title="linkedin"
-        >
+          title="linkedin">
           <i className="share fa fa-linkedin sk"></i>
         </a>
 
         <a
           className="share__link "
           href={`mailto:?&subject=Here's a Blog Post I Think You'll Love!&cc=&bcc=&body=Check out this quick read at ${link}%0A`}
-          title="email"
-        >
+          title="email">
           <i className="share fa fa-envelope em"></i>
         </a>
       </div>

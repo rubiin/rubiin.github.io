@@ -1,9 +1,9 @@
-import { About, Contact, Featured, Jobs, Layout, Projects } from "@components";
-import { Main } from "@styles";
-import { graphql } from "gatsby";
-import PropTypes from "prop-types";
-import React from "react";
-import styled from "styled-components";
+import { About, Contact, Featured, Jobs, Layout, Projects } from '@components';
+import { Main } from '@styles';
+import { graphql } from 'gatsby';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledMainContainer = styled(Main)`
   counter-reset: section;
@@ -30,20 +30,14 @@ export default AboutPage;
 
 export const pageQuery = graphql`
   {
-    about: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/about/" } }
-    ) {
+    about: allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/about/" } }) {
       edges {
         node {
           frontmatter {
             title
             avatar {
               childImageSharp {
-                fluid(
-                  maxWidth: 700
-                  quality: 90
-                  traceSVG: { color: "#64ffda" }
-                ) {
+                fluid(maxWidth: 700, quality: 90, traceSVG: { color: "#64ffda" }) {
                   ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
@@ -81,11 +75,7 @@ export const pageQuery = graphql`
             title
             cover {
               childImageSharp {
-                fluid(
-                  maxWidth: 700
-                  quality: 90
-                  traceSVG: { color: "#64ffda" }
-                ) {
+                fluid(maxWidth: 700, quality: 90, traceSVG: { color: "#64ffda" }) {
                   ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
@@ -117,9 +107,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    contact: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/contact/" } }
-    ) {
+    contact: allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/contact/" } }) {
       edges {
         node {
           frontmatter {

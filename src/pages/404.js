@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "gatsby";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import PropTypes from "prop-types";
-import { Layout } from "@components";
-import styled from "styled-components";
-import { theme, mixins, media, Main } from "@styles";
-
+import React, { useState, useEffect } from 'react';
+import { Link } from 'gatsby';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import PropTypes from 'prop-types';
+import { Layout } from '@components';
+import styled from 'styled-components';
+import { theme, mixins, media, Main } from '@styles';
+const { colors, fonts } = theme;
 
 const StyledMainContainer = styled(Main)`
   ${mixins.flexCenter};
@@ -21,13 +21,7 @@ const StyledImg = styled.img`
 ${media.phablet`width: 70%;`}
 ${media.thone`width: 50%;`}
 -webkit-animation:slide-top 2s ease-in-out infinite alternate-reverse;
-  animation:slide-top
-    2s
-    ease-in-out
-    infinite
-    alternate-reverse
-    @-webkit-keyframes
-    slide-top {
+  animation:slide-top 2s ease-in-out infinite alternate-reverse @-webkit-keyframes slide-top {
     0% {
       -webkit-transform: translateY(0);
       transform: translateY(0);
