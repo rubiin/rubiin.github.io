@@ -1,11 +1,11 @@
 ---
 title: Python for nodejs developers
-date: "2023-08-22"
+date: '2023-08-22'
 featured: false
 draft: false
-slug: "/blog/python-for-nodejs-developers/"
+slug: '/blog/python-for-nodejs-developers/'
 description:
-cover_image: "./cover.webp"
+cover_image: './cover.webp'
 tags:
   - python
   - nodejs

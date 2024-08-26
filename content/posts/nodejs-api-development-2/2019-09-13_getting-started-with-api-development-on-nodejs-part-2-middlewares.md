@@ -1,11 +1,11 @@
 ---
 title: Getting started with Api development on Nodejs Part 2 (Middlewares)
-date: "2019-09-13"
+date: '2019-09-13'
 featured: false
 draft: false
-slug: "/blog/getting-started-with-api-development-on-nodejs-part-2-middlewares/"
+slug: '/blog/getting-started-with-api-development-on-nodejs-part-2-middlewares/'
 description:
-cover_image: "../nodejs-api-devlopment/cover.webp"
+cover_image: '../nodejs-api-devlopment/cover.webp'
 tags:
   - nodejs
   - backend
@@ -47,7 +47,7 @@ It doesn't matter what router whenever a request comes in, it's always going run
 
 ```javascript
 app.use(function (req, res, next) {
-  console.log("Time:", Date.now());
+  console.log('Time:', Date.now());
   next();
 });
 ```
@@ -62,14 +62,14 @@ Load router-level middleware by using the router.use() and router.METHOD() funct
 <b>Example:</b>
 
 ```javascript
-const express = require("express");
+const express = require('express');
 
 const app = express();
 
 const router = express.Router();
 
 router.use((req, res, next) => {
-  console.log("Time:", Date.now());
+  console.log('Time:', Date.now());
   next();
 });
 ```
@@ -85,7 +85,7 @@ Error handling middleware is a little different than regular middleware. Like al
 ```javascript
 app.use(function (err, req, res, next) {
   console.error(err.stack);
-  res.status(500).send("Something broke!");
+  res.status(500).send('Something broke!');
 });
 ```
 

@@ -1,10 +1,10 @@
 ---
-date: "2018-02-24"
-title: "Fullstack JS Developer"
-company: "Rosebay Group"
-location: "Kathmandu, Nepal"
-range: "Feb - 2021"
-url: "https://rosebaycorporate.com/"
+date: '2018-02-24'
+title: 'Fullstack JS Developer'
+company: 'Rosebay Group'
+location: 'Kathmandu, Nepal'
+range: 'Feb - 2021'
+url: 'https://rosebaycorporate.com/'
 ---
 
 - Developed user authentication and authorization between multiple systems, servers, and environments

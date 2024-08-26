@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import sr from "@utils/sr";
-import { srConfig, email } from "@config";
-import styled from "styled-components";
-import { theme, mixins, media } from "@styles";
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import sr from '@utils/sr';
+import { srConfig, email } from '@config';
+import styled from 'styled-components';
+import { theme, mixins, media } from '@styles';
 const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled(mixins.section)`
@@ -57,11 +57,7 @@ const Contact = ({ data }) => {
 
       <div dangerouslySetInnerHTML={{ __html: html }} />
 
-      <StyledEmailLink
-        href={`mailto:${email}`}
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-      >
+      <StyledEmailLink href={`mailto:${email}`} target="_blank" rel="nofollow noopener noreferrer">
         Say Hello
       </StyledEmailLink>
     </StyledContainer>

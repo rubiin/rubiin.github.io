@@ -11,10 +11,10 @@ export const throttle = (func, wait = 100) => {
 };
 
 export function formatDate(date) {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 }
 
@@ -26,8 +26,8 @@ export function formatDate(date) {
 export function getStar(repoWithUsername) {
   const url = `https://api.github.com/repos/${repoWithUsername}`;
   fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       console.log({ data });
       return data.stargazers_count;
     });

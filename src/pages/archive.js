@@ -1,12 +1,12 @@
-import { Layout, Head } from "@components";
-import { IconExternal, IconGitHub } from "@components/icons";
-import { srConfig, name } from "@config";
-import { Main, media, mixins, theme } from "@styles";
-import sr from "@utils/sr";
-import { graphql } from "gatsby";
-import PropTypes from "prop-types";
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
+import { Layout, Head } from '@components';
+import { IconExternal, IconGitHub } from '@components/icons';
+import { srConfig, name } from '@config';
+import { Main, media, mixins, theme } from '@styles';
+import sr from '@utils/sr';
+import { graphql } from 'gatsby';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 const { colors, fonts, fontSizes } = theme;
 
 const StyledMainContainer = styled(Main)``;
@@ -92,15 +92,13 @@ const ArchivePage = ({ location, data }) => {
   useEffect(() => {
     sr.reveal(revealTitle.current, srConfig());
     sr.reveal(revealTable.current, srConfig());
-    revealProjects.current.forEach((ref, i) =>
-      sr.reveal(ref, srConfig(i * 10)),
-    );
+    revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 10)));
   }, []);
 
   const meta = {
     title: `Archive | ${name}`,
     siteUrl: location.href,
-    description: "A big list of things I’ve worked on",
+    description: 'A big list of things I’ve worked on',
   };
 
   return (
@@ -127,10 +125,9 @@ const ArchivePage = ({ location, data }) => {
             <tbody>
               {projects.length > 0 &&
                 projects.map(({ node }, i) => {
-                  const { date, github, external, title, tech, company } =
-                    node.frontmatter;
+                  const { date, github, external, title, tech, company } = node.frontmatter;
                   return (
-                    <tr key={i} ref={(el) => (revealProjects.current[i] = el)}>
+                    <tr key={i} ref={el => (revealProjects.current[i] = el)}>
                       <td className="overline year">{`${new Date(date).getFullYear()}`}</td>
 
                       <td className="title">{title}</td>
@@ -144,9 +141,7 @@ const ArchivePage = ({ location, data }) => {
                           tech.map((item, i) => (
                             <span key={i}>
                               <span key={i}>{item}</span>
-                              {i !== tech.length - 1 && (
-                                <span>&nbsp;&middot;&nbsp;</span>
-                              )}
+                              {i !== tech.length - 1 && <span>&nbsp;&middot;&nbsp;</span>}
                             </span>
                           ))}
                       </td>
@@ -158,8 +153,7 @@ const ArchivePage = ({ location, data }) => {
                               href={github}
                               target="_blank"
                               rel="nofollow noopener noreferrer"
-                              aria-label="GitHub Link"
-                            >
+                              aria-label="GitHub Link">
                               <IconGitHub />
                             </a>
                           ) : (
@@ -170,8 +164,7 @@ const ArchivePage = ({ location, data }) => {
                               href={external}
                               target="_blank"
                               rel="nofollow noopener noreferrer"
-                              aria-label="External Link"
-                            >
+                              aria-label="External Link">
                               <IconExternal />
                             </a>
                           ) : (

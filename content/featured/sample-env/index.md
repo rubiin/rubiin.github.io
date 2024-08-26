@@ -1,9 +1,9 @@
 ---
-date: "3"
-title: "Sample env"
-cover: "./sample.png"
-github: "https://github.com/rubiin/sample-env"
-external: "https://github.com/rubiin/sample-env"
+date: '3'
+title: 'Sample env'
+cover: './sample.png'
+github: 'https://github.com/rubiin/sample-env'
+external: 'https://github.com/rubiin/sample-env'
 tech:
   - Typescript
 showInProjects: true

@@ -3,9 +3,9 @@ title: Terminal 101 - Xargs
 date: 2024-05-15
 featured: false
 draft: false
-slug: "/blog/terminal-101---xargs/"
+slug: '/blog/terminal-101---xargs/'
 description:
-cover_image: "./cover.webp"
+cover_image: './cover.webp'
 # Use a ratio of 100:42 for best results.
 tags:
   - linux

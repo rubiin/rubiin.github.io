@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { mixins } from "@styles";
-import { Link } from "gatsby";
-import kebabCase from "lodash/kebabCase";
-import styled from "styled-components";
+import { mixins } from '@styles';
+import { Link } from 'gatsby';
+import kebabCase from 'lodash/kebabCase';
+import styled from 'styled-components';
 
 const StyledTag = styled.div`
   ${mixins.flexCenter};

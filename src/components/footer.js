@@ -5,15 +5,14 @@ import {
   IconLinkedin,
   IconRss,
   IconTwitter,
-} from "@components/icons";
-import { socialMedia } from "@config";
-import { media, mixins, theme } from "@styles";
-import PropTypes from "prop-types";
-import React from "react";
-import styled from "styled-components";
-import { IconLogo } from "./icons";
+} from '@components/icons';
+import { socialMedia } from '@config';
+import { media, mixins, theme } from '@styles';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import { IconLogo } from './icons';
 const { colors, fontSizes, fonts } = theme;
-
 
 const StyledContainer = styled.footer`
   ${mixins.flexCenter};
@@ -56,19 +55,18 @@ const Footer = () => (
                 href={url}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                aria-label={name}
-              >
-                {name === "GitHub" ? (
+                aria-label={name}>
+                {name === 'GitHub' ? (
                   <IconGitHub />
-                ) : name === "Linkedin" ? (
+                ) : name === 'Linkedin' ? (
                   <IconLinkedin />
-                ) : name === "Dev.to" ? (
+                ) : name === 'Dev.to' ? (
                   <IconDev />
-                ) : name === "Instagram" ? (
+                ) : name === 'Instagram' ? (
                   <IconInstagram />
-                ) : name === "Twitter" ? (
+                ) : name === 'Twitter' ? (
                   <IconTwitter />
-                ) : name === "Github" ? (
+                ) : name === 'Github' ? (
                   <IconGitHub />
                 ) : (
                   <IconRss />

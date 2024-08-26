@@ -1,12 +1,12 @@
 ---
-date: "2017-12-01"
-title: "Lappy ball"
-github: "https://github.com/rubiin/Lappy-Ball"
-external: "https://github.com/rubiin/Lappy-Ball"
+date: '2017-12-01'
+title: 'Lappy ball'
+github: 'https://github.com/rubiin/Lappy-Ball'
+external: 'https://github.com/rubiin/Lappy-Ball'
 tech:
   - android
   - unity
-company: ""
+company: ''
 showInProjects: true
 ---
 

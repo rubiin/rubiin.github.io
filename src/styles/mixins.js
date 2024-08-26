@@ -1,8 +1,8 @@
-import { css } from "styled-components";
-import theme from "./theme";
-import media from "./media";
+import { css } from 'styled-components';
+import theme from './theme';
+import media from './media';
 const { colors, fontSizes, fonts } = theme;
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 // Keyframes for the glitch animation
 const glitchAnimation = keyframes`
@@ -78,7 +78,7 @@ const GlitchButton = styled.a`
     --slice-4: inset(40% -6px 43% 0);
     --slice-5: inset(80% -6px 5% 0);
 
-    content: "Get in touch";
+    content: 'Get in touch';
     display: block;
     position: absolute;
     top: 0;
@@ -199,7 +199,7 @@ const mixins = {
       }
     }
     &:after {
-      content: "";
+      content: '';
       display: block;
       width: 0;
       height: 1px;
@@ -244,7 +244,7 @@ const mixins = {
 
     &:before {
       counter-increment: section;
-      content: "0" counter(section) ".";
+      content: '0' counter(section) '.';
       margin-right: 10px;
       font-family: ${fonts.SFMono};
       font-weight: normal;
@@ -256,7 +256,7 @@ const mixins = {
     }
 
     &:after {
-      content: "";
+      content: '';
       display: block;
       height: 1px;
       width: 300px;
@@ -319,7 +319,7 @@ const mixins = {
       padding-left: 30px;
       margin-bottom: 10px;
       &:before {
-        content: "▹";
+        content: '▹';
         position: absolute;
         left: 0;
         color: ${colors.green};

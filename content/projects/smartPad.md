@@ -1,8 +1,8 @@
 ---
-date: "2018-12-29"
-title: "Smart Pad - Note pad clone in java"
-github: "https://github.com/rubiin/SmartPad"
-external: "https://github.com/rubiin/SmartPad"
+date: '2018-12-29'
+title: 'Smart Pad - Note pad clone in java'
+github: 'https://github.com/rubiin/SmartPad'
+external: 'https://github.com/rubiin/SmartPad'
 tech:
   - java
   - swing

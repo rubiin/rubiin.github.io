@@ -1,11 +1,11 @@
-import { Head, Layout, TagItem } from "@components";
-import { Main, mixins, theme } from "@styles";
-import { Link, graphql } from "gatsby";
-import PropTypes from "prop-types";
-import React from "react";
-import styled from "styled-components";
-import config from "../config";
-import { formatDate } from "../utils";
+import { Head, Layout, TagItem } from '@components';
+import { Main, mixins, theme } from '@styles';
+import { Link, graphql } from 'gatsby';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import config from '../config';
+import { formatDate } from '../utils';
 const { colors, fontSizes } = theme;
 
 const StyledTags = styled.div`
@@ -65,7 +65,7 @@ const TagTemplate = ({ pageContext, data, location }) => {
 
   const meta = {
     title: `All tags | ${config.name}`,
-    description: "A list of all tags on the site",
+    description: 'A list of all tags on the site',
     siteUrl: location.href,
   };
 

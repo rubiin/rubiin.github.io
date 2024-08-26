@@ -1,10 +1,10 @@
 ---
-date: "2016-06-18"
-title: "PHP Developer"
-company: "Cheetah Webtech"
-location: "Kathmandu , Nepal"
-range: "June - July 2017"
-url: "https://cheetahwebtech.com.np/"
+date: '2016-06-18'
+title: 'PHP Developer'
+company: 'Cheetah Webtech'
+location: 'Kathmandu , Nepal'
+range: 'June - July 2017'
+url: 'https://cheetahwebtech.com.np/'
 ---
 
 - Developed and maintained code for in-house and client websites primarily using php and wordpress

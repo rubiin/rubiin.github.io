@@ -3,9 +3,9 @@ title: sass mixins that are way too good
 date: 2023-06-05
 featured: false
 draft: false
-slug: "/blog/sass-mixins-that-are-way-too-good/"
+slug: '/blog/sass-mixins-that-are-way-too-good/'
 description:
-cover_image: "./cover.webp"
+cover_image: './cover.webp'
 tags:
   - sass
   - css
@@ -15,15 +15,15 @@ tags:
 
 ```scss
 $font-weights: (
-  "thin": 100,
-  "extrlight": 200,
-  "light": 300,
-  "regular": 400,
-  "medium": 500,
-  "semibold": 600,
-  "bold": 700,
-  "extrabold": 800,
-  "black": 900,
+  'thin': 100,
+  'extrlight': 200,
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+  'extrabold': 800,
+  'black': 900,
 );
 ```
 

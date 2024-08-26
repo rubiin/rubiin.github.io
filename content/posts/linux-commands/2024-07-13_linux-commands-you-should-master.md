@@ -3,9 +3,9 @@ title: Linux Commands You Should Master
 date: 2024-07-13
 featured: true
 draft: false
-slug: "/blog/linux-commands-you-should-master/"
+slug: '/blog/linux-commands-you-should-master/'
 description:
-cover_image: "./cover.webp"
+cover_image: './cover.webp'
 # Use a ratio of 100:42 for best results.
 tags:
   - linux

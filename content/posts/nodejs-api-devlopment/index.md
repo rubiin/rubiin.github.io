@@ -1,10 +1,10 @@
 ---
 title: Getting started with Api development on Nodejs
-date: "2019-09-19"
+date: '2019-09-19'
 featured: false
 draft: false
-cover_image: "./cover.webp"
-slug: "/blog/getting-started-with-api-development-on-nodejs-52bi/"
+cover_image: './cover.webp'
+slug: '/blog/getting-started-with-api-development-on-nodejs-52bi/'
 tags:
   - nodejs
   - backend
@@ -49,14 +49,14 @@ The following code is an example of routes that are defined for the GET and the 
 ```javascript
 // GET method route
 
-app.get("/", function (req, res) {
-  res.send("GET request to the homepage");
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage');
 });
 
 // POST method route
 
-app.post("/", function (req, res) {
-  res.send("POST request to the homepage");
+app.post('/', function (req, res) {
+  res.send('POST request to the homepage');
 });
 ```
 
@@ -65,16 +65,16 @@ Here are some examples of route paths based on strings.
 This route path will match requests to the root route, /. So if you visit the app in localhost:<your port>/ , you will get root printed on your window
 
 ```javascript
-app.get("/", function (req, res) {
-  res.send("root");
+app.get('/', function (req, res) {
+  res.send('root');
 });
 ```
 
 This route path will match requests to /about.So if you visit the app in localhost:<your port>/ , you will get about printed on your window
 
 ```javascript
-app.get("/about", function (req, res) {
-  res.send("about");
+app.get('/about', function (req, res) {
+  res.send('about');
 });
 ```
 
@@ -86,7 +86,7 @@ To define routes with route parameters, simply specify the route parameters in t
 req.params.paramname
 
 ```javascript
-app.get("/users/:userId/books/:bookId", function (req, res) {
+app.get('/users/:userId/books/:bookId', function (req, res) {
   res.send(req.params);
 });
 ```
@@ -95,25 +95,25 @@ Summing all of the above
 The following code is an example of a very basic route.
 
 ```javascript
-var express = require("express");
+var express = require('express');
 var app = express();
 
 // respond with "hello world" when a GET request is made to the homepage
 
-app.get("/", function (req, res) {
-  res.send("hello world");
+app.get('/', function (req, res) {
+  res.send('hello world');
 });
 
-app.get("/about", function (req, res) {
-  res.send("about");
+app.get('/about', function (req, res) {
+  res.send('about');
 });
 
-app.get("/:userId", function (req, res) {
+app.get('/:userId', function (req, res) {
   res.send(req.params.userId);
 });
 
-app.post("/post", function (req, res) {
-  res.send("this is a post request");
+app.post('/post', function (req, res) {
+  res.send('this is a post request');
 });
 
 // tell express to run on port 8000

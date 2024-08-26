@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import styled from "styled-components";
-import { theme, mixins, media } from "@styles";
-import { email } from "@config";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import styled from 'styled-components';
+import { theme, mixins, media } from '@styles';
+import { email } from '@config';
 const { colors, fontSizes, fonts } = theme;
 
 const { GlitchButton } = mixins;
@@ -69,28 +69,22 @@ const Hero = ({ data }) => {
   const { frontmatter, html } = data[0].node;
 
   const one = () => (
-    <StyledOverline style={{ transitionDelay: "100ms" }}>
-      {frontmatter.title}
-    </StyledOverline>
+    <StyledOverline style={{ transitionDelay: '100ms' }}>{frontmatter.title}</StyledOverline>
   );
   const two = () => (
-    <StyledTitle style={{ transitionDelay: "200ms" }}>
-      {frontmatter.name}.
-    </StyledTitle>
+    <StyledTitle style={{ transitionDelay: '200ms' }}>{frontmatter.name}.</StyledTitle>
   );
   const three = () => (
-    <StyledSubtitle style={{ transitionDelay: "300ms" }}>
-      {frontmatter.subtitle}
-    </StyledSubtitle>
+    <StyledSubtitle style={{ transitionDelay: '300ms' }}>{frontmatter.subtitle}</StyledSubtitle>
   );
   const four = () => (
     <StyledDescription
-      style={{ transitionDelay: "400ms" }}
+      style={{ transitionDelay: '400ms' }}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
   const five = () => (
-    <div style={{ transitionDelay: "500ms", marginTop: "50px" }}>
+    <div style={{ transitionDelay: '500ms', marginTop: '50px' }}>
       <GlitchButton href={`mailto:${email}`}>Get In Touch</GlitchButton>
     </div>
   );
