@@ -6,7 +6,7 @@ import Img from 'gatsby-image';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-const { colors, fontSizes, fonts } = theme;
+
 const { Heading } = mixins;
 
 const StyledGithubStat = styled.div`

@@ -4,7 +4,7 @@ import sr from '@utils/sr';
 import { srConfig } from '@config';
 import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
-const { colors, fontSizes, fonts } = theme;
+
 const { Heading } = mixins;
 
 const StyledContainer = styled(mixins.section)`
@@ -71,9 +71,9 @@ const StyledTabButton = styled.button`
   border-left: 2px solid var(--lightest-navy);
   text-align: left;
   white-space: nowrap;
-  font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.smish};
-  color: ${props => (props.isActive ? colors.green : colors.lightGrey)};
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
+  color: ${(props) => (props.isActive ? 'var(--green)' : 'var(--slate)')};
   ${media.tablet`padding: 0 15px 2px;`};
   ${media.thone`
     ${mixins.flexCenter};

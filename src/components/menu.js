@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.div`
   position: fixed;
@@ -63,8 +62,8 @@ const NavListItem = styled.li`
   &:before {
     display: block;
     content: '0' counter(item) '.';
-    color: ${colors.green};
-    font-size: ${fontSizes.sm};
+    color: var(--green);
+    font-size: var(--fz-sm);
     margin-bottom: 5px;
   }
 `;

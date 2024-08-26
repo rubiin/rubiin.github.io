@@ -5,7 +5,7 @@ import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-const { colors, fontSizes, fonts } = theme;
+
 
 const StyledTagsContainer = styled(Main)`
   h1 {

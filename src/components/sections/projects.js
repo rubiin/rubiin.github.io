@@ -7,7 +7,7 @@ import { srConfig } from '@config';
 import { IconGitHub, IconExternal, IconFolder } from '@components/icons';
 import styled from 'styled-components';
 import { theme, mixins, media, Button } from '@styles';
-const { colors, fontSizes, fonts } = theme;
+
 
 const StyledContainer = styled(mixins.section)`
   ${mixins.flexCenter};

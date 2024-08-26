@@ -1,11 +1,12 @@
-import { createGlobalStyle } from 'styled-components';
-import theme from './theme';
-import media from './media';
-import mixins from './mixins';
-import FontFaces from './fonts';
-import TransitionStyles from './TransitionStyles';
-import PrismStyles from './PrismStyles';
-const { colors, fontSizes, fonts } = theme;
+import { createGlobalStyle } from "styled-components";
+import FontFaces from "./fonts";
+import media from "./media";
+import mixins from "./mixins";
+import PrismStyles from "./PrismStyles";
+import theme from "./theme";
+import TransitionStyles from "./TransitionStyles";
+import variables from "./variables";
+
 
 const GlobalStyle = createGlobalStyle`
   ${FontFaces};

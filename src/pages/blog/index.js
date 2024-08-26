@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { formatDate } from '../../utils';
-const { colors, fontSizes, fonts } = theme;
+
 
 const POST_TAGS = Object.freeze({
   RECENT: 'Recent',

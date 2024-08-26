@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 import theme from './theme';
 import media from './media';
-const { colors, fontSizes, fonts } = theme;
+
 import styled, { keyframes } from 'styled-components';
 
 // Keyframes for the glitch animation

@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
 import { email } from '@config';
-const { colors, fontSizes, fonts } = theme;
+
 
 const { GlitchButton } = mixins;
 

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { formatDate } from '../../utils';
-const { colors, fontSizes, fonts } = theme;
+
 
 const StyledTagsContainer = styled.div`
   width: 200px;
