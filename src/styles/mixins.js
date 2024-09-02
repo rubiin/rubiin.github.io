@@ -119,7 +119,8 @@ const button = styled.button`
   &:hover,
   &:focus,
   &:active {
-    background-color: var(--green);
+    background-color: var(--light-navy);
+    color: white;
     outline: none;
   }
   &:after {

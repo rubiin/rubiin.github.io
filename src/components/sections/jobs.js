@@ -73,7 +73,7 @@ const StyledTabButton = styled.button`
   white-space: nowrap;
   font-family: var(--font-mono);
   font-size: var(--fz-xs);
-  color: ${(props) => (props.isActive ? 'var(--green)' : 'var(--slate)')};
+  color: ${props => (props.isActive ? 'var(--green)' : 'var(--slate)')};
   ${media.tablet`padding: 0 15px 2px;`};
   ${media.thone`
     ${mixins.flexCenter};

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
 import { email } from '@config';
 
-
 const { GlitchButton } = mixins;
 
 const StyledContainer = styled(mixins.section)`
@@ -39,7 +38,7 @@ const StyledTitle = styled.h2`
 const StyledSubtitle = styled.h3`
   font-size: 60px;
   line-height: 1.1;
-  color:  var(--slate);
+  color: var(--slate);
   ${media.desktop`font-size: 70px;`};
   ${media.tablet`font-size: 60px;`};
   ${media.phablet`font-size: 50px;`};

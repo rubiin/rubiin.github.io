@@ -5,7 +5,6 @@ import { Side } from '@components';
 import styled from 'styled-components';
 import { theme } from '@styles';
 
-
 const StyledLinkWrapper = styled.div`
   display: flex;
   flex-direction: column;

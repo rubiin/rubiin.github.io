@@ -84,7 +84,7 @@ const StyledTechList = styled.ul`
   li {
     font-family: var(--font-mono);
     font-size: var(--fz-xs);
-    color:  var(--slate);
+    color: var(--slate);
     margin-right: 20px;
     margin-bottom: 7px;
     white-space: nowrap;

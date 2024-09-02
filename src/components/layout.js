@@ -5,7 +5,6 @@ import { Head, Loader, Nav, Social, Email, Footer } from '@components';
 import styled from 'styled-components';
 import { GlobalStyle, theme } from '@styles';
 
-
 import { StyleSheetManager } from 'styled-components';
 import isPropValid from '@emotion/is-prop-valid';
 
@@ -34,7 +33,7 @@ const SkipToContent = styled.a`
   overflow: hidden;
   z-index: -99;
   &:hover {
-      background-color: var(--lightest-navy);
+    background-color: var(--lightest-navy);
   }
   &:focus,
   &:active {

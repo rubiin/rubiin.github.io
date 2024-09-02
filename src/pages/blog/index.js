@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { formatDate } from '../../utils';
 
-
 const POST_TAGS = Object.freeze({
   RECENT: 'Recent',
   FEATURED: 'Featured',

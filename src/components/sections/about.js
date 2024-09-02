@@ -6,7 +6,6 @@ import { srConfig, github } from '@config';
 import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
 
-
 const { Heading } = mixins;
 
 const StyledContainer = styled(mixins.section)`
@@ -39,7 +38,7 @@ const Skill = styled.li`
   padding-left: 20px;
   font-family: var(--font-mono);
   font-size: var(--fz-xs);
-  color:  var(--slate);
+  color: var(--slate);
   &:before {
     content: '▹';
     position: absolute;

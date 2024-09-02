@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-
 const StyledTagsContainer = styled(Main)`
   h1 {
     margin-bottom: 50px;
@@ -21,7 +20,7 @@ const StyledTagsContainer = styled(Main)`
         ${mixins.inlineLink};
         color: var(--light-slate);
         .count {
-          color:  var(--slate);
+          color: var(--slate);
           font-family: var(--font-mono);
           font-size: var(--fz-md);
         }

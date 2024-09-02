@@ -5,7 +5,6 @@ import { srConfig, email } from '@config';
 import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
 
-
 const StyledContainer = styled(mixins.section)`
   text-align: center;
   max-width: 600px;

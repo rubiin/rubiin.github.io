@@ -13,13 +13,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { IconLogo } from './icons';
 
-
 const StyledContainer = styled.footer`
   ${mixins.flexCenter};
   flex-direction: column;
   padding: 15px;
   background-color: var(--dark-navy);
-  color:  var(--slate);
+  color: var(--slate);
   height: auto;
   min-height: 100px;
 `;

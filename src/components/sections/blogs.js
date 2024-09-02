@@ -7,7 +7,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { formatDate } from '../../utils';
 
-
 const StyledTagsContainer = styled.div`
   width: 200px;
   margin-top: 100px;

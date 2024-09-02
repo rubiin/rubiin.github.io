@@ -9,7 +9,6 @@ import { NewsLetter } from '../components';
 import { Disqus } from 'gatsby-plugin-disqus';
 import { formatDate } from '../utils';
 
-
 const StyledNextPrev = styled.div`
   display: flex;
   justify-content: space-between;

@@ -8,7 +8,6 @@ import { IconGitHub, IconExternal, IconFolder } from '@components/icons';
 import styled from 'styled-components';
 import { theme, mixins, media, Button } from '@styles';
 
-
 const StyledContainer = styled(mixins.section)`
   ${mixins.flexCenter};
   flex-direction: column;
@@ -114,7 +113,7 @@ const StyledTechList = styled.ul`
   li {
     font-family: var(--font-mono);
     font-size: var(--fz-xxs);
-    color:  var(--slate);
+    color: var(--slate);
     line-height: 1.75;
     margin-right: 15px;
     &:last-of-type {

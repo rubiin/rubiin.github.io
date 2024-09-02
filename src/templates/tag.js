@@ -48,7 +48,7 @@ const StyledTagsContainer = styled(Main)`
         }
       }
       .subtitle {
-        color:  var(--slate);
+        color: var(--slate);
         font-size: var(--fz-sm);
 
         .tag {

@@ -10,7 +10,6 @@ import { IconLogo } from '@components/icons';
 import styled from 'styled-components';
 import { theme, mixins, media } from '@styles';
 
-
 const StyledContainer = styled.header`
   ${mixins.flexBetween};
   position: fixed;
