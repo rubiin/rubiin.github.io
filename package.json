@@ -65,7 +65,7 @@
     "gatsby-transformer-sharp": "^5.13.1",
     "gh-pages": "^6.1.1",
     "lodash": "^4.17.21",
-    "postcss": "^8.4.44",
+    "postcss": "^8.4.45",
     "prismjs": "^1.29.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
@@ -77,13 +77,13 @@
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
-    "eslint": "^9.9.1",
+    "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react": "^7.35.2",
     "gatsby-remark-code-titles": "^1.1.0",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3"
   },
-  "packageManager": "pnpm@9.9.0"
+  "packageManager": "pnpm@9.10.0"
 }
