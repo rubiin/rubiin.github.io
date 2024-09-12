@@ -157,14 +157,14 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react:
-        specifier: ^7.35.2
-        version: 7.35.2(eslint@9.10.0(jiti@1.21.6))
+        specifier: ^7.36.0
+        version: 7.36.0(eslint@9.10.0(jiti@1.21.6))
       gatsby-remark-code-titles:
         specifier: ^1.1.0
         version: 1.1.0
       husky:
-        specifier: ^9.1.5
-        version: 9.1.5
+        specifier: ^9.1.6
+        version: 9.1.6
       lint-staged:
         specifier: ^15.2.10
         version: 15.2.10
@@ -3058,8 +3058,8 @@ packages:
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
 
-  eslint-plugin-react@7.35.2:
-    resolution: {integrity: sha512-Rbj2R9zwP2GYNcIak4xoAMV57hrBh3hTaR0k7hVjwCQgryE/pw5px4b13EYjduOI0hfXyZhwBxaGpOTbWSGzKQ==}
+  eslint-plugin-react@7.36.0:
+    resolution: {integrity: sha512-c+RvVxBH0JE2kHt/8p043nPPhIohSnyQOZApIzGJqM2tXnjEzcZzyKIAg72gymLtuwuKfgGxW2H2aqTJqRgTfQ==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
@@ -3925,8 +3925,8 @@ packages:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
 
-  husky@9.1.5:
-    resolution: {integrity: sha512-rowAVRUBfI0b4+niA4SJMhfQwc107VLkBUgEYYAOQAbqDCnra1nYh83hF/MDmhYs9t9n1E3DuKOrs2LYNC+0Ag==}
+  husky@9.1.6:
+    resolution: {integrity: sha512-sqbjZKK7kf44hfdE94EoX8MZNk0n7HeW37O4YrVGCF4wzgQjp+akPAkfUK5LZ6KuR/6sqeAVuXHji+RzQgOn5A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -10445,7 +10445,7 @@ snapshots:
     dependencies:
       eslint: 9.10.0(jiti@1.21.6)
 
-  eslint-config-react-app@6.0.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0)(typescript@5.5.4))(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(babel-eslint@10.1.0(eslint@9.10.0(jiti@1.21.6)))(eslint-plugin-flowtype@5.10.0(eslint@7.32.0))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0))(eslint-plugin-jsx-a11y@6.9.0(eslint@7.32.0))(eslint-plugin-react-hooks@4.6.2(eslint@7.32.0))(eslint-plugin-react@7.35.2(eslint@9.10.0(jiti@1.21.6)))(eslint@7.32.0)(typescript@5.5.4):
+  eslint-config-react-app@6.0.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0)(typescript@5.5.4))(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(babel-eslint@10.1.0(eslint@9.10.0(jiti@1.21.6)))(eslint-plugin-flowtype@5.10.0(eslint@7.32.0))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0))(eslint-plugin-jsx-a11y@6.9.0(eslint@7.32.0))(eslint-plugin-react-hooks@4.6.2(eslint@7.32.0))(eslint-plugin-react@7.36.0(eslint@9.10.0(jiti@1.21.6)))(eslint@7.32.0)(typescript@5.5.4):
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)
       '@typescript-eslint/parser': 5.62.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)
@@ -10455,7 +10455,7 @@ snapshots:
       eslint-plugin-flowtype: 5.10.0(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-jsx-a11y: 6.9.0(eslint@9.10.0(jiti@1.21.6))
-      eslint-plugin-react: 7.35.2(eslint@9.10.0(jiti@1.21.6))
+      eslint-plugin-react: 7.36.0(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-hooks: 4.6.2(eslint@9.10.0(jiti@1.21.6))
     optionalDependencies:
       typescript: 5.5.4
@@ -10535,7 +10535,7 @@ snapshots:
     dependencies:
       eslint: 9.10.0(jiti@1.21.6)
 
-  eslint-plugin-react@7.35.2(eslint@7.32.0):
+  eslint-plugin-react@7.36.0(eslint@7.32.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlast: 1.2.5
@@ -10557,7 +10557,7 @@ snapshots:
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-react@7.35.2(eslint@9.10.0(jiti@1.21.6)):
+  eslint-plugin-react@7.36.0(eslint@9.10.0(jiti@1.21.6)):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlast: 1.2.5
@@ -11572,11 +11572,11 @@ snapshots:
       enhanced-resolve: 5.17.1
       error-stack-parser: 2.1.4
       eslint: 7.32.0
-      eslint-config-react-app: 6.0.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0)(typescript@5.5.4))(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(babel-eslint@10.1.0(eslint@9.10.0(jiti@1.21.6)))(eslint-plugin-flowtype@5.10.0(eslint@7.32.0))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0))(eslint-plugin-jsx-a11y@6.9.0(eslint@7.32.0))(eslint-plugin-react-hooks@4.6.2(eslint@7.32.0))(eslint-plugin-react@7.35.2(eslint@9.10.0(jiti@1.21.6)))(eslint@7.32.0)(typescript@5.5.4)
+      eslint-config-react-app: 6.0.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0)(typescript@5.5.4))(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(babel-eslint@10.1.0(eslint@9.10.0(jiti@1.21.6)))(eslint-plugin-flowtype@5.10.0(eslint@7.32.0))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@7.32.0))(eslint-plugin-jsx-a11y@6.9.0(eslint@7.32.0))(eslint-plugin-react-hooks@4.6.2(eslint@7.32.0))(eslint-plugin-react@7.36.0(eslint@9.10.0(jiti@1.21.6)))(eslint@7.32.0)(typescript@5.5.4)
       eslint-plugin-flowtype: 5.10.0(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-jsx-a11y: 6.9.0(eslint@9.10.0(jiti@1.21.6))
-      eslint-plugin-react: 7.35.2(eslint@7.32.0)
+      eslint-plugin-react: 7.36.0(eslint@7.32.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@9.10.0(jiti@1.21.6))
       eslint-webpack-plugin: 2.7.0(eslint@7.32.0)(webpack@5.93.0)
       event-source-polyfill: 1.0.31
@@ -12046,7 +12046,7 @@ snapshots:
 
   human-signals@5.0.0: {}
 
-  husky@9.1.5: {}
+  husky@9.1.6: {}
 
   iconv-lite@0.4.24:
     dependencies:
