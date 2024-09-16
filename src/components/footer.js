@@ -1,7 +1,7 @@
 import {
   IconDev,
   IconGitHub,
-  IconInstagram,
+  IconDiscord,
   IconLinkedin,
   IconRss,
   IconTwitter,
@@ -61,8 +61,8 @@ const Footer = () => (
                   <IconLinkedin />
                 ) : name === 'Dev.to' ? (
                   <IconDev />
-                ) : name === 'Instagram' ? (
-                  <IconInstagram />
+                ) : name === 'Discord' ? (
+                  <IconDiscord />
                 ) : name === 'Twitter' ? (
                   <IconTwitter />
                 ) : name === 'Github' ? (

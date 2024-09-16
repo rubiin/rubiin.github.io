@@ -5,7 +5,7 @@ import IconFolder from './folder';
 import IconFork from './fork';
 import FormattedIcon from './formattedIcon';
 import IconGitHub from './github';
-import IconInstagram from './instagram';
+import IconDiscord from './discord';
 import IconLinkedin from './linkedin';
 import IconLoader from './loader';
 import IconLocation from './location';
@@ -23,7 +23,7 @@ export {
   IconFolder,
   IconFork,
   IconGitHub,
-  IconInstagram,
+  IconDiscord,
   IconLinkedin,
   IconLoader,
   IconLocation,

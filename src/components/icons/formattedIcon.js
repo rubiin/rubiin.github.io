@@ -4,7 +4,7 @@ import {
   IconGitHub,
   IconLinkedin,
   IconDev,
-  IconInstagram,
+  IconDiscord,
   IconTwitter,
   IconRss,
 } from '@components/icons';
@@ -17,8 +17,8 @@ const FormattedIcon = ({ name }) => {
       return <IconLinkedin />;
     case 'Dev.to':
       return <IconDev />;
-    case 'Instagram':
-      return <IconInstagram />;
+    case 'Discord':
+      return <IconDiscord />;
     case 'Twitter':
       return <IconTwitter />;
     case 'Rss':

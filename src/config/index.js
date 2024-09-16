@@ -29,8 +29,8 @@ module.exports = {
       url: 'https://dev.to/rubiin',
     },
     {
-      name: 'Instagram',
-      url: 'https://www.instagram.com/rubiin.__/',
+      name: 'Discord',
+      url: 'https://discord.com/users/rubin._',
     },
     {
       name: 'Twitter',
