@@ -10,10 +10,9 @@ export const PROJECT_CATEGORIES: { value: ProjectCategory; label: string }[] = [
 ]
 
 export const CATEGORY_LABELS: Record<ProjectCategory, string> =
-  PROJECT_CATEGORIES.reduce(
-    (acc, { value, label }) => ({ ...acc, [value]: label }),
-    {} as Record<ProjectCategory, string>,
-  )
+  Object.fromEntries(
+    PROJECT_CATEGORIES.map(({ value, label }) => [value, label]),
+  ) as Record<ProjectCategory, string>
 
 export const PROJECTS_PER_PAGE = 6
 export const POSTS_PER_PAGE = 6

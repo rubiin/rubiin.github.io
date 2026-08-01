@@ -94,19 +94,19 @@ export const projects: Project[] = [
   {
     slug: 'motion-lab',
     title: 'Motion Lab',
-    tagline: 'A playground for web animation primitives.',
+    tagline: 'A playground for animation primitives — on web and mobile.',
     description:
-      'Motion Lab documents and demonstrates 40+ animation patterns — springs, scroll choreography, shared element transitions, and micro-interactions — each with copyable code.',
-    category: 'frontend',
+      'Motion Lab documents and demonstrates 40+ animation patterns — springs, scroll choreography, shared element transitions, and micro-interactions — each with copyable code for web (Motion, Lenis) and native (Reanimated).',
+    category: 'mobile',
     year: '2023',
-    tech: ['React 19', 'Motion', 'Lenis', 'MDX', 'content-collections'],
+    tech: ['React 19', 'Motion', 'Reanimated', 'Lenis', 'MDX', 'content-collections'],
     github: 'https://github.com/devina/motion-lab',
     demo: 'https://example.com/motion-lab',
     architecture:
-      'A static-first MDX site where every pattern is a live, editable sandbox. Each animation runs in an isolated iframe so demos never fight the docs UI.',
+      'A static-first MDX site where every pattern is a live, editable sandbox. Web demos run in an isolated iframe; native patterns ship as Expo snippets with a preview QR code.',
     challenges: [
       'Isolating demo styles from the documentation shell',
-      'Teaching spring physics without a math lecture',
+      'Keeping web and Reanimated implementations behaviorally in sync',
     ],
     lessons: [
       'Animation is engineering: springs, easing, and duration all deserve tests',
