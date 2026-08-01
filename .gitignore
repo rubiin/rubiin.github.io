@@ -2,6 +2,25 @@ node_modules/
 .pnpm-store/
 .env
 .env.local
+.env.*.local
 .vercel
 /.superpowers/
 
+# build outputs
+.output/
+.nitro/
+/build/
+/dist/
+/api/
+/server/build/
+/public/build/
+.tanstack/
+
+# generated
+.content-collections/
+/src/generated/
+
+.DS_Store
+.cache
+/test-results/
+/playwright-report/

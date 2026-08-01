@@ -1,0 +1,11 @@
+packages:
+  - "."
+
+allowBuilds:
+  '@prisma/engines': true
+  esbuild: true
+  prisma: true
+
+minimumReleaseAgeExclude:
+  - '@tanstack/form-core@1.33.3'
+  - '@tanstack/react-form@1.33.3'

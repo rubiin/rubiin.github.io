@@ -1,0 +1,15 @@
+@import 'tailwindcss' source('../');
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  html {
+    color-scheme: light dark;
+  }
+}
