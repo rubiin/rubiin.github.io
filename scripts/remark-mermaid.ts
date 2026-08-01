@@ -9,7 +9,9 @@ import { visit } from 'unist-util-visit'
  */
 export const remarkMermaid: Plugin<[], Root> = () => (tree) => {
   visit(tree, 'code', (node, index, parent) => {
-    if (node.lang !== 'mermaid' || index === null || !parent) return
+    if (node.lang !== 'mermaid' || index === undefined || index === null || !parent) {
+      return
+    }
     parent.children.splice(index, 1, {
       type: 'mdxJsxFlowElement',
       name: 'Mermaid',
