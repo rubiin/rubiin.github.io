@@ -1,4 +1,5 @@
 @import 'tailwindcss' source('../');
+@import 'katex/dist/katex.min.css';
 
 @custom-variant dark (&:is(.dark *));
 
