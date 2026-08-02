@@ -45,17 +45,11 @@ function ProjectsPage() {
   const navigate = useNavigate()
 
   const setCategory = (next: ProjectFilter) => {
-    void navigate({
-      to: '/projects',
-      search: (prev) => ({ category: next, q: prev.q ?? '' }),
-    })
+    void navigate({ to: '/projects', search: { category: next, q } })
   }
 
   const setQuery = (next: string) => {
-    void navigate({
-      to: '/projects',
-      search: (prev) => ({ category: prev.category ?? 'all', q: next }),
-    })
+    void navigate({ to: '/projects', search: { category, q: next } })
   }
 
   const clearFilters = () => {
