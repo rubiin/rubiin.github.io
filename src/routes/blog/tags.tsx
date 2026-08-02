@@ -41,12 +41,6 @@ function TagsPage() {
           className="mb-0"
         />
         <div className="flex flex-col items-start gap-2 lg:items-end">
-          <Link
-            to="/blog/categories"
-            className="rounded-sm text-sm font-medium text-primary underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring hover:underline"
-          >
-            Browse categories
-          </Link>
           <BlogSearch
             query={q}
             onQueryChange={setQ}
