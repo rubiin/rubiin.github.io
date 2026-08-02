@@ -6,6 +6,15 @@ export function absoluteUrl(path: string): string {
   return `${siteConfig.url}${path === '/' ? '' : path}`
 }
 
+/** Escape text for safe inclusion in XML (sitemap/RSS). */
+export function xmlEscape(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 type MetaTag =
   | { title: string }
   | { name: string; content: string }

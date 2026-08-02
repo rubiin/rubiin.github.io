@@ -49,11 +49,13 @@ export function CommandPalette() {
       href: item.href,
       icon: Navigation,
     }))
+    // No per-project detail route exists, so project items land on the
+    // projects grid pre-filtered to their category.
     const proj = projects.map((p) => ({
       id: `project-${p.slug}`,
       label: p.title,
       hint: p.tagline,
-      href: `/projects/${p.slug}`,
+      href: `/projects?category=${p.category}`,
       icon: FolderGit2,
     }))
     const blog = posts.map((p) => ({

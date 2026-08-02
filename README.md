@@ -135,6 +135,15 @@ src/
   types/               Shared TypeScript types
 ```
 
+## Production Hardening Notes
+
+Before going public, consider:
+
+- **Comments:** set real GitHub repo / category IDs in `src/lib/constants.ts` (`GISCUS_*`) so giscus threads work.
+- **Resume PDF:** point `siteConfig.resumePdfUrl` at a hosted PDF (the page falls back to Print / Save as PDF).
+- **Contact spam:** add a rate limiter or honeypot in front of `submitContact`, and enable TanStack Start's CSRF middleware if you deploy to a separate origin.
+- **OG image:** replace `public/og.png` (currently a generated placeholder) with a designed 1200×630 asset.
+
 ## Accessibility & Motion
 
 - Semantic HTML, skip-to-content link, focus rings, ARIA labels throughout.
