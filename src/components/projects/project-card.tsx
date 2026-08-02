@@ -1,5 +1,4 @@
 import { ExternalLink, FolderGit2, GitBranch } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { TiltCard } from '@/components/animations/tilt-card'
@@ -18,7 +17,6 @@ export function ProjectCard({ project }: { project: Project }) {
         {/* Media */}
         <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/15 via-accent/20 to-chart-1/10">
           {project.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={project.image}
               alt={project.title}
@@ -48,23 +46,18 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
 
           <div className="flex items-center gap-2 pt-2">
-            <Button asChild size="sm" variant="outline" className="gap-1.5">
-              <Link to={`/projects/${project.slug}` as string}>
-                Case study
-                <ExternalLink className="size-3.5" />
-              </Link>
-            </Button>
+            {project.demo && (
+              <Button asChild size="sm" variant="outline" className="gap-1.5">
+                <a href={project.demo} target="_blank" rel="noreferrer">
+                  View demo
+                  <ExternalLink className="size-3.5" />
+                </a>
+              </Button>
+            )}
             {project.github && (
               <Button asChild size="icon" variant="ghost" aria-label={`${project.title} on GitHub`}>
                 <a href={project.github} target="_blank" rel="noreferrer">
                   <GitBranch className="size-4" />
-                </a>
-              </Button>
-            )}
-            {project.demo && (
-              <Button asChild size="icon" variant="ghost" aria-label={`${project.title} live demo`}>
-                <a href={project.demo} target="_blank" rel="noreferrer">
-                  <ExternalLink className="size-4" />
                 </a>
               </Button>
             )}

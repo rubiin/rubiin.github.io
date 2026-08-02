@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink, FolderGit2 } from 'lucide-react'
+import { ArrowRight, ExternalLink, FolderGit2, GitBranch } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -54,18 +54,18 @@ export function ProjectsSection() {
                   </div>
 
                   <div className="flex items-center gap-2 pt-2">
-                    <Button asChild size="sm" variant="outline" className="gap-1.5">
-                      {/* `to` as string: route lands in a later task */}
-                      <Link to={`/projects/${project.slug}` as string}>
-                        Case study
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                    </Button>
                     {project.demo && (
-                      <Button asChild size="sm" variant="ghost" className="gap-1.5">
+                      <Button asChild size="sm" variant="outline" className="gap-1.5">
                         <a href={project.demo} target="_blank" rel="noreferrer">
-                          Demo
+                          View demo
                           <ExternalLink className="size-3.5" />
+                        </a>
+                      </Button>
+                    )}
+                    {project.github && (
+                      <Button asChild size="icon" variant="ghost" aria-label={`${project.title} on GitHub`}>
+                        <a href={project.github} target="_blank" rel="noreferrer">
+                          <GitBranch className="size-4" />
                         </a>
                       </Button>
                     )}

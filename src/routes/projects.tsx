@@ -5,29 +5,25 @@ import { ProjectFilters, type ProjectFilter } from '@/components/projects/projec
 import { Button } from '@/components/ui/button'
 import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
+import { PROJECT_CATEGORIES } from '@/lib/constants'
 import { projects } from '@/data/projects'
-import type { ProjectCategory } from '@/types'
 
 interface ProjectsSearch {
   category: ProjectFilter
   q: string
 }
 
-const PROJECT_CATEGORIES: ProjectCategory[] = [
-  'frontend',
-  'backend',
-  'ai',
-  'devops',
-  'mobile',
-  'full-stack',
-]
+const CATEGORY_VALUES = PROJECT_CATEGORIES.map((c) => c.value)
 
 export const Route = createFileRoute('/projects')({
   validateSearch: (search: Record<string, unknown>): ProjectsSearch => {
     const category = search.category as ProjectFilter | undefined
     const q = typeof search.q === 'string' ? search.q : ''
     return {
-      category: category && PROJECT_CATEGORIES.includes(category as ProjectCategory) ? category : 'all',
+      category:
+        category && CATEGORY_VALUES.includes(category as (typeof CATEGORY_VALUES)[number])
+          ? category
+          : 'all',
       q,
     }
   },
@@ -76,8 +72,6 @@ function ProjectsPage() {
     })
   }, [category, q])
 
-  const hasFilters = category !== 'all' || q.trim() !== ''
-
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionHeading
@@ -109,8 +103,6 @@ function ProjectsPage() {
           ))}
         </div>
       )}
-
-      <p className="sr-only">{hasFilters ? 'Filtered results' : 'All projects'}</p>
     </div>
   )
 }

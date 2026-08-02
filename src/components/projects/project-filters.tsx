@@ -33,9 +33,8 @@ export function ProjectFilters({
   }, [query])
 
   useEffect(() => {
-    const id = setTimeout(() => {
-      if (draft !== query) onQueryChange(draft)
-    }, 250)
+    if (draft === query) return
+    const id = setTimeout(() => onQueryChange(draft), 250)
     return () => clearTimeout(id)
   }, [draft, query, onQueryChange])
 
