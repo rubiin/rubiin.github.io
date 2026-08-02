@@ -22,7 +22,6 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
     }
   }
 
-  // X (twitter.com/intent is now x.com/intent)
   const xHref = `https://x.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`
   const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
   const facebookHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title)}`

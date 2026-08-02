@@ -14,7 +14,7 @@ export const siteConfig: SiteConfig = {
   socials: {
     github: 'https://github.com/rubiin',
     linkedin: 'https://www.linkedin.com/in/rubiin',
-    twitter: 'https://twitter.com/RubinCodes',
+    twitter: 'https://x.com/RubinCodes',
     rss: '/rss.xml',
     email: 'mailto:roobin.bhandari@gmail.com',
   },
