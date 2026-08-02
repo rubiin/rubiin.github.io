@@ -6,10 +6,12 @@ import { ShareButtons } from '@/components/blog/share-buttons'
 import { RelatedPosts } from '@/components/blog/related-posts'
 import { PrevNextNav } from '@/components/blog/prev-next-nav'
 import { PostComments } from '@/components/blog/post-comments'
+import { LazyKatexCss } from '@/components/blog/lazy-katex-css'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { siteConfig } from '@/data/site'
+import { buildMeta } from '@/lib/seo'
 import { getPost, getPosts, getRelatedPosts } from '@/server/blog'
 import type { PostSummary } from '@/server/blog'
 
@@ -40,26 +42,15 @@ export const Route = createFileRoute('/blog/$slug')({
   },
   head: ({ loaderData }) => {
     const post = loaderData?.post
-    const url = `${siteConfig.url}/blog/${post?.slug ?? ''}`
+    const path = `/blog/${post?.slug ?? ''}`
+    const url = `${siteConfig.url}${path}`
     return {
-      meta: [
-        { title: `${post?.title ?? 'Article'} — ${siteConfig.name}` },
-        {
-          name: 'description',
-          content: post?.description ?? siteConfig.seo.description,
-        },
-        { property: 'og:type', content: 'article' },
-        { property: 'og:title', content: post?.title ?? siteConfig.seo.title },
-        {
-          property: 'og:description',
-          content: post?.description ?? siteConfig.seo.description,
-        },
-        { property: 'og:url', content: url },
-        { property: 'og:image', content: `${siteConfig.url}${siteConfig.seo.ogImage}` },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: post?.title ?? siteConfig.seo.title },
-        { name: 'twitter:description', content: post?.description ?? siteConfig.seo.description },
-      ],
+      meta: buildMeta({
+        title: `${post?.title ?? 'Article'} — ${siteConfig.name}`,
+        description: post?.description ?? siteConfig.seo.description,
+        path,
+        type: 'article',
+      }),
       scripts: post
         ? [
             {
@@ -97,6 +88,7 @@ function BlogPostPage() {
 
   return (
     <article>
+      <LazyKatexCss />
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         {/* Header */}
         <header className="mx-auto max-w-3xl text-center">

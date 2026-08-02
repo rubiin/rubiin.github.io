@@ -10,17 +10,16 @@ import {
 } from '@/components/resume/credential-sections'
 import { resumeData } from '@/data/resume'
 import { siteConfig } from '@/data/site'
+import { buildMeta } from '@/lib/seo'
 
 export const Route = createFileRoute('/resume')({
   head: () => ({
-    meta: [
-      { title: 'Resume — Devina' },
-      {
-        name: 'description',
-        content:
-          'Resume of Devina — creative developer and full-stack engineer with 8+ years of experience.',
-      },
-    ],
+    meta: buildMeta({
+      title: 'Resume — Devina',
+      description:
+        'Resume of Devina — creative developer and full-stack engineer with 8+ years of experience.',
+      path: '/resume',
+    }),
   }),
   component: ResumePage,
 })

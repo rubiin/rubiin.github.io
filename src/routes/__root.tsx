@@ -13,6 +13,8 @@ import { CommandPalette } from '@/components/layout/command-palette'
 import { NotFoundComponent } from '@/components/layout/not-found'
 import { ErrorComponent } from '@/components/layout/error-boundary'
 import { Toaster } from '@/components/ui/sonner'
+import { siteConfig } from '@/data/site'
+import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
 
 export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
@@ -33,6 +35,27 @@ export const Route = createRootRoute({
         name: 'description',
         content:
           'Portfolio and blog of Devina — creative developer crafting premium web experiences.',
+      },
+      { rel: 'canonical', href: siteConfig.url },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: siteConfig.name },
+      { property: 'og:title', content: siteConfig.seo.title },
+      { property: 'og:description', content: siteConfig.seo.description },
+      { property: 'og:url', content: siteConfig.url },
+      { property: 'og:image', content: absoluteUrl(siteConfig.seo.ogImage) },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: siteConfig.seo.title },
+      { name: 'twitter:description', content: siteConfig.seo.description },
+      { name: 'twitter:image', content: absoluteUrl(siteConfig.seo.ogImage) },
+      {
+        name: 'keywords',
+        content: siteConfig.seo.keywords.join(', '),
+      },
+    ],
+    scripts: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(jsonLdPerson()),
       },
     ],
     links: [

@@ -8,6 +8,7 @@ import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { Button } from '@/components/ui/button'
 import { POSTS_PER_PAGE } from '@/lib/constants'
+import { buildMeta } from '@/lib/seo'
 import { getPostCategories, getPosts, getPostTags } from '@/server/blog'
 import { cn } from '@/lib/utils'
 
@@ -37,14 +38,12 @@ export const Route = createFileRoute('/blog/')({
     return { posts, tags, categories }
   },
   head: () => ({
-    meta: [
-      { title: 'Blog — Devina' },
-      {
-        name: 'description',
-        content:
-          'Essays on engineering, design, and craft by Devina — RAG systems, design tokens, animation physics, and more.',
-      },
-    ],
+    meta: buildMeta({
+      title: 'Blog — Devina',
+      description:
+        'Essays on engineering, design, and craft by Devina — RAG systems, design tokens, animation physics, and more.',
+      path: '/blog',
+    }),
   }),
   component: BlogIndexPage,
 })

@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { PROJECT_CATEGORIES } from '@/lib/constants'
+import { buildMeta } from '@/lib/seo'
 import { projects } from '@/data/projects'
 
 interface ProjectsSearch {
@@ -29,14 +30,12 @@ export const Route = createFileRoute('/projects')({
     }
   },
   head: () => ({
-    meta: [
-      { title: 'Projects — Devina' },
-      {
-        name: 'description',
-        content:
-          'Selected projects by Devina — frontend, backend, AI, DevOps, mobile, and full-stack work.',
-      },
-    ],
+    meta: buildMeta({
+      title: 'Projects — Devina',
+      description:
+        'Selected projects by Devina — frontend, backend, AI, DevOps, mobile, and full-stack work.',
+      path: '/projects',
+    }),
   }),
   pendingComponent: ProjectsSkeleton,
   component: ProjectsPage,

@@ -2,17 +2,16 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ContactForm } from '@/components/contact/contact-form'
 import { ContactInfo } from '@/components/contact/contact-info'
 import { SectionHeading } from '@/components/home/section-heading'
+import { buildMeta } from '@/lib/seo'
 
 export const Route = createFileRoute('/contact')({
   head: () => ({
-    meta: [
-      { title: 'Contact — Devina' },
-      {
-        name: 'description',
-        content:
-          "Get in touch with Devina — freelance projects, full-time opportunities, or just to say hello.",
-      },
-    ],
+    meta: buildMeta({
+      title: 'Contact — Devina',
+      description:
+        'Get in touch with Devina — freelance projects, full-time opportunities, or just to say hello.',
+      path: '/contact',
+    }),
   }),
   component: ContactPage,
 })
