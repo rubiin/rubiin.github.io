@@ -91,13 +91,7 @@ export interface Award {
   description: string
 }
 
-export type ProjectCategory =
-  | 'frontend'
-  | 'backend'
-  | 'ai'
-  | 'devops'
-  | 'mobile'
-  | 'full-stack'
+export type ProjectCategory = 'frontend' | 'backend' | 'ai' | 'devops' | 'mobile' | 'full-stack'
 
 export interface Project {
   slug: string

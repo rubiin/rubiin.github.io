@@ -38,8 +38,9 @@ export const Route = createFileRoute('/blog/$slug')({
     // `all` is newest-first, so the item before the index is newer and the
     // item after it is older.
     const idx = all.findIndex((p) => p.slug === post.slug)
-    const newer: PostSummary | null = idx > 0 ? all[idx - 1] ?? null : null
-    const older: PostSummary | null = idx >= 0 && idx < all.length - 1 ? all[idx + 1] ?? null : null
+    const newer: PostSummary | null = idx > 0 ? (all[idx - 1] ?? null) : null
+    const older: PostSummary | null =
+      idx >= 0 && idx < all.length - 1 ? (all[idx + 1] ?? null) : null
 
     return { post, related, newer, older }
   },

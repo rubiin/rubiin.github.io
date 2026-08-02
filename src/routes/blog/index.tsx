@@ -73,10 +73,7 @@ function BlogIndexPage() {
       if (category !== 'all' && post.category !== category) return false
       if (tag !== 'all' && !post.tags.includes(tag)) return false
       if (!needle) return true
-      return [post.title, post.description, ...post.tags]
-        .join(' ')
-        .toLowerCase()
-        .includes(needle)
+      return [post.title, post.description, ...post.tags].join(' ').toLowerCase().includes(needle)
     })
   }, [posts, category, tag, q])
 
@@ -142,7 +139,7 @@ function BlogIndexPage() {
             </div>
           )}
         </div>
-        <BlogSearch query={q} onQueryChange={(q) => update({ q })} />
+        <BlogSearch query={q} onQueryChange={(next) => update({ q: next })} />
       </div>
 
       {filtered.length === 0 ? (

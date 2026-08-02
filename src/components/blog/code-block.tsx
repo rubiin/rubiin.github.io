@@ -55,7 +55,12 @@ export function CodeBlock({
   }
 
   return (
-    <div className={cn('group relative my-4 overflow-hidden rounded-lg border border-border', className)}>
+    <div
+      className={cn(
+        'group relative my-4 overflow-hidden rounded-lg border border-border',
+        className,
+      )}
+    >
       <div className="flex items-center justify-between border-b border-border bg-muted/60 px-3 py-1.5">
         <span className="font-mono text-xs text-muted-foreground">{lang ?? 'code'}</span>
         <Button

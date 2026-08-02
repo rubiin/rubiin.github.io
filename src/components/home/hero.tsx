@@ -2,13 +2,7 @@
 
 import { Suspense, lazy, useRef, useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { ArrowDown, Download, Mail, PenLine, FolderGit2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { ComponentProps } from 'react'
@@ -163,7 +157,10 @@ export function Hero() {
               className="text-lg font-medium text-muted-foreground sm:text-xl"
             >
               {ROLES[roleIndex]}
-              <span className="ml-2 inline-block h-5 w-0.5 animate-pulse bg-primary align-middle" aria-hidden />
+              <span
+                className="ml-2 inline-block h-5 w-0.5 animate-pulse bg-primary align-middle"
+                aria-hidden
+              />
             </motion.p>
           </AnimatePresence>
         </div>

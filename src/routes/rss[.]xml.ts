@@ -3,7 +3,6 @@ import { siteConfig } from '@/data/site'
 import { getPosts } from '@/server/blog'
 import { absoluteUrl, xmlEscape } from '@/lib/seo'
 
-
 function rssDate(date: string) {
   return new Date(date).toUTCString()
 }

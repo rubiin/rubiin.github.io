@@ -77,7 +77,14 @@ export function Terminal() {
   const navigate = useNavigate()
   const [lines, setLines] = useState<Line[]>(() => [
     { key: nextKey(), node: <pre className="text-primary">{BANNER}</pre> },
-    { key: nextKey(), node: <span>Type <span className="text-primary">help</span> to get started.</span> },
+    {
+      key: nextKey(),
+      node: (
+        <span>
+          Type <span className="text-primary">help</span> to get started.
+        </span>
+      ),
+    },
   ])
   const [input, setInput] = useState('')
   const [history, setHistory] = useState<string[]>([])
@@ -97,7 +104,12 @@ export function Terminal() {
   const run = useCallback(
     (raw: string) => {
       const trimmed = raw.trim()
-      print(<span><span className="text-primary">➜</span> <span className="text-muted-foreground">~</span> {raw}</span>)
+      print(
+        <span>
+          <span className="text-primary">➜</span> <span className="text-muted-foreground">~</span>{' '}
+          {raw}
+        </span>,
+      )
       if (!trimmed) return
 
       const [cmd, ...args] = trimmed.split(/\s+/)
@@ -108,7 +120,12 @@ export function Terminal() {
       const link = (label: string, to: string, external = false) => (
         <span>
           {external ? (
-            <a className="text-primary underline underline-offset-2 hover:opacity-80" href={to} target="_blank" rel="noreferrer">
+            <a
+              className="text-primary underline underline-offset-2 hover:opacity-80"
+              href={to}
+              target="_blank"
+              rel="noreferrer"
+            >
               {label}
             </a>
           ) : (
@@ -135,7 +152,8 @@ export function Terminal() {
             <span>
               {profile.bio}
               <br />
-              Based in {siteConfig.location} · {siteConfig.availability ? 'available for freelance' : 'not currently available'}.
+              Based in {siteConfig.location} ·{' '}
+              {siteConfig.availability ? 'available for freelance' : 'not currently available'}.
             </span>,
           )
           break
@@ -160,7 +178,8 @@ export function Terminal() {
         case 'contact':
           print(
             <span>
-              Email {link(siteConfig.email, siteConfig.socials.email, true)} or open {link('the contact page', '/contact')}.
+              Email {link(siteConfig.email, siteConfig.socials.email, true)} or open{' '}
+              {link('the contact page', '/contact')}.
             </span>,
           )
           break
@@ -168,7 +187,11 @@ export function Terminal() {
           print(<span>Opening {link('github.com/rubiin', siteConfig.socials.github, true)}…</span>)
           break
         case 'linkedin':
-          print(<span>Opening {link('linkedin.com/in/rubiin', siteConfig.socials.linkedin, true)}…</span>)
+          print(
+            <span>
+              Opening {link('linkedin.com/in/rubiin', siteConfig.socials.linkedin, true)}…
+            </span>,
+          )
           break
         case 'theme': {
           const next: 'light' | 'dark' = themeStore.state === 'light' ? 'dark' : 'light'
@@ -186,10 +209,18 @@ export function Terminal() {
           print(<span>{arg || '(empty)'}</span>)
           break
         case 'ls':
-          print(<span className="text-muted-foreground">about.md  skills.ts  projects/  blog/  resume.pdf  contact.ts  secrets/</span>)
+          print(
+            <span className="text-muted-foreground">
+              about.md skills.ts projects/ blog/ resume.pdf contact.ts secrets/
+            </span>,
+          )
           break
         case 'sudo':
-          print(<span className="text-destructive">rubin is not in the sudoers file. This incident will be reported. 🚨</span>)
+          print(
+            <span className="text-destructive">
+              rubin is not in the sudoers file. This incident will be reported. 🚨
+            </span>,
+          )
           break
         case 'banner':
           print(<pre className="text-primary">{BANNER}</pre>)
@@ -204,7 +235,8 @@ export function Terminal() {
               <span className="text-destructive">command not found: {lower}</span>
               {suggestion ? (
                 <>
-                  {' '}— did you mean <span className="text-primary">{suggestion}</span>?
+                  {' '}
+                  — did you mean <span className="text-primary">{suggestion}</span>?
                 </>
               ) : null}
             </span>,
@@ -276,8 +308,12 @@ export function Terminal() {
 
           {/* Prompt */}
           <form onSubmit={onSubmit} className="mt-1 flex items-center gap-2">
-            <span aria-hidden className="text-primary">➜</span>
-            <span aria-hidden className="text-muted-foreground">~</span>
+            <span aria-hidden className="text-primary">
+              ➜
+            </span>
+            <span aria-hidden className="text-muted-foreground">
+              ~
+            </span>
             <input
               ref={inputRef}
               value={input}

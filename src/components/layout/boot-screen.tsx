@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 
 const SKIP_KEY = 'pf-boot-done'
@@ -16,9 +16,11 @@ export function BootScreen() {
   const [phase, setPhase] = useState<'loading' | 'leaving' | 'gone'>('gone')
   const [progress, setProgress] = useState(0)
   const reduced = useReducedMotion()
-  const timers = useRef<number[]>([])
 
   useEffect(() => {
+    // Local timeout handles so cleanup never reads a ref's `.current`
+    // directly (satisfies react-hooks/exhaustive-deps).
+    const timeoutIds: number[] = []
     if (reduced) return
     let skipped = false
     try {
@@ -41,10 +43,10 @@ export function BootScreen() {
         return
       }
       // Hold a beat, then leave.
-      timers.current.push(
+      timeoutIds.push(
         window.setTimeout(() => {
           setPhase('leaving')
-          timers.current.push(
+          timeoutIds.push(
             window.setTimeout(() => {
               setPhase('gone')
               try {
@@ -61,7 +63,7 @@ export function BootScreen() {
 
     return () => {
       cancelAnimationFrame(raf)
-      timers.current.forEach((id) => window.clearTimeout(id))
+      timeoutIds.forEach((id) => window.clearTimeout(id))
     }
   }, [reduced])
 
@@ -77,6 +79,7 @@ export function BootScreen() {
     >
       <div className="flex overflow-hidden text-4xl font-bold tracking-tight sm:text-6xl">
         {NAME.split('').map((ch, i) => (
+          // oxlint-disable-next-line react/no-array-index-key -- static name chars
           <span key={i} className="block overflow-hidden">
             <motion.span
               className="block"

@@ -32,7 +32,9 @@ export function useActiveSection(ids: string[], enabled: boolean): string | null
 
     sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
-  }, [ids.join(','), enabled])
+    // `ids` is a stable module-level constant at every call site, so it is
+    // safe as a direct dependency (no `join` key needed).
+  }, [ids, enabled])
 
   return active
 }

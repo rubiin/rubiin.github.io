@@ -1,0 +1,38 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript"],
+  "env": {
+    "browser": true,
+    "es2024": true,
+    "node": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "warn",
+    "style": "off",
+    "pedantic": "off",
+    "restriction": "off",
+    "nursery": "off"
+  },
+  "rules": {
+    // React 19 + Vite use the automatic JSX runtime — the legacy
+    // react-in-jsx-scope rule (require React import) is obsolete here.
+    "react/react-in-jsx-scope": "off",
+    // jsx-max-depth is too aggressive for deeply nested layout components.
+    "react/jsx-max-depth": "off",
+    // Deliberate double-underscore conventions: __prisma (Prisma global
+    // dev cache) and __setLenisInstance (module-internal Lenis API).
+    "eslint/no-underscore-dangle": ["error", { "allow": ["__prisma", "__setLenisInstance"] }]
+  },
+  "ignorePatterns": [
+    "node_modules/**",
+    ".output/**",
+    ".nitro/**",
+    ".content-collections/**",
+    ".tanstack/**",
+    "src/generated/**",
+    "public/**",
+    "content/**"
+  ]
+}

@@ -11,7 +11,8 @@ export const awards: Award[] = [
     name: 'FWA of the Day',
     issuer: 'The FWA',
     year: '2023',
-    description: 'Recognized for an interactive data-visualization campaign for a logistics client.',
+    description:
+      'Recognized for an interactive data-visualization campaign for a logistics client.',
   },
   {
     name: 'Agency Web Experience Award',

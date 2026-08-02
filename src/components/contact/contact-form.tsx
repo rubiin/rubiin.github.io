@@ -91,7 +91,9 @@ export function ContactForm() {
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Jane Doe"
                 aria-invalid={!!field.state.meta.errors?.length}
-                aria-describedby={field.state.meta.errors?.length ? `${field.name}-error` : undefined}
+                aria-describedby={
+                  field.state.meta.errors?.length ? `${field.name}-error` : undefined
+                }
                 className="aria-[invalid=true]:border-destructive"
               />
               {field.state.meta.errors?.length ? (
@@ -116,7 +118,9 @@ export function ContactForm() {
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="jane@example.com"
                 aria-invalid={!!field.state.meta.errors?.length}
-                aria-describedby={field.state.meta.errors?.length ? `${field.name}-error` : undefined}
+                aria-describedby={
+                  field.state.meta.errors?.length ? `${field.name}-error` : undefined
+                }
                 className="aria-[invalid=true]:border-destructive"
               />
               {field.state.meta.errors?.length ? (

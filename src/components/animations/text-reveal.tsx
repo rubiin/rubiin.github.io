@@ -29,6 +29,7 @@ export function TextReveal({
     return (
       <Tag className={cn('whitespace-pre-line', className)}>
         {lines.map((line, i) => (
+          // oxlint-disable-next-line react/no-array-index-key -- static split lines, never reordered
           <span key={i} className={cn('block', lineClassName)}>
             {line || '\u00A0'}
           </span>
@@ -40,6 +41,7 @@ export function TextReveal({
   return (
     <Tag className={cn('whitespace-pre-line', className)}>
       {lines.map((line, i) => (
+        // oxlint-disable-next-line react/no-array-index-key -- static split lines, never reordered
         <span key={i} className="block overflow-hidden">
           <motion.span
             className={cn('block', lineClassName)}

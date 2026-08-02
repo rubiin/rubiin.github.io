@@ -35,11 +35,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   --font-sans:
-    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
   --font-mono:
-    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
-    'Liberation Mono', monospace;
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 
   --animate-marquee: marquee 32s linear infinite;
 }
@@ -155,11 +154,7 @@
 
   /* Mint → blue gradient text */
   .text-gradient {
-    background-image: linear-gradient(
-      115deg,
-      var(--primary),
-      var(--accent-secondary)
-    );
+    background-image: linear-gradient(115deg, var(--primary), var(--accent-secondary));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -174,7 +169,11 @@
   .grid-bg {
     background-image:
       linear-gradient(color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px);
+      linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--foreground) 5%, transparent) 1px,
+        transparent 1px
+      );
     background-size: 56px 56px;
   }
 

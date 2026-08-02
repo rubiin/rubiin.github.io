@@ -15,13 +15,13 @@ export function AnimatedFavicon() {
     canvas.height = 32
     const ctx = canvas.getContext('2d')
     const link =
-      (document.querySelector<HTMLLinkElement>('link[rel="icon"]') ??
-        (() => {
-          const l = document.createElement('link')
-          l.rel = 'icon'
-          document.head.appendChild(l)
-          return l
-        })())
+      document.querySelector<HTMLLinkElement>('link[rel="icon"]') ??
+      (() => {
+        const l = document.createElement('link')
+        l.rel = 'icon'
+        document.head.appendChild(l)
+        return l
+      })()
     if (!ctx) return
 
     const cssVar = (name: string, fallback: string) => {
@@ -67,7 +67,10 @@ export function AnimatedFavicon() {
 
     // Redraw on theme toggle too.
     const themeObserver = new MutationObserver(() => draw(angle, document.hasFocus()))
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
 
     let angle = 0
     let interval = 0

@@ -27,9 +27,7 @@ export function ProjectsSection() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {FEATURED.map((project, i) => (
           <Reveal key={project.slug} delay={i * 0.08}>
-            <TiltCard
-              className="h-full rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-lg"
-            >
+            <TiltCard className="h-full rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-lg">
               <article className="flex h-full flex-col overflow-hidden">
                 {/* Visual: browser-framed gradient placeholder when no image */}
                 <BrowserFrame
@@ -49,9 +47,7 @@ export function ProjectsSection() {
 
                 <div className="flex flex-1 flex-col gap-3 p-5">
                   <h3 className="text-lg font-semibold tracking-tight">{project.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {project.tagline}
-                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{project.tagline}</p>
 
                   <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
                     {project.tech.slice(0, 4).map((tech) => (
@@ -71,7 +67,12 @@ export function ProjectsSection() {
                       </Button>
                     )}
                     {project.github && (
-                      <Button asChild size="icon" variant="ghost" aria-label={`${project.title} on GitHub`}>
+                      <Button
+                        asChild
+                        size="icon"
+                        variant="ghost"
+                        aria-label={`${project.title} on GitHub`}
+                      >
                         <a href={project.github} target="_blank" rel="noreferrer">
                           <GitBranch className="size-4" />
                         </a>

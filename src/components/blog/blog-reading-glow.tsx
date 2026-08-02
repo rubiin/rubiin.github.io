@@ -9,11 +9,7 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'mo
  * glowing gradient. Purely decorative (`aria-hidden`) — hidden on smaller
  * screens and rendered statically under reduced motion.
  */
-export function BlogReadingGlow({
-  targetRef,
-}: {
-  targetRef: RefObject<HTMLElement | null>
-}) {
+export function BlogReadingGlow({ targetRef }: { targetRef: RefObject<HTMLElement | null> }) {
   const reduced = useReducedMotion()
 
   const { scrollYProgress } = useScroll({
@@ -21,11 +17,7 @@ export function BlogReadingGlow({
     offset: ['start 0.9', 'end 0.25'],
   })
   const spineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 26 })
-  const glowOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0, 0.1, 0.12, 0.18],
-  )
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.1, 0.12, 0.18])
 
   return (
     <>

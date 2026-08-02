@@ -30,9 +30,7 @@ export const mdxComponents = {
     if (typeof rawCode === 'string') {
       return <CodeBlock code={rawCode} lang={rawLang} className={className} />
     }
-    return (
-      <pre className={cn('overflow-x-auto', className)}>{children}</pre>
-    )
+    return <pre className={cn('overflow-x-auto', className)}>{children}</pre>
   },
   code: (props: ComponentPropsWithoutRef<'code'>) => (
     <code {...props} className={cn(props.className)} />

@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Terminal } from '@/components/terminal/terminal'
-import { buildMeta } from '@/lib/seo'
 
 export const Route = createFileRoute('/terminal')({
   head: () => ({

@@ -13,9 +13,7 @@ import type { Project } from '@/types'
  */
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <TiltCard
-      className="h-full rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-lg"
-    >
+    <TiltCard className="h-full rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-lg">
       <article className="flex h-full flex-col overflow-hidden">
         {/* Media — framed like a browser window */}
         <BrowserFrame

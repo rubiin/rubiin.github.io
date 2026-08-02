@@ -9,7 +9,13 @@ import { cn } from '@/lib/utils'
  * the page background through a mint gradient. Reveals on scroll and is
  * purely visual (`aria-hidden`).
  */
-export function SectionDivider({ flip = false, className }: { flip?: boolean; className?: string }) {
+export function SectionDivider({
+  flip = false,
+  className,
+}: {
+  flip?: boolean
+  className?: string
+}) {
   const gradientId = useId()
   const reduced = useReducedMotion()
 

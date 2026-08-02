@@ -3,7 +3,12 @@
 import { useRef } from 'react'
 import { motion, useScroll, useReducedMotion, useSpring } from 'motion/react'
 import { CheckCircle2 } from 'lucide-react'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
@@ -79,7 +84,10 @@ export function ExperienceSection() {
                       <ul className="mt-4 space-y-2">
                         {item.achievements.map((a) => (
                           <li key={a.slice(0, 24)} className="flex items-start gap-2 text-sm">
-                            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                            <CheckCircle2
+                              className="mt-0.5 size-4 shrink-0 text-primary"
+                              aria-hidden
+                            />
                             <span>{a}</span>
                           </li>
                         ))}

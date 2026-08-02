@@ -22,14 +22,20 @@ export function TiltCard({
 
   const px = useMotionValue(0)
   const py = useMotionValue(0)
-  const rotateX = useSpring(useTransform(py, (v) => -v * maxTilt), {
-    stiffness: 200,
-    damping: 20,
-  })
-  const rotateY = useSpring(useTransform(px, (v) => v * maxTilt), {
-    stiffness: 200,
-    damping: 20,
-  })
+  const rotateX = useSpring(
+    useTransform(py, (v) => -v * maxTilt),
+    {
+      stiffness: 200,
+      damping: 20,
+    },
+  )
+  const rotateY = useSpring(
+    useTransform(px, (v) => v * maxTilt),
+    {
+      stiffness: 200,
+      damping: 20,
+    },
+  )
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (reduced || !ref.current) return

@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: 'Tsumiki',
     tagline: 'A modular status bar for Hyprland, built on Fabric.',
     description:
-      'Tsumiki (積み木 — Japanese for \'building blocks\') is a modular status bar for the Hyprland Wayland compositor. Built on Fabric with a flexible, widget-based architecture, it ships 45+ widgets — workspaces, system tray, media, battery, CPU, weather, dock, launcher — plus a built-in notification daemon, OSD overlays, and TOML config with hot-reload. Fully themeable via SCSS with Material You color schemes generated from your wallpaper.',
+      "Tsumiki (積み木 — Japanese for 'building blocks') is a modular status bar for the Hyprland Wayland compositor. Built on Fabric with a flexible, widget-based architecture, it ships 45+ widgets — workspaces, system tray, media, battery, CPU, weather, dock, launcher — plus a built-in notification daemon, OSD overlays, and TOML config with hot-reload. Fully themeable via SCSS with Material You color schemes generated from your wallpaper.",
     category: 'devops',
     year: '2024',
     tech: ['Python', 'Fabric', 'Hyprland', 'Wayland', 'GTK'],
@@ -16,7 +16,7 @@ export const projects: Project[] = [
     featured: true,
     challenges: [
       'Keeping a Python panel performant enough to sit beside native C/Rust bars',
-      'Designing a 45+ widget architecture that stays responsive to Hyprland\'s event model',
+      "Designing a 45+ widget architecture that stays responsive to Hyprland's event model",
       'Wiring Material You color generation into live SCSS theming',
     ],
     lessons: [
@@ -122,7 +122,7 @@ export const projects: Project[] = [
     tech: ['NestJS', 'TypeScript', 'pg-promise', 'PostgreSQL'],
     github: 'https://github.com/NestCrafts/nestjs-pgpromise',
     challenges: [
-      'Wrapping pg-promise\'s promise-first API in Nest\'s DI lifecycle',
+      "Wrapping pg-promise's promise-first API in Nest's DI lifecycle",
       'Managing connection pools and clean shutdown',
     ],
     lessons: [
@@ -270,7 +270,7 @@ export const projects: Project[] = [
     title: 'init.lua — Neovim PDE',
     tagline: 'A personal development environment, carefully crafted in Neovim.',
     description:
-      'Rubin\'s always-WIP Neovim config (PDE — Personal Development Environment): a brew of plugins and keybindings that dance harmoniously — autocomplete, syntax highlighting, and a carefully tuned editing experience.',
+      "Rubin's always-WIP Neovim config (PDE — Personal Development Environment): a brew of plugins and keybindings that dance harmoniously — autocomplete, syntax highlighting, and a carefully tuned editing experience.",
     category: 'devops',
     year: '2024',
     tech: ['Lua', 'Neovim', 'LazyVim'],
@@ -308,7 +308,7 @@ export const projects: Project[] = [
     title: 'dotfiles (arch btw)',
     tagline: 'Personal dotfiles — neovim, tmux, zsh, alacritty, kitty, and more.',
     description:
-      'The secret sauce behind Rubin\'s Unix environment: dotfiles managed with Chezmoi, including configs for Neovim, tmux, zsh, Alacritty, Kitty, and more — arch btw. The desktop screenshot shows the full setup in action.',
+      "The secret sauce behind Rubin's Unix environment: dotfiles managed with Chezmoi, including configs for Neovim, tmux, zsh, Alacritty, Kitty, and more — arch btw. The desktop screenshot shows the full setup in action.",
     category: 'devops',
     year: '2024',
     tech: ['Chezmoi', 'Neovim', 'Tmux', 'Zsh', 'Linux'],

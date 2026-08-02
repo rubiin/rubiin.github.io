@@ -9,8 +9,8 @@ export function NotFoundComponent() {
       <p className="font-mono text-sm text-primary">404</p>
       <h1 className="text-4xl font-semibold tracking-tight">This page drifted off.</h1>
       <p className="max-w-md text-muted-foreground">
-        The page you're looking for doesn't exist or has been moved. Let's get you back to
-        somewhere useful.
+        The page you're looking for doesn't exist or has been moved. Let's get you back to somewhere
+        useful.
       </p>
       <div className="flex flex-wrap justify-center gap-3">
         <Button asChild className="gap-2">

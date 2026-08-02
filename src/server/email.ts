@@ -11,8 +11,15 @@ function getResend(): Resend | null {
 }
 
 /** Render the contact-form email body as a simple HTML string. */
-function renderContactHtml(input: { name: string; email: string; subject?: string; message: string }): string {
-  const subject = input.subject ? `<p><strong>Subject:</strong> ${escapeHtml(input.subject)}</p>` : ''
+function renderContactHtml(input: {
+  name: string
+  email: string
+  subject?: string
+  message: string
+}): string {
+  const subject = input.subject
+    ? `<p><strong>Subject:</strong> ${escapeHtml(input.subject)}</p>`
+    : ''
   return `
     <div style="font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a;">
       <p>You received a new message from your portfolio contact form:</p>

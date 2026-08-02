@@ -71,10 +71,6 @@ export function jsonLdPerson() {
       addressLocality: siteConfig.location.split(',')[0],
       addressCountry: siteConfig.location.split(', ')[1] ?? 'NL',
     },
-    sameAs: [
-      siteConfig.socials.github,
-      siteConfig.socials.linkedin,
-      siteConfig.socials.twitter,
-    ],
+    sameAs: [siteConfig.socials.github, siteConfig.socials.linkedin, siteConfig.socials.twitter],
   }
 }

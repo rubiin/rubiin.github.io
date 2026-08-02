@@ -14,11 +14,7 @@ export function ErrorComponent({ error }: { error: Error }) {
         {error.message || 'An unexpected error occurred. Please try again.'}
       </p>
       <div className="flex flex-wrap justify-center gap-3">
-        <Button
-          variant="outline"
-          className="gap-2"
-          onClick={() => window.location.reload()}
-        >
+        <Button variant="outline" className="gap-2" onClick={() => window.location.reload()}>
           <RefreshCw className="size-4" aria-hidden />
           Reload page
         </Button>

@@ -39,7 +39,12 @@ export function Mermaid({ chart, className }: { chart: string; className?: strin
 
   if (error) {
     return (
-      <pre className={cn('my-4 rounded-lg border border-destructive/40 bg-destructive/5 p-4 text-sm', className)}>
+      <pre
+        className={cn(
+          'my-4 rounded-lg border border-destructive/40 bg-destructive/5 p-4 text-sm',
+          className,
+        )}
+      >
         {chart}
         <p className="mt-2 text-xs text-destructive">{error}</p>
       </pre>
@@ -49,7 +54,10 @@ export function Mermaid({ chart, className }: { chart: string; className?: strin
   return (
     <div
       ref={ref}
-      className={cn('my-4 flex justify-center overflow-x-auto rounded-lg border border-border bg-muted/30 p-4', className)}
+      className={cn(
+        'my-4 flex justify-center overflow-x-auto rounded-lg border border-border bg-muted/30 p-4',
+        className,
+      )}
       aria-label="Diagram"
       role="img"
     >

@@ -40,7 +40,9 @@ function ResumePage() {
       <div className="no-print mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">Resume</p>
-          <h1 className="text-2xl font-semibold tracking-tight">Rubin Bhandari — printable resume</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Rubin Bhandari — printable resume
+          </h1>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => window.print()} className="gap-2">

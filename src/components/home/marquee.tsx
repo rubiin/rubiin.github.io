@@ -34,6 +34,7 @@ export function Marquee({ className }: { className?: string }) {
       <div className="flex w-max animate-marquee gap-8 whitespace-nowrap">
         {row.map((item, i) => (
           <span
+            // oxlint-disable-next-line react/no-array-index-key -- static doubled list, never reordered
             key={`${item}-${i}`}
             className="text-sm font-medium uppercase tracking-widest text-muted-foreground"
           >

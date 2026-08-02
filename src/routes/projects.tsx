@@ -51,6 +51,7 @@ function ProjectsSkeleton() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
+          // oxlint-disable-next-line react/no-array-index-key -- static skeleton
           <div key={i} className="flex flex-col gap-3 rounded-xl border bg-card p-5">
             <Skeleton className="aspect-video w-full" />
             <Skeleton className="h-5 w-2/3" />

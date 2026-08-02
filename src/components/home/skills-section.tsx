@@ -5,12 +5,7 @@ import { useInView, useReducedMotion } from 'motion/react'
 import { Brain, Cloud, Layers, Layout, Server, Smartphone } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { SkillsOrbit } from '@/components/home/skills-orbit'

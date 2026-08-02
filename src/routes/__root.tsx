@@ -39,7 +39,7 @@ export const Route = createRootRoute({
       {
         name: 'description',
         content:
-          'Portfolio and blog of Rubin Bhandari — full-stack developer crafting robust web applications and API systems.'
+          'Portfolio and blog of Rubin Bhandari — full-stack developer crafting robust web applications and API systems.',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: siteConfig.name },
