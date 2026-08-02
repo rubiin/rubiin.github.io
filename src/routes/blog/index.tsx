@@ -127,7 +127,20 @@ function BlogIndexPage() {
           )}
           {tags.length > 1 && (
             <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by tag">
-              {['all', ...tags.slice(0, 8).map((t) => t.tag)].map((t) => (
+              <Button
+                key="all"
+                size="sm"
+                variant="ghost"
+                className={cn(
+                  'rounded-full text-xs',
+                  tag === 'all' && 'bg-accent text-accent-foreground',
+                )}
+                aria-pressed={tag === 'all'}
+                onClick={() => update({ tag: 'all' })}
+              >
+                All tags
+              </Button>
+              {tags.slice(0, 8).map(({ tag: t, count }) => (
                 <Button
                   key={t}
                   size="sm"
@@ -139,7 +152,10 @@ function BlogIndexPage() {
                   aria-pressed={tag === t}
                   onClick={() => update({ tag: t })}
                 >
-                  {t === 'all' ? 'All tags' : `#${t}`}
+                  #{t}
+                  <span className="ml-1.5 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-medium leading-none text-muted-foreground">
+                    {count}
+                  </span>
                 </Button>
               ))}
             </div>
