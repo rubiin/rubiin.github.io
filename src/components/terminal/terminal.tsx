@@ -5,6 +5,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { siteConfig } from '@/data/site'
 import { skillCategories } from '@/data/skills'
 import { profile } from '@/data/profile'
+import { setTheme, themeStore } from '@/stores/theme-store'
 
 const BANNER = [
   '   ____          _             _      ',
@@ -169,10 +170,12 @@ export function Terminal() {
         case 'linkedin':
           print(<span>Opening {link('linkedin.com/in/devina', siteConfig.socials.linkedin, true)}…</span>)
           break
-        case 'theme':
-          document.documentElement.classList.toggle('dark')
-          print(<span>Theme toggled.</span>)
+        case 'theme': {
+          const next: 'light' | 'dark' = themeStore.state === 'light' ? 'dark' : 'light'
+          setTheme(next)
+          print(<span>Theme toggled to {next}.</span>)
           break
+        }
         case 'whoami':
           print(<span>devina — {siteConfig.role}</span>)
           break
@@ -227,14 +230,21 @@ export function Terminal() {
       if (match) setInput(match)
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
-      const next = Math.max(-1, histIdx - 1)
+      if (history.length === 0) return
+      const next = histIdx === -1 ? history.length - 1 : Math.max(0, histIdx - 1)
       setHistIdx(next)
-      setInput(history[history.length + next] ?? '')
+      setInput(history[next] ?? '')
     } else if (e.key === 'ArrowDown') {
       e.preventDefault()
-      const next = Math.min(history.length - 1, histIdx + 1)
-      setHistIdx(next)
-      setInput(next >= 0 ? history[next] ?? '' : '')
+      if (histIdx === -1) return
+      const next = histIdx + 1
+      if (next >= history.length) {
+        setHistIdx(-1)
+        setInput('')
+      } else {
+        setHistIdx(next)
+        setInput(history[next] ?? '')
+      }
     }
   }
 

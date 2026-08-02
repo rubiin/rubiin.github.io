@@ -35,11 +35,15 @@ export function AnimatedFavicon() {
       const fg = cssVar('--foreground', '#ccd6f6')
 
       ctx.clearRect(0, 0, 32, 32)
-      // Rounded backdrop
-      ctx.beginPath()
-      ctx.roundRect(1, 1, 30, 30, 7)
+      // Rounded backdrop (fallback to plain rect on older engines)
       ctx.fillStyle = bg
-      ctx.fill()
+      if (typeof ctx.roundRect === 'function') {
+        ctx.beginPath()
+        ctx.roundRect(1, 1, 30, 30, 7)
+        ctx.fill()
+      } else {
+        ctx.fillRect(1, 1, 30, 30)
+      }
 
       // Rotating ring (arc from -90°)
       ctx.strokeStyle = mint

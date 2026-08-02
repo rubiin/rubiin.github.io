@@ -222,18 +222,6 @@
   }
 }
 
-@keyframes gradient-pan {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 @keyframes cursor-ripple {
   to {
     transform: scale(2.4);
@@ -241,27 +229,7 @@
   }
 }
 
-@keyframes blink-caret {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes shimmer {
-  from {
-    background-position: 200% 0;
-  }
-  to {
-    background-position: -200% 0;
-  }
-}
-
-/* Hidden page (terminal) isn't indexed */
+/* Terminal page keeps its own dark color scheme regardless of site theme. */
 .terminal-root {
   color-scheme: dark;
 }
