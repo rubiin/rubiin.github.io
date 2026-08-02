@@ -1,0 +1,19 @@
+{
+  "name": "Rubin Bhandari — Software Engineer",
+  "short_name": "Rubin Bhandari",
+  "description": "Portfolio and blog of Rubin Bhandari — full-stack developer crafting robust web applications and API systems.",
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "background_color": "#020617",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/og.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

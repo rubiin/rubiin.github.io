@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { QueryProvider } from '@/components/layout/query-provider'
@@ -51,6 +51,7 @@ export const Route = createRootRoute({
       { name: 'twitter:title', content: siteConfig.seo.title },
       { name: 'twitter:description', content: siteConfig.seo.description },
       { name: 'twitter:image', content: absoluteUrl(siteConfig.seo.ogImage) },
+      { name: 'theme-color', content: '#0f172a' },
       {
         name: 'keywords',
         content: siteConfig.seo.keywords.join(', '),
@@ -77,6 +78,9 @@ export const Route = createRootRoute({
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap',
       },
+      { rel: 'manifest', href: '/manifest.webmanifest' },
+      { rel: 'icon', href: '/og.png' },
+      { rel: 'apple-touch-icon', href: '/og.png' },
     ],
   }),
   shellComponent: RootDocument,
@@ -113,7 +117,20 @@ function RootDocument({ children }: { children: ReactNode }) {
           <QueryProvider>{children}</QueryProvider>
         </ThemeProvider>
         <Scripts />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   )
+}
+
+function ServiceWorkerRegistration() {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch((error) => {
+        console.warn('Service worker registration failed:', error)
+      })
+    }
+  }, [])
+
+  return null
 }
