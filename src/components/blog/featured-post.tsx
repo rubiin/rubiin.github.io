@@ -1,6 +1,5 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, CalendarDays, Clock } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
 import type { PostSummary } from '@/server/blog'
 
 /** Large two-column featured post card. */

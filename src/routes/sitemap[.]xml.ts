@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { siteConfig } from '@/data/site'
 import { getPosts } from '@/server/blog'
 import { absoluteUrl, xmlEscape } from '@/lib/seo'
 

@@ -45,10 +45,7 @@ export function MobileNav({
 
         <nav aria-label="Mobile" className="flex flex-col gap-1 px-4">
           {navItems.map((item) => {
-            const active =
-              item.href !== '/#skills' &&
-              !item.href.startsWith('/#') &&
-              location.pathname === item.href
+            const active = !item.href.startsWith('/#') && location.pathname === item.href
             return (
               <Link
                 key={item.href}
