@@ -215,3 +215,25 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Print: hide chrome, A4-friendly, dark-mode-safe (force light). */
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  article {
+    box-shadow: none !important;
+  }
+  @page {
+    margin: 1.5cm;
+  }
+}

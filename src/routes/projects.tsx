@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import { ProjectCard } from '@/components/projects/project-card'
 import { ProjectFilters, type ProjectFilter } from '@/components/projects/project-filters'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { PROJECT_CATEGORIES } from '@/lib/constants'
@@ -37,8 +38,31 @@ export const Route = createFileRoute('/projects')({
       },
     ],
   }),
+  pendingComponent: ProjectsSkeleton,
   component: ProjectsPage,
 })
+
+function ProjectsSkeleton() {
+  return (
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div className="mb-10 flex flex-col gap-3">
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="h-9 w-64" />
+        <Skeleton className="h-4 w-96 max-w-full" />
+      </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="flex flex-col gap-3 rounded-xl border bg-card p-5">
+            <Skeleton className="aspect-video w-full" />
+            <Skeleton className="h-5 w-2/3" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-4/5" />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function ProjectsPage() {
   const { category, q } = useSearch({ from: '/projects' })

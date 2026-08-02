@@ -10,9 +10,13 @@ import { ScrollProgress } from '@/components/layout/scroll-progress'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { CommandPalette } from '@/components/layout/command-palette'
+import { NotFoundComponent } from '@/components/layout/not-found'
+import { ErrorComponent } from '@/components/layout/error-boundary'
 import { Toaster } from '@/components/ui/sonner'
 
 export const Route = createRootRoute({
+  notFoundComponent: NotFoundComponent,
+  errorComponent: ErrorComponent,
   head: () => ({
     meta: [
       {

@@ -62,7 +62,7 @@ export function SiteHeader() {
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
             const active =
-              item.href !== '/#skills' && !item.href.startsWith('/#') && pathname === item.href
+              !item.href.startsWith('/#') && pathname === item.href
             return (
               <Link
                 key={item.href}

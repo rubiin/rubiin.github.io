@@ -3,7 +3,7 @@ import type { NavItem } from '@/types'
 export const navItems: NavItem[] = [
   {
     label: 'About',
-    href: '/about',
+    href: '/#about',
     description: 'Biography, philosophy, and career highlights',
   },
   {
