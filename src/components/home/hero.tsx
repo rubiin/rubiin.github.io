@@ -194,7 +194,7 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <motion.a
-        href="#what-i-do"
+        href="#about"
         aria-label="Scroll to content"
         className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground transition-colors hover:text-foreground"
         animate={reduced ? undefined : { y: [0, 8, 0] }}
