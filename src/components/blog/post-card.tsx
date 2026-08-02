@@ -11,7 +11,6 @@ export function PostCard({ post }: { post: PostSummary }) {
   return (
     <Link
       to={`/blog/${post.slug}` as string}
-      data-cursor-label="Read"
       className="group block h-full overflow-hidden rounded-xl border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
     >
       <article className="flex h-full flex-col">

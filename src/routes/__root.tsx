@@ -14,7 +14,6 @@ import { NotFoundComponent } from '@/components/layout/not-found'
 import { ErrorComponent } from '@/components/layout/error-boundary'
 import { Toaster } from '@/components/ui/sonner'
 import { BootScreen } from '@/components/layout/boot-screen'
-import { CustomCursor } from '@/components/layout/custom-cursor'
 import { AmbientBackground } from '@/components/layout/ambient-background'
 import { AnimatedFavicon } from '@/components/layout/animated-favicon'
 import { FloatingDock } from '@/components/layout/floating-dock'
@@ -85,7 +84,6 @@ export const Route = createRootRoute({
     <>
       <SkipLink />
       <BootScreen />
-      <CustomCursor />
       <AmbientBackground />
       <AnimatedFavicon />
       <EasterEggs />

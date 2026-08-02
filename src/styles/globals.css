@@ -222,22 +222,9 @@
   }
 }
 
-@keyframes cursor-ripple {
-  to {
-    transform: scale(2.4);
-    opacity: 0;
-  }
-}
-
 /* Terminal page keeps its own dark color scheme regardless of site theme. */
 .terminal-root {
   color-scheme: dark;
-}
-
-/* Custom cursor active: hide the native cursor everywhere (text caret is unaffected). */
-html[data-cursor='active'],
-html[data-cursor='active'] * {
-  cursor: none !important;
 }
 
 /* Konami easter egg: synthwave palette override (any theme). */

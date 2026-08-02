@@ -14,7 +14,6 @@ import type { Project } from '@/types'
 export function ProjectCard({ project }: { project: Project }) {
   return (
     <TiltCard
-      cursorLabel="Explore"
       className="h-full rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-lg"
     >
       <article className="flex h-full flex-col overflow-hidden">

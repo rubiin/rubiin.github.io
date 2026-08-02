@@ -34,7 +34,6 @@ export function ImageZoom({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        data-cursor-label="Zoom"
         aria-label={`Zoom image: ${alt || 'image'}`}
         className={cn('group relative block w-full overflow-hidden', className)}
       >
