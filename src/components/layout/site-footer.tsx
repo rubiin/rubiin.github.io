@@ -1,13 +1,13 @@
 'use client'
 
 import { Link } from '@tanstack/react-router'
-import { GitBranch, Heart, Mail, Rss } from 'lucide-react'
+import { Heart, Mail, Rss } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
-import { LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
+import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 
 const SOCIALS = [
-  { label: 'GitHub', href: siteConfig.socials.github, icon: GitBranch },
+  { label: 'GitHub', href: siteConfig.socials.github, icon: GitHubIcon },
   { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
   { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
   { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },

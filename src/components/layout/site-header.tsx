@@ -3,12 +3,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { motion } from 'motion/react'
-import { Command, GitBranch, Menu } from 'lucide-react'
+import { Command, Menu } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/layout/theme-toggle'
 import { MobileNav } from '@/components/layout/mobile-nav'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { GitHubIcon } from '@/components/ui/brand-icons'
 import { cn } from '@/lib/utils'
 import { openCommandPalette } from '@/stores/command-store'
 import { lenisScrollTo } from '@/hooks/use-lenis'
@@ -96,26 +98,40 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-1.5">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={openCommandPalette}
-            aria-label="Open command palette (⌘K)"
-            className="hidden sm:inline-flex"
-          >
-            <Command className="size-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            asChild
-            aria-label="GitHub profile"
-            className="hidden sm:inline-flex"
-          >
-            <a href={siteConfig.socials.github} target="_blank" rel="noreferrer">
-              <GitBranch className="size-4" />
-            </a>
-          </Button>
+          <TooltipProvider delayDuration={150}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={openCommandPalette}
+                  aria-label="Open command palette (⌘K)"
+                  className="hidden sm:inline-flex"
+                >
+                  <Command className="size-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">Command</TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  asChild
+                  aria-label="GitHub profile"
+                  className="hidden sm:inline-flex"
+                >
+                  <a href={siteConfig.socials.github} target="_blank" rel="noreferrer">
+                    <GitHubIcon className="size-4" />
+                  </a>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">GitHub</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
           <ThemeToggle />
           <Button
             variant="ghost"

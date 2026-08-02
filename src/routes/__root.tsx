@@ -3,6 +3,7 @@ import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-r
 import { useEffect, type ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
 import { ThemeProvider } from '@/components/layout/theme-provider'
+import { Skeleton } from '@/components/ui/skeleton'
 import { QueryProvider } from '@/components/layout/query-provider'
 import { LenisProvider } from '@/components/layout/lenis-provider'
 import { SkipLink } from '@/components/layout/skip-link'
@@ -24,6 +25,7 @@ import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
 export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
+  pendingComponent: RootSkeleton,
   head: () => ({
     meta: [
       {
@@ -133,4 +135,35 @@ function ServiceWorkerRegistration() {
   }, [])
 
   return null
+}
+
+function RootSkeleton() {
+  return (
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div className="mb-8 space-y-4">
+        <Skeleton className="h-5 w-40" />
+        <Skeleton className="h-9 w-full max-w-2xl" />
+        <Skeleton className="h-4 w-96" />
+      </div>
+      <div className="space-y-6">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className="rounded-3xl border bg-card p-6">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <Skeleton className="h-5 w-2/5" />
+              <Skeleton className="h-5 w-24" />
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Skeleton className="h-40 w-full rounded-2xl" />
+              <div className="space-y-3">
+                <Skeleton className="h-5 w-3/4" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-4/5" />
+                <Skeleton className="h-9 w-32" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
