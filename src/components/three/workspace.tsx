@@ -36,17 +36,17 @@ export function Workspace() {
       <Float speed={1.4} rotationIntensity={0.25} floatIntensity={0.6}>
         <mesh position={[0, 1.15, 0]} castShadow>
           <boxGeometry args={[2.2, 1.35, 0.08]} />
-          <meshStandardMaterial color="#1e1b2e" metalness={0.55} roughness={0.25} />
+          <meshStandardMaterial color="#0f1b33" metalness={0.55} roughness={0.25} />
         </mesh>
         {/* Screen glow */}
         <mesh position={[0, 1.15, 0.045]}>
           <planeGeometry args={[2.02, 1.17]} />
-          <meshBasicMaterial color="#8b5cf6" toneMapped={false} transparent opacity={0.92} />
+          <meshBasicMaterial color="#64ffda" toneMapped={false} transparent opacity={0.9} />
         </mesh>
         {/* Stand */}
         <mesh position={[0, 0.42, 0]}>
           <boxGeometry args={[0.18, 0.22, 0.06]} />
-          <meshStandardMaterial color="#312e46" metalness={0.4} roughness={0.4} />
+          <meshStandardMaterial color="#1d2d50" metalness={0.4} roughness={0.4} />
         </mesh>
       </Float>
 
@@ -54,7 +54,7 @@ export function Workspace() {
       <Float speed={1.8} rotationIntensity={0.15} floatIntensity={0.4}>
         <mesh position={[0, 0.06, 0.55]} rotation={[-0.18, 0, 0]}>
           <boxGeometry args={[1.5, 0.07, 0.55]} />
-          <meshStandardMaterial color="#3b3554" metalness={0.35} roughness={0.5} />
+          <meshStandardMaterial color="#233554" metalness={0.35} roughness={0.5} />
         </mesh>
       </Float>
 
@@ -62,8 +62,8 @@ export function Workspace() {
       <mesh ref={icosaRef} position={[-1.7, 0.9, -0.4]} castShadow>
         <icosahedronGeometry args={[0.42, 0]} />
         <meshStandardMaterial
-          color="#8b5cf6"
-          emissive="#7c3aed"
+          color="#64ffda"
+          emissive="#2aa79b"
           emissiveIntensity={0.55}
           metalness={0.3}
           roughness={0.2}
@@ -74,7 +74,7 @@ export function Workspace() {
       <Float speed={2} rotationIntensity={0.6} floatIntensity={0.7}>
         <mesh position={[1.7, 0.65, -0.5]} rotation={[Math.PI / 2.4, 0, 0]}>
           <torusGeometry args={[0.28, 0.09, 16, 40]} />
-          <meshStandardMaterial color="#f59e0b" metalness={0.5} roughness={0.3} />
+          <meshStandardMaterial color="#71afff" metalness={0.5} roughness={0.3} />
         </mesh>
       </Float>
 

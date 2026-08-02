@@ -7,6 +7,7 @@ import { RelatedPosts } from '@/components/blog/related-posts'
 import { PrevNextNav } from '@/components/blog/prev-next-nav'
 import { PostComments } from '@/components/blog/post-comments'
 import { LazyKatexCss } from '@/components/blog/lazy-katex-css'
+import { ImageZoom } from '@/components/blog/image-zoom'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
@@ -122,10 +123,10 @@ function BlogPostPage() {
 
         {/* Cover */}
         {post.coverImage ? (
-          <img
+          <ImageZoom
             src={post.coverImage}
             alt={post.title}
-            className="mx-auto mt-10 aspect-[16/9] w-full max-w-4xl rounded-2xl border object-cover"
+            className="mx-auto mt-10 aspect-[16/9] w-full max-w-4xl rounded-2xl border"
           />
         ) : (
           <div className="mx-auto mt-10 aspect-[16/9] w-full max-w-4xl rounded-2xl border bg-gradient-to-br from-primary/15 via-accent/20 to-chart-1/10" />

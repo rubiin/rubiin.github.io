@@ -12,10 +12,13 @@ export function TiltCard({
   children,
   maxTilt = 8,
   className,
+  cursorLabel,
 }: {
   children: ReactNode
   maxTilt?: number
   className?: string
+  /** Shown by the custom cursor when hovering this card. */
+  cursorLabel?: string
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
@@ -47,6 +50,7 @@ export function TiltCard({
     <motion.div
       ref={ref}
       className={className}
+      data-cursor-label={cursorLabel}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
       style={{ rotateX, rotateY, transformPerspective: 900, transformStyle: 'preserve-3d' }}

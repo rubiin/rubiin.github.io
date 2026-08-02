@@ -4,6 +4,7 @@ import { Link } from '@tanstack/react-router'
 import { AtSign, Briefcase, GitBranch, Heart, Mail, Rss } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
+import { LiveClock } from '@/components/layout/live-clock'
 
 // lucide v1 removed brand icons; use thematic substitutes.
 const SOCIALS = [
@@ -76,6 +77,7 @@ export function SiteFooter() {
             Crafted with <Heart className="size-3.5 text-primary" aria-hidden /> in{' '}
             {siteConfig.location}.
           </p>
+          <LiveClock className="flex items-center text-sm" />
           <div className="flex items-center gap-4">
             <a href="/rss.xml" className="transition-colors hover:text-foreground">
               RSS

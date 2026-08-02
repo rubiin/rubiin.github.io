@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { CodeBlock } from '@/components/blog/code-block'
 import { Mermaid } from '@/components/blog/mermaid'
+import { ImageZoom } from '@/components/blog/image-zoom'
 import { cn } from '@/lib/utils'
 
 /**
@@ -34,6 +35,9 @@ export const mdxComponents = {
   },
   code: (props: ComponentPropsWithoutRef<'code'>) => (
     <code {...props} className={cn(props.className)} />
+  ),
+  img: ({ src, alt, className }: ComponentPropsWithoutRef<'img'>) => (
+    <ImageZoom src={src ?? ''} alt={alt ?? ''} className={className} />
   ),
   Mermaid,
 }

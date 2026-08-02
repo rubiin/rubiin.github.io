@@ -13,6 +13,12 @@ import { CommandPalette } from '@/components/layout/command-palette'
 import { NotFoundComponent } from '@/components/layout/not-found'
 import { ErrorComponent } from '@/components/layout/error-boundary'
 import { Toaster } from '@/components/ui/sonner'
+import { BootScreen } from '@/components/layout/boot-screen'
+import { CustomCursor } from '@/components/layout/custom-cursor'
+import { AmbientBackground } from '@/components/layout/ambient-background'
+import { AnimatedFavicon } from '@/components/layout/animated-favicon'
+import { FloatingDock } from '@/components/layout/floating-dock'
+import { EasterEggs } from '@/components/layout/easter-eggs'
 import { siteConfig } from '@/data/site'
 import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
 
@@ -78,6 +84,11 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <SkipLink />
+      <BootScreen />
+      <CustomCursor />
+      <AmbientBackground />
+      <AnimatedFavicon />
+      <EasterEggs />
       <LenisProvider>
         <ScrollProgress />
         <SiteHeader />
@@ -87,6 +98,7 @@ export const Route = createRootRoute({
         <SiteFooter />
         <CommandPalette />
       </LenisProvider>
+      <FloatingDock />
       <Toaster richColors position="bottom-right" />
     </>
   ),

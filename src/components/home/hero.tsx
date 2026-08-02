@@ -2,11 +2,18 @@
 
 import { Suspense, lazy, useRef, useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'motion/react'
 import { ArrowDown, Download, Mail, PenLine, FolderGit2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { ComponentProps } from 'react'
 import { MagneticButton } from '@/components/animations/magnetic-button'
+import { Spotlight } from '@/components/animations/spotlight'
 import { Counter } from '@/components/animations/counter'
 import { TextReveal } from '@/components/animations/text-reveal'
 import { profile } from '@/data/profile'
@@ -68,6 +75,16 @@ export function Hero() {
   const { layerRef } = useMouseParallax()
   const reduced = useReducedMotion()
   const [roleIndex, setRoleIndex] = useState(0)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  // Cinematic scroll-out: the 3D layer dims and pulls back as you scroll
+  // into the content, handing off to the next section without a hard cut.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const sceneOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
+  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.94])
 
   // Rotate the role line every 2.4s.
   useEffect(() => {
@@ -77,7 +94,7 @@ export function Hero() {
   }, [reduced])
 
   return (
-    <section className="relative flex min-h-[92svh] flex-col overflow-hidden">
+    <section ref={sectionRef} className="relative flex min-h-[92svh] flex-col overflow-hidden">
       {/* Animated gradient blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <motion.div
@@ -99,11 +116,16 @@ export function Hero() {
 
       {/* 3D scene, behind content, lazy-loaded; parallax via imperative ref */}
       {!reduced && (
-        <div ref={layerRef} aria-hidden className="absolute inset-0 opacity-70">
+        <motion.div
+          ref={layerRef}
+          aria-hidden
+          className="absolute inset-0 opacity-70"
+          style={{ opacity: sceneOpacity, scale: sceneScale }}
+        >
           <Suspense fallback={null}>
             <HeroScene />
           </Suspense>
-        </div>
+        </motion.div>
       )}
 
       {/* Content */}
@@ -116,8 +138,8 @@ export function Hero() {
           className="inline-flex items-center gap-2 rounded-full border bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur"
         >
           <span className="relative flex size-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-            <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+            <span className="relative inline-flex size-2 rounded-full bg-primary" />
           </span>
           Available for freelance
         </motion.div>
@@ -164,12 +186,14 @@ export function Hero() {
         >
           {CTAS.map(({ label, to, icon: Icon, variant }) => (
             <MagneticButton key={label}>
-              <Button asChild size="lg" variant={variant} className="gap-2">
-                <Link to={to}>
-                  <Icon className="size-4" />
-                  {label}
-                </Link>
-              </Button>
+              <Spotlight className="rounded-md">
+                <Button asChild size="lg" variant={variant} className="gap-2">
+                  <Link to={to}>
+                    <Icon className="size-4" />
+                    {label}
+                  </Link>
+                </Button>
+              </Spotlight>
             </MagneticButton>
           ))}
         </motion.div>

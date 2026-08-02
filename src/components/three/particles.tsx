@@ -35,9 +35,9 @@ export function Particles() {
       </bufferGeometry>
       <pointsMaterial
         size={0.035}
-        color="#8b5cf6"
+        color="#64ffda"
         transparent
-        opacity={0.65}
+        opacity={0.6}
         sizeAttenuation
         depthWrite={false}
       />

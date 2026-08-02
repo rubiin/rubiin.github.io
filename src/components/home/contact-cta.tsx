@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { ArrowRight, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { MagneticButton } from '@/components/animations/magnetic-button'
+import { Spotlight } from '@/components/animations/spotlight'
 import { Reveal } from '@/components/animations/reveal'
 
 /**
@@ -31,13 +32,15 @@ export function ContactCta() {
             </p>
             <div className="mt-8">
               <MagneticButton>
-                <Button asChild size="lg" className="gap-2">
-                  {/* `to` as string: route lands in a later task */}
-                  <Link to={'/contact' as string}>
-                    Get in touch
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </Button>
+                <Spotlight className="rounded-xl">
+                  <Button asChild size="lg" variant="gradient" className="gap-2">
+                    {/* `to` as string: route lands in a later task */}
+                    <Link to={'/contact' as string}>
+                      Get in touch
+                      <ArrowRight className="size-4" />
+                    </Link>
+                  </Button>
+                </Spotlight>
               </MagneticButton>
             </div>
           </div>

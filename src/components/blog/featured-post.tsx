@@ -7,6 +7,7 @@ export function FeaturedPost({ post }: { post: PostSummary }) {
   return (
     <Link
       to={`/blog/${post.slug}` as string}
+      data-cursor-label="Read"
       className="group grid overflow-hidden rounded-2xl border bg-card shadow-sm transition-all hover:shadow-lg md:grid-cols-2"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/20 via-accent/20 to-chart-1/15 md:aspect-auto">

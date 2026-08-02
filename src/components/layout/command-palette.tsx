@@ -3,7 +3,7 @@
 import { useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-import { FileText, FolderGit2, Navigation } from 'lucide-react'
+import { FileText, FolderGit2, Navigation, TerminalSquare } from 'lucide-react'
 import {
   CommandDialog,
   CommandEmpty,
@@ -42,13 +42,22 @@ export function CommandPalette() {
   }
 
   const commands = useMemo(() => {
-    const nav = navItems.map((item) => ({
-      id: `nav-${item.href}`,
-      label: item.label,
-      hint: item.description,
-      href: item.href,
-      icon: Navigation,
-    }))
+    const nav = [
+      ...navItems.map((item) => ({
+        id: `nav-${item.href}`,
+        label: item.label,
+        hint: item.description,
+        href: item.href,
+        icon: Navigation,
+      })),
+      {
+        id: 'nav-terminal',
+        label: 'Terminal',
+        hint: 'Hidden CLI',
+        href: '/terminal',
+        icon: TerminalSquare,
+      },
+    ]
     // No per-project detail route exists, so project items land on the
     // projects grid pre-filtered to their category.
     const proj = projects.map((p) => ({

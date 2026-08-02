@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
+import { motion } from 'motion/react'
 import { Command, GitBranch, Menu } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
@@ -11,6 +12,9 @@ import { MobileNav } from '@/components/layout/mobile-nav'
 import { cn } from '@/lib/utils'
 import { openCommandPalette } from '@/stores/command-store'
 import { lenisScrollTo } from '@/hooks/use-lenis'
+import { useActiveSection } from '@/hooks/use-active-section'
+
+const SECTION_IDS = ['about', 'skills', 'experience', 'projects']
 
 /** Tiny scroll-position hook, local to the header. */
 function useScrollPosition() {
@@ -31,6 +35,8 @@ export function SiteHeader() {
 
   const elevated = y > 8
   const pathname = location.pathname
+  // Scrollspy only on the home page (where the anchor sections live).
+  const activeSection = useActiveSection(SECTION_IDS, pathname === '/')
 
   const handleNavClick = (href: string) => {
     // Smooth-scroll in-page anchors when already on the target page.
@@ -61,20 +67,30 @@ export function SiteHeader() {
         {/* Desktop nav */}
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
-            const active =
-              !item.href.startsWith('/#') && pathname === item.href
+            const isAnchor = item.href.startsWith('/#')
+            const active = isAnchor
+              ? pathname === '/' && item.href === `/#${activeSection}`
+              : pathname === item.href
             return (
               <Link
                 key={item.href}
                 to={item.href}
                 onClick={() => handleNavClick(item.href)}
+                aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+                  'relative rounded-md px-3 py-1.5 text-sm font-medium transition-colors nav-underline',
                   active
                     ? 'text-foreground'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
+                {active && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 -z-10 rounded-md bg-muted/70"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
                 {item.label}
               </Link>
             )

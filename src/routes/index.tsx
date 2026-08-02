@@ -6,6 +6,7 @@ import { SkillsSection } from '@/components/home/skills-section'
 import { ExperienceSection } from '@/components/home/experience-section'
 import { ProjectsSection } from '@/components/home/projects-section'
 import { ContactCta } from '@/components/home/contact-cta'
+import { SectionDivider } from '@/components/animations/section-divider'
 import { buildMeta } from '@/lib/seo'
 
 export const Route = createFileRoute('/')({
@@ -26,8 +27,11 @@ function Home() {
       <Hero />
       <Marquee />
       <AboutSection />
+      <SectionDivider />
       <SkillsSection />
+      <SectionDivider flip />
       <ExperienceSection />
+      <SectionDivider />
       <ProjectsSection />
       <ContactCta />
     </>
