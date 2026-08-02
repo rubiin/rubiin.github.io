@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import Lenis from 'lenis'
-import { LenisContext } from '@/hooks/use-lenis'
+import { LenisContext, __setLenisInstance } from '@/hooks/use-lenis'
 
 /**
  * Smooth-scroll provider. Owns a single Lenis instance for the document,
@@ -10,7 +10,7 @@ import { LenisContext } from '@/hooks/use-lenis'
  * users and touch-only viewports — the page falls back to native scrolling.
  */
 export function LenisProvider({ children }: { children: ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null)
+  const [instance, setInstance] = useState<Lenis | null>(null)
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -24,13 +24,15 @@ export function LenisProvider({ children }: { children: ReactNode }) {
       lerp: 0.1,
       autoRaf: true,
     })
-    lenisRef.current = lenis
+    setInstance(lenis)
+    __setLenisInstance(lenis)
 
     return () => {
       lenis.destroy()
-      lenisRef.current = null
+      __setLenisInstance(null)
+      setInstance(null)
     }
   }, [])
 
-  return <LenisContext.Provider value={lenisRef.current}>{children}</LenisContext.Provider>
+  return <LenisContext.Provider value={instance}>{children}</LenisContext.Provider>
 }

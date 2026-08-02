@@ -74,7 +74,6 @@ export function SiteHeader() {
                     ? 'text-foreground'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
-                activeProps={{ className: 'text-foreground' }}
               >
                 {item.label}
               </Link>

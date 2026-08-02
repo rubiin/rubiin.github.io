@@ -16,7 +16,6 @@ import { navItems } from '@/data/nav'
 import { projects } from '@/data/projects'
 import { getPosts } from '@/server/blog'
 import { useCommand } from '@/hooks/use-command'
-import { closeCommandPalette } from '@/stores/command-store'
 
 /**
  * ⌘K palette: fuzzy-search navigation, projects, and blog posts.
