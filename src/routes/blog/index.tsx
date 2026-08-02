@@ -126,7 +126,7 @@ function BlogIndexPage() {
       {/* Filters */}
       <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex flex-col gap-3">
-          {hasMoreCategories && (
+          {hasMoreCategories && !isTagFilter && (
             <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
               {['all', ...categories.map((c) => c.category)].map((c) => (
                 <Button
@@ -142,7 +142,7 @@ function BlogIndexPage() {
               ))}
             </div>
           )}
-          {tags.length > 1 && (
+          {tags.length > 1 && !isCategoryFilter && (
             <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by tag">
               <Button
                 key="all"
