@@ -51,14 +51,14 @@ function ProjectsPage() {
   const setCategory = (next: ProjectFilter) => {
     void navigate({
       to: '/projects',
-      search: (prev) => ({ ...prev, category: next }),
+      search: (prev) => ({ category: next, q: prev.q ?? '' }),
     })
   }
 
   const setQuery = (next: string) => {
     void navigate({
       to: '/projects',
-      search: (prev) => ({ ...prev, q: next }),
+      search: (prev) => ({ category: prev.category ?? 'all', q: next }),
     })
   }
 
