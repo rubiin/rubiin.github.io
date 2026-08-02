@@ -27,6 +27,8 @@ A production-ready personal website built on the **TanStack ecosystem**: TanStac
 - **Content:** content-collections + @content-collections/mdx, Shiki, KaTeX, Mermaid
 - **Backend:** Prisma 7 + PostgreSQL (optional, graceful fallback), Resend (optional)
 
+> **Note on Radix imports:** UI primitives are imported exclusively from the `radix-ui` monolith (e.g. `import { Slot } from 'radix-ui'`), not from individual `@radix-ui/react-*` packages — those are transitive deps and not listed in `package.json`. Keep it that way when adding components.
+
 ## Getting Started
 
 ```bash
