@@ -15,7 +15,7 @@ A production-ready personal website built on the **TanStack ecosystem**: TanStac
 | **Projects** | `/projects` — search-param driven category pills + debounced search, responsive grid, empty state |
 | **Blog** | `/blog` + `/blog/:slug` — MDX via content-collections, Shiki code blocks, KaTeX math, Mermaid diagrams, TOC, share buttons, related posts, giscus comments |
 | **Resume** | `/resume` — printable (Print / Save as PDF), sections composed from data files |
-| **Contact** | `/contact` — TanStack Form + shared Zod schema, server-side submit with graceful DB/email fallback |
+| **Contact** | `/contact` — TanStack Form + shared Zod schema, server-side submit with graceful email fallback |
 | **Extras** | ⌘K command palette, light/dark/system theme, smooth scrolling (Lenis), scroll progress, custom 404 + error pages, RSS, sitemap, robots.txt, JSON-LD |
 
 ## Tech Stack
@@ -25,7 +25,7 @@ A production-ready personal website built on the **TanStack ecosystem**: TanStac
 - **Styling:** Tailwind CSS 4, shadcn/ui, CSS-variable design tokens
 - **Motion & 3D:** Motion 12, Lenis, Three.js 0.185 + @react-three/fiber + drei (lazy-loaded)
 - **Content:** content-collections + @content-collections/mdx, Shiki, KaTeX, Mermaid
-- **Backend:** Prisma 7 + PostgreSQL (optional, graceful fallback), Resend (optional)
+- **Backend:** Resend (optional) for contact-form email
 
 > **Note on Radix imports:** UI primitives are imported exclusively from the `radix-ui` monolith (e.g. `import { Slot } from 'radix-ui'`), not from individual `@radix-ui/react-*` packages — those are transitive deps and not listed in `package.json`. Keep it that way when adding components.
 
@@ -51,9 +51,6 @@ Other scripts:
 | `pnpm start` | Run the production server |
 | `pnpm typecheck` | `tsc --noEmit` |
 | `pnpm content:build` | Regenerate `content-collections` output |
-| `pnpm db:generate` | Generate the Prisma client |
-| `pnpm db:migrate` | Run Prisma migrations (needs `DATABASE_URL`) |
-| `pnpm db:seed` | Seed sample data (needs `DATABASE_URL`) |
 
 ## Environment Variables
 
@@ -61,12 +58,11 @@ Copy `.env.example` to `.env`. All are optional — the app runs without them.
 
 | Variable | Purpose | Required |
 | --- | --- | --- |
-| `DATABASE_URL` | PostgreSQL connection string (contact/newsletter/analytics persistence) | No |
 | `RESEND_API_KEY` | Send contact-form emails via Resend | No |
 | `RESEND_FROM_EMAIL` | From-address for emails | No |
 | `CONTACT_TO_EMAIL` | Where contact messages are delivered | No |
 
-Without `DATABASE_URL`, the contact form still succeeds and newsletter signups mock-ok. Without `RESEND_API_KEY`, no email is sent. Nothing crashes.
+Without `RESEND_API_KEY`, no email is sent — the contact form still succeeds. Nothing crashes.
 
 ## Adding a Blog Post
 
@@ -107,7 +103,7 @@ Edit a file, save, and the UI updates — no component changes required.
 
 1. Push the repo to GitHub and import it into Vercel.
 2. Vercel auto-detects the framework. Build command `pnpm build`, output `.output/public`.
-3. Add optional env vars (`DATABASE_URL`, `RESEND_API_KEY`, …).
+3. Add optional env vars (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `CONTACT_TO_EMAIL`).
 4. Deploy. The site is SSR'd with route-level code splitting; the 3D scene, Mermaid, Shiki, and giscus load lazily.
 
 ## Project Structure
@@ -115,7 +111,6 @@ Edit a file, save, and the UI updates — no component changes required.
 ```
 content/blog/          MDX posts (one file = one post)
 content-collections.config.ts
-prisma/                Schema + migrations
 public/                robots.txt, og.png
 src/
   components/
@@ -131,7 +126,7 @@ src/
   data/                All editable site content
   lib/                 cn util, constants, schemas, seo helpers
   routes/              File-based routes (incl. sitemap.xml, rss.xml)
-  server/              Server functions (blog, contact, analytics, db)
+  server/              Server functions (blog, contact, email)
   stores/              Theme + command palette stores
   styles/globals.css   Design tokens, prose, print styles
   types/               Shared TypeScript types

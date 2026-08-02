@@ -9,10 +9,3 @@ export const contactSchema = z.object({
 })
 
 export type ContactInput = z.infer<typeof contactSchema>
-
-/** Newsletter signup payload — shared by the client form and server validator. */
-export const newsletterSchema = z.object({
-  email: z.string().trim().email('Enter a valid email address').max(254),
-})
-
-export type NewsletterInput = z.infer<typeof newsletterSchema>

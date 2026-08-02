@@ -2,9 +2,9 @@ packages:
   - "."
 
 allowBuilds:
-  '@prisma/engines': true
+  '@prisma/engines': set this to true or false
   esbuild: true
-  prisma: true
+  prisma: set this to true or false
 
 minimumReleaseAgeExclude:
   - '@tanstack/form-core@1.33.3'

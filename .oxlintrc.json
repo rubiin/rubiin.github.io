@@ -21,9 +21,9 @@
     "react/react-in-jsx-scope": "off",
     // jsx-max-depth is too aggressive for deeply nested layout components.
     "react/jsx-max-depth": "off",
-    // Deliberate double-underscore conventions: __prisma (Prisma global
-    // dev cache) and __setLenisInstance (module-internal Lenis API).
-    "eslint/no-underscore-dangle": ["error", { "allow": ["__prisma", "__setLenisInstance"] }]
+    // Deliberate double-underscore convention: __setLenisInstance
+    // (module-internal Lenis API).
+    "eslint/no-underscore-dangle": ["error", { "allow": ["__setLenisInstance"] }]
   },
   "ignorePatterns": [
     "node_modules/**",
@@ -31,7 +31,6 @@
     ".nitro/**",
     ".content-collections/**",
     ".tanstack/**",
-    "src/generated/**",
     "public/**",
     "content/**"
   ]

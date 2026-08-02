@@ -14,7 +14,6 @@
     ".nitro/**",
     ".content-collections/**",
     ".tanstack/**",
-    "src/generated/**",
     "public/**",
     "content/**",
     "docs/**",
