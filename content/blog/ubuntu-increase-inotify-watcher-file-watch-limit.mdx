@@ -8,35 +8,39 @@ featured: false
 coverImage: "/blog/ubuntu-increase-inotify-watcher-file-watch-limit/cover.webp"
 ---
 
-## Overview
+> Possible cause of Vue.js hot reload or LiveReload not working, and failed file watchers in IDEs.
 
-> Possible cause of Vue.js hot reload or LiveReload not working and failed file watchers on IDE
+Linux (and tools like the `listen` library) use **inotify** to monitor directories for changes. It's not uncommon to hit the system limit on the number of files you can monitor — for example, Ubuntu Lucid's (64-bit) inotify limit is set to 8192.
 
-Listen uses inotify by default on Linux to monitor directories for changes. It's not uncommon to encounter a system limit on the number of files you can monitor. For example, Ubuntu Lucid's (64bit) inotify limit is set to 8192.
+## Check the current limit
 
-The current default is 8192 (see fs/notify/inotify/inotify_user.c in the kernel source), you can verify this by printing the file to stdout:
+The current default is 8192 (see `fs/notify/inotify/inotify_user.c` in the kernel source). You can verify this by printing the file to stdout:
 
 ```sh
 cat /proc/sys/fs/inotify/max_user_watches
 8192
 ```
 
-You can bump the number up, for example, doubling this to 16384, using:
+## Bump it up (temporary)
+
+You can raise the number — for example, doubling it to 16384:
 
 ```sh
 echo 16384 | sudo tee /proc/sys/fs/inotify/max_user_watches
 ```
 
-bear in mind that inotify watches do consume memory, I think it's around 160 bytes per watch on 64 bit systems.
+Bear in mind that inotify watches consume memory — around 160 bytes per watch on 64-bit systems.
 
-To set this permanently, add an entry to /etc/sysctl.conf, for example:
+## Make it permanent
+
+To set this permanently, add an entry to `/etc/sysctl.conf`:
 
 ```sh
 echo fs.inotify.max_user_watches=16384 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-..or manually edit /etc/sysctl.conf (you need root privileges to update it) and then run
+…or manually edit `/etc/sysctl.conf` (you need root privileges to update it) and then run:
 
 ```sh
 sudo sysctl -p
@@ -44,4 +48,4 @@ sudo sysctl -p
 
 ## Conclusion
 
-Increasing the inotify watchers can prevent issues related to file system monitoring, especially for applications like development tools or servers that handle numerous files or directories.Adjusting the number of inotify watchers on Ubuntu is crucial for applications that monitor many files or directories, such as development tools and servers. By increasing the fs.inotify.max_user_watches limit, you can prevent issues related to file monitoring limits and ensure your application runs smoothly. This adjustment can be made temporarily or permanently, depending on your needs, and helps maintain optimal performance and functionality for applications relying on file system events.
+Increasing the inotify watchers can prevent issues related to file-system monitoring, especially for applications like development tools or servers that handle numerous files or directories. The adjustment can be made temporarily or permanently, depending on your needs — and it helps maintain optimal performance for applications that rely on file-system events.

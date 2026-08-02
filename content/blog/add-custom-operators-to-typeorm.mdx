@@ -8,15 +8,21 @@ featured: true
 coverImage: "/blog/add-custom-operators-to-typeorm/cover.webp"
 ---
 
-TypeORM is an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7, ES8). Its goal is to always support the latest JavaScript features and provide additional features that help you to develop any kind of application that uses databases - from small applications with a few tables to large scale enterprise applications with multiple databases.
+TypeORM is an Object-Relational Mapper that runs on Node.js and in the browser, supporting platforms like Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron — all while working with both TypeScript and JavaScript (ES5 through ES8). Its goal is to always support the latest JavaScript features and to help you build any kind of database-driven application, from small apps with a few tables to large-scale enterprise systems spanning multiple databases.
 
-TypeORM supports both Active Record and Data Mapper patterns, unlike all other JavaScript ORMs currently in existence, which means you can write high quality, loosely coupled, scalable, maintainable applications the most productive way.
+While TypeORM gives you many operators out of the box, it also lets you extend the framework with **custom operators** of your own. In this post, I'll show you how to build one — an `ILike` operator that was missing from TypeORM's repository API.
 
-TypeORM is highly influenced by other ORMs, such as Hibernate, Doctrine and Entity Framework.
+## What makes TypeORM flexible
 
-While the framework gives you many features out of the box, it also gives you the ability to make custom operators which it might be lacking for repository . One of the operators that I use but didn't find in typeorm was ILike operator. For those who don't know what ILike operator doesn in sql is the same thing as Like operator but is case insensitive.
+Unlike most other JavaScript ORMs, TypeORM supports both the **Active Record** and **Data Mapper** patterns, which means you can write high-quality, loosely coupled, scalable, and maintainable applications in the most productive way. The framework is heavily influenced by other ORMs, such as Hibernate, Doctrine, and Entity Framework — and it inherits their philosophy of letting you extend behavior when the defaults aren't enough.
 
-To make a new operator in typeorm for repository pattern is pretty straight forward,
+## The problem: a missing operator
+
+For repository-style queries, TypeORM ships a set of operators like `Like`, `Between`, and `In`. One operator I needed but couldn't find was **`ILike`** — the case-insensitive equivalent of the SQL `Like` operator.
+
+## Creating a custom operator
+
+Building a new operator for the repository pattern is surprisingly straightforward. The trick is to subclass `FindOperator` and override `toSql` so TypeORM knows how to render your operator into SQL:
 
 ```ts
 import { Connection, FindOperator, FindOperatorType } from "typeorm";
@@ -57,4 +63,14 @@ export function ILike<T>(
 }
 ```
 
-In the example above, we are making ILike operator which is not available in typeorm by default.
+In the example above, we build an `ILike` operator that TypeORM doesn't provide by default. Because it extends `FindOperator`, it plugs straight into the same query-building pipeline as the built-in operators — so you can use it anywhere a normal operator would work:
+
+```ts
+const users = await userRepository.find({
+  where: { firstName: ILike("%rubin%") },
+});
+```
+
+## Wrapping up
+
+Custom operators let you close the gaps in TypeORM's default API with a few lines of code. Subclass `FindOperator`, override `toSql` to emit the SQL you need, and expose a factory function that mirrors the built-in operators — and you have a first-class operator your queries can use just like any other.

@@ -8,25 +8,23 @@ featured: false
 coverImage: "/blog/custom-jenkins-images-with-plugins-pre-installed/cover.webp"
 ---
 
-## Overview
+If you do continuous delivery or continuous integration, you'll frequently run into Jenkins. It's a core part of our CI/CD pipeline, and the moment you need to stand up a fresh instance, the plugin setup can become a chore. This post shows how I packaged a Jenkins image with all the plugins pre-installed — so you can skip the setup wizard entirely.
 
-If you are doing continuous delivery or continuous integration, you may frequently run into jenkins.
-Jenkins is a core part of our Continuous Integration and Continuous Deployment (CI/CD) pipeline. Here are the top 3 reasons we love Jenkins:
+## Why we love Jenkins
 
-- It is an open system that is platform, language, and methodology agnostic allowing us to support our diverse client base with one non-proprietary CI/CD platform.
-- It is the industry reference implementation for what a CI / CD system should be with a rich ecosystem of more than 1,100 plug-ins has emerged, enabling customers to
-  add all sorts of functionality and integrate Jenkins with everything from Active Directory to GitHub to the OpenShift PaaS
-- It is focused on CI/CD, and is not trying to be what it is not (Git repository, Chat client, Docker storage, etc.)
-  The beauty of using Jenkins is that you are not locked into any proprietary vendor. It has major support in the industry and many engineers are already familiar with it.
-- Plus it offers plethora of features out of the box so you don't have to
-  search google for hacks
+- It is an open system that is platform, language, and methodology agnostic, letting us support a diverse client base with one non-proprietary CI/CD platform.
+- It is the industry reference implementation for what a CI/CD system should be, with a rich ecosystem of more than 1,100 plugins that integrate Jenkins with everything from Active Directory to GitHub to the OpenShift PaaS.
+- It is focused on CI/CD, and is not trying to be what it is not (Git repository, Chat client, Docker storage, etc.).
+- You are not locked into any proprietary vendor — it has major industry support and many engineers are already familiar with it.
+- It offers a plethora of features out of the box, so you don't have to search Google for hacks.
 
-However one thing that has been a pain over period of using jenkins was the initial setup mostly during plugins installation. I mean this:
+## The pain: plugin setup
+
+However, one thing that has been a pain over years of using Jenkins is the initial setup — mostly the plugin installation. I mean this:
 
 ![](/blog/custom-jenkins-images-with-plugins-pre-installed/jenkins.png)
 
-
-So I wrote a custom jenkins image with all the plugins pre-installed,a default user, docker and docker-compose installed for people who want to use it without the hassle of configuring
+So I wrote a custom Jenkins image with all the plugins pre-installed, a default user, and Docker plus Docker Compose installed — for people who want to use Jenkins without the hassle of configuring it:
 
 ```dockerfile
 FROM jenkins/jenkins
@@ -54,10 +52,11 @@ RUN usermod -aG docker jenkins
 RUN apt-get clean
 RUN curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
 USER jenkins
-
 ```
 
-Worrying about image size? Don't worry I got you covered. I also happen to write another alpine image for people who are space conservative :D
+### A slimmer alpine variant
+
+Worried about image size? I've got you covered — I also wrote an Alpine-based image for people who are space-conservative:
 
 ```dockerfile
 FROM jenkins/jenkins:alpine
@@ -77,11 +76,10 @@ RUN apk add py-pip
 RUN apk add python-dev libffi-dev openssl-dev gcc libc-dev make
 RUN pip install docker-compose
 USER jenkins
-
 ```
 
-For full source code and the plugins.txt file , you can checkout my repo at https://github.com/rubiin/jenkins
+For the full source code and the `plugins.txt` file, check out my repo at https://github.com/rubiin/jenkins
 
-> Note: I specially wrote these images for a project where I was using docker-compose to manage my container stack, so feel free to omit the docker and compose setup
+> Note: I specifically wrote these images for a project where I was using Docker Compose to manage my container stack, so feel free to omit the Docker and Compose setup if you don't need them.
 
 ![](/blog/custom-jenkins-images-with-plugins-pre-installed/demo2.gif)

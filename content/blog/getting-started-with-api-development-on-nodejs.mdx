@@ -7,40 +7,42 @@ category: "software engineering"
 featured: false
 ---
 
-## Overview
+Before we get our hands dirty, I'll assume you have a sound knowledge of JavaScript and Node.js installed on your machine. In this first part, we'll scaffold a Node.js project and build our first Express API with a few routes.
 
-Before we get our hands dirty and get a move on , I assume you have a sound knowledge of js .I am also assuming that you have nodejs installed on your machine.
-There are plenty of web frameworks for nodejs . To point out a few popular ones, I might say express , koa and hapi. We will be going with express as it is the most used web framework for nodejs with tons of modules that are configured to work with it. Also the syntax and the learning curve is pretty easy to catch up and if you are to get stuck in a problem, there are pretty much answer to every query in stackoverflow.
-To get started, lets create a directory and head over to it.After you are in the project directory, open up terminal/console and run npm init to start a nodejs project. Fill in the details as you like.After you are done , type in
+## Choosing a framework
+
+There are plenty of web frameworks for Node.js — a few popular ones are **Express**, **Koa**, and **Hapi**. We'll go with Express, as it's the most widely used web framework for Node.js, with tons of modules built to work with it. The syntax and learning curve are easy to pick up, and if you get stuck, there's an answer to nearly every question on Stack Overflow.
+
+## Project setup
+
+To get started, create a directory and head into it. Once you're in the project directory, open your terminal and run `npm init` to start a Node.js project — fill in the details as you like.
 
 ## Installation
 
 ```sh
-npm i — save express body-parser morgan nodemon
+npm i --save express body-parser morgan nodemon
 ```
 
-Hit enter and that should install and update the dependencies in package.json file.
+Hit enter and that should install and update the dependencies in your `package.json` file.
 
-**Nodemon** will monitor for any changes in your node.js application and automatically restart the server — perfect for development so you dont have to manually restart the server for viewing the changes.
+Here's what each module does:
 
-**Morgan** is a HTTP request logger middleware for node.js .
+- **Nodemon** monitors your Node.js application for changes and automatically restarts the server — perfect for development, so you don't have to manually restart the server to see your changes.
+- **Morgan** is an HTTP request logger middleware for Node.js.
+- **Body-parser** parses incoming request bodies in a middleware before your handlers, making the data available under `req.body`.
 
-**Body-parser** is Node.js body parsing middleware. It parses incoming request bodies in a middleware before your handlers, available under the req.body property.
+## Basic setup
 
-After all the modules have been installed , create a file app.js in the root folder and open it in your favorite editor. I use visual studio code but you could go with any any text editor of your preference.
-Basic Setup
-Open app.js in the editor and require express module with
+After all the modules are installed, create a file `app.js` in the root folder and open it in your favorite editor (I use Visual Studio Code, but any text editor works). Start by requiring Express and creating an instance:
 
 ```javascript
-var express=require('express')
-Now create an express instance with
-var app= express()
+var express = require('express')
+var app = express()
 ```
 
 ## Routes
 
-Now lets define some routes . A route method is derived from one of the HTTP methods, and is attached to an instance of the express class.
-The following code is an example of routes that are defined for the GET and the POST methods to the root of the app.
+Now let's define some routes. A route method is derived from one of the HTTP methods and is attached to an instance of the Express class. The following code is an example of routes defined for the GET and POST methods on the root of the app:
 
 ```javascript
 // GET method route
@@ -56,9 +58,9 @@ app.post("/", function (req, res) {
 });
 ```
 
-`Express` supports methods that correspond to all HTTP request methods: get, post, and so on. For a full list, see app.METHOD.
-Here are some examples of route paths based on strings.
-This route path will match requests to the root route, /. So if you visit the app in localhost:`<your port>`/ , you will get root printed on your window
+Express supports methods that correspond to all HTTP request methods: `get`, `post`, and so on. Here are some examples of route paths based on strings.
+
+This route path matches requests to the root route, `/`. If you visit `localhost:<your port>/`, you'll see "root" printed on your window:
 
 ```javascript
 app.get("/", function (req, res) {
@@ -66,7 +68,7 @@ app.get("/", function (req, res) {
 });
 ```
 
-This route path will match requests to /about.So if you visit the app in localhost:`<your port>`/ , you will get about printed on your window
+This route path matches requests to `/about`. If you visit `localhost:<your port>/about`, you'll see "about" printed on your window:
 
 ```javascript
 app.get("/about", function (req, res) {
@@ -74,12 +76,11 @@ app.get("/about", function (req, res) {
 });
 ```
 
-You can also use regular expressions in routes to make your routes more dynamic.
+You can also use regular expressions in routes to make them more dynamic.
 
 ### Route parameters
 
-To define routes with route parameters, simply specify the route parameters in the path of the route as shown below.This will simply output all parameters i.e userId and bookId as an object.You can also access a single param by using
-req.params.paramname
+To define routes with route parameters, simply specify the parameter in the path of the route, as shown below. This will output all the parameters — `userId` and `bookId` — as an object. You can also access a single parameter with `req.params.paramname`:
 
 ```javascript
 app.get("/users/:userId/books/:bookId", function (req, res) {
@@ -87,8 +88,9 @@ app.get("/users/:userId/books/:bookId", function (req, res) {
 });
 ```
 
-Summing all of the above
-The following code is an example of a very basic route.
+## Putting it all together
+
+The following code is an example of a very basic route that ties everything together:
 
 ```javascript
 var express = require("express");
@@ -120,6 +122,7 @@ app.listen(8000);
 ## Conclusion
 
 Building APIs with Express.js provides a fast and flexible framework for creating server-side applications in Node.js. Express offers a lightweight structure for handling HTTP requests, middleware integration, and routing, making it a popular choice for developing RESTful APIs.
-Thats all for this part . In the next part , we will be looking at middlewares and how to use them in expressjs.
+
+That's all for this part. In the next part, we'll look at middlewares and how to use them in Express.
 
 Happy coding!

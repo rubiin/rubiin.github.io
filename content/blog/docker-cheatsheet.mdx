@@ -8,7 +8,11 @@ featured: true
 coverImage: "/blog/docker-cheatsheet/cover.webp"
 ---
 
-### Create image using this directory's Dockerfile
+A quick reference for the Docker commands you'll use every day — building and running containers, managing them, working with images, and pushing to a registry. Bookmark it and come back whenever you need a reminder.
+
+## Building and running
+
+### Create an image using this directory's Dockerfile
 
 ```shell-session
 docker build -t `<somename>`
@@ -26,7 +30,15 @@ docker build -t `<somename>`
  docker run -d -p 8000:80 `<somename>`
 ```
 
-### Enter a running container (you can also do sh)
+### Run an image from a registry
+
+```shell-session
+ docker run username/repository:tag
+```
+
+## Managing containers
+
+### Enter a running container (you can also use sh)
 
 ```shell-session
  docker exec -it [container-id] bash
@@ -38,17 +50,17 @@ docker build -t `<somename>`
  docker ps
 ```
 
-### Gracefully stop the specified container
-
-```shell-session
- docker stop <hash>
-```
-
-### See a list of all containers , active and inactive
+### See a list of all containers, active and inactive
 
 ```shell-session
  docker ps -a
 
+```
+
+### Gracefully stop the specified container
+
+```shell-session
+ docker stop <hash>
 ```
 
 ### Force shutdown of the specified container
@@ -69,6 +81,8 @@ docker build -t `<somename>`
 docker rm $(docker ps -a -q)
 ```
 
+## Working with images
+
 ### Show all images on this machine
 
 ```shell-session
@@ -87,26 +101,22 @@ docker rmi <imagename>
 docker rmi $(docker images -q)
 ```
 
-### Log in this CLI session using your Docker credentials
+## Registry
+
+### Log in to this CLI session using your Docker credentials
 
 ```shell-session
  docker login
 ```
 
-### Tag `<image>` for upload to registry
+### Tag `<image>` for upload to a registry
 
 ```shell-session
  docker tag `<image>` username/repository:tag
 ```
 
-### Upload tagged image to registry
+### Upload a tagged image to a registry
 
 ```shell-session
  docker push username/repository:tag
-```
-
-### Run image from a registry
-
-```shell-session
- docker run username/repository:tag
 ```

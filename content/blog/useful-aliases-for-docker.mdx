@@ -8,13 +8,11 @@ featured: false
 coverImage: "/blog/useful-aliases-for-docker/cover.webp"
 ---
 
-## Overview
+Docker has been around for a long time, and it's my most-used tool — whether for spinning up a web server or trying out a new one. If you're like me and use Docker in your day-to-day dev workflow, these aliases will save you a few keystrokes on common use cases. Set them up in your shell configuration file (like `.bashrc` or `.zshrc`).
 
-Docker has been there for a long time and its my top most used tool whether for spinning up a web server or trying out a new tool.
-If you are like me and use docker on your day to day dev workflow, these aliases would help you save few keystrokes for common use cases and save your time.
-You can set up in your shell configuration file (like .bashrc, .zshrc, etc.):
+## Inspecting containers and images
 
-### Get latest container ID
+### Get the latest container ID
 
 ```bash
 alias dl="docker ps -l -q"
@@ -26,7 +24,7 @@ alias dl="docker ps -l -q"
 alias dps="docker ps"
 ```
 
-### Get process included stop container
+### Get process, including stopped containers
 
 ```bash
 alias dpa="docker ps -a"
@@ -44,23 +42,39 @@ alias di="docker images"
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 ```
 
-### Run daemonized container
+### Show all docker-related aliases
+
+```bash
+dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/" | sed "s/['|\']//g" | sort; }
+```
+
+## Running and interacting with containers
+
+### Run a daemonized container
 
 ```bash
 alias dkd="docker run -d -P"
 ```
 
-### Run interactive container
+### Run an interactive container
 
 ```bash
 alias dki="docker run -i -t -P"
 ```
 
-### Execute interactive container
+### Execute an interactive command in a container
 
 ```bash
 alias dex="docker exec -i -t"
 ```
+
+### Bash into a running container
+
+```bash
+alias dbash='docker exec -it $(docker ps -aqf "name=$1") bash'
+```
+
+## Cleanup
 
 ### Stop all containers
 
@@ -74,7 +88,7 @@ alias dstop='docker stop $(docker ps -a -q)'
 alias drm='docker rm $(docker ps -a -q)'
 ```
 
-### Stop and Remove all containers
+### Stop and remove all containers
 
 ```bash
 alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
@@ -86,24 +100,14 @@ alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias dri='docker rmi $(docker images -q)'
 ```
 
+## Building
+
 ### Dockerfile build
 
 ```bash
 alias dbu='docker build -t=$1 .'
 ```
 
-### Show all alias related docker
-
-```bash
-dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/" | sed "s/['|\']//g" | sort; }
-```
-
-### Bash into running container
-
-```bash
-alias dbash='docker exec -it $(docker ps -aqf "name=$1") bash'
-```
-
 ## Conclusion
 
-Using aliases for Docker commands can significantly streamline container management by reducing the need to repeatedly type out long or complex commands. Aliases allow developers to customize and simplify their workflows, enabling quicker execution of common tasks, such as building images, running containers, or managing Docker networks. By creating personalized shortcuts, developers can work more efficiently and avoid errors caused by mistyping lengthy commands, making Docker usage more intuitive and accessible.
+Using aliases for Docker commands can significantly streamline container management by reducing the need to repeatedly type out long or complex commands. Aliases allow developers to customize and simplify their workflows, enabling quicker execution of common tasks, such as building images, running containers, or managing Docker networks. By creating personalized shortcuts, developers can work more efficiently and avoid errors caused by mistyping lengthy commands.

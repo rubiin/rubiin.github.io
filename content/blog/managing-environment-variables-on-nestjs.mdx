@@ -8,16 +8,13 @@ featured: false
 coverImage: "/blog/managing-environment-variables-on-nestjs/cover.webp"
 ---
 
-## Overview
+Environment variables let us manage an application's configuration separately from its codebase. Separating configuration makes it easier to deploy the same application to different environments (development, test, production), and large applications tend to have many environment variables to manage.
 
-Environment variables allow us to manage the configuration of our applications separate from our codebase. Separating configurations make it easier for our application to be deployed in different environments(development,test,production).Also,large applications tend to have many environment variables.
+If you're working on a NestJS project and want to configure your app's secrets and credentials in a more efficient way, you've come to the right place. In this article, I'll share the initial configuration and some tips for using environment variables with **NestJS**.
 
-If you are working on some project with nestjs and want to configure your app secrets and credentials in a more efficient way, you came to the right place.In this article, I would like to share initial configuration and some tip to use environment variables with **Nestjs**.
+## Why use a config module
 
-## Description
-
-A common application level tool is `nestjs-easyconfig` which allows us to load environment variables from a file named .env[producton|dev|test].
-[Nestjs-easyconfig](https://github.com/rubiin/nestjs-easyconfig) loads configs from your `.env` (Wraps dotenv module) ⚙️ 🔥
+A common application-level tool is `nestjs-easyconfig`, which loads environment variables from a file named `.env[production|dev|test]`. [Nestjs-easyconfig](https://github.com/rubiin/nestjs-easyconfig) loads configs from your `.env` file (it wraps the dotenv module) ⚙️ 🔥
 
 ## Installation
 
@@ -28,7 +25,7 @@ $ yarn add nestjs-easyconfig
 
 ## Usage
 
-### With config file supplied (basic):
+### With a config file supplied (basic):
 
 ```javascript
 import { Module } from "@nestjs/common";
@@ -40,7 +37,7 @@ import { EasyconfigModule } from "nestjs-easyconfig";
 export class AppModule {}
 ```
 
-### With config file supplied and safe set to true:
+### With a config file supplied and `safe` set to true:
 
 ```javascript
 import { Module } from "@nestjs/common";
@@ -52,12 +49,11 @@ import { EasyconfigModule } from "nestjs-easyconfig";
 export class AppModule {}
 ```
 
-By default safe is set to false. When safe is set to `true`, the module compares the supplied env
-file with the sample env file to find missing keys. If any keys which are in .env.sample but not in the environment used, it is immediately reported in console.
+By default `safe` is set to `false`. When `safe` is set to `true`, the module compares the supplied env file with the sample env file to find missing keys. If any keys that are in `.env.sample` are missing from the environment in use, it's immediately reported in the console.
 
-`Note`: To use this, a sample env file `.env.sample` should be placed in the root dir
+> Note: to use this, a sample env file `.env.sample` should be placed in the root directory.
 
-### Without config file supplied:
+### Without a config file supplied:
 
 ```javascript
 import { Module } from "@nestjs/common";
@@ -69,12 +65,10 @@ import { EasyconfigModule } from "nestjs-easyconfig";
 export class AppModule {}
 ```
 
-In this case, you have to pass in the **NODE_ENV** value and the `.env` file to read will be determined accordingly.
-Loads environment variables from `.env.[development|test|production][.local]` files
-For example, **NODE_ENV=dev** will make the app read `.env.dev`
+In this case, you have to pass in the **NODE_ENV** value, and the `.env` file to read will be determined accordingly — it loads environment variables from `.env.[development|test|production][.local]` files. For example, **NODE_ENV=dev** will make the app read `.env.dev`.
 
-> Note: The .env file also has to be in root folder
+> Note: the `.env` file also has to be in the root folder.
 
 ## Conclusion
 
-The .env file is a crucial tool for managing environment-specific configuration in a secure and organized manner. It helps separate sensitive data and configuration settings from the application code, making it easier to manage different environments (such as development, testing, and production) while keeping sensitive information safe. By using .env files, developers can streamline configuration management, enhance security, and ensure consistency across various deployment environments.
+The `.env` file is a crucial tool for managing environment-specific configuration in a secure and organized manner. It helps separate sensitive data and configuration settings from the application code, making it easier to manage different environments (such as development, testing, and production) while keeping sensitive information safe. By using `.env` files, developers can streamline configuration management, enhance security, and ensure consistency across various deployment environments.
