@@ -1,8 +1,16 @@
 /// <reference types="vite/client" />
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
 import { ThemeProvider } from '@/components/layout/theme-provider'
+import { QueryProvider } from '@/components/layout/query-provider'
+import { LenisProvider } from '@/components/layout/lenis-provider'
+import { SkipLink } from '@/components/layout/skip-link'
+import { ScrollProgress } from '@/components/layout/scroll-progress'
+import { SiteHeader } from '@/components/layout/site-header'
+import { SiteFooter } from '@/components/layout/site-footer'
+import { CommandPalette } from '@/components/layout/command-palette'
+import { Toaster } from '@/components/ui/sonner'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -41,6 +49,21 @@ export const Route = createRootRoute({
     ],
   }),
   shellComponent: RootDocument,
+  component: () => (
+    <>
+      <SkipLink />
+      <LenisProvider>
+        <ScrollProgress />
+        <SiteHeader />
+        <main id="main" className="min-h-[60vh]">
+          <Outlet />
+        </main>
+        <SiteFooter />
+        <CommandPalette />
+      </LenisProvider>
+      <Toaster richColors position="bottom-right" />
+    </>
+  ),
 })
 
 function RootDocument({ children }: { children: ReactNode }) {
@@ -50,7 +73,9 @@ function RootDocument({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>

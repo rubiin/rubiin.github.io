@@ -1,0 +1,91 @@
+'use client'
+
+import { Link, useLocation } from '@tanstack/react-router'
+import { AtSign, Briefcase, GitBranch, Mail, Rss } from 'lucide-react'
+import { navItems } from '@/data/nav'
+import { siteConfig } from '@/data/site'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet'
+import { ThemeToggle } from '@/components/layout/theme-toggle'
+import { cn } from '@/lib/utils'
+
+// lucide v1 removed brand icons; use thematic substitutes.
+const SOCIALS = [
+  { label: 'GitHub', href: siteConfig.socials.github, icon: GitBranch },
+  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: Briefcase },
+  { label: 'Twitter', href: siteConfig.socials.twitter, icon: AtSign },
+  { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },
+  { label: 'Email', href: siteConfig.socials.email, icon: Mail },
+]
+
+export function MobileNav({
+  open,
+  onOpenChange,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}) {
+  const location = useLocation()
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="right" className="w-80">
+        <SheetHeader>
+          <SheetTitle>
+            {siteConfig.name}
+            <span className="text-primary">.</span>
+          </SheetTitle>
+          <SheetDescription>{siteConfig.tagline}</SheetDescription>
+        </SheetHeader>
+
+        <nav aria-label="Mobile" className="flex flex-col gap-1 px-4">
+          {navItems.map((item) => {
+            const active =
+              item.href !== '/#skills' &&
+              !item.href.startsWith('/#') &&
+              location.pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                onClick={() => onOpenChange(false)}
+                className={cn(
+                  'rounded-md px-3 py-2.5 text-base font-medium transition-colors',
+                  active ? 'bg-accent text-foreground' : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
+
+        <div className="mt-auto flex flex-col gap-4 px-4 pb-4">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Theme</span>
+            <ThemeToggle />
+          </div>
+          <div className="flex items-center gap-1.5 border-t pt-4">
+            {SOCIALS.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                aria-label={label}
+                className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              >
+                <Icon className="size-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}

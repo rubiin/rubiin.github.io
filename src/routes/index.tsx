@@ -6,8 +6,8 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   return (
-    <main className="p-8">
+    <div className="p-8">
       <h1 className="text-3xl font-bold">Portfolio scaffold works</h1>
-    </main>
+    </div>
   )
 }
