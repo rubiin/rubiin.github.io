@@ -1,11 +1,13 @@
 import type { SiteConfig } from '@/types'
+import { YEARS_OF_EXPERIENCE } from '@/lib/constants'
 
 export const siteConfig: SiteConfig = {
   name: 'Rubin Bhandari',
   firstName: 'Rubin',
   role: 'Software Engineer',
   tagline: 'Turning caffeine boosts to code breakthrough.',
-  bio: 'Full-stack developer with 7+ years of experience crafting robust web applications and API systems with JavaScript and Golang.',
+  bio: `Full-stack developer with ${YEARS_OF_EXPERIENCE}+ years of experience crafting robust web applications and API systems with JavaScript and Golang.`,
+
   email: 'roobin.bhandari@gmail.com',
   location: 'Nepal',
   url: 'https://rubiin.is-a.dev',

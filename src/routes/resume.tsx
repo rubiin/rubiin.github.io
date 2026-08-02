@@ -11,14 +11,15 @@ import {
 } from '@/components/resume/credential-sections'
 import { resumeData } from '@/data/resume'
 import { siteConfig } from '@/data/site'
+import { YEARS_OF_EXPERIENCE } from '@/lib/constants'
 import { buildMeta } from '@/lib/seo'
 
 export const Route = createFileRoute('/resume')({
   head: () => ({
     meta: buildMeta({
       title: 'Resume — Rubin Bhandari',
-      description:
-        'Resume of Rubin Bhandari — software engineer with 7+ years of experience across the JavaScript and Golang ecosystems.',
+      description: `Resume of Rubin Bhandari — software engineer with ${YEARS_OF_EXPERIENCE}+ years of experience across the JavaScript and Golang ecosystems.`,
+
       path: '/resume',
     }),
   }),
