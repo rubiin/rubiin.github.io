@@ -1,4 +1,4 @@
-# Devina — Portfolio, Interactive Resume & MDX Blog
+# Rubin Bhandari — Portfolio, Interactive Resume & MDX Blog
 
 A production-ready personal website built on the **TanStack ecosystem**: TanStack Start (SSR + server functions), TanStack Router (file-based routing, search params), TanStack Query, TanStack Form, and TanStack Store — with Tailwind CSS v4, shadcn/ui, Motion, and a lazy-loaded React Three Fiber 3D scene on the home page.
 

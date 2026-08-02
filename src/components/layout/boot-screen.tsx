@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 
 const SKIP_KEY = 'pf-boot-done'
-const NAME = 'Devina'
+const NAME = 'Rubin'
 
 /**
  * Cinematic boot sequence: the name reveals letter-by-letter while a mint

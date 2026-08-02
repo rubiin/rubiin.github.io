@@ -15,9 +15,9 @@ import { buildMeta } from '@/lib/seo'
 export const Route = createFileRoute('/resume')({
   head: () => ({
     meta: buildMeta({
-      title: 'Resume — Devina',
+      title: 'Resume — Rubin Bhandari',
       description:
-        'Resume of Devina — creative developer and full-stack engineer with 8+ years of experience.',
+        'Resume of Rubin Bhandari — software engineer with 7+ years of experience across the JavaScript and Golang ecosystems.',
       path: '/resume',
     }),
   }),
@@ -29,9 +29,9 @@ function ResumePage() {
 
   const socials = [
     { label: siteConfig.email, href: `mailto:${siteConfig.email}`, icon: Mail },
-    { label: 'github.com/devina', href: siteConfig.socials.github, icon: GitBranch },
-    { label: 'linkedin.com/in/devina', href: siteConfig.socials.linkedin, icon: Briefcase },
-    { label: 'twitter.com/devina_dev', href: siteConfig.socials.twitter, icon: AtSign },
+    { label: 'github.com/rubiin', href: siteConfig.socials.github, icon: GitBranch },
+    { label: 'linkedin.com/in/rubiin', href: siteConfig.socials.linkedin, icon: Briefcase },
+    { label: 'twitter.com/RubinCodes', href: siteConfig.socials.twitter, icon: AtSign },
   ]
 
   return (
@@ -40,7 +40,7 @@ function ResumePage() {
       <div className="no-print mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">Resume</p>
-          <h1 className="text-2xl font-semibold tracking-tight">Devina — printable resume</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Rubin Bhandari — printable resume</h1>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => window.print()} className="gap-2">

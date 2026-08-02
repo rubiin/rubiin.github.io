@@ -12,9 +12,9 @@ import { buildMeta } from '@/lib/seo'
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: buildMeta({
-      title: 'Devina — Creative Developer & Full-Stack Engineer',
+      title: 'Rubin Bhandari — Software Engineer',
       description:
-        'Portfolio and blog of Devina — creative developer crafting premium web experiences with React, TypeScript, Three.js, and the TanStack ecosystem.',
+        'Portfolio and blog of Rubin Bhandari — full-stack developer crafting robust web applications and API systems with JavaScript, TypeScript, NestJS, and Golang.',
       path: '/',
     }),
   }),

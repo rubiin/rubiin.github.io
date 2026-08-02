@@ -5,10 +5,10 @@ import { buildMeta } from '@/lib/seo'
 export const Route = createFileRoute('/terminal')({
   head: () => ({
     meta: [
-      { title: 'Terminal — Devina' },
+      { title: 'Terminal — Rubin Bhandari' },
       {
         name: 'description',
-        content: "Devina's hidden terminal — explore the portfolio from the command line.",
+        content: "Rubin Bhandari's hidden terminal — explore the portfolio from the command line.",
       },
       { name: 'robots', content: 'noindex' },
     ],

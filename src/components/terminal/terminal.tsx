@@ -165,10 +165,10 @@ export function Terminal() {
           )
           break
         case 'github':
-          print(<span>Opening {link('github.com/devina', siteConfig.socials.github, true)}…</span>)
+          print(<span>Opening {link('github.com/rubiin', siteConfig.socials.github, true)}…</span>)
           break
         case 'linkedin':
-          print(<span>Opening {link('linkedin.com/in/devina', siteConfig.socials.linkedin, true)}…</span>)
+          print(<span>Opening {link('linkedin.com/in/rubiin', siteConfig.socials.linkedin, true)}…</span>)
           break
         case 'theme': {
           const next: 'light' | 'dark' = themeStore.state === 'light' ? 'dark' : 'light'
@@ -177,7 +177,7 @@ export function Terminal() {
           break
         }
         case 'whoami':
-          print(<span>devina — {siteConfig.role}</span>)
+          print(<span>rubin — {siteConfig.role}</span>)
           break
         case 'date':
           print(<span>{new Date().toLocaleString()}</span>)
@@ -189,7 +189,7 @@ export function Terminal() {
           print(<span className="text-muted-foreground">about.md  skills.ts  projects/  blog/  resume.pdf  contact.ts  secrets/</span>)
           break
         case 'sudo':
-          print(<span className="text-destructive">devina is not in the sudoers file. This incident will be reported. 🚨</span>)
+          print(<span className="text-destructive">rubin is not in the sudoers file. This incident will be reported. 🚨</span>)
           break
         case 'banner':
           print(<pre className="text-primary">{BANNER}</pre>)
@@ -257,7 +257,7 @@ export function Terminal() {
           <span aria-hidden className="size-3 rounded-full bg-[#ffae57]" />
           <span aria-hidden className="size-3 rounded-full bg-[#bae67e]" />
           <span className="ml-3 truncate font-mono text-xs text-muted-foreground">
-            devina@portfolio — zsh
+            rubin@portfolio — zsh
           </span>
         </div>
 

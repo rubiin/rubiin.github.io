@@ -31,9 +31,9 @@ export const Route = createFileRoute('/projects')({
   },
   head: () => ({
     meta: buildMeta({
-      title: 'Projects — Devina',
+      title: 'Projects — Rubin Bhandari',
       description:
-        'Selected projects by Devina — frontend, backend, AI, DevOps, mobile, and full-stack work.',
+        'Selected open-source projects by Rubin Bhandari — NestJS modules, CLI tools, and Android apps.',
       path: '/projects',
     }),
   }),

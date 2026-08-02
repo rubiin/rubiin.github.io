@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Keep in sync with siteConfig.url in src/data/site.ts if the domain changes.
-Sitemap: https://devina.dev/sitemap.xml
+Sitemap: https://rubiin.is-a.dev/sitemap.xml

@@ -2,138 +2,202 @@ import type { Project } from '@/types'
 
 export const projects: Project[] = [
   {
-    slug: 'aurora-ai',
-    title: 'Aurora AI',
-    tagline: 'A RAG-powered assistant that turns team docs into answers.',
+    slug: 'ultimate-nestjs',
+    title: 'Ultimate Nestjs',
+    tagline: 'A real-world NestJS + MikroORM codebase with batteries included.',
     description:
-      'Aurora answers questions from your internal documentation using retrieval-augmented generation. Upload markdown, PDFs, and Notion exports; Aurora chunks, embeds, and indexes them into pgvector, then answers with citations.',
-    category: 'ai',
-    year: '2025',
-    tech: ['React 19', 'TanStack Start', 'OpenAI', 'pgvector', 'Prisma 7', 'FastAPI'],
-    demo: 'https://example.com/aurora',
+      'A blog built on NestJS and MikroORM — a production-style backend containing real-world examples: CRUD, password-based and OAuth authentication, advanced patterns, and an ever-evolving set of features.',
+    category: 'backend',
+    year: '2023',
+    tech: ['NestJS', 'TypeScript', 'MikroORM', 'PostgreSQL', 'Docker', 'AWS'],
+    image: '/projects/ultimate-nestjs.png',
+    github: 'https://github.com/rubiin/ultimate-nest',
     featured: true,
-    architecture:
-      'Server functions handle ingestion and querying. Documents are chunked by heading, embedded with text-embedding-3-small, and stored in pgvector. Queries run a hybrid keyword + vector search reranked by a small cross-encoder.',
     challenges: [
-      'Chunking strategy dramatically affected answer quality — solved with heading-aware splitting and overlap',
-      'Streaming responses through server functions required SSE handling on the edge',
-      'Managing embedding costs at scale with a caching layer',
+      'Structuring auth (password + OAuth) and advanced patterns so each example stays understandable',
+      'Keeping the codebase current across NestJS and MikroORM releases',
     ],
     lessons: [
-      'Retrieval quality beats model choice — invest in chunking and reranking first',
-      'Instrument everything: tracing RAG pipelines exposed failure modes instantly',
+      'A batteries-included starter saves teams weeks of boilerplate wiring',
+      'Documenting real-world patterns beats isolated examples',
     ],
   },
   {
-    slug: 'pixel-forge',
-    title: 'Pixel Forge',
-    tagline: 'A browser-based design tool for token-driven UI.',
+    slug: 'sample-env',
+    title: 'Sample env',
+    tagline: 'Effortlessly generate .env sample files without leaking secrets.',
     description:
-      'Pixel Forge is a design tool where components are built from design tokens, not pixels. Export to Tailwind, CSS variables, or JSON — and keep design and code in perfect sync.',
-    category: 'frontend',
-    year: '2024',
-    tech: ['React 19', 'Tailwind CSS', 'Zod', 'react-flow', 'IndexedDB'],
-    github: 'https://github.com/devina/pixel-forge',
-    demo: 'https://example.com/pixel-forge',
-    featured: true,
-    architecture:
-      'A canvas editor with an ECS-style state model persisted to IndexedDB. Token values flow through a single source of truth and compile to framework-agnostic output.',
-    challenges: [
-      'Undo/redo across a graph data model — solved with an operation log',
-      'Real-time preview of generated styles without layout thrash',
-    ],
-    lessons: [
-      'A strict data model makes export features nearly free',
-      'Offline-first with IndexedDB needs careful migration versioning',
-    ],
-  },
-  {
-    slug: 'neural-scape',
-    title: 'Neural Scape',
-    tagline: 'An immersive 3D visualization of neural network training.',
-    description:
-      'Neural Scape renders a neural network as it trains — weights, activations, and gradients become a living 3D landscape you can fly through. Built for a conference demo and a blog series.',
-    category: 'full-stack',
-    year: '2024',
-    tech: ['Three.js', 'react-three-fiber', 'WebSocket', 'Python', 'FastAPI'],
-    github: 'https://github.com/devina/neural-scape',
-    demo: 'https://example.com/neural-scape',
-    architecture:
-      'A Python training loop streams metrics and weights over WebSocket to a Three.js scene. Instanced meshes render thousands of neurons at 60fps.',
-    challenges: [
-      'Streaming thousands of weight updates per second without jank — solved with batching and LOD',
-      'Making abstract tensors legible required careful color and layout design',
-    ],
-    lessons: [
-      'Instanced rendering is the difference between a demo and a product',
-      'Visualization design is a first-class engineering problem',
-    ],
-  },
-  {
-    slug: 'shipyard',
-    title: 'Shipyard',
-    tagline: 'A deployment platform for indie SaaS teams.',
-    description:
-      'Shipyard deploys web apps to edge nodes with zero-config HTTPS, preview deployments, and one-click rollbacks — aimed at the indie developer who wants infra without the ops.',
+      'A CLI that streamlines creating sample environment files for your projects — it generates environment files while ensuring all sensitive information is excluded, saving you the hassle of manually scrubbing secrets.',
     category: 'devops',
     year: '2023',
-    tech: ['Node.js', 'Docker', 'Fly.io', 'PostgreSQL', 'GitHub Actions', 'Stripe'],
-    github: 'https://github.com/devina/shipyard',
-    demo: 'https://example.com/shipyard',
-    architecture:
-      'Git push triggers a build pipeline that produces immutable containers, promoted to preview then production environments. A control plane coordinates deployments and health checks.',
+    tech: ['Node.js', 'TypeScript', 'CLI'],
+    image: '/projects/sample-env.png',
+    github: 'https://github.com/rubiin/sample-env',
+    featured: true,
     challenges: [
-      'Coordinating multi-region rollouts and rollbacks safely',
-      'Billing metering for per-minute usage with Stripe',
+      'Reliably detecting which values are secrets versus safe defaults',
+      'Keeping the CLI zero-config while supporting common file formats',
     ],
     lessons: [
-      'Predictable deploys come from immutable artifacts and one-way promotions',
-      'Metering is a database design problem you should solve on day one',
+      'Secret hygiene is a tooling problem — make the safe path the easy path',
+      'Small focused CLIs are great open-source surface area',
     ],
   },
   {
-    slug: 'motion-lab',
-    title: 'Motion Lab',
-    tagline: 'A playground for animation primitives — on web and mobile.',
+    slug: 'nestjs-easyconfig',
+    title: 'Nestjs-easyconfig',
+    tagline: 'Load configs from .env files with type processing and safe checks.',
     description:
-      'Motion Lab documents and demonstrates 40+ animation patterns — springs, scroll choreography, shared element transitions, and micro-interactions — each with copyable code for web (Motion, Lenis) and native (Reanimated).',
-    category: 'mobile',
-    year: '2023',
-    tech: ['React 19', 'Motion', 'Reanimated', 'Lenis', 'MDX', 'content-collections'],
-    github: 'https://github.com/devina/motion-lab',
-    demo: 'https://example.com/motion-lab',
-    architecture:
-      'A static-first MDX site where every pattern is a live, editable sandbox. Web demos run in an isolated iframe; native patterns ship as Expo snippets with a preview QR code.',
-    challenges: [
-      'Isolating demo styles from the documentation shell',
-      'Keeping web and Reanimated implementations behaviorally in sync',
-    ],
-    lessons: [
-      'Animation is engineering: springs, easing, and duration all deserve tests',
-      'Small, isolated demos are the best documentation',
-    ],
-  },
-  {
-    slug: 'atlas-docs',
-    title: 'Atlas Docs',
-    tagline: 'A blazing-fast documentation platform for product teams.',
-    description:
-      'Atlas is an MDX-powered documentation platform with instant search, offline support, and a themable design system. Used by several open-source projects as their docs home.',
+      'nestjs-easyconfig loads configs from your .env files — automatic env variable type processing, safe checks, and multiple logger options, all as a drop-in NestJS module.',
     category: 'backend',
     year: '2022',
-    tech: ['TanStack Start', 'TanStack Router', 'MDX', 'Shiki', 'IndexedDB', 'Service Workers'],
-    github: 'https://github.com/devina/atlas-docs',
-    demo: 'https://example.com/atlas-docs',
+    tech: ['NestJS', 'TypeScript', 'dotenv'],
+    image: '/projects/nestjs-easyconfig.png',
+    github: 'https://github.com/NestCrafts/nestjs-easyconfig',
     featured: true,
-    architecture:
-      'Content compiles to static routes at build time; a service worker caches everything for offline reading. Search runs locally against a prebuilt index.',
     challenges: [
-      'Sub-100ms search over large doc sets without a search server — solved with a compressed trie',
-      'Offline caching invalidation across doc releases',
+      'Auto type-processing env values without surprising edge cases',
+      'Designing a module API that feels native to NestJS',
     ],
     lessons: [
-      'A prebuilt index beats any client-side filter',
-      'Offline-first is a product feature, not an afterthought',
+      'Typed config catches whole classes of runtime bugs',
+      'Framework-native tooling gets adopted faster than wrappers',
+    ],
+  },
+  {
+    slug: 'projecto',
+    title: 'Projecto',
+    tagline: 'Open your project folders in your favorite editors instantly.',
+    description:
+      'Projecto efficiently opens your project folder in the editors you have specified — it streamlines setup by automatically launching your preferred editors or IDEs with the project folder already loaded, so you can dive straight into work.',
+    category: 'devops',
+    year: '2023',
+    tech: ['Golang', 'Shell'],
+    image: '/projects/projecto.png',
+    github: 'https://github.com/rubiin/projecto',
+    featured: true,
+    challenges: [
+      'Detecting installed editors across platforms and shells',
+      'Keeping launch behavior fast and predictable',
+    ],
+    lessons: [
+      'Golang is a great fit for snappy developer CLI tools',
+      'Eliminating manual setup steps compounds daily',
+    ],
+  },
+  {
+    slug: 'fortune-nvim',
+    title: 'Fortune.nvim',
+    tagline: 'Inspiration, wisdom, or humor for your Neovim dashboard.',
+    description:
+      'A Neovim plugin that injects random quotes, proverbs, or jokes into your dashboard, plus helpful tips and tricks to improve your productivity within the editor.',
+    category: 'devops',
+    year: '2023',
+    tech: ['Lua', 'Neovim', 'Vim'],
+    github: 'https://github.com/rubiin/fortune.nvim',
+    challenges: [
+      'Writing Lua that works across Neovim versions',
+      'Keeping the dashboard layout stable with injected content',
+    ],
+    lessons: [
+      'Small delightful touches make tools feel alive',
+      'Plugin docs and animated previews drive adoption',
+    ],
+  },
+  {
+    slug: 'helper-fns',
+    title: 'Helper-fns',
+    tagline: 'A collection of utility functions for everyday TypeScript.',
+    description:
+      'A library of utility functions for common tasks across data types — arrays, objects, strings, and more — designed to improve code readability and maintainability with reusable solutions.',
+    category: 'backend',
+    year: '2022',
+    tech: ['TypeScript', 'JavaScript', 'npm'],
+    github: 'https://github.com/rubiin/helper-fns',
+    challenges: [
+      'Keeping the API surface small and well-typed',
+      'Avoiding bundle bloat with tree-shakeable exports',
+    ],
+    lessons: [
+      'Good utility libraries are opinionated about what they omit',
+      'TypeScript generics turn helper functions into safety nets',
+    ],
+  },
+  {
+    slug: 'nestjs-cloudinary',
+    title: 'Nestjs-cloudinary',
+    tagline: 'A Nest module for Cloudinary media uploads.',
+    description:
+      'A nest-cloudinary module for Nest — install the client SDK, configure the module, and upload media through a clean, framework-native API.',
+    category: 'backend',
+    year: '2021',
+    tech: ['NestJS', 'TypeScript', 'Cloudinary'],
+    github: 'https://github.com/NestCrafts/nestjs-cloudinary',
+    challenges: [
+      'Wrapping the Cloudinary SDK in a DI-friendly module',
+      'Exposing upload options without leaking implementation details',
+    ],
+    lessons: [
+      'Modules that hide third-party SDKs keep app code clean',
+      'Quick-start guides reduce integration friction',
+    ],
+  },
+  {
+    slug: 'nestjs-minio',
+    title: 'Nestjs-minio',
+    tagline: 'A Nest module for MinIO object storage.',
+    description:
+      'A nest-minio module for Nest — a quick-start guide to installing the client SDK and executing an example program, wrapping MinIO object storage in a NestJS-native module.',
+    category: 'backend',
+    year: '2021',
+    tech: ['NestJS', 'TypeScript', 'MinIO'],
+    github: 'https://github.com/NestCrafts/nestjs-minio',
+    challenges: [
+      'Mirroring the Cloudinary module API for consistency',
+      'Handling bucket lifecycle and error propagation cleanly',
+    ],
+    lessons: [
+      'Consistent module APIs across a series lower the learning curve',
+      'S3-compatible storage keeps deployments portable',
+    ],
+  },
+  {
+    slug: 'url-minify',
+    title: 'URL Minify',
+    tagline: 'Shorten long URLs with multiple providers, in TS.',
+    description:
+      'A versatile, lightweight library for shortening long URLs into concise, manageable links. Supports multiple URL shortening providers so you can pick the best service — written in TypeScript for both Node.js and browser environments.',
+    category: 'backend',
+    year: '2024',
+    tech: ['TypeScript', 'Node.js', 'REST'],
+    github: 'https://github.com/rubiin/url-minify',
+    challenges: [
+      'Abstracting multiple shortening providers behind one API',
+      'Keeping the library isomorphic across Node and browser',
+    ],
+    lessons: [
+      'Provider abstraction lets users swap services without code changes',
+      'Isomorphic libraries need careful environment guards',
+    ],
+  },
+  {
+    slug: 'jazz-music-player',
+    title: 'Jazz — Music Player',
+    tagline: 'A fork of the original Jazz music player for Android.',
+    description:
+      'A fork of the original Jazz music player — a feature-rich Android music player, distributed through the Play Store.',
+    category: 'mobile',
+    year: '2021',
+    tech: ['Android', 'Java'],
+    github: 'https://github.com/rubiin/jazz-music-player',
+    demo: 'https://play.google.com/store/apps/details?id=rubin.jazz',
+    challenges: [
+      'Maintaining a fork while upstream evolves',
+      'Ensuring playback stability across Android versions',
+    ],
+    lessons: [
+      'Forks thrive when the fixes are contributed back upstream',
+      'Play Store distribution sharpens polish and testing',
     ],
   },
 ]

@@ -7,9 +7,9 @@ import { buildMeta } from '@/lib/seo'
 export const Route = createFileRoute('/contact')({
   head: () => ({
     meta: buildMeta({
-      title: 'Contact — Devina',
+      title: 'Contact — Rubin Bhandari',
       description:
-        'Get in touch with Devina — freelance projects, full-time opportunities, or just to say hello.',
+        'Get in touch with Rubin Bhandari — freelance projects, full-time opportunities, or just to say hello.',
       path: '/contact',
     }),
   }),

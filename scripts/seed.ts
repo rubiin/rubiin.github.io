@@ -13,7 +13,7 @@ async function main() {
     return
   }
 
-  const email = 'hello@devina.dev'
+  const email = 'roobin.bhandari@gmail.com'
   await prisma.newsletterSubscriber.upsert({
     where: { email },
     create: { email },

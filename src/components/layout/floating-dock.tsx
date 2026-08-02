@@ -67,7 +67,7 @@ export function FloatingDock() {
         <span aria-hidden className="mx-1 h-5 w-px bg-border" />
 
         <a
-          href="mailto:hello@devina.dev"
+          href="mailto:roobin.bhandari@gmail.com"
           aria-label="Email"
           title="Email"
           className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"

@@ -39,9 +39,9 @@ export const Route = createFileRoute('/blog/')({
   },
   head: () => ({
     meta: buildMeta({
-      title: 'Blog — Devina',
+      title: 'Blog — Rubin Bhandari',
       description:
-        'Essays on engineering, design, and craft by Devina — RAG systems, design tokens, animation physics, and more.',
+        'Essays on engineering and developer tooling by Rubin Bhandari — NestJS, Linux, Docker, and terminal workflows.',
       path: '/blog',
     }),
   }),

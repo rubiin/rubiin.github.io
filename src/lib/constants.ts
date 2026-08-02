@@ -17,7 +17,7 @@ export const CATEGORY_LABELS: Record<ProjectCategory, string> =
 export const PROJECTS_PER_PAGE = 6
 export const POSTS_PER_PAGE = 6
 
-export const GISCUS_REPO = 'devina/portfolio'
+export const GISCUS_REPO = 'rubiin/rubiin.github.io'
 export const GISCUS_REPO_ID = 'R_kgDOK_PORTFOLIO'
 export const GISCUS_CATEGORY = 'Announcements'
 export const GISCUS_CATEGORY_ID = 'DIC_kwDOK_PORTFOLIO'
