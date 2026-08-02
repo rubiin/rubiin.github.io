@@ -45,11 +45,17 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
             <a
               href={`#${item.id}`}
               className={cn(
-                '-ml-px block border-l-2 py-0.5 pl-3 text-muted-foreground transition-colors hover:text-foreground',
+                'group relative -ml-px block border-l-2 py-0.5 pl-3 text-muted-foreground transition-colors hover:text-foreground',
                 item.level === 3 && 'pl-6',
                 activeId === item.id && 'border-primary text-foreground',
               )}
             >
+              {activeId === item.id && (
+                <span
+                  aria-hidden
+                  className="absolute top-1/2 -left-[7px] size-2 -translate-y-1/2 rounded-full bg-primary shadow-[0_0_10px_2px_color-mix(in_oklab,var(--primary)_60%,transparent)]"
+                />
+              )}
               {item.text}
             </a>
           </li>

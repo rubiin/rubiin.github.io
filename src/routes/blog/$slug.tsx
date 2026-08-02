@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import { CalendarDays, Clock, User } from 'lucide-react'
 import { MDXContent } from '@/components/blog/mdx-content'
@@ -8,6 +9,7 @@ import { PrevNextNav } from '@/components/blog/prev-next-nav'
 import { PostComments } from '@/components/blog/post-comments'
 import { LazyKatexCss } from '@/components/blog/lazy-katex-css'
 import { ImageZoom } from '@/components/blog/image-zoom'
+import { BlogReadingGlow } from '@/components/blog/blog-reading-glow'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
@@ -86,10 +88,12 @@ export const Route = createFileRoute('/blog/$slug')({
 function BlogPostPage() {
   const { post, related, newer, older } = Route.useLoaderData()
   const url = `${siteConfig.url}/blog/${post.slug}`
+  const articleRef = useRef<HTMLElement>(null)
 
   return (
-    <article>
+    <article ref={articleRef}>
       <LazyKatexCss />
+      <BlogReadingGlow targetRef={articleRef} />
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         {/* Header */}
         <header className="mx-auto max-w-3xl text-center">

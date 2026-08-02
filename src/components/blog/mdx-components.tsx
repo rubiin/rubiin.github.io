@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { CodeBlock } from '@/components/blog/code-block'
 import { Mermaid } from '@/components/blog/mermaid'
 import { ImageZoom } from '@/components/blog/image-zoom'
+import { AnimatedHeading } from '@/components/blog/animated-heading'
 import { cn } from '@/lib/utils'
 
 /**
@@ -39,6 +40,9 @@ export const mdxComponents = {
   img: ({ src, alt, className }: ComponentPropsWithoutRef<'img'>) => (
     <ImageZoom src={src ?? ''} alt={alt ?? ''} className={className} />
   ),
+  h2: (props: ComponentPropsWithoutRef<'h2'>) => <AnimatedHeading level="h2" {...props} />,
+  h3: (props: ComponentPropsWithoutRef<'h3'>) => <AnimatedHeading level="h3" {...props} />,
+  h4: (props: ComponentPropsWithoutRef<'h4'>) => <AnimatedHeading level="h4" {...props} />,
   Mermaid,
 }
 
