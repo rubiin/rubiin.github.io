@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView, useReducedMotion } from 'motion/react'
+import { useInView, useReducedMotion } from 'motion/react'
 import { Brain, Cloud, Layers, Layout, Server, Smartphone } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
@@ -62,32 +62,32 @@ function AnimatedBar({ value, className }: { value: number; className?: string }
 
 function SkillRow({ skill }: { skill: Skill }) {
   return (
-    <TooltipProvider>
-      <div className="grid grid-cols-[1fr_auto] items-center gap-4">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-sm font-medium text-foreground">{skill.name}</span>
-              <span className="text-xs tabular-nums text-muted-foreground">{skill.level}%</span>
-            </div>
-          </TooltipTrigger>
-          <TooltipContent className="max-w-xs">
-            <div className="space-y-1">
-              <p className="font-semibold">{skill.years} years of experience</p>
-              {skill.technologies && (
-                <p className="text-muted-foreground">{skill.technologies.join(' · ')}</p>
-              )}
-              {skill.relatedProjects && skill.relatedProjects.length > 0 && (
-                <p className="text-muted-foreground">
-                  Used in: {skill.relatedProjects.join(', ')}
-                </p>
-              )}
-            </div>
-          </TooltipContent>
-        </Tooltip>
-        <AnimatedBar value={skill.level} className="col-span-2 w-full" />
-      </div>
-    </TooltipProvider>
+    <div className="flex flex-col gap-2">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          {/* Focusable button so keyboard users can reveal the tooltip too */}
+          <button
+            type="button"
+            className="flex w-full items-center justify-between gap-4 rounded-sm text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          >
+            <span className="text-sm font-medium text-foreground">{skill.name}</span>
+            <span className="text-xs tabular-nums text-muted-foreground">{skill.level}%</span>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent className="max-w-xs">
+          <div className="space-y-1">
+            <p className="font-semibold">{skill.years} years of experience</p>
+            {skill.technologies && (
+              <p className="text-muted-foreground">{skill.technologies.join(' · ')}</p>
+            )}
+            {skill.relatedProjects && skill.relatedProjects.length > 0 && (
+              <p className="text-muted-foreground">Used in: {skill.relatedProjects.join(', ')}</p>
+            )}
+          </div>
+        </TooltipContent>
+      </Tooltip>
+      <AnimatedBar value={skill.level} className="w-full" />
+    </div>
   )
 }
 
@@ -104,29 +104,31 @@ export function SkillsSection() {
         />
 
         <Reveal>
-          <Tabs defaultValue={skillCategories[0]?.name} className="w-full">
-            <TabsList variant="line" className="mb-8 flex-wrap">
-              {skillCategories.map((cat) => {
-                const Icon = CATEGORY_ICONS[cat.name] ?? Layout
-                return (
-                  <TabsTrigger key={cat.name} value={cat.name}>
-                    <Icon />
-                    {cat.name}
-                  </TabsTrigger>
-                )
-              })}
-            </TabsList>
+          <TooltipProvider delayDuration={150}>
+            <Tabs defaultValue={skillCategories[0]?.name} className="w-full">
+              <TabsList variant="line" className="mb-8 flex-wrap">
+                {skillCategories.map((cat) => {
+                  const Icon = CATEGORY_ICONS[cat.name] ?? Layout
+                  return (
+                    <TabsTrigger key={cat.name} value={cat.name}>
+                      <Icon />
+                      {cat.name}
+                    </TabsTrigger>
+                  )
+                })}
+              </TabsList>
 
-            {skillCategories.map((cat) => (
-              <TabsContent key={cat.name} value={cat.name} className="mt-0">
-                <div className="grid gap-5 rounded-xl border bg-card p-6 sm:p-8 md:grid-cols-2">
-                  {cat.skills.map((skill) => (
-                    <SkillRow key={skill.name} skill={skill} />
-                  ))}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+              {skillCategories.map((cat) => (
+                <TabsContent key={cat.name} value={cat.name} className="mt-0">
+                  <div className="grid gap-x-10 gap-y-5 rounded-xl border bg-card p-6 sm:p-8 md:grid-cols-2">
+                    {cat.skills.map((skill) => (
+                      <SkillRow key={skill.name} skill={skill} />
+                    ))}
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </TooltipProvider>
         </Reveal>
       </div>
     </section>

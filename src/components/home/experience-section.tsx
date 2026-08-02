@@ -32,7 +32,9 @@ export function ExperienceSection() {
 
       <div className="relative">
         {/* Timeline line — grows on scroll */}
-        <div ref={lineRef} className="absolute left-3 top-0 bottom-0 w-px bg-border sm:left-5">
+        {/* left-2.5 (0.625rem) aligns the line with the node centers (0.625rem
+            from the container at both breakpoints) */}
+        <div ref={lineRef} className="absolute top-0 bottom-0 left-2.5 w-px bg-border">
           {!reduced && (
             <motion.div
               className="absolute inset-0 origin-top bg-gradient-to-b from-primary via-primary to-accent"
