@@ -18,7 +18,7 @@ export const Route = createFileRoute('/blog/categories')({
     meta: buildMeta({
       title: 'All categories — Rubin Bhandari',
       description:
-        'Broad topic buckets — all current writing lives under Software Engineering, with the specifics in tags.',
+        'Browse every topic category across the writing — from TypeScript and Node.js to Docker, Linux and Vim.',
       path: '/blog/categories',
     }),
   }),
@@ -50,7 +50,7 @@ function CategoriesPage() {
         <SectionHeading
           eyebrow="Writing"
           title="All categories."
-          description={`${categories.length} categories across ${posts.length} articles — broad buckets, with the specifics as tags.`}
+          description={`${categories.length} topic categories across ${posts.length} articles — dive into each one.`}
           className="mb-0"
         />
         <div className="flex flex-col items-start gap-2 lg:items-end">
