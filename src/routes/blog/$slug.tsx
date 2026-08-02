@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { createFileRoute, notFound } from '@tanstack/react-router'
-import { CalendarDays, Clock, User } from 'lucide-react'
+import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import { CalendarDays, Clock, Hash, User } from 'lucide-react'
 import { MDXContent } from '@/components/blog/mdx-content'
 import { TableOfContents } from '@/components/blog/table-of-contents'
 import { ShareButtons } from '@/components/blog/share-buttons'
@@ -101,9 +101,13 @@ function BlogPostPage() {
           <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
             {post.title}
           </h1>
-          {/* Category kicker below the title — solid primary chip, so categories read differently from the muted tags */}
+          {/* Category kicker below the title — clickable, solid primary chip, so categories read differently from the muted tags */}
           <div className="mt-4 flex justify-center">
-            <Badge>{post.category}</Badge>
+            <Badge asChild>
+              <Link to="/blog" search={{ category: post.category, tag: 'all', q: '', page: 1 }}>
+                {post.category}
+              </Link>
+            </Badge>
           </div>
           <p className="mt-4 text-lg text-muted-foreground">{post.description}</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
@@ -120,16 +124,6 @@ function BlogPostPage() {
               {post.readingTime} min read
             </span>
           </div>
-          {/* Tags last — muted # text, clearly separate from the category chip above */}
-          {post.tags.length > 0 && (
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-              {post.tags.slice(0, 3).map((tag) => (
-                <span key={tag} className="text-xs text-muted-foreground">
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
         </header>
 
         {/* Cover */}
@@ -162,6 +156,23 @@ function BlogPostPage() {
         <div className="mx-auto mt-10 flex max-w-2xl justify-center lg:hidden">
           <ShareButtons url={url} title={post.title} />
         </div>
+
+        {/* Tags at the end of the post — clickable, filter the blog by tag */}
+        {post.tags.length > 0 && (
+          <div className="mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-2">
+            {post.tags.map((tag) => (
+              <Link
+                key={tag}
+                to="/blog"
+                search={{ category: 'all', tag, q: '', page: 1 }}
+                className="group inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/50 hover:bg-accent hover:text-foreground"
+              >
+                <Hash className="size-3 text-primary" aria-hidden />
+                {tag}
+              </Link>
+            ))}
+          </div>
+        )}
 
         <PrevNextNav prev={newer} next={older} />
         <RelatedPosts posts={related} />
