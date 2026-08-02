@@ -36,12 +36,11 @@ export const Route = createRootRoute({
         content:
           'Portfolio and blog of Devina — creative developer crafting premium web experiences.',
       },
-      { rel: 'canonical', href: siteConfig.url },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: siteConfig.name },
       { property: 'og:title', content: siteConfig.seo.title },
       { property: 'og:description', content: siteConfig.seo.description },
-      { property: 'og:url', content: siteConfig.url },
+      { property: 'og:url', content: absoluteUrl('/') },
       { property: 'og:image', content: absoluteUrl(siteConfig.seo.ogImage) },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: siteConfig.seo.title },

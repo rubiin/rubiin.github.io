@@ -3,7 +3,7 @@ import { siteConfig } from '@/data/site'
 import { getPosts } from '@/server/blog'
 import { absoluteUrl } from '@/lib/seo'
 
-const STATIC_PATHS = ['', '/projects', '/resume', '/blog', '/contact'] as const
+const STATIC_PATHS = ['', '/projects', '/resume', '/blog', '/contact', '/rss.xml'] as const
 
 function esc(value: string) {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
