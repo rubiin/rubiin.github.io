@@ -45,7 +45,7 @@ export const experience: ExperienceItem[] = [
     technologies: ['Solidity', 'Web3.js', 'Ethereum', 'JavaScript'],
   },
   {
-    company: 'Rosebay Group',
+    company: 'Cheetah Webtech',
     role: 'PHP Developer',
     start: '2017',
     end: '2017',
@@ -58,7 +58,7 @@ export const experience: ExperienceItem[] = [
     technologies: ['PHP', 'WordPress', 'MySQL'],
   },
   {
-    company: 'Cheetah Webtech',
+    company: 'Hitech Nepal',
     role: 'Intern',
     start: '2016',
     end: '2016',
