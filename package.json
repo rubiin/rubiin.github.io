@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "prisma db seed",
+    "db:seed": "tsx scripts/seed.ts",
     "content:build": "tsx scripts/build-content.ts"
   },
   "dependencies": {

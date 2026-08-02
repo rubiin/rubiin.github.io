@@ -28,10 +28,11 @@ export const posts = defineCollection({
       rehypePlugins: [rehypeKatex, rehypeSlug],
     })
     // `_meta` is collection-internal metadata; it must not leak into the
-    // serializable output shape.
+    // serializable output shape — but its fileName feeds the route slug.
     const { _meta, ...data } = document
     return {
       ...data,
+      slug: _meta.fileName.replace(/\.mdx?$/, ''),
       mdx,
       readingTime: Math.max(1, Math.round(document.content.split(/\s+/).length / 200)),
       toc: extractToc(document.content),
