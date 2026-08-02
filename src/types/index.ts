@@ -44,7 +44,8 @@ export interface Profile {
 export interface Skill {
   name: string
   level: number // 0-100
-  years: number
+  /** Start year of using this skill — years of experience are derived from it. */
+  since: number
   technologies?: string[]
   relatedProjects?: string[]
   color?: string

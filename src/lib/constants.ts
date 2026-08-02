@@ -22,6 +22,9 @@ export const CAREER_START_YEAR = 2017
 /** Years of experience, computed from the start year so it never goes stale. */
 export const YEARS_OF_EXPERIENCE = new Date().getFullYear() - CAREER_START_YEAR
 
+/** Years elapsed since a given start year — keeps skill experience current too. */
+export const yearsSince = (since: number) => new Date().getFullYear() - since
+
 export const GISCUS_REPO = 'rubiin/rubiin.github.io'
 export const GISCUS_REPO_ID = 'R_kgDOK_PORTFOLIO'
 export const GISCUS_CATEGORY = 'Announcements'

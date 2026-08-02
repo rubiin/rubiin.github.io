@@ -10,6 +10,7 @@ import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { SkillsOrbit } from '@/components/home/skills-orbit'
 import { skillCategories } from '@/data/skills'
+import { yearsSince } from '@/lib/constants'
 import type { Skill } from '@/types'
 
 const CATEGORY_ICONS: Record<string, typeof Layout> = {
@@ -71,7 +72,7 @@ function SkillRow({ skill }: { skill: Skill }) {
         </TooltipTrigger>
         <TooltipContent className="max-w-xs">
           <div className="space-y-1">
-            <p className="font-semibold">{skill.years} years of experience</p>
+            <p className="font-semibold">{yearsSince(skill.since)} years of experience</p>
             {skill.technologies && (
               <p className="text-muted-foreground">{skill.technologies.join(' · ')}</p>
             )}
