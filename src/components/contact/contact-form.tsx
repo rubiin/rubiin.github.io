@@ -49,7 +49,11 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-4 rounded-xl border bg-card p-10 text-center">
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex h-full flex-col items-center justify-center gap-4 rounded-xl border bg-card p-10 text-center"
+      >
         <span className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-2xl">
           ✦
         </span>
@@ -166,21 +170,20 @@ export function ContactForm() {
         )}
       </form.Field>
 
-      <form.Subscribe
-        selector={(state) => ({
-          isSubmitting: state.isSubmitting,
-          canSubmit: state.canSubmit,
-        })}
-      >
-        {({ isSubmitting, canSubmit }) => (
-          <Button type="submit" disabled={!canSubmit || isSubmitting} className="w-fit gap-2">
-            {isSubmitting ? (
-              <Loader2 className="size-4 animate-spin" aria-hidden />
-            ) : (
-              <Send className="size-4" aria-hidden />
+      <form.Subscribe selector={(state) => state.canSubmit}>
+        {(canSubmit) => (
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
+              <Button type="submit" disabled={!canSubmit || isSubmitting} className="w-fit gap-2">
+                {isSubmitting ? (
+                  <Loader2 className="size-4 animate-spin" aria-hidden />
+                ) : (
+                  <Send className="size-4" aria-hidden />
+                )}
+                {isSubmitting ? 'Sending…' : 'Send message'}
+              </Button>
             )}
-            {isSubmitting ? 'Sending…' : 'Send message'}
-          </Button>
+          </form.Subscribe>
         )}
       </form.Subscribe>
     </form>

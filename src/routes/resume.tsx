@@ -30,9 +30,9 @@ function ResumePage() {
 
   const socials = [
     { label: siteConfig.email, href: `mailto:${siteConfig.email}`, icon: Mail },
-    { label: siteConfig.socials.github, href: siteConfig.socials.github, icon: GitBranch },
-    { label: siteConfig.socials.linkedin, href: siteConfig.socials.linkedin, icon: Briefcase },
-    { label: siteConfig.socials.twitter, href: siteConfig.socials.twitter, icon: AtSign },
+    { label: 'github.com/devina', href: siteConfig.socials.github, icon: GitBranch },
+    { label: 'linkedin.com/in/devina', href: siteConfig.socials.linkedin, icon: Briefcase },
+    { label: 'twitter.com/devina_dev', href: siteConfig.socials.twitter, icon: AtSign },
   ]
 
   return (
