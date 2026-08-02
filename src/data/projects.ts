@@ -26,6 +26,48 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: 'nestjs-i18n',
+    title: 'Nestjs-i18n',
+    tagline: 'The i18n module for NestJS — internationalization the Nest way.',
+    description:
+      'The most popular i18n module for NestJS — robust internationalization for Nest applications with locale resolution, JSON/YAML translation files, pluralization, and flexible query/header/cookie-based language detection. Battle-tested across thousands of projects and documented at nestjs-i18n.com.',
+    category: 'backend',
+    year: '2019',
+    tech: ['NestJS', 'TypeScript', 'i18n', 'Internationalization'],
+    image: '/projects/nestjs-i18n.png',
+    github: 'https://github.com/toonvanstrijp/nestjs-i18n',
+    demo: 'https://nestjs-i18n.com',
+    featured: true,
+    challenges: [
+      'Designing locale resolution that works across query, header, and cookie strategies',
+      'Supporting pluralization rules across dozens of languages',
+      'Keeping the module framework-native while handling a huge feature surface',
+    ],
+    lessons: [
+      'A well-documented module with a docs site earns community trust fast',
+      'L10n is a cross-cutting concern — a clean module API is everything',
+    ],
+  },
+  {
+    slug: 'nestjs-pgpromise',
+    title: 'Nestjs-pgpromise',
+    tagline: 'A NestJS module for pg-promise.',
+    description:
+      'A module that wraps pg-promise for NestJS — utilities, database pool management, and a clean service API for PostgreSQL access, matching the ergonomics of the rest of the NestCrafts module series.',
+    category: 'backend',
+    year: '2019',
+    tech: ['NestJS', 'TypeScript', 'pg-promise', 'PostgreSQL'],
+    github: 'https://github.com/NestCrafts/nestjs-pgpromise',
+    challenges: [
+      'Wrapping pg-promise\'s promise-first API in Nest\'s DI lifecycle',
+      'Managing connection pools and clean shutdown',
+    ],
+    lessons: [
+      'Database modules must handle pool lifecycle or users will in production',
+      'Consistent module ergonomics make the NestCrafts series easy to adopt',
+    ],
+  },
+  {
     slug: 'ultimate-nestjs',
     title: 'Ultimate Nestjs',
     tagline: 'A real-world NestJS + MikroORM codebase with batteries included.',
@@ -205,23 +247,119 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'jazz-music-player',
-    title: 'Jazz — Music Player',
-    tagline: 'A fork of the original Jazz music player for Android.',
+    slug: 'pokego',
+    title: 'Pokego',
+    tagline: 'Display Pokémon sprites in color, right in your terminal.',
     description:
-      'A fork of the original Jazz music player — a feature-rich Android music player, distributed through the Play Store.',
-    category: 'mobile',
-    year: '2021',
-    tech: ['Android', 'Java'],
-    github: 'https://github.com/rubiin/jazz-music-player',
-    demo: 'https://play.google.com/store/apps/details?id=rubin.jazz',
+      'A Go port of pokemon-colorscripts with a speed boost — renders colorful Pokémon sprites directly in your terminal, powered by the classic spritesheet data. Distributed via AUR (pokego-git) and Go install.',
+    category: 'devops',
+    year: '2024',
+    tech: ['Go', 'Terminal', 'CLI'],
+    github: 'https://github.com/rubiin/pokego',
     challenges: [
-      'Maintaining a fork while upstream evolves',
-      'Ensuring playback stability across Android versions',
+      'Porting sprite rendering logic from Bash to idiomatic Go with a real speed win',
+      'Keeping output crisp across terminal color profiles',
     ],
     lessons: [
-      'Forks thrive when the fixes are contributed back upstream',
-      'Play Store distribution sharpens polish and testing',
+      'A faithful port can beat the original when the language fits',
+      'Small delightful CLIs make great open-source calling cards',
+    ],
+  },
+  {
+    slug: 'init-lua',
+    title: 'init.lua — Neovim PDE',
+    tagline: 'A personal development environment, carefully crafted in Neovim.',
+    description:
+      'Rubin\'s always-WIP Neovim config (PDE — Personal Development Environment): a brew of plugins and keybindings that dance harmoniously — autocomplete, syntax highlighting, and a carefully tuned editing experience.',
+    category: 'devops',
+    year: '2024',
+    tech: ['Lua', 'Neovim', 'LazyVim'],
+    github: 'https://github.com/rubiin/init.lua',
+    challenges: [
+      'Keeping a personal config fast while layering on plugins',
+      'Documenting keybindings well enough to stay usable',
+    ],
+    lessons: [
+      'An editor config is a personal product — iterate on it daily',
+      'Delightful docs make configs worth sharing',
+    ],
+  },
+  {
+    slug: 'nfdl',
+    title: 'NFDL — Nerd Font Downloader',
+    tagline: 'Install your favorite Nerd Fonts straight from the terminal.',
+    description:
+      'A handy CLI that simplifies downloading and installing Nerd Fonts — choose from a curated list of popular patched fonts, auto-download from official releases, unarchive, and install with a friendly interface.',
+    category: 'devops',
+    year: '2023',
+    tech: ['TypeScript', 'Node.js', 'CLI', 'npm'],
+    github: 'https://github.com/rubiin/nfdl',
+    challenges: [
+      'Curating and maintaining the font list against upstream releases',
+      'Handling download, unarchive, and install across OSes',
+    ],
+    lessons: [
+      'Developer tooling that removes setup pain gets adopted',
+      'Interactive CLIs need zero-friction defaults',
+    ],
+  },
+  {
+    slug: 'dotfiles',
+    title: 'dotfiles (arch btw)',
+    tagline: 'Personal dotfiles — neovim, tmux, zsh, alacritty, kitty, and more.',
+    description:
+      'The secret sauce behind Rubin\'s Unix environment: dotfiles managed with Chezmoi, including configs for Neovim, tmux, zsh, Alacritty, Kitty, and more — arch btw. The desktop screenshot shows the full setup in action.',
+    category: 'devops',
+    year: '2024',
+    tech: ['Chezmoi', 'Neovim', 'Tmux', 'Zsh', 'Linux'],
+    image: '/projects/dotfiles.png',
+    github: 'https://github.com/rubiin/dotfiles',
+    challenges: [
+      'Versioning secrets and machine-specific overrides with Chezmoi',
+      'Keeping the environment reproducible across machines',
+    ],
+    lessons: [
+      'Dotfiles are an environment — treat them like a product',
+      'Chezmoi makes machine-specific configs manageable',
+    ],
+  },
+  {
+    slug: 'gitignorer',
+    title: 'Gitignorer',
+    tagline: 'Quickly add .gitignore files to your current environment.',
+    description:
+      'A CLI app that adds gitignore files to your current environment or project with one command — no more hunting for the right template.',
+    category: 'devops',
+    year: '2021',
+    tech: ['Go', 'CLI', 'Git'],
+    github: 'https://github.com/rubiin/gitignorer',
+    challenges: [
+      'Sourcing and maintaining a solid template library',
+      'Detecting the project type to suggest the right ignore file',
+    ],
+    lessons: [
+      'One-command conveniences compound across every project',
+      'Go single-binary CLIs are trivially easy to distribute',
+    ],
+  },
+  {
+    slug: 'vscode-nestjs-snippets',
+    title: 'NestJS Snippets for VS Code',
+    tagline: 'Snippets for common NestJS operations in VS Code.',
+    description:
+      'A VS Code extension that adds snippets for the common operations of working with NestJS — controllers, services, modules, providers, and more — so you can write idiomatic Nest code in a keystroke.',
+    category: 'backend',
+    year: '2019',
+    tech: ['VS Code', 'NestJS', 'TypeScript', 'Snippets'],
+    image: '/projects/vscode-nestjs-snippets.png',
+    github: 'https://github.com/rubiin/vscode-nestjs-snippets',
+    challenges: [
+      'Designing snippet bodies that produce idiomatic, configurable code',
+      'Keeping the extension maintained across VS Code releases',
+    ],
+    lessons: [
+      'Developer-experience tools spread through word of mouth',
+      'Snippets encode team conventions into keystrokes',
     ],
   },
 ]
