@@ -2,6 +2,30 @@ import type { Project } from '@/types'
 
 export const projects: Project[] = [
   {
+    slug: 'tsumiki',
+    title: 'Tsumiki',
+    tagline: 'A modular status bar for Hyprland, built on Fabric.',
+    description:
+      'Tsumiki (積み木 — Japanese for \'building blocks\') is a modular status bar for the Hyprland Wayland compositor. Built on Fabric with a flexible, widget-based architecture, it ships 45+ widgets — workspaces, system tray, media, battery, CPU, weather, dock, launcher — plus a built-in notification daemon, OSD overlays, and TOML config with hot-reload. Fully themeable via SCSS with Material You color schemes generated from your wallpaper.',
+    category: 'devops',
+    year: '2024',
+    tech: ['Python', 'Fabric', 'Hyprland', 'Wayland', 'GTK'],
+    image: '/projects/tsumiki.png',
+    github: 'https://github.com/rubiin/tsumiki',
+    demo: 'https://tsumikii.pages.dev',
+    featured: true,
+    challenges: [
+      'Keeping a Python panel performant enough to sit beside native C/Rust bars',
+      'Designing a 45+ widget architecture that stays responsive to Hyprland\'s event model',
+      'Wiring Material You color generation into live SCSS theming',
+    ],
+    lessons: [
+      'Deep compositor integration beats generic widgets',
+      'A widget-based architecture turns a status bar into a platform',
+      'Python + Fabric can absolutely compete with Waybar',
+    ],
+  },
+  {
     slug: 'ultimate-nestjs',
     title: 'Ultimate Nestjs',
     tagline: 'A real-world NestJS + MikroORM codebase with batteries included.',

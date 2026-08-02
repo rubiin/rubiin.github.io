@@ -94,7 +94,7 @@ function ProjectsPage() {
       <SectionHeading
         eyebrow="Work"
         title="Projects."
-        description="Six things I've shipped across the stack — explore by category or search."
+        description="Things I've shipped across the stack — explore by category or search."
       />
 
       <ProjectFilters
