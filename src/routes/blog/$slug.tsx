@@ -2,7 +2,6 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import { CalendarDays, Clock, User } from 'lucide-react'
 import { MDXContent } from '@/components/blog/mdx-content'
 import { TableOfContents } from '@/components/blog/table-of-contents'
-import { ReadingProgress } from '@/components/blog/reading-progress'
 import { ShareButtons } from '@/components/blog/share-buttons'
 import { RelatedPosts } from '@/components/blog/related-posts'
 import { PrevNextNav } from '@/components/blog/prev-next-nav'
@@ -31,11 +30,13 @@ export const Route = createFileRoute('/blog/$slug')({
     ])
     if (!post) throw notFound()
 
+    // `all` is newest-first, so the item before the index is newer and the
+    // item after it is older.
     const idx = all.findIndex((p) => p.slug === post.slug)
-    const prev: PostSummary | null = idx > 0 ? all[idx - 1] ?? null : null
-    const next: PostSummary | null = idx >= 0 && idx < all.length - 1 ? all[idx + 1] ?? null : null
+    const newer: PostSummary | null = idx > 0 ? all[idx - 1] ?? null : null
+    const older: PostSummary | null = idx >= 0 && idx < all.length - 1 ? all[idx + 1] ?? null : null
 
-    return { post, related, prev, next }
+    return { post, related, newer, older }
   },
   head: ({ loaderData }) => {
     const post = loaderData?.post
@@ -91,12 +92,11 @@ export const Route = createFileRoute('/blog/$slug')({
 })
 
 function BlogPostPage() {
-  const { post, related, prev, next } = Route.useLoaderData()
+  const { post, related, newer, older } = Route.useLoaderData()
   const url = `${siteConfig.url}/blog/${post.slug}`
 
   return (
     <article>
-      <ReadingProgress />
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         {/* Header */}
         <header className="mx-auto max-w-3xl text-center">
@@ -159,7 +159,7 @@ function BlogPostPage() {
           <ShareButtons url={url} title={post.title} />
         </div>
 
-        <PrevNextNav prev={prev} next={next} />
+        <PrevNextNav prev={newer} next={older} />
         <RelatedPosts posts={related} />
         <PostComments slug={post.slug} />
       </div>

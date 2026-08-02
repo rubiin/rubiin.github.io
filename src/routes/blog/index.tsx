@@ -55,13 +55,15 @@ function BlogIndexPage() {
   const navigate = useNavigate()
 
   const update = (patch: Partial<BlogSearchParams>) => {
+    // Any filter change resets to page 1; only an explicit page patch keeps it.
+    const resetPage = !('page' in patch)
     void navigate({
       to: '/blog',
       search: {
         category: patch.category ?? category,
         tag: patch.tag ?? tag,
         q: patch.q ?? q,
-        page: patch.page ?? page,
+        page: resetPage ? 1 : (patch.page ?? page),
       },
     })
   }

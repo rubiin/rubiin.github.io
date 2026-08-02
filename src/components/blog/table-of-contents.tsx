@@ -6,8 +6,7 @@ import { cn } from '@/lib/utils'
 
 /**
  * Sticky table of contents. Tracks the heading currently in view with an
- * IntersectionObserver and highlights it. Hidden entirely when reduced motion
- * is preferred is unnecessary — highlighting is a static class swap.
+ * IntersectionObserver and highlights it via a static class swap.
  */
 export function TableOfContents({ toc }: { toc: TocItem[] }) {
   const [activeId, setActiveId] = useState<string | null>(null)

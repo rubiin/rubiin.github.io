@@ -3,12 +3,6 @@
 import { useEffect, useRef } from 'react'
 import { GISCUS_CATEGORY, GISCUS_CATEGORY_ID, GISCUS_REPO, GISCUS_REPO_ID } from '@/lib/constants'
 
-declare global {
-  interface Window {
-    giscus?: unknown
-  }
-}
-
 /**
  * Giscus comment thread (GitHub Discussions powered). Injects the giscus
  * script on mount so it never blocks initial render. Rendering is skipped
