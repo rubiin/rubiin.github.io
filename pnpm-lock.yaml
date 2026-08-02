@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@content-collections/core':
         specifier: 0.15.2
-        version: 0.15.2(typescript@5.9.3)
+        version: 0.15.2(typescript@6.0.3)
       '@content-collections/mdx':
         specifier: ^0.2.2
-        version: 0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 0.2.2(@content-collections/core@0.15.2(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@react-three/drei':
         specifier: ^10.7.7
         version: 10.7.7(@react-three/fiber@9.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(three@0.185.1))(@types/react@19.2.18)(@types/three@0.185.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(three@0.185.1)
@@ -95,7 +95,7 @@ importers:
     devDependencies:
       '@content-collections/vite':
         specifier: ^0.2.9
-        version: 0.2.9(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.2.0(@types/node@24.13.3)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
+        version: 0.2.9(@content-collections/core@0.15.2(typescript@6.0.3))(vite@8.2.0(@types/node@24.13.3)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.2.0(@types/node@24.13.3)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
@@ -151,8 +151,8 @@ importers:
         specifier: ^4.23.1
         version: 4.23.1
       typescript:
-        specifier: ~5.9.3
-        version: 5.9.3
+        specifier: ^6.0.3
+        version: 6.0.3
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -4262,8 +4262,8 @@ packages:
   type-flag@3.0.0:
     resolution: {integrity: sha512-3YaYwMseXCAhBB14RXW5cRQfJQlEknS6i4C8fCfeUdS3ihG9EdccdR9kt3vP73ZdeTGmPb4bZtkDn5XMIn1DLA==}
 
-  typescript@5.9.3:
-    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4756,7 +4756,7 @@ snapshots:
     dependencies:
       '@clerc/core': 0.44.0
 
-  '@content-collections/core@0.15.2(typescript@5.9.3)':
+  '@content-collections/core@0.15.2(typescript@6.0.3)':
     dependencies:
       '@standard-schema/spec': 1.1.0
       camelcase: 8.0.0
@@ -4768,7 +4768,7 @@ snapshots:
       pluralize: 8.0.0
       serialize-javascript: 7.0.7
       tinyglobby: 0.2.17
-      typescript: 5.9.3
+      typescript: 6.0.3
       yaml: 2.9.0
 
   '@content-collections/installer@0.5.0(zod@3.25.76)':
@@ -4780,13 +4780,13 @@ snapshots:
       recast: 0.23.19
       zod: 3.25.76
 
-  '@content-collections/integrations@0.5.0(@content-collections/core@0.15.2(typescript@5.9.3))':
+  '@content-collections/integrations@0.5.0(@content-collections/core@0.15.2(typescript@6.0.3))':
     dependencies:
-      '@content-collections/core': 0.15.2(typescript@5.9.3)
+      '@content-collections/core': 0.15.2(typescript@6.0.3)
 
-  '@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
-      '@content-collections/core': 0.15.2(typescript@5.9.3)
+      '@content-collections/core': 0.15.2(typescript@6.0.3)
       esbuild: 0.25.12
       mdx-bundler: 10.1.1(esbuild@0.25.12)
       react: 19.2.8
@@ -4795,10 +4795,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@content-collections/vite@0.2.9(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.2.0(@types/node@24.13.3)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))':
+  '@content-collections/vite@0.2.9(@content-collections/core@0.15.2(typescript@6.0.3))(vite@8.2.0(@types/node@24.13.3)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))':
     dependencies:
-      '@content-collections/core': 0.15.2(typescript@5.9.3)
-      '@content-collections/integrations': 0.5.0(@content-collections/core@0.15.2(typescript@5.9.3))
+      '@content-collections/core': 0.15.2(typescript@6.0.3)
+      '@content-collections/integrations': 0.5.0(@content-collections/core@0.15.2(typescript@6.0.3))
       vite: 8.2.0(@types/node@24.13.3)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0)
 
   '@dimforge/rapier3d-compat@0.12.0': {}
@@ -8981,7 +8981,7 @@ snapshots:
 
   type-flag@3.0.0: {}
 
-  typescript@5.9.3: {}
+  typescript@6.0.3: {}
 
   ufo@1.6.4: {}
 

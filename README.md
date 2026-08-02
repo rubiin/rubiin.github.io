@@ -20,7 +20,7 @@ A production-ready personal website built on the **TanStack ecosystem**: TanStac
 
 ## Tech Stack
 
-- **Framework:** TanStack Start 1.168, React 19.2, TypeScript ~5.9 (strict)
+- **Framework:** TanStack Start 1.168, React 19.2, TypeScript 6 (strict)
 - **Data & routing:** TanStack Router 1.170, TanStack Query 5, TanStack Form 1.33, TanStack Store
 - **Styling:** Tailwind CSS 4, shadcn/ui, CSS-variable design tokens
 - **Motion & 3D:** Motion 12, Lenis, Three.js 0.185 + @react-three/fiber + drei (lazy-loaded)
