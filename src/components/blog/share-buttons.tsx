@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-// lucide v1 removed brand icons; use thematic substitutes (matches footer).
-import { AtSign, Briefcase, Check, Link2, ThumbsUp } from 'lucide-react'
+import { Check, Link2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { FacebookIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 
 /**
  * Share row for an article: X, LinkedIn, Facebook, and copy-link. Uses the
@@ -32,17 +32,17 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
       <span className="text-sm font-medium text-muted-foreground">Share</span>
       <Button variant="outline" size="icon" asChild aria-label="Share on X">
         <a href={xHref} target="_blank" rel="noopener noreferrer">
-          <AtSign className="size-4" />
+          <XIcon className="size-4" />
         </a>
       </Button>
       <Button variant="outline" size="icon" asChild aria-label="Share on LinkedIn">
         <a href={linkedinHref} target="_blank" rel="noopener noreferrer">
-          <Briefcase className="size-4" />
+          <LinkedInIcon className="size-4" />
         </a>
       </Button>
       <Button variant="outline" size="icon" asChild aria-label="Share on Facebook">
         <a href={facebookHref} target="_blank" rel="noopener noreferrer">
-          <ThumbsUp className="size-4" />
+          <FacebookIcon className="size-4" />
         </a>
       </Button>
       <Button variant="outline" size="icon" onClick={copy} aria-label="Copy link">

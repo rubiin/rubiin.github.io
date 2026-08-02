@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { AtSign, Briefcase, Download, GitBranch, Mail, MapPin, Printer } from 'lucide-react'
+import { Download, GitBranch, Mail, MapPin, Printer } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 import { ExperienceList } from '@/components/resume/experience-list'
 import { SkillBars } from '@/components/resume/skill-bars'
 import {
@@ -30,8 +31,8 @@ function ResumePage() {
   const socials = [
     { label: siteConfig.email, href: `mailto:${siteConfig.email}`, icon: Mail },
     { label: 'github.com/rubiin', href: siteConfig.socials.github, icon: GitBranch },
-    { label: 'linkedin.com/in/rubiin', href: siteConfig.socials.linkedin, icon: Briefcase },
-    { label: 'twitter.com/RubinCodes', href: siteConfig.socials.twitter, icon: AtSign },
+    { label: 'linkedin.com/in/rubiin', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+    { label: 'x.com/RubinCodes', href: siteConfig.socials.twitter, icon: XIcon },
   ]
 
   return (

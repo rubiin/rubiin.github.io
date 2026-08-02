@@ -1,9 +1,10 @@
 'use client'
 
 import { Link, useLocation } from '@tanstack/react-router'
-import { AtSign, Briefcase, GitBranch, Mail, Rss } from 'lucide-react'
+import { GitBranch, Mail, Rss } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
+import { LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 import {
   Sheet,
   SheetContent,
@@ -14,11 +15,10 @@ import {
 import { ThemeToggle } from '@/components/layout/theme-toggle'
 import { cn } from '@/lib/utils'
 
-// lucide v1 removed brand icons; use thematic substitutes.
 const SOCIALS = [
   { label: 'GitHub', href: siteConfig.socials.github, icon: GitBranch },
-  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: Briefcase },
-  { label: 'Twitter', href: siteConfig.socials.twitter, icon: AtSign },
+  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+  { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
   { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },
   { label: 'Email', href: siteConfig.socials.email, icon: Mail },
 ]

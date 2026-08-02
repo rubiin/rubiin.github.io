@@ -1,16 +1,15 @@
 'use client'
 
 import { Link } from '@tanstack/react-router'
-import { AtSign, Briefcase, GitBranch, Heart, Mail, Rss } from 'lucide-react'
+import { GitBranch, Heart, Mail, Rss } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
-import { LiveClock } from '@/components/layout/live-clock'
+import { LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 
-// lucide v1 removed brand icons; use thematic substitutes.
 const SOCIALS = [
   { label: 'GitHub', href: siteConfig.socials.github, icon: GitBranch },
-  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: Briefcase },
-  { label: 'Twitter', href: siteConfig.socials.twitter, icon: AtSign },
+  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+  { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
   { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },
   { label: 'Email', href: siteConfig.socials.email, icon: Mail },
 ]
@@ -77,7 +76,6 @@ export function SiteFooter() {
             Crafted with <Heart className="size-3.5 text-primary" aria-hidden /> in{' '}
             {siteConfig.location}.
           </p>
-          <LiveClock className="flex items-center text-sm" />
           <div className="flex items-center gap-4">
             <a href="/rss.xml" className="transition-colors hover:text-foreground">
               RSS

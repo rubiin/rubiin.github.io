@@ -1,5 +1,6 @@
-import { AtSign, Briefcase, Clock, GitBranch, Mail, MapPin } from 'lucide-react'
+import { Clock, GitBranch, Mail, MapPin } from 'lucide-react'
 import { siteConfig } from '@/data/site'
+import { LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 
 /** Contact details: email, location, socials, response-time note. */
 export function ContactInfo() {
@@ -29,8 +30,8 @@ export function ContactInfo() {
         <div className="flex flex-col gap-2.5">
           {[
             { label: 'GitHub', href: siteConfig.socials.github, icon: GitBranch },
-            { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: Briefcase },
-            { label: 'Twitter / X', href: siteConfig.socials.twitter, icon: AtSign },
+            { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+            { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
           ].map(({ label, href, icon: Icon }) => (
             <a
               key={label}
