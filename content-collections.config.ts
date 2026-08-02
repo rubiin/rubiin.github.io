@@ -16,7 +16,7 @@ export const posts = defineCollection({
     date: z.string(),
     description: z.string(),
     tags: z.array(z.string()).default([]),
-    category: z.string().default('engineering'),
+    category: z.string().default('software engineering'),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     coverImage: z.string().optional(),
