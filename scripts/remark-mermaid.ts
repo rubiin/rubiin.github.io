@@ -1,4 +1,5 @@
 import type { Root } from 'mdast'
+import type { MdxJsxFlowElement } from 'mdast-util-mdx-jsx'
 import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
@@ -12,7 +13,7 @@ export const remarkMermaid: Plugin<[], Root> = () => (tree) => {
     if (node.lang !== 'mermaid' || index === undefined || index === null || !parent) {
       return
     }
-    parent.children.splice(index, 1, {
+    const element: MdxJsxFlowElement = {
       type: 'mdxJsxFlowElement',
       name: 'Mermaid',
       attributes: [
@@ -23,6 +24,7 @@ export const remarkMermaid: Plugin<[], Root> = () => (tree) => {
         },
       ],
       children: [],
-    })
+    }
+    parent.children.splice(index, 1, element)
   })
 }

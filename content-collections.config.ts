@@ -27,8 +27,11 @@ export const posts = defineCollection({
       remarkPlugins: [remarkMath, remarkMermaid],
       rehypePlugins: [rehypeKatex, rehypeSlug],
     })
+    // `_meta` is collection-internal metadata; it must not leak into the
+    // serializable output shape.
+    const { _meta, ...data } = document
     return {
-      ...document,
+      ...data,
       mdx,
       readingTime: Math.max(1, Math.round(document.content.split(/\s+/).length / 200)),
       toc: extractToc(document.content),

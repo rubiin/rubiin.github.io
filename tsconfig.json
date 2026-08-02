@@ -1,5 +1,6 @@
 {
   "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "exclude": ["node_modules", ".output", "dist", ".content-collections", "src/generated"],
   "compilerOptions": {
     "strict": true,
     "noUncheckedIndexedAccess": true,
