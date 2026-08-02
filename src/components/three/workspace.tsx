@@ -1,9 +1,10 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
 import * as THREE from 'three'
+import { pointerState } from '@/components/three/pointer-state'
 
 /**
  * A floating stylized workspace: rounded monitor, keyboard plane, and a
@@ -11,20 +12,21 @@ import * as THREE from 'three'
  */
 export function Workspace() {
   const icosaRef = useRef<THREE.Mesh>(null)
-  const [hovered, setHovered] = useState(false)
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     const mesh = icosaRef.current
     if (!mesh) return
     // Slow idle spin.
     mesh.rotation.y += delta * 0.25
-    // Drift toward the pointer.
-    const targetX = state.pointer.x * 0.35
-    const targetY = state.pointer.y * 0.25
+    // Track the window-level cursor (R3F's own pointer never fires: the
+    // canvas sits behind the hero content).
+    const targetX = pointerState.x * 0.35
+    const targetY = pointerState.y * 0.25
     mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, targetY, 0.04)
     mesh.position.x = THREE.MathUtils.lerp(mesh.position.x, targetX, 0.04)
-    const s = hovered ? 1.18 : 1
-    const scale = THREE.MathUtils.lerp(mesh.scale.x, s, 0.08)
+    // Gentle breathing pulse so the object stays alive without hover events.
+    const pulse = 1 + Math.sin(Date.now() * 0.0012) * 0.06
+    const scale = THREE.MathUtils.lerp(mesh.scale.x, pulse, 0.05)
     mesh.scale.setScalar(scale)
   })
 
@@ -56,19 +58,13 @@ export function Workspace() {
         </mesh>
       </Float>
 
-      {/* Glowing icosahedron — interactive */}
-      <mesh
-        ref={icosaRef}
-        position={[-1.7, 0.9, -0.4]}
-        castShadow
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-      >
+      {/* Glowing icosahedron — tracks the window cursor */}
+      <mesh ref={icosaRef} position={[-1.7, 0.9, -0.4]} castShadow>
         <icosahedronGeometry args={[0.42, 0]} />
         <meshStandardMaterial
           color="#8b5cf6"
           emissive="#7c3aed"
-          emissiveIntensity={hovered ? 1.1 : 0.55}
+          emissiveIntensity={0.55}
           metalness={0.3}
           roughness={0.2}
         />

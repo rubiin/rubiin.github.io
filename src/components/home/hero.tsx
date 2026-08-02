@@ -11,6 +11,7 @@ import { Counter } from '@/components/animations/counter'
 import { TextReveal } from '@/components/animations/text-reveal'
 import { profile } from '@/data/profile'
 import { siteConfig } from '@/data/site'
+import { updatePointerState } from '@/components/three/pointer-state'
 
 // Three.js is heavy — only load on pages that render the hero.
 const HeroScene = lazy(() =>
@@ -37,30 +38,34 @@ const CTAS: {
   { label: 'Contact', to: '/contact', icon: Mail, variant: 'secondary' },
 ]
 
-/** Hero container mouse parallax: translate children slightly toward cursor. */
+/**
+ * Mouse parallax: translates the 3D layer imperatively (no re-renders)
+ * and feeds the normalized pointer into the scene so its objects can track
+ * the cursor. Disabled for reduced motion.
+ */
 function useMouseParallax() {
-  const ref = useRef<HTMLDivElement>(null)
+  const layerRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     if (reduced) return
     const onPointerMove = (e: PointerEvent) => {
+      updatePointerState(e.clientX, e.clientY)
+      if (!layerRef.current) return
       const { innerWidth: w, innerHeight: h } = window
-      setOffset({
-        x: (e.clientX / w - 0.5) * 2 * 10,
-        y: (e.clientY / h - 0.5) * 2 * 10,
-      })
+      const x = (e.clientX / w - 0.5) * 2 * 10
+      const y = (e.clientY / h - 0.5) * 2 * 10
+      layerRef.current.style.transform = `translate(${x}px, ${y}px)`
     }
     window.addEventListener('pointermove', onPointerMove, { passive: true })
     return () => window.removeEventListener('pointermove', onPointerMove)
   }, [reduced])
 
-  return { ref, offset }
+  return { layerRef }
 }
 
 export function Hero() {
-  const { ref, offset } = useMouseParallax()
+  const { layerRef } = useMouseParallax()
   const reduced = useReducedMotion()
   const [roleIndex, setRoleIndex] = useState(0)
 
@@ -92,13 +97,9 @@ export function Hero() {
         />
       </div>
 
-      {/* 3D scene, behind content, lazy-loaded */}
+      {/* 3D scene, behind content, lazy-loaded; parallax via imperative ref */}
       {!reduced && (
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-70 motion-reduce:hidden"
-          style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
-        >
+        <div ref={layerRef} aria-hidden className="absolute inset-0 opacity-70">
           <Suspense fallback={null}>
             <HeroScene />
           </Suspense>
@@ -106,10 +107,7 @@ export function Hero() {
       )}
 
       {/* Content */}
-      <div
-        ref={ref}
-        className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col items-start justify-center gap-6 px-4 pt-16 pb-12 sm:px-6"
-      >
+      <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col items-start justify-center gap-6 px-4 pt-16 pb-12 sm:px-6">
         {/* Availability badge */}
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 8 }}
@@ -164,14 +162,9 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="flex flex-wrap items-center gap-3"
         >
-          {CTAS.map(({ label, to, icon: Icon, variant }, i) => (
+          {CTAS.map(({ label, to, icon: Icon, variant }) => (
             <MagneticButton key={label}>
-              <Button
-                asChild
-                size="lg"
-                variant={variant}
-                className={i === 0 ? 'gap-2' : 'gap-2'}
-              >
+              <Button asChild size="lg" variant={variant} className="gap-2">
                 <Link to={to}>
                   <Icon className="size-4" />
                   {label}

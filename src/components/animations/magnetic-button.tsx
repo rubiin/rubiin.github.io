@@ -1,11 +1,13 @@
 'use client'
 
 import { useRef, type ReactNode } from 'react'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react'
 
 /**
  * Magnetic hover: the wrapped element drifts toward the cursor within a
- * 40px radius and springs back on leave. Disabled for reduced motion.
+ * 40px radius and springs back on leave. Driven by motion values so the
+ * translate composes with whileHover/whileTap instead of clobbering them.
+ * Disabled for reduced motion.
  */
 export function MagneticButton({
   children,
@@ -19,22 +21,28 @@ export function MagneticButton({
   const ref = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
 
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const springX = useSpring(x, { stiffness: 260, damping: 18 })
+  const springY = useSpring(y, { stiffness: 260, damping: 18 })
+
   const onPointerMove = (e: React.PointerEvent) => {
     if (reduced || !ref.current) return
     const rect = ref.current.getBoundingClientRect()
-    const x = e.clientX - (rect.left + rect.width / 2)
-    const y = e.clientY - (rect.top + rect.height / 2)
-    const dist = Math.hypot(x, y)
-    if (dist > 40) {
-      ref.current.style.transform = 'translate(0px, 0px)'
+    const dx = e.clientX - (rect.left + rect.width / 2)
+    const dy = e.clientY - (rect.top + rect.height / 2)
+    if (Math.hypot(dx, dy) > 40) {
+      x.set(0)
+      y.set(0)
       return
     }
-    ref.current.style.transform = `translate(${x * strength}px, ${y * strength}px)`
+    x.set(dx * strength)
+    y.set(dy * strength)
   }
 
   const onPointerLeave = () => {
-    if (!ref.current) return
-    ref.current.style.transform = 'translate(0px, 0px)'
+    x.set(0)
+    y.set(0)
   }
 
   return (
@@ -43,10 +51,10 @@ export function MagneticButton({
       className={className}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
+      style={{ x: springX, y: springY, display: 'inline-block' }}
       whileHover={{ scale: reduced ? 1 : 1.03 }}
       whileTap={{ scale: reduced ? 1 : 0.97 }}
       transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-      style={{ display: 'inline-block' }}
     >
       {children}
     </motion.div>
