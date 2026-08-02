@@ -98,8 +98,7 @@ function BlogPostPage() {
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         {/* Header */}
         <header className="mx-auto max-w-3xl text-center">
-          <div className="mb-4 flex items-center justify-center gap-2">
-            <Badge variant="secondary">{post.category}</Badge>
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
             {post.tags.slice(0, 3).map((tag) => (
               <span key={tag} className="text-xs text-muted-foreground">
                 #{tag}
@@ -109,6 +108,10 @@ function BlogPostPage() {
           <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
             {post.title}
           </h1>
+          {/* Category kicker below the title — accent-colored to stand apart from the muted tags */}
+          <div className="mt-4 flex justify-center">
+            <Badge className="bg-accent text-accent-foreground">{post.category}</Badge>
+          </div>
           <p className="mt-4 text-lg text-muted-foreground">{post.description}</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
