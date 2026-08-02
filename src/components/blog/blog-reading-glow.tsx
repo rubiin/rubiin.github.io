@@ -51,7 +51,7 @@ export function BlogReadingGlow({
         className="pointer-events-none fixed top-1/2 right-3 z-30 hidden h-80 w-1 -translate-y-1/2 flex-col overflow-hidden rounded-full border border-border/60 bg-muted/40 xl:flex"
       >
         <motion.div
-          className="w-full origin-top rounded-full bg-gradient-to-b from-primary to-accent-secondary shadow-[0_0_14px_2px_color-mix(in_oklab,var(--primary)_40%,transparent)]"
+          className="w-full flex-1 origin-top rounded-full bg-gradient-to-b from-primary to-accent-secondary shadow-[0_0_14px_2px_color-mix(in_oklab,var(--primary)_40%,transparent)]"
           style={{ scaleY: reduced ? 1 : spineScale }}
         />
       </motion.div>
