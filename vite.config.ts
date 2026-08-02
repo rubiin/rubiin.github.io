@@ -14,7 +14,9 @@ export default defineConfig({
   },
   plugins: [
     tailwindcss(),
-    contentCollections(),
+    contentCollections({
+      configPath: './content-collections.config.ts',
+    }),
     tanstackStart({
       srcDirectory: 'src',
     }),
