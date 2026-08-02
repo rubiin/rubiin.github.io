@@ -49,25 +49,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'nestjs-pgpromise',
-    title: 'Nestjs-pgpromise',
-    tagline: 'A NestJS module for pg-promise.',
-    description:
-      'A module that wraps pg-promise for NestJS — utilities, database pool management, and a clean service API for PostgreSQL access, matching the ergonomics of the rest of the NestCrafts module series.',
-    category: 'backend',
-    year: '2019',
-    tech: ['NestJS', 'TypeScript', 'pg-promise', 'PostgreSQL'],
-    github: 'https://github.com/NestCrafts/nestjs-pgpromise',
-    challenges: [
-      'Wrapping pg-promise\'s promise-first API in Nest\'s DI lifecycle',
-      'Managing connection pools and clean shutdown',
-    ],
-    lessons: [
-      'Database modules must handle pool lifecycle or users will in production',
-      'Consistent module ergonomics make the NestCrafts series easy to adopt',
-    ],
-  },
-  {
     slug: 'ultimate-nestjs',
     title: 'Ultimate Nestjs',
     tagline: 'A real-world NestJS + MikroORM codebase with batteries included.',
@@ -128,6 +109,25 @@ export const projects: Project[] = [
     lessons: [
       'Typed config catches whole classes of runtime bugs',
       'Framework-native tooling gets adopted faster than wrappers',
+    ],
+  },
+  {
+    slug: 'nestjs-pgpromise',
+    title: 'Nestjs-pgpromise',
+    tagline: 'A NestJS module for pg-promise.',
+    description:
+      'A module that wraps pg-promise for NestJS — utilities, database pool management, and a clean service API for PostgreSQL access, matching the ergonomics of the rest of the NestCrafts module series.',
+    category: 'backend',
+    year: '2019',
+    tech: ['NestJS', 'TypeScript', 'pg-promise', 'PostgreSQL'],
+    github: 'https://github.com/NestCrafts/nestjs-pgpromise',
+    challenges: [
+      'Wrapping pg-promise\'s promise-first API in Nest\'s DI lifecycle',
+      'Managing connection pools and clean shutdown',
+    ],
+    lessons: [
+      'Database modules must handle pool lifecycle or users will in production',
+      'Consistent module ergonomics make the NestCrafts series easy to adopt',
     ],
   },
   {
