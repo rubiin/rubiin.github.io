@@ -108,9 +108,9 @@ function BlogPostPage() {
           <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
             {post.title}
           </h1>
-          {/* Category kicker below the title — accent-colored to stand apart from the muted tags */}
+          {/* Category kicker below the title — solid primary chip, so categories read differently from the muted tags above */}
           <div className="mt-4 flex justify-center">
-            <Badge className="bg-accent text-accent-foreground">{post.category}</Badge>
+            <Badge>{post.category}</Badge>
           </div>
           <p className="mt-4 text-lg text-muted-foreground">{post.description}</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">

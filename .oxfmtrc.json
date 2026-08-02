@@ -14,6 +14,7 @@
     ".nitro/**",
     ".content-collections/**",
     ".tanstack/**",
+    "src/routeTree.gen.ts",
     "public/**",
     "content/**",
     "docs/**",

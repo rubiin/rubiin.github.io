@@ -5,15 +5,19 @@ import { Search, X } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 
 /**
- * Debounced blog search input, controlled via props so the route owns the
+ * Debounced search input, controlled via props so the route owns the
  * search-param state. Clears with an explicit button.
  */
 export function BlogSearch({
   query,
   onQueryChange,
+  placeholder = 'Search articles…',
+  ariaLabel = 'Search articles',
 }: {
   query: string
   onQueryChange: (query: string) => void
+  placeholder?: string
+  ariaLabel?: string
 }) {
   const [draft, setDraft] = useState(query)
 
@@ -36,8 +40,8 @@ export function BlogSearch({
       <Input
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
-        placeholder="Search articles…"
-        aria-label="Search articles"
+        placeholder={placeholder}
+        aria-label={ariaLabel}
         className="pl-9 pr-9"
       />
       {draft && (

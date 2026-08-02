@@ -1,5 +1,11 @@
 import { useMemo } from 'react'
-import { createFileRoute, useLoaderData, useNavigate, useSearch } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  Link,
+  useLoaderData,
+  useNavigate,
+  useSearch,
+} from '@tanstack/react-router'
 import { FeaturedPost } from '@/components/blog/featured-post'
 import { PostCard } from '@/components/blog/post-card'
 import { BlogSearch } from '@/components/blog/blog-search'
@@ -139,7 +145,23 @@ function BlogIndexPage() {
             </div>
           )}
         </div>
-        <BlogSearch query={q} onQueryChange={(next) => update({ q: next })} />
+        <div className="flex flex-col items-start gap-2 lg:items-end">
+          <div className="flex items-center gap-5 text-sm">
+            <Link
+              to="/blog/tags"
+              className="rounded-sm font-medium text-primary underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring hover:underline"
+            >
+              All tags
+            </Link>
+            <Link
+              to="/blog/categories"
+              className="rounded-sm font-medium text-primary underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring hover:underline"
+            >
+              Categories
+            </Link>
+          </div>
+          <BlogSearch query={q} onQueryChange={(next) => update({ q: next })} />
+        </div>
       </div>
 
       {filtered.length === 0 ? (
