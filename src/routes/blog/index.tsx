@@ -89,15 +89,32 @@ function BlogIndexPage() {
   const featured = posts.find((p) => p.featured) ?? posts[0]
   const hasFilters = category !== 'all' || tag !== 'all' || q.trim().length > 0
   const hasMoreCategories = categories.length > 1
+  const isCategoryFilter = category !== 'all'
+  const isTagFilter = tag !== 'all'
+  const isFiltering = isCategoryFilter || isTagFilter
+  const headingTitle =
+    isCategoryFilter && isTagFilter
+      ? `Showing posts from ${category} · #${tag}`
+      : isCategoryFilter
+        ? `Showing posts from ${category}`
+        : isTagFilter
+          ? `Showing posts from #${tag}`
+          : 'Notes from the workshop.'
 
   const clearFilters = () => update({ category: 'all', tag: 'all', q: '' })
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionHeading
-        eyebrow="Writing"
-        title="Notes from the workshop."
-        description="Essays on engineering, design, and the craft of building on the web."
+        eyebrow={isFiltering ? 'Filtered writing' : 'Writing'}
+        title={headingTitle}
+        description={
+          isFiltering
+            ? `${filtered.length} ${filtered.length === 1 ? 'article' : 'articles'}${
+                isCategoryFilter ? ` in the ${category} category` : ''
+              }${isCategoryFilter && isTagFilter ? ' ·' : ''}${isTagFilter ? ` tagged #${tag}` : ''}.`
+            : 'Essays on engineering, design, and the craft of building on the web.'
+        }
       />
 
       {featured && !hasFilters && safePage === 1 && (
