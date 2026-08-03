@@ -1,12 +1,6 @@
 /// <reference types="vite/client" />
-import {
-  HeadContent,
-  Outlet,
-  Scripts,
-  createRootRoute,
-  useLocation,
-} from '@tanstack/react-router'
-import { useEffect, useRef, type ReactNode } from 'react'
+import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
+import { Suspense, lazy, useEffect, useRef, type ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -16,7 +10,6 @@ import { SkipLink } from '@/components/layout/skip-link'
 import { ScrollProgress } from '@/components/layout/scroll-progress'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
-import { CommandPalette } from '@/components/layout/command-palette'
 import { NotFoundComponent } from '@/components/layout/not-found'
 import { ErrorComponent } from '@/components/layout/error-boundary'
 import { Toaster } from '@/components/ui/sonner'
@@ -27,6 +20,14 @@ import { FloatingDock } from '@/components/layout/floating-dock'
 import { EasterEggs } from '@/components/layout/easter-eggs'
 import { siteConfig } from '@/data/site'
 import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
+
+// The palette (cmdk + dialog) is closed on every page — split it out of
+// the critical-path entry and load it asynchronously. Suspense mounts it as
+// soon as the chunk arrives, so ⌘K works right away while keeping first
+// paint lean.
+const CommandPalette = lazy(() =>
+  import('@/components/layout/command-palette').then((m) => ({ default: m.CommandPalette })),
+)
 
 export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
@@ -107,7 +108,9 @@ export const Route = createRootRoute({
           <Outlet />
         </main>
         <SiteFooter />
-        <CommandPalette />
+        <Suspense fallback={null}>
+          <CommandPalette />
+        </Suspense>
       </LenisProvider>
       <FloatingDock />
       <Toaster richColors position="bottom-right" />

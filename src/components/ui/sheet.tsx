@@ -1,6 +1,6 @@
 'use client'
 
-import {ComponentProps} from 'react'
+import { ComponentProps } from 'react'
 import { XIcon } from 'lucide-react'
 import { Dialog as SheetPrimitive } from 'radix-ui'
 
@@ -22,10 +22,7 @@ function SheetPortal({ ...props }: ComponentProps<typeof SheetPrimitive.Portal>)
   return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />
 }
 
-function SheetOverlay({
-  className,
-  ...props
-}: ComponentProps<typeof SheetPrimitive.Overlay>) {
+function SheetOverlay({ className, ...props }: ComponentProps<typeof SheetPrimitive.Overlay>) {
   return (
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"

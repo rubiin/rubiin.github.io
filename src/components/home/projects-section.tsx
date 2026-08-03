@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink, FolderGit2, } from 'lucide-react'
+import { ArrowRight, ExternalLink, FolderGit2 } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'

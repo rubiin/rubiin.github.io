@@ -34,9 +34,23 @@ export function PostComments({ slug }: { slug: string }) {
     script.setAttribute('data-theme', 'preferred_color_scheme')
     script.setAttribute('data-lang', 'en')
     script.setAttribute('data-loading', 'lazy')
-    container.appendChild(script)
+
+    // The comment thread sits below the fold and is third-party — inject it
+    // during idle time so it never competes with the article's initial load
+    // (js-request-idle-callback). requestIdleCallback is widely supported;
+    // fall back to a short timeout elsewhere.
+    const hasIdle = 'requestIdleCallback' in window
+    const inject = () => {
+      if (!container.isConnected) return
+      container.appendChild(script)
+    }
+    const idleId = hasIdle
+      ? window.requestIdleCallback(inject, { timeout: 2000 })
+      : window.setTimeout(inject, 2000)
 
     return () => {
+      if (hasIdle) window.cancelIdleCallback(idleId)
+      else window.clearTimeout(idleId)
       script.remove()
     }
   }, [slug])

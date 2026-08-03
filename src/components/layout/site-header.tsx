@@ -18,24 +18,27 @@ import { useActiveSection } from '@/hooks/use-active-section'
 
 const SECTION_IDS = ['about', 'skills', 'experience', 'projects']
 
-/** Tiny scroll-position hook, local to the header. */
-function useScrollPosition() {
-  const [y, setY] = useState(0)
+/**
+ * Derived scroll state: only the boolean the header actually needs, so the
+ * component re-renders on the threshold crossing — not on every scroll
+ * event (rerender-derived-state).
+ */
+function useElevatedHeader() {
+  const [elevated, setElevated] = useState(false)
   useEffect(() => {
-    const onScroll = () => setY(window.scrollY)
+    const onScroll = () => setElevated(window.scrollY > 8)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  return y
+  return elevated
 }
 
 export function SiteHeader() {
-  const y = useScrollPosition()
+  const elevated = useElevatedHeader()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const elevated = y > 8
   const pathname = location.pathname
   // Scrollspy only on the home page (where the anchor sections live).
   const activeSection = useActiveSection(SECTION_IDS, pathname === '/')

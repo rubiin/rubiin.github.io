@@ -1,4 +1,4 @@
-import {ComponentProps} from 'react'
+import { ComponentProps } from 'react'
 import { ChevronDownIcon } from 'lucide-react'
 import { Accordion as AccordionPrimitive } from 'radix-ui'
 
@@ -8,10 +8,7 @@ function Accordion({ ...props }: ComponentProps<typeof AccordionPrimitive.Root>)
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />
 }
 
-function AccordionItem({
-  className,
-  ...props
-}: ComponentProps<typeof AccordionPrimitive.Item>) {
+function AccordionItem({ className, ...props }: ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"

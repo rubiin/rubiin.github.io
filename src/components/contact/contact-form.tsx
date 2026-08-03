@@ -83,7 +83,10 @@ export function ContactForm() {
           {(field) => (
             <div className="flex flex-col gap-1.5">
               <Label htmlFor={field.name}>
-                Name <span className="text-destructive" aria-hidden="true">*</span>
+                Name{' '}
+                <span className="text-destructive" aria-hidden="true">
+                  *
+                </span>
               </Label>
               <Input
                 id={field.name}
@@ -113,7 +116,10 @@ export function ContactForm() {
           {(field) => (
             <div className="flex flex-col gap-1.5">
               <Label htmlFor={field.name}>
-                Email <span className="text-destructive" aria-hidden="true">*</span>
+                Email{' '}
+                <span className="text-destructive" aria-hidden="true">
+                  *
+                </span>
               </Label>
               <Input
                 id={field.name}
@@ -159,9 +165,14 @@ export function ContactForm() {
 
       <form.Field name="message">
         {(field) => (
-          <div className="flex flex-col gap-1.5">              <Label htmlFor={field.name}>
-                Message <span className="text-destructive" aria-hidden="true">*</span>
-              </Label>
+          <div className="flex flex-col gap-1.5">
+            {' '}
+            <Label htmlFor={field.name}>
+              Message{' '}
+              <span className="text-destructive" aria-hidden="true">
+                *
+              </span>
+            </Label>
             <Textarea
               id={field.name}
               name={field.name}

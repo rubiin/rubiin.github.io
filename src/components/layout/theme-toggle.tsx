@@ -19,13 +19,7 @@ const OPTIONS: { value: Theme; label: string; icon: typeof Sun }[] = [
   { value: 'system', label: 'System', icon: Monitor },
 ]
 
-export function ThemeToggle({
-  className,
-  tooltip,
-}: {
-  className?: string
-  tooltip?: string
-}) {
+export function ThemeToggle({ className, tooltip }: { className?: string; tooltip?: string }) {
   const { theme, setTheme } = useTheme()
 
   return (

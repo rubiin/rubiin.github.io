@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
-import {MathUtils, Mesh} from 'three'
+import { MathUtils, Mesh } from 'three'
 import { pointerState } from '@/components/three/pointer-state'
 
 /**
