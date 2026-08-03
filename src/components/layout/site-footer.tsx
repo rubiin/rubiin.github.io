@@ -1,8 +1,6 @@
 'use client'
 
-import { Link } from '@tanstack/react-router'
 import { Heart, Mail, Rss } from 'lucide-react'
-import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
 import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 
@@ -28,20 +26,8 @@ export function SiteFooter() {
           <p className="mt-2 max-w-xs text-sm text-muted-foreground">{siteConfig.tagline}</p>
         </div>
 
-        <nav aria-label="Footer" className="flex flex-col gap-2">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            Quick links
-          </p>
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        {/* Empty spacer keeps the 3-column grid layout (brand | space | else-where). */}
+        <div aria-hidden className="hidden md:block" />
 
         <div className="flex flex-col gap-2">
           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
