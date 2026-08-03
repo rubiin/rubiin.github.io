@@ -64,7 +64,7 @@
     "remark-math": "^6.0.0",
     "shiki": "^4.4.1",
     "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.1",
+    "tsx": "^4.23.4",
     "typescript": "^7.0.2",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
@@ -73,5 +73,5 @@
   "engines": {
     "node": ">=24"
   },
-  "packageManager": "pnpm@11.18.0"
+  "packageManager": "pnpm@11.19.0"
 }
