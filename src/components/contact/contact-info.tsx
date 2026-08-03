@@ -1,4 +1,5 @@
-import { Clock, GitBranch, Mail, MapPin } from 'lucide-react'
+import { Clock, Mail, MapPin } from 'lucide-react'
+import { GitHubIcon } from '@/components/ui/brand-icons'
 import { siteConfig } from '@/data/site'
 import { LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 
@@ -29,7 +30,7 @@ export function ContactInfo() {
         </h2>
         <div className="flex flex-col gap-2.5">
           {[
-            { label: 'GitHub', href: siteConfig.socials.github, icon: GitBranch },
+            { label: 'GitHub', href: siteConfig.socials.github, icon: GitHubIcon },
             { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
             { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
           ].map(({ label, href, icon: Icon }) => (

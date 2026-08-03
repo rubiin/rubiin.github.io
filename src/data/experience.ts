@@ -4,7 +4,7 @@ export const experience: ExperienceItem[] = [
   {
     company: 'Takeo.ai',
     role: 'Senior Fullstack Developer',
-    start: '2023',
+    start: '2022',
     current: true,
     description:
       'Writing modern, performant, maintainable code for a diverse array of client and internal projects.',
@@ -20,7 +20,7 @@ export const experience: ExperienceItem[] = [
     company: 'EB Pearls',
     role: 'Fullstack JS Developer',
     start: '2021',
-    end: '2021',
+    end: '2022',
     description:
       'Built Node.js, MongoDB, and Express applications designed to grow with the business.',
     achievements: [
@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
     company: 'Rosebay Consult',
     role: 'Blockchain Developer',
     start: '2017',
-    end: '2018',
+    end: '2021',
     description:
       'Researched blockchain, Ethereum, and similar cryptocurrency technologies to develop distributed applications.',
     achievements: [
