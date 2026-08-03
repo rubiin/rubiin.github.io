@@ -1,8 +1,9 @@
-import { ExternalLink, FolderGit2, GitBranch } from 'lucide-react'
+import { ExternalLink, FolderGit2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { TiltCard } from '@/components/animations/tilt-card'
 import { BrowserFrame } from '@/components/projects/browser-frame'
+import { GitHubIcon } from '@/components/ui/brand-icons'
 import { CATEGORY_LABELS } from '@/lib/constants'
 import type { Project } from '@/types'
 
@@ -63,7 +64,7 @@ export function ProjectCard({ project }: { project: Project }) {
             {project.github && (
               <Button asChild size="icon" variant="ghost" aria-label={`${project.title} on GitHub`}>
                 <a href={project.github} target="_blank" rel="noreferrer">
-                  <GitBranch className="size-4" />
+                  <GitHubIcon className="size-4" />
                 </a>
               </Button>
             )}

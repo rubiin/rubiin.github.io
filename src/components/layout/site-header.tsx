@@ -132,17 +132,25 @@ export function SiteHeader() {
             </Tooltip>
           </TooltipProvider>
 
-          <ThemeToggle />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            aria-label="Open menu"
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen(true)}
-          >
-            <Menu className="size-4" />
-          </Button>
+          <ThemeToggle tooltip="Theme" />
+
+          <TooltipProvider delayDuration={150}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden"
+                  aria-label="Open menu"
+                  aria-expanded={mobileOpen}
+                  onClick={() => setMobileOpen(true)}
+                >
+                  <Menu className="size-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">Menu</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
 

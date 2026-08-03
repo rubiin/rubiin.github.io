@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Command, GitBranch, Mail, Rss, TerminalSquare } from 'lucide-react'
+import { Command, Mail, Rss, TerminalSquare } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 import { siteConfig } from '@/data/site'
-import { LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
+import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 import { openCommandPalette } from '@/stores/command-store'
 import { cn } from '@/lib/utils'
 
 const SOCIALS = [
-  { label: 'GitHub', href: siteConfig.socials.github, icon: GitBranch },
+  { label: 'GitHub', href: siteConfig.socials.github, icon: GitHubIcon },
   { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
   { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
   { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },

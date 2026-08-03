@@ -1,10 +1,11 @@
-import { ArrowRight, ExternalLink, FolderGit2, GitBranch } from 'lucide-react'
+import { ArrowRight, ExternalLink, FolderGit2 } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Reveal } from '@/components/animations/reveal'
 import { TiltCard } from '@/components/animations/tilt-card'
 import { BrowserFrame } from '@/components/projects/browser-frame'
+import { GitHubIcon } from '@/components/ui/brand-icons'
 import { SectionHeading } from '@/components/home/section-heading'
 import { CATEGORY_LABELS } from '@/lib/constants'
 import { projects } from '@/data/projects'
@@ -74,7 +75,7 @@ export function ProjectsSection() {
                         aria-label={`${project.title} on GitHub`}
                       >
                         <a href={project.github} target="_blank" rel="noreferrer">
-                          <GitBranch className="size-4" />
+                          <GitHubIcon className="size-4" />
                         </a>
                       </Button>
                     )}
