@@ -1,6 +1,12 @@
 /// <reference types="vite/client" />
-import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
-import { useEffect, type ReactNode } from 'react'
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRoute,
+  useLocation,
+} from '@tanstack/react-router'
+import { useEffect, useRef, type ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -74,11 +80,11 @@ export const Route = createRootRoute({
       {
         rel: 'preconnect',
         href: 'https://fonts.gstatic.com',
-        crossOrigin: 'anonymous',
+        crossOrigin: '',
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
       },
       { rel: 'manifest', href: '/manifest.webmanifest' },
       { rel: 'icon', href: '/og.png' },
@@ -94,9 +100,10 @@ export const Route = createRootRoute({
       <AnimatedFavicon />
       <EasterEggs />
       <LenisProvider>
+        <RouteFocusReset />
         <ScrollProgress />
         <SiteHeader />
-        <main id="main" className="min-h-[60vh]">
+        <main id="main" tabIndex={-1} className="min-h-[60vh] outline-none">
           <Outlet />
         </main>
         <SiteFooter />
@@ -133,6 +140,25 @@ function ServiceWorkerRegistration() {
       })
     }
   }, [])
+
+  return null
+}
+
+/**
+ * Moves keyboard/screen-reader focus to main content after each route
+ * change (skipping the initial load, where the skip link covers it).
+ */
+function RouteFocusReset() {
+  const pathname = useLocation().pathname
+  const firstRender = useRef(true)
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    document.getElementById('main')?.focus({ preventScroll: true })
+  }, [pathname])
 
   return null
 }

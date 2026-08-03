@@ -101,11 +101,8 @@ export function Hero() {
           animate={reduced ? undefined : { opacity: [0.4, 0.8, 0.4], scale: [1.1, 1, 1.1] }}
           transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <motion.div
-          className="absolute bottom-0 left-1/3 size-[20rem] rounded-full bg-chart-1/10 blur-3xl"
-          animate={reduced ? undefined : { opacity: [0.3, 0.7, 0.3] }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        {/* Static blob (motion budget: keep 2 animated, not 3) */}
+        <div className="absolute bottom-0 left-1/3 size-[20rem] rounded-full bg-chart-1/10 blur-3xl" />
       </div>
 
       {/* 3D scene, behind content, lazy-loaded; parallax via imperative ref */}

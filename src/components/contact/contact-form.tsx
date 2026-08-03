@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useForm } from '@tanstack/react-form'
-import { Loader2, Send } from 'lucide-react'
+import { Loader2, MailCheck, Send } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -54,8 +54,8 @@ export function ContactForm() {
         aria-live="polite"
         className="flex h-full flex-col items-center justify-center gap-4 rounded-xl border bg-card p-10 text-center"
       >
-        <span className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-2xl">
-          ✦
+        <span className="flex size-12 items-center justify-center rounded-full bg-primary/10">
+          <MailCheck className="size-6 text-primary" aria-hidden />
         </span>
         <h3 className="text-xl font-semibold">Message sent!</h3>
         <p className="max-w-sm text-sm text-muted-foreground">
@@ -82,10 +82,14 @@ export function ContactForm() {
         <form.Field name="name">
           {(field) => (
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor={field.name}>Name</Label>
+              <Label htmlFor={field.name}>
+                Name <span className="text-destructive" aria-hidden="true">*</span>
+              </Label>
               <Input
                 id={field.name}
                 name={field.name}
+                autoComplete="name"
+                required
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -97,7 +101,7 @@ export function ContactForm() {
                 className="aria-[invalid=true]:border-destructive"
               />
               {field.state.meta.errors?.length ? (
-                <p id={`${field.name}-error`} className="text-xs text-destructive">
+                <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
                   {field.state.meta.errors[0]?.message}
                 </p>
               ) : null}
@@ -108,11 +112,15 @@ export function ContactForm() {
         <form.Field name="email">
           {(field) => (
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor={field.name}>Email</Label>
+              <Label htmlFor={field.name}>
+                Email <span className="text-destructive" aria-hidden="true">*</span>
+              </Label>
               <Input
                 id={field.name}
                 name={field.name}
                 type="email"
+                autoComplete="email"
+                required
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -124,7 +132,7 @@ export function ContactForm() {
                 className="aria-[invalid=true]:border-destructive"
               />
               {field.state.meta.errors?.length ? (
-                <p id={`${field.name}-error`} className="text-xs text-destructive">
+                <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
                   {field.state.meta.errors[0]?.message}
                 </p>
               ) : null}
@@ -151,11 +159,13 @@ export function ContactForm() {
 
       <form.Field name="message">
         {(field) => (
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor={field.name}>Message</Label>
+          <div className="flex flex-col gap-1.5">              <Label htmlFor={field.name}>
+                Message <span className="text-destructive" aria-hidden="true">*</span>
+              </Label>
             <Textarea
               id={field.name}
               name={field.name}
+              required
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}

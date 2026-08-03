@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink, FolderGit2 } from 'lucide-react'
+import { ArrowRight, ExternalLink, FolderGit2, } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -9,7 +9,6 @@ import { GitHubIcon } from '@/components/ui/brand-icons'
 import { SectionHeading } from '@/components/home/section-heading'
 import { CATEGORY_LABELS } from '@/lib/constants'
 import { projects } from '@/data/projects'
-
 const FEATURED = projects.filter((p) => p.featured).slice(0, 3)
 
 /**
