@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
-import * as THREE from 'three'
+import {MathUtils, Mesh} from 'three'
 import { pointerState } from '@/components/three/pointer-state'
 
 /**
@@ -11,7 +11,7 @@ import { pointerState } from '@/components/three/pointer-state'
  * glowing icosahedron that rotates toward the pointer and reacts to hover.
  */
 export function Workspace() {
-  const icosaRef = useRef<THREE.Mesh>(null)
+  const icosaRef = useRef<Mesh>(null)
 
   useFrame((_, delta) => {
     const mesh = icosaRef.current
@@ -22,8 +22,8 @@ export function Workspace() {
     // canvas sits behind the hero content).
     const targetX = pointerState.x * 0.35
     const targetY = pointerState.y * 0.25
-    mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, targetY, 0.04)
-    mesh.position.x = THREE.MathUtils.lerp(mesh.position.x, targetX, 0.04)
+    mesh.rotation.x = MathUtils.lerp(mesh.rotation.x, targetY, 0.04)
+    mesh.position.x = MathUtils.lerp(mesh.position.x, targetX, 0.04)
     // Gentle breathing pulse so the object stays alive without hover events.
     const pulse = 1 + Math.sin(Date.now() * 0.0012) * 0.06
     const scale = THREE.MathUtils.lerp(mesh.scale.x, pulse, 0.05)

@@ -2,7 +2,7 @@
 
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import * as THREE from 'three'
+import { Points } from 'three'
 
 const COUNT = 120
 
@@ -11,7 +11,7 @@ const COUNT = 120
  * points cloud rotates imperceptibly over time for a living feel.
  */
 export function Particles() {
-  const pointsRef = useRef<THREE.Points>(null)
+  const pointsRef = useRef<Points>(null)
 
   const positions = useMemo(() => {
     const arr = new Float32Array(COUNT * 3)

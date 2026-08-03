@@ -6,8 +6,6 @@ import { BrowserFrame } from '@/components/projects/browser-frame'
 import { GitHubIcon } from '@/components/ui/brand-icons'
 import { CATEGORY_LABELS } from '@/lib/constants'
 import type { Project } from '@/types'
-import { GitHubIcon } from '../ui/brand-icons'
-
 /**
  * Data-driven project card: media (image/video or gradient placeholder),
  * category badge, title, tagline, tech badges, and GitHub/demo links.
