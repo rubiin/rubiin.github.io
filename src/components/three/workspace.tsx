@@ -26,7 +26,7 @@ export function Workspace() {
     mesh.position.x = MathUtils.lerp(mesh.position.x, targetX, 0.04)
     // Gentle breathing pulse so the object stays alive without hover events.
     const pulse = 1 + Math.sin(Date.now() * 0.0012) * 0.06
-    const scale = THREE.MathUtils.lerp(mesh.scale.x, pulse, 0.05)
+    const scale = MathUtils.lerp(mesh.scale.x, pulse, 0.05)
     mesh.scale.setScalar(scale)
   })
 
