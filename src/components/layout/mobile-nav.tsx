@@ -77,7 +77,7 @@ export function MobileNav({
                 target={href.startsWith('http') ? '_blank' : undefined}
                 rel={href.startsWith('http') ? 'noreferrer' : undefined}
                 aria-label={label}
-                className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                className="flex size-11 items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 <Icon className="size-4" />
               </a>

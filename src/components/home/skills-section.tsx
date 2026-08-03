@@ -23,7 +23,15 @@ const CATEGORY_ICONS: Record<string, typeof Layout> = {
 }
 
 /** Progress bar that animates its width when scrolled into view. */
-function AnimatedBar({ value, className }: { value: number; className?: string }) {
+function AnimatedBar({
+  value,
+  className,
+  label,
+}: {
+  value: number
+  className?: string
+  label: string
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const reduced = useReducedMotion()
@@ -51,7 +59,7 @@ function AnimatedBar({ value, className }: { value: number; className?: string }
 
   return (
     <div ref={ref} className={className}>
-      <Progress value={width} />
+      <Progress value={width} aria-label={label} />
     </div>
   )
 }
@@ -82,7 +90,7 @@ function SkillRow({ skill }: { skill: Skill }) {
           </div>
         </TooltipContent>
       </Tooltip>
-      <AnimatedBar value={skill.level} className="w-full" />
+      <AnimatedBar value={skill.level} className="w-full" label={`${skill.name} proficiency`} />
     </div>
   )
 }

@@ -50,8 +50,8 @@ export function ExperienceSection() {
 
         <ol className="space-y-6 pl-10 sm:pl-14">
           {experience.map((item, i) => (
-            <Reveal key={item.company} delay={i * 0.05}>
-              <li className="relative">
+            <li key={item.company} className="relative">
+              <Reveal delay={i * 0.05}>
                 {/* Node */}
                 <span
                   className="absolute -left-10 top-5 flex size-5 items-center justify-center rounded-full border border-primary/40 bg-background sm:-left-14"
@@ -68,7 +68,7 @@ export function ExperienceSection() {
                           {item.role}
                           {item.current && (
                             <span className="ml-2 align-middle text-xs font-medium text-primary">
-                              ● Current
+                              <span aria-hidden>●</span> Current
                             </span>
                           )}
                         </span>
@@ -102,8 +102,8 @@ export function ExperienceSection() {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </li>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
         </ol>
       </div>
