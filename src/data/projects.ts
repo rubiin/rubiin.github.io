@@ -7,7 +7,7 @@ export const projects: Project[] = [
     tagline: 'A modular status bar for Hyprland, built on Fabric.',
     description:
       "Tsumiki (積み木 — Japanese for 'building blocks') is a modular status bar for the Hyprland Wayland compositor. Built on Fabric with a flexible, widget-based architecture, it ships 45+ widgets — workspaces, system tray, media, battery, CPU, weather, dock, launcher — plus a built-in notification daemon, OSD overlays, and TOML config with hot-reload. Fully themeable via SCSS with Material You color schemes generated from your wallpaper.",
-    category: 'devops',
+    category: 'terminal',
     year: '2024',
     tech: ['Python', 'Fabric', 'Hyprland', 'Wayland', 'GTK'],
     image: '/projects/tsumiki.png',
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     tagline: 'Effortlessly generate .env sample files without leaking secrets.',
     description:
       'A CLI that streamlines creating sample environment files for your projects — it generates environment files while ensuring all sensitive information is excluded, saving you the hassle of manually scrubbing secrets.',
-    category: 'devops',
+    category: 'terminal',
     year: '2023',
     tech: ['Node.js', 'TypeScript', 'CLI'],
     image: '/projects/sample-env.png',
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     tagline: 'Open your project folders in your favorite editors instantly.',
     description:
       'Projecto efficiently opens your project folder in the editors you have specified — it streamlines setup by automatically launching your preferred editors or IDEs with the project folder already loaded, so you can dive straight into work.',
-    category: 'devops',
+    category: 'terminal',
     year: '2023',
     tech: ['Golang', 'Shell'],
     image: '/projects/projecto.png',
@@ -158,7 +158,7 @@ export const projects: Project[] = [
     tagline: 'Inspiration, wisdom, or humor for your Neovim dashboard.',
     description:
       'A Neovim plugin that injects random quotes, proverbs, or jokes into your dashboard, plus helpful tips and tricks to improve your productivity within the editor.',
-    category: 'devops',
+    category: 'terminal',
     year: '2023',
     tech: ['Lua', 'Neovim', 'Vim'],
     github: 'https://github.com/rubiin/fortune.nvim',
@@ -257,7 +257,7 @@ export const projects: Project[] = [
     tagline: 'Display Pokémon sprites in color, right in your terminal.',
     description:
       'A Go port of pokemon-colorscripts with a speed boost — renders colorful Pokémon sprites directly in your terminal, powered by the classic spritesheet data. Distributed via AUR (pokego-git) and Go install.',
-    category: 'devops',
+    category: 'terminal',
     year: '2024',
     tech: ['Go', 'Terminal', 'CLI'],
     github: 'https://github.com/rubiin/pokego',
@@ -277,7 +277,7 @@ export const projects: Project[] = [
     tagline: 'A personal development environment, carefully crafted in Neovim.',
     description:
       "Rubin's always-WIP Neovim config (PDE — Personal Development Environment): a brew of plugins and keybindings that dance harmoniously — autocomplete, syntax highlighting, and a carefully tuned editing experience.",
-    category: 'devops',
+    category: 'terminal',
     year: '2024',
     tech: ['Lua', 'Neovim', 'LazyVim'],
     github: 'https://github.com/rubiin/init.lua',
@@ -296,7 +296,7 @@ export const projects: Project[] = [
     tagline: 'Install your favorite Nerd Fonts straight from the terminal.',
     description:
       'A handy CLI that simplifies downloading and installing Nerd Fonts — choose from a curated list of popular patched fonts, auto-download from official releases, unarchive, and install with a friendly interface.',
-    category: 'devops',
+    category: 'terminal',
     year: '2023',
     tech: ['TypeScript', 'Node.js', 'CLI', 'npm'],
     github: 'https://github.com/rubiin/nfdl',
@@ -316,7 +316,7 @@ export const projects: Project[] = [
     tagline: 'Personal dotfiles — neovim, tmux, zsh, alacritty, kitty, and more.',
     description:
       "The secret sauce behind Rubin's Unix environment: dotfiles managed with Chezmoi, including configs for Neovim, tmux, zsh, Alacritty, Kitty, and more — arch btw. The desktop screenshot shows the full setup in action.",
-    category: 'devops',
+    category: 'terminal',
     year: '2024',
     tech: ['Chezmoi', 'Neovim', 'Tmux', 'Zsh', 'Linux'],
     image: '/projects/dotfiles.png',
@@ -336,7 +336,7 @@ export const projects: Project[] = [
     tagline: 'Quickly add .gitignore files to your current environment.',
     description:
       'A CLI app that adds gitignore files to your current environment or project with one command — no more hunting for the right template.',
-    category: 'devops',
+    category: 'terminal',
     year: '2021',
     tech: ['Go', 'CLI', 'Git'],
     github: 'https://github.com/rubiin/gitignorer',

@@ -4,8 +4,7 @@ export const PROJECT_CATEGORIES: { value: ProjectCategory; label: string }[] = [
   { value: 'frontend', label: 'Frontend' },
   { value: 'backend', label: 'Backend' },
   { value: 'ai', label: 'AI' },
-  { value: 'devops', label: 'DevOps' },
-  { value: 'mobile', label: 'Mobile' },
+  { value: 'terminal', label: 'Terminal' },
   { value: 'full-stack', label: 'Full Stack' },
 ]
 
