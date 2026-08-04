@@ -20,6 +20,7 @@ import { FloatingDock } from '@/components/layout/floating-dock'
 import { EasterEggs } from '@/components/layout/easter-eggs'
 import { siteConfig } from '@/data/site'
 import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
+import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from '@/lib/storage'
 
 // The palette (cmdk + dialog) is closed on every page — split it out of
 // the critical-path entry and load it asynchronously. Suspense mounts it as
@@ -70,6 +71,13 @@ export const Route = createRootRoute({
       {
         type: 'application/ld+json',
         children: JSON.stringify(jsonLdPerson()),
+      },
+      {
+        // Apply the persisted theme before first paint so dark-mode users
+        // never see a light flash (rendering-hydration-no-flicker). Mirrors
+        // resolveTheme + applyTheme in theme-store; runs synchronously in
+        // <head>, before the body renders.
+        children: `(function(){try{var t=localStorage.getItem('${STORAGE_KEYS.theme}')||localStorage.getItem('${LEGACY_STORAGE_KEYS.theme}');var theme=t==='light'||t==='dark'||t==='system'?t:'system';var resolved=theme==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):theme;var root=document.documentElement;root.classList.toggle('dark',resolved==='dark');root.style.colorScheme=resolved}catch(e){}})()`,
       },
     ],
     links: [
@@ -175,7 +183,7 @@ function RootSkeleton() {
         <Skeleton className="h-4 w-96" />
       </div>
       <div className="space-y-6">
-        {Array.from({ length: 4 }).map((_, index) => (
+        {Array.from({ length: 4 }).map((value, index) => (
           <div key={index} className="rounded-3xl border bg-card p-6">
             <div className="mb-4 flex items-center justify-between gap-4">
               <Skeleton className="h-5 w-2/5" />

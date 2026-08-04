@@ -25,11 +25,20 @@ export function FloatingDock() {
   const [scrolled, setScrolled] = useState(false)
   const reduced = useReducedMotion()
 
+  // rAF-throttled: the derived boolean only changes twice per scroll, so we
+  // batch the scroll events into at most one setState per frame.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 140)
+    let raf = 0
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => setScrolled(window.scrollY > 140))
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+    }
   }, [])
 
   return (

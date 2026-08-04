@@ -1,12 +1,11 @@
 import { Store } from '@tanstack/react-store'
+import { readStorage, writeStorage } from '@/lib/storage'
 
 export type Theme = 'light' | 'dark' | 'system'
 
-const STORAGE_KEY = 'theme'
-
 function initialTheme(): Theme {
   if (typeof document === 'undefined') return 'system'
-  const stored = localStorage.getItem(STORAGE_KEY)
+  const stored = readStorage('theme')
   if (stored === 'light' || stored === 'dark' || stored === 'system') {
     return stored
   }
@@ -33,7 +32,7 @@ export const themeStore = new Store<Theme>(initialTheme())
 export function setTheme(theme: Theme) {
   themeStore.setState(() => theme)
   if (typeof document !== 'undefined') {
-    localStorage.setItem(STORAGE_KEY, theme)
+    writeStorage('theme', theme)
   }
   applyTheme(theme)
 }

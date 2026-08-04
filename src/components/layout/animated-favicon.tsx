@@ -79,15 +79,18 @@ export function AnimatedFavicon() {
       return () => themeObserver.disconnect()
     }
 
+    // Throttled to ~2.5fps: each tick does a synchronous toDataURL + href
+    // swap, so the old 120ms cadence was ~8fps of string encoding for a
+    // 32×32 icon. The angle step is scaled to preserve the ring's speed.
     interval = window.setInterval(() => {
       if (document.hasFocus()) {
-        angle = (angle + 0.22) % (Math.PI * 2)
+        angle = (angle + 0.73) % (Math.PI * 2)
         draw(angle, true)
       } else {
         // Static ring quarter while unfocused (cheap, once per tick).
         draw(Math.PI / 2, false)
       }
-    }, 120)
+    }, 400)
 
     // Respect light/dark: force a redraw when theme class flips.
     return () => {

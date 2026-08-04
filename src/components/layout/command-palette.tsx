@@ -16,6 +16,7 @@ import { navItems } from '@/data/nav'
 import { projects } from '@/data/projects'
 import { getPosts } from '@/server/blog'
 import { useCommand } from '@/hooks/use-command'
+import { BLOG_POSTS_QUERY_KEY } from '@/lib/constants'
 
 /**
  * ⌘K palette: fuzzy-search navigation, projects, and blog posts.
@@ -25,10 +26,14 @@ export function CommandPalette() {
   const { open, setOpen } = useCommand()
   const navigate = useNavigate()
 
+  // Shares BLOG_POSTS_QUERY_KEY with the blog index loader, which seeds the
+  // cache on page load — opening ⌘K then never refetches. Posts are static
+  // build-time content, so staleTime: Infinity keeps it fetch-once-per-session.
   const { data: posts = [] } = useQuery({
-    queryKey: ['command-palette-posts'],
+    queryKey: BLOG_POSTS_QUERY_KEY,
     queryFn: () => getPosts(),
     enabled: open,
+    staleTime: Infinity,
   })
 
   const go = (href: string) => {

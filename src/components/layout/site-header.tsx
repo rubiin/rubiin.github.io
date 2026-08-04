@@ -25,11 +25,20 @@ const SECTION_IDS = ['about', 'skills', 'experience', 'projects']
  */
 function useElevatedHeader() {
   const [elevated, setElevated] = useState(false)
+  // rAF-throttled: the boolean only flips on the threshold crossing, so
+  // batch scroll events into at most one setState per frame.
   useEffect(() => {
-    const onScroll = () => setElevated(window.scrollY > 8)
+    let raf = 0
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => setElevated(window.scrollY > 8))
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+    }
   }, [])
   return elevated
 }

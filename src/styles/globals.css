@@ -185,6 +185,16 @@
       transparent 65%
     );
   }
+
+  /* Below-the-fold cards: skip rendering + layout until near the viewport.
+     `contain-intrinsic-size: auto <px>` remembers each element's last
+     rendered size, so scrollbars don't jump; the fallback is close to a
+     card's real height (~400px). Disabled under print so every item
+     renders (rendering-content-visibility). */
+  .content-visibility {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+  }
 }
 
 /* Ambient animation keyframes */
@@ -218,6 +228,28 @@
   }
   100% {
     transform: translate(0, 0);
+  }
+}
+
+/* Constellation dots (skills orbit): gentle twinkle + scale pulse, staggered
+   per dot via animation-delay. CSS-driven so it runs off the main thread.
+   `backwards` fill keeps dots at the dim keyframe during their delay (no
+   start jump). transform-box centers the scale on each dot. */
+.orbit-twinkle {
+  animation: orbit-twinkle 5s ease-in-out infinite backwards;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes orbit-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.25);
   }
 }
 
@@ -345,6 +377,9 @@ html[data-retro='true'] {
   footer,
   .no-print {
     display: none !important;
+  }
+  .content-visibility {
+    content-visibility: visible;
   }
   main {
     padding: 0 !important;

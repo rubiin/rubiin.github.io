@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   createFileRoute,
   Link,
@@ -13,7 +14,7 @@ import { BlogPagination } from '@/components/blog/pagination'
 import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { Button } from '@/components/ui/button'
-import { POSTS_PER_PAGE } from '@/lib/constants'
+import { BLOG_POSTS_QUERY_KEY, POSTS_PER_PAGE } from '@/lib/constants'
 import { buildMeta } from '@/lib/seo'
 import { getPostCategories, getPosts, getPostTags } from '@/server/blog'
 import { cn } from '@/lib/utils'
@@ -58,6 +59,13 @@ function BlogIndexPage() {
   const { posts, tags, categories } = useLoaderData({ from: '/blog/' })
   const { category, tag, q, page } = useSearch({ from: '/blog/' })
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
+
+  // Seed the ⌘K palette's posts cache from this loader's data — the palette
+  // reads the same key, so opening it after visiting the blog never refetches.
+  useEffect(() => {
+    queryClient.setQueryData(BLOG_POSTS_QUERY_KEY, posts)
+  }, [queryClient, posts])
 
   const update = (patch: Partial<BlogSearchParams>) => {
     // Any filter change resets to page 1; only an explicit page patch keeps it.

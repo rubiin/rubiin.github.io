@@ -79,6 +79,24 @@ export const getPostCategories = createServerFn().handler(async () => {
 })
 
 /**
+ * Prev/next neighbors for a post (newest-first by date). Returns only the
+ * two neighboring summaries — the post page uses this instead of fetching
+ * the whole posts list just to build its footer nav (server-serialization).
+ */
+export const getPostNeighbors = createServerFn({ method: 'GET' })
+  .validator((slug: string) => slug)
+  .handler(async ({ data: slug }) => {
+    const all = allPosts.filter((post) => !post.draft).sort((a, b) => (a.date < b.date ? 1 : -1))
+    const idx = all.findIndex((p) => p.slug === slug)
+    if (idx === -1) return { newer: null, older: null }
+    // `all` is newest-first, so the item before the index is newer and the
+    // item after it is older.
+    const newer = idx > 0 ? toSummary(all[idx - 1]!) : null
+    const older = idx < all.length - 1 ? toSummary(all[idx + 1]!) : null
+    return { newer, older }
+  })
+
+/**
  * Related posts: same category first, then shared tags, then newest.
  * Capped at `n`, excluding the current slug.
  */

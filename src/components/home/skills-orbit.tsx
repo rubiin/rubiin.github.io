@@ -5,8 +5,10 @@ import { motion, useReducedMotion } from 'motion/react'
 
 /**
  * Decorative constellation graphic: a center node ringed by orbiting dots
- * with connecting lines. Static positions, subtle float animation; hidden
- * entirely for reduced-motion users. Purely decorative (`aria-hidden`).
+ * with connecting lines. One shared float on the whole SVG (single Motion
+ * animation loop) plus a CSS twinkle staggered per dot — no per-element
+ * JS animations (rendering-animate-svg-wrapper). Hidden entirely for
+ * reduced-motion users. Purely decorative (`aria-hidden`).
  */
 export function SkillsOrbit() {
   const reduced = useReducedMotion()
@@ -16,19 +18,27 @@ export function SkillsOrbit() {
     return Array.from({ length: count }, (_, i) => {
       const angle = (i / count) * Math.PI * 2
       const radius = 40 + ((i * 37) % 70)
-      const cx = 100 + Math.cos(angle) * radius
-      const cy = 100 + Math.sin(angle) * radius
+      // Quantize to 3 decimals: Math.cos/sin are implementation-approximated,
+      // so Node and browser V8 can differ at the last bit — rounding keeps
+      // SSR and client HTML identical (no hydration mismatch).
+      const q = (v: number) => Math.round(v * 1000) / 1000
+      const cx = q(100 + Math.cos(angle) * radius)
+      const cy = q(100 + Math.sin(angle) * radius)
       return { id: i, cx, cy, r: 1.5 + (i % 3) * 0.7, delay: (i % 7) * 0.4 }
     })
   }, [])
 
-  if (reduced) return null
-
+  // Always render (SSR can't know the media query — a `return null` here
+  // would mismatch the server tree and fail hydration); reduced-motion users
+  // get it hidden via CSS instead.
   return (
-    <svg
+    <motion.svg
       aria-hidden
       viewBox="0 0 200 200"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-60"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-60 motion-reduce:hidden"
+      style={{ transformOrigin: 'center' }}
+      animate={reduced ? undefined : { scale: [1, 1.04, 1], rotate: [0, 1.5, 0] }}
+      transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
     >
       {/* Connecting lines from center to orbit dots */}
       {dots.map(({ id, cx, cy }) => (
@@ -45,19 +55,18 @@ export function SkillsOrbit() {
       ))}
       {/* Center node */}
       <circle cx="100" cy="100" r="6" className="fill-primary" opacity="0.85" />
-      {/* Orbiting dots with a slow float */}
+      {/* Orbiting dots — CSS twinkle, staggered via per-dot animation-delay
+          (and duration, matching the old 5s + delay rhythm) */}
       {dots.map(({ id, cx, cy, r, delay }) => (
-        <motion.circle
+        <circle
           key={`d-${id}`}
           cx={cx}
           cy={cy}
           r={r}
-          className="fill-primary"
-          opacity="0.6"
-          animate={{ opacity: [0.35, 0.8, 0.35], scale: [1, 1.25, 1] }}
-          transition={{ duration: 5 + delay, repeat: Infinity, ease: 'easeInOut', delay }}
+          className="fill-primary orbit-twinkle"
+          style={{ animationDelay: `${delay}s`, animationDuration: `${5 + delay}s` }}
         />
       ))}
-    </svg>
+    </motion.svg>
   )
 }

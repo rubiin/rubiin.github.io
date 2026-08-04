@@ -25,6 +25,13 @@ export const YEARS_OF_EXPERIENCE = new Date().getFullYear() - CAREER_START_YEAR
 /** Years elapsed since a given start year — keeps skill experience current too. */
 export const yearsSince = (since: number) => new Date().getFullYear() - since
 
+/**
+ * Shared TanStack Query key for the blog-posts list. The blog index loader
+ * seeds the cache with its server-fn data; the ⌘K palette reads the same
+ * key so opening it never refetches what a page already loaded.
+ */
+export const BLOG_POSTS_QUERY_KEY = ['blog-posts'] as const
+
 export const GISCUS_REPO = 'rubiin/rubiin.github.io'
 export const GISCUS_REPO_ID = 'R_kgDOK_PORTFOLIO'
 export const GISCUS_CATEGORY = 'Announcements'

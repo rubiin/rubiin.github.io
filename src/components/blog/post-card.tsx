@@ -11,7 +11,7 @@ export function PostCard({ post }: { post: PostSummary }) {
   return (
     <Link
       to={`/blog/${post.slug}` as string}
-      className="group block h-full overflow-hidden rounded-xl border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="content-visibility group block h-full overflow-hidden rounded-xl border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
     >
       <article className="flex h-full flex-col">
         <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-primary/15 via-accent/20 to-chart-1/10">

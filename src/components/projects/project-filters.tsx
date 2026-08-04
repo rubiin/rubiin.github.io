@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -28,15 +28,25 @@ export function ProjectFilters({
   // Local input state, debounced up to the parent (route) 250ms later.
   const [draft, setDraft] = useState(query)
 
-  useEffect(() => {
+  // Latest callback ref so the debounce effect never re-arms on a fresh
+  // inline closure from the parent (advanced-use-latest).
+  const onQueryChangeRef = useRef(onQueryChange)
+  onQueryChangeRef.current = onQueryChange
+
+  // Sync external query changes (category pills, clear) into the draft
+  // during render — not in an effect, so in-flight typing is never clobbered
+  // and there's no extra render cycle (rerender-derived-state-no-effect).
+  const prevQuery = useRef(query)
+  if (prevQuery.current !== query) {
+    prevQuery.current = query
     setDraft(query)
-  }, [query])
+  }
 
   useEffect(() => {
     if (draft === query) return
-    const id = setTimeout(() => onQueryChange(draft), 250)
+    const id = setTimeout(() => onQueryChangeRef.current(draft), 250)
     return () => clearTimeout(id)
-  }, [draft, query, onQueryChange])
+  }, [draft, query])
 
   const options: ProjectFilter[] = ['all', ...PROJECT_CATEGORIES.map((c) => c.value)]
 

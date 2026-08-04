@@ -121,6 +121,7 @@ export const projects: Project[] = [
     year: '2019',
     tech: ['NestJS', 'TypeScript', 'pg-promise', 'PostgreSQL'],
     github: 'https://github.com/NestCrafts/nestjs-pgpromise',
+    image: '/projects/nestjs-pgpromise.png',
     challenges: [
       "Wrapping pg-promise's promise-first API in Nest's DI lifecycle",
       'Managing connection pools and clean shutdown',
@@ -161,6 +162,7 @@ export const projects: Project[] = [
     year: '2023',
     tech: ['Lua', 'Neovim', 'Vim'],
     github: 'https://github.com/rubiin/fortune.nvim',
+    image: '/projects/fortune-nvim.png',
     challenges: [
       'Writing Lua that works across Neovim versions',
       'Keeping the dashboard layout stable with injected content',
@@ -180,6 +182,7 @@ export const projects: Project[] = [
     year: '2022',
     tech: ['TypeScript', 'JavaScript', 'npm'],
     github: 'https://github.com/rubiin/helper-fns',
+    image: '/projects/helper-fns.png',
     challenges: [
       'Keeping the API surface small and well-typed',
       'Avoiding bundle bloat with tree-shakeable exports',
@@ -218,6 +221,7 @@ export const projects: Project[] = [
     year: '2021',
     tech: ['NestJS', 'TypeScript', 'MinIO'],
     github: 'https://github.com/NestCrafts/nestjs-minio',
+    image: '/projects/nestjs-minio.png',
     challenges: [
       'Mirroring the Cloudinary module API for consistency',
       'Handling bucket lifecycle and error propagation cleanly',
@@ -237,6 +241,7 @@ export const projects: Project[] = [
     year: '2024',
     tech: ['TypeScript', 'Node.js', 'REST'],
     github: 'https://github.com/rubiin/url-minify',
+    image: '/projects/url-minify.png',
     challenges: [
       'Abstracting multiple shortening providers behind one API',
       'Keeping the library isomorphic across Node and browser',
@@ -256,6 +261,7 @@ export const projects: Project[] = [
     year: '2024',
     tech: ['Go', 'Terminal', 'CLI'],
     github: 'https://github.com/rubiin/pokego',
+    image: '/projects/pokego.png',
     challenges: [
       'Porting sprite rendering logic from Bash to idiomatic Go with a real speed win',
       'Keeping output crisp across terminal color profiles',
@@ -294,6 +300,7 @@ export const projects: Project[] = [
     year: '2023',
     tech: ['TypeScript', 'Node.js', 'CLI', 'npm'],
     github: 'https://github.com/rubiin/nfdl',
+    image: '/projects/nfdl.png',
     challenges: [
       'Curating and maintaining the font list against upstream releases',
       'Handling download, unarchive, and install across OSes',
@@ -333,6 +340,7 @@ export const projects: Project[] = [
     year: '2021',
     tech: ['Go', 'CLI', 'Git'],
     github: 'https://github.com/rubiin/gitignorer',
+    image: '/projects/gitignorer.png',
     challenges: [
       'Sourcing and maintaining a solid template library',
       'Detecting the project type to suggest the right ignore file',

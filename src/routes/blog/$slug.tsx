@@ -15,8 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { siteConfig } from '@/data/site'
 import { buildMeta } from '@/lib/seo'
-import { getPost, getPosts, getRelatedPosts } from '@/server/blog'
-import type { PostSummary } from '@/server/blog'
+import { getPost, getPostNeighbors, getRelatedPosts } from '@/server/blog'
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', {
@@ -28,21 +27,14 @@ function formatDate(date: string) {
 
 export const Route = createFileRoute('/blog/$slug')({
   loader: async ({ params }) => {
-    const [post, related, all] = await Promise.all([
+    const [post, related, neighbors] = await Promise.all([
       getPost({ data: params.slug }),
       getRelatedPosts({ data: params.slug }),
-      getPosts(),
+      getPostNeighbors({ data: params.slug }),
     ])
     if (!post) throw notFound()
 
-    // `all` is newest-first, so the item before the index is newer and the
-    // item after it is older.
-    const idx = all.findIndex((p) => p.slug === post.slug)
-    const newer: PostSummary | null = idx > 0 ? (all[idx - 1] ?? null) : null
-    const older: PostSummary | null =
-      idx >= 0 && idx < all.length - 1 ? (all[idx + 1] ?? null) : null
-
-    return { post, related, newer, older }
+    return { post, related, ...neighbors }
   },
   head: ({ loaderData }) => {
     const post = loaderData?.post

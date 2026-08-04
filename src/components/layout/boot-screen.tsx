@@ -2,15 +2,21 @@
 
 import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
+import { readStorage, writeStorage } from '@/lib/storage'
 
-const SKIP_KEY = 'pf-boot-done'
 const NAME = 'Rubin'
+// If hydration/JS execution has already taken this long by the time the
+// boot effect runs, the page is on a slow device or connection — skip the
+// cinematic so the hero paints immediately instead of hiding behind the
+// overlay (LCP).
+const SLOW_LOAD_MS = 1200
 
 /**
  * Cinematic boot sequence: the name reveals letter-by-letter while a mint
  * progress bar sweeps to 100%, then the overlay fades out. Runs once per
  * session (sessionStorage flag), never on reduced-motion devices, and is
- * capped under a second so it never feels like a spinner.
+ * capped under a second so it never feels like a spinner. Skipped entirely
+ * on slow loads (see SLOW_LOAD_MS) so LCP isn't held hostage by the boot.
  */
 export function BootScreen() {
   const [phase, setPhase] = useState<'loading' | 'leaving' | 'gone'>('gone')
@@ -22,13 +28,14 @@ export function BootScreen() {
     // directly (satisfies react-hooks/exhaustive-deps).
     const timeoutIds: number[] = []
     if (reduced) return
-    let skipped = false
-    try {
-      skipped = sessionStorage.getItem(SKIP_KEY) === '1'
-    } catch {
-      /* storage unavailable — still boot */
+    if (readStorage('bootDone') === '1') return
+
+    // Slow load (big bundle, throttled connection, old device): skip the
+    // boot so first paint isn't covered by an opaque overlay.
+    if (performance.now() > SLOW_LOAD_MS) {
+      writeStorage('bootDone', '1')
+      return
     }
-    if (skipped) return
 
     setPhase('loading')
     const start = performance.now()
@@ -49,14 +56,10 @@ export function BootScreen() {
           timeoutIds.push(
             window.setTimeout(() => {
               setPhase('gone')
-              try {
-                sessionStorage.setItem(SKIP_KEY, '1')
-              } catch {
-                /* ignore */
-              }
-            }, 420),
+              writeStorage('bootDone', '1')
+            }, 360),
           )
-        }, 240),
+        }, 200),
       )
     }
     raf = requestAnimationFrame(tick)
@@ -72,7 +75,11 @@ export function BootScreen() {
   return (
     <motion.div
       aria-hidden
-      className="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-6 bg-background"
+      className={`fixed inset-0 z-[200] flex flex-col items-center justify-center gap-6 bg-background${
+        // Let clicks/scroll through once the fade begins — content is
+        // already visible underneath, so never block interaction.
+        phase === 'leaving' ? ' pointer-events-none' : ''
+      }`}
       initial={{ opacity: 1 }}
       animate={{ opacity: phase === 'leaving' ? 0 : 1 }}
       transition={{ duration: 0.4, ease: 'easeInOut' }}

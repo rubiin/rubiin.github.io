@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useInView, useReducedMotion } from 'motion/react'
+import { animate, useInView, useReducedMotion } from 'motion/react'
 import { Brain, Cloud, Layers, Layout, Server, Smartphone } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
@@ -33,33 +33,35 @@ function AnimatedBar({
   label: string
 }) {
   const ref = useRef<HTMLDivElement>(null)
+  const indicatorRef = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const reduced = useReducedMotion()
   const [width, setWidth] = useState(0)
 
   useEffect(() => {
-    if (!inView) return
+    const el = indicatorRef.current
+    if (!inView || !el) return
     if (reduced) {
       setWidth(value)
       return
     }
-    // Small rAF ramp so the bar grows smoothly (~700ms).
-    const start = performance.now()
-    const duration = 700
-    let raf = 0
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration)
-      const eased = 1 - Math.pow(1 - t, 3)
-      setWidth(value * eased)
-      if (t < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    // Drive the fill imperatively via Motion — no per-frame React
+    // re-renders (rerender-defer-reads). Commit the final value once so
+    // the Radix root's aria-valuenow is accurate.
+    const controls = animate(0, value, {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => {
+        el.style.transform = `translateX(-${100 - v}%)`
+      },
+      onComplete: () => setWidth(value),
+    })
+    return () => controls.stop()
   }, [inView, value, reduced])
 
   return (
     <div ref={ref} className={className}>
-      <Progress value={width} aria-label={label} />
+      <Progress value={width} indicatorRef={indicatorRef} aria-label={label} />
     </div>
   )
 }

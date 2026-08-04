@@ -40,12 +40,12 @@ export function ExperienceSection() {
         {/* left-2.5 (0.625rem) aligns the line with the node centers (0.625rem
             from the container at both breakpoints) */}
         <div ref={lineRef} className="absolute top-0 bottom-0 left-2.5 w-px bg-border">
-          {!reduced && (
-            <motion.div
-              className="absolute inset-0 origin-top bg-gradient-to-b from-primary via-primary to-accent"
-              style={{ scaleY }}
-            />
-          )}
+          {/* Always rendered so the server/client trees match under reduced
+              motion; hidden via CSS (motion-reduce:hidden) for those users. */}
+          <motion.div
+            className="absolute inset-0 origin-top bg-gradient-to-b from-primary via-primary to-accent motion-reduce:hidden"
+            style={reduced ? undefined : { scaleY }}
+          />
         </div>
 
         <ol className="space-y-6 pl-10 sm:pl-14">

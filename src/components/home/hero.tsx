@@ -50,26 +50,80 @@ function useMouseParallax() {
 
   useEffect(() => {
     if (reduced) return
+    // rAF-throttled so at most one transform write per frame (matching the
+    // ambient-background pattern). Values are captured up front — browsers
+    // recycle the PointerEvent object after the handler returns.
+    let raf = 0
     const onPointerMove = (e: PointerEvent) => {
-      updatePointerState(e.clientX, e.clientY)
-      if (!layerRef.current) return
-      const { innerWidth: w, innerHeight: h } = window
-      const x = (e.clientX / w - 0.5) * 2 * 10
-      const y = (e.clientY / h - 0.5) * 2 * 10
-      layerRef.current.style.transform = `translate(${x}px, ${y}px)`
+      const { clientX, clientY } = e
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        updatePointerState(clientX, clientY)
+        if (!layerRef.current) return
+        const { innerWidth: w, innerHeight: h } = window
+        const x = (clientX / w - 0.5) * 2 * 10
+        const y = (clientY / h - 0.5) * 2 * 10
+        layerRef.current.style.transform = `translate(${x}px, ${y}px)`
+      })
     }
     window.addEventListener('pointermove', onPointerMove, { passive: true })
-    return () => window.removeEventListener('pointermove', onPointerMove)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('pointermove', onPointerMove)
+    }
   }, [reduced])
 
   return { layerRef }
 }
 
+/**
+ * Rotating role line ("React Developer" → "TypeScript Advocate" → …).
+ * Owns its own interval + state so the swap re-renders only this leaf —
+ * the rest of the hero (including the 3D scene) stays untouched
+ * (rerender-split-combined-hooks).
+ */
+function RotatingRole() {
+  const reduced = useReducedMotion()
+  const [roleIndex, setRoleIndex] = useState(0)
+
+  // Rotate the role line every 2.4s.
+  useEffect(() => {
+    if (reduced) return
+    const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 2400)
+    return () => clearInterval(id)
+  }, [reduced])
+
+  return (
+    <div className="flex min-h-[2.5rem] items-center">
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={roleIndex}
+          initial={reduced ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduced ? undefined : { opacity: 0, y: -12 }}
+          transition={{ duration: 0.35 }}
+          className="text-lg font-medium text-muted-foreground sm:text-xl"
+        >
+          {ROLES[roleIndex]}
+          <span
+            className="ml-2 inline-block h-5 w-0.5 animate-pulse bg-primary align-middle"
+            aria-hidden
+          />
+        </motion.p>
+      </AnimatePresence>
+    </div>
+  )
+}
+
 export function Hero() {
   const { layerRef } = useMouseParallax()
   const reduced = useReducedMotion()
-  const [roleIndex, setRoleIndex] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
+  // The 3D layer is skipped for reduced motion, but SSR can't know the media
+  // query — gate on a post-hydration mount so the server/client trees match
+  // (no hydration mismatch) and reduced users still skip the WebGL scene.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
 
   // Cinematic scroll-out: the 3D layer dims and pulls back as you scroll
   // into the content, handing off to the next section without a hard cut.
@@ -79,13 +133,6 @@ export function Hero() {
   })
   const sceneOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
   const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.94])
-
-  // Rotate the role line every 2.4s.
-  useEffect(() => {
-    if (reduced) return
-    const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 2400)
-    return () => clearInterval(id)
-  }, [reduced])
 
   return (
     <section ref={sectionRef} className="relative flex min-h-[92svh] flex-col overflow-hidden">
@@ -106,7 +153,7 @@ export function Hero() {
       </div>
 
       {/* 3D scene, behind content, lazy-loaded; parallax via imperative ref */}
-      {!reduced && (
+      {(!reduced || !mounted) && (
         <motion.div
           ref={layerRef}
           aria-hidden
@@ -143,24 +190,7 @@ export function Hero() {
           className="text-6xl font-bold tracking-tight sm:text-7xl lg:text-8xl"
         />
 
-        <div className="flex min-h-[2.5rem] items-center">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={roleIndex}
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? undefined : { opacity: 0, y: -12 }}
-              transition={{ duration: 0.35 }}
-              className="text-lg font-medium text-muted-foreground sm:text-xl"
-            >
-              {ROLES[roleIndex]}
-              <span
-                className="ml-2 inline-block h-5 w-0.5 animate-pulse bg-primary align-middle"
-                aria-hidden
-              />
-            </motion.p>
-          </AnimatePresence>
-        </div>
+        <RotatingRole />
 
         <motion.p
           initial={reduced ? false : { opacity: 0, y: 16 }}
