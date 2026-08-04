@@ -184,6 +184,7 @@ function RootSkeleton() {
       </div>
       <div className="space-y-6">
         {Array.from({ length: 4 }).map((value, index) => (
+          // oxlint-disable-next-line react/no-array-index-key -- static skeleton
           <div key={index} className="rounded-3xl border bg-card p-6">
             <div className="mb-4 flex items-center justify-between gap-4">
               <Skeleton className="h-5 w-2/5" />

@@ -2,6 +2,71 @@ import type { Project } from '@/types'
 
 export const projects: Project[] = [
   {
+    slug: 'finkey',
+    title: 'Finkey',
+    tagline: 'Green financing for solar, battery, and home upgrades.',
+    description:
+      'Finkey is an Australian independent green financier helping homeowners fund sustainable upgrades — solar, batteries, EV charging, and energy-efficient improvements — with flexible plans including 0% interest. It pairs a fully digital onboarding experience (online pre-approval in minutes, before you even get a quote) with a trusted tradie network and direct-to-vendor payouts, backed by responsible, ASIC-aligned lending.',
+    category: 'full-stack',
+    year: '2023',
+    tech: ['React', 'Node.js', 'REST API', 'Payments', 'Lending'],
+    image: '/projects/finkey.png',
+    demo: 'https://finkey.co',
+    featured: true,
+    challenges: [
+      'Building a fast, fully digital pre-approval flow with responsible lending checks',
+      'Managing direct-to-vendor payouts tied to project completion verification',
+      'Supporting multiple finance products — 0% interest plans and flexible green loans',
+    ],
+    lessons: [
+      'Removing friction from onboarding converts better than cutting interest rates',
+      'Data-driven lending can outpace major lenders on speed and transparency',
+    ],
+  },
+  {
+    slug: 'takeo',
+    title: 'Takeo',
+    tagline: 'An online bootcamp platform helping people launch tech careers.',
+    description:
+      'Takeo is an edtech platform offering fully online, full-time or part-time bootcamps in software engineering and data engineering. It pairs a cutting-edge, AI-infused curriculum with 1-on-1 advisory and career services — resume reviews, mock interviews, and a proven job-search framework with up to 180 days of career coaching — to help graduates land roles at leading tech companies.',
+    category: 'full-stack',
+    year: '2019',
+    tech: ['React', 'JavaScript', 'Python', 'SQL', 'AWS', 'Azure'],
+    image: '/projects/takeo.png',
+    demo: 'https://takeo.ai',
+    challenges: [
+      'Building an online learning experience that works for full-time and part-time learners alike',
+      'Keeping bootcamp curricula current with in-demand technologies and AI-assisted workflows',
+      'Delivering career services at scale — advisory, coaching, and job-search support',
+    ],
+    lessons: [
+      'Education platforms succeed when learning and career outcomes are tightly coupled',
+      'AI-infused curricula are becoming a differentiator in technical education',
+    ],
+  },
+  {
+    slug: 'flippay',
+    title: 'FlipPay',
+    tagline: 'Embedded finance and invoice payments for Australian businesses.',
+    description:
+      'FlipPay is an Australian embedded-finance platform that helps businesses get paid early on their invoices. Merchants send invoice payment requests from their invoicing software or the 24/7 merchant portal, choose which invoices to fund, and receive same-day settlement into their bank account. The platform offers pay-now and pay-later options with real-time status tracking and webhooks, plus a transparent, no lock-in pricing model.',
+    category: 'full-stack',
+    year: '2022',
+    featured: true,
+    tech: ['React', 'Node.js', 'AWS', 'REST API', 'Webhooks', 'Payments'],
+    image: '/projects/flippay.png',
+    demo: 'https://flippay.com.au',
+    challenges: [
+      'Orchestrating pay-now and pay-later flows with real-time status updates and webhooks',
+      'Building a merchant portal that integrates with third-party invoicing platforms',
+      'Designing transparent, usage-based pricing with no lock-in contracts',
+    ],
+    lessons: [
+      'Embedded finance is as much about trust and clarity as it is about payments',
+      'Same-day settlement turns cash-flow relief into a compelling product',
+    ],
+  },
+  {
     slug: 'tsumiki',
     title: 'Tsumiki',
     tagline: 'A modular status bar for Hyprland, built on Fabric.',
