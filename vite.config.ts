@@ -38,6 +38,8 @@ export default defineConfig({
     }),
 
     viteReact(),
-    nitro(),
+    // Pre-compress public assets at build time so the SSR server serves
+    // .br/.gz variants (hero-scene chunk: 882 KB raw → ~230 KB gzip wire).
+    nitro({ compressPublicAssets: true }),
   ],
 })

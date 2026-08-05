@@ -1,10 +1,16 @@
 packages:
   - "."
+# dependency behavior
+dedupeDirectDeps: true
+
+# hoisting behavior
+hoist: true
+shamefullyHoist: true
+
+ignoreWorkspaceRootCheck: true
 
 allowBuilds:
-  '@prisma/engines': set this to true or false
   esbuild: true
-  prisma: set this to true or false
 
 minimumReleaseAgeExclude:
   - '@tanstack/form-core@1.33.3'

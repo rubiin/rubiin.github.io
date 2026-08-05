@@ -119,11 +119,22 @@ export function Hero() {
   const { layerRef } = useMouseParallax()
   const reduced = useReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
-  // The 3D layer is skipped for reduced motion, but SSR can't know the media
-  // query — gate on a post-hydration mount so the server/client trees match
-  // (no hydration mismatch) and reduced users still skip the WebGL scene.
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  // The 3D layer is deferred until the browser is idle after first paint —
+  // the multi-hundred-KB WebGL chunk and its mount must not compete with
+  // LCP. requestIdleCallback fires post-critical-work; a 2s timeout
+  // guarantees it always mounts (even if the thread never idles). SSR and
+  // the first client render both see `sceneReady === false`, so the trees
+  // match; reduced-motion users never mount the scene at all.
+  const [sceneReady, setSceneReady] = useState(false)
+  useEffect(() => {
+    const enable = () => setSceneReady(true)
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(enable, { timeout: 3000 })
+      return () => cancelIdleCallback(id)
+    }
+    const id = setTimeout(enable, 3000)
+    return () => clearTimeout(id)
+  }, [])
 
   // Cinematic scroll-out: the 3D layer dims and pulls back as you scroll
   // into the content, handing off to the next section without a hard cut.
@@ -152,8 +163,8 @@ export function Hero() {
         <div className="absolute bottom-0 left-1/3 size-[20rem] rounded-full bg-chart-1/10 blur-3xl" />
       </div>
 
-      {/* 3D scene, behind content, lazy-loaded; parallax via imperative ref */}
-      {(!reduced || !mounted) && (
+      {/* 3D scene, behind content, lazy-loaded and deferred until idle; parallax via imperative ref */}
+      {sceneReady && !reduced && (
         <motion.div
           ref={layerRef}
           aria-hidden
