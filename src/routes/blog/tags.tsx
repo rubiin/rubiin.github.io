@@ -2,8 +2,8 @@ import { useMemo, useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Hash, SearchX } from 'lucide-react'
 import { BlogSearch } from '@/components/blog/blog-search'
+import { NeonButton } from '@/components/animations/neon-button'
 import { SectionHeading } from '@/components/home/section-heading'
-import { Button } from '@/components/ui/button'
 import { buildMeta } from '@/lib/seo'
 import { getPosts, getPostTags } from '@/server/blog'
 
@@ -35,6 +35,7 @@ function TagsPage() {
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
+          level="h1"
           eyebrow="Writing"
           title="All tags."
           description={`${tags.length} tags across ${posts.length} articles — pick one to filter the blog.`}
@@ -51,12 +52,12 @@ function TagsPage() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center gap-4 rounded-xl border bg-card p-12 text-center">
+        <div className="glass flex flex-col items-center gap-5 rounded-2xl p-12 text-center">
           <SearchX className="size-8 text-muted-foreground" aria-hidden />
           <p className="text-muted-foreground">No tags match “{q}”.</p>
-          <Button variant="outline" onClick={() => setQ('')}>
+          <NeonButton variant="outline" size="sm" onClick={() => setQ('')}>
             Clear filter
-          </Button>
+          </NeonButton>
         </div>
       ) : (
         <div className="flex flex-wrap gap-3">
@@ -64,12 +65,12 @@ function TagsPage() {
             <Link
               key={tag}
               to="/blog"
-              search={{ category: 'all', tag, q: '', page: 1 }}
-              className="group inline-flex items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm transition-colors hover:border-primary/50 hover:bg-accent"
+              search={{ category: 'all', tag, q: '', page: 1, sort: 'newest' }}
+              className="glass group inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_20px_-8px_color-mix(in_oklab,var(--primary)_55%,transparent)]"
             >
               <Hash className="size-3.5 text-primary" aria-hidden />
               {tag}
-              <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground transition-colors group-hover:bg-background/60">
+              <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground transition-colors group-hover:bg-background/60 group-hover:text-current">
                 {count}
               </span>
             </Link>

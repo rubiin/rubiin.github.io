@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 /**
- * Animated favicon: a canvas "D" monogram with a slowly rotating mint ring.
+ * Animated favicon: a canvas "R" monogram with a slowly rotating ring.
  * Only animates while the tab has focus (and motion is allowed); otherwise
  * it renders a static frame. Colors are read from the theme tokens so it
  * follows light/dark automatically. Returns null — pure side effect.
@@ -31,7 +31,7 @@ export function AnimatedFavicon() {
 
     const draw = (angle: number, animated: boolean) => {
       const bg = cssVar('--background', '#0a192f')
-      const mint = cssVar('--primary', '#64ffda')
+      const brand = cssVar('--primary', '#5b8cff')
       const fg = cssVar('--foreground', '#ccd6f6')
 
       ctx.clearRect(0, 0, 32, 32)
@@ -46,19 +46,19 @@ export function AnimatedFavicon() {
       }
 
       // Rotating ring (arc from -90°)
-      ctx.strokeStyle = mint
+      ctx.strokeStyle = brand
       ctx.lineWidth = 2
       ctx.lineCap = 'round'
       ctx.beginPath()
       ctx.arc(16, 16, 11, -Math.PI / 2, -Math.PI / 2 + angle)
       ctx.stroke()
 
-      // "D" monogram
+      // "R" monogram
       ctx.fillStyle = fg
       ctx.font = '700 16px Inter, ui-sans-serif, system-ui, sans-serif'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      ctx.fillText('D', 16, 17)
+      ctx.fillText('R', 16, 17)
 
       if (animated) link.href = canvas.toDataURL()
     }

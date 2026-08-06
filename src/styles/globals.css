@@ -37,6 +37,9 @@
   --font-sans:
     'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     sans-serif;
+  --font-display:
+    'Space Grotesk', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
   --font-mono:
     'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 
@@ -52,63 +55,66 @@
   }
 }
 
+/* ============================================================
+   Futuristic palette — deep navy-black with vibrant blue +
+   purple neon. Dark is the primary expression; light is a
+   clean inverse for accessibility.
+   ============================================================ */
 :root {
-  --radius: 0.75rem;
-  /* rubiin.is-a.dev palette — light (inverse of the dark navy+mint) */
-  --background: #f5f7fc;
-  --foreground: #0a192f;
+  --radius: 1rem;
+  --background: #f4f6fd;
+  --foreground: #12162b;
   --card: #ffffff;
-  --card-foreground: #0a192f;
+  --card-foreground: #12162b;
   --popover: #ffffff;
-  --popover-foreground: #0a192f;
-  --primary: #0f766e;
+  --popover-foreground: #12162b;
+  --primary: #3b6ef6;
   --primary-foreground: #ffffff;
-  --secondary: #e9eef7;
-  --secondary-foreground: #0a192f;
-  --muted: #eef2f9;
-  --muted-foreground: #5b6b8c;
-  --accent: #dff4f0;
-  --accent-foreground: #0f766e;
-  --destructive: #dc2626;
+  --secondary: #e9edfb;
+  --secondary-foreground: #1c2240;
+  --muted: #eef1fb;
+  --muted-foreground: #5a6484;
+  --accent: #e6ebff;
+  --accent-foreground: #2a3f8f;
+  --destructive: #e5484d;
   --destructive-foreground: #ffffff;
-  --border: #dce7ff;
-  --input: #d3dfef;
-  --ring: #0d9488;
-  --chart-1: #0d9488;
-  --chart-2: #2563eb;
-  --chart-3: #9333ea;
-  --chart-4: #d97706;
-  --chart-5: #65a30d;
-  --accent-secondary: #2563eb;
+  --border: #dbe2f4;
+  --input: #d3dced;
+  --ring: #3b6ef6;
+  --chart-1: #3b6ef6;
+  --chart-2: #7c5cf0;
+  --chart-3: #0891b2;
+  --chart-4: #059669;
+  --chart-5: #d946ef;
+  --accent-secondary: #7c5cf0;
 }
 
 .dark {
-  /* rubiin.is-a.dev palette — dark navy + mint */
-  --background: #0a192f;
-  --foreground: #ccd6f6;
-  --card: #112340;
-  --card-foreground: #ccd6f6;
-  --popover: #112340;
-  --popover-foreground: #ccd6f6;
-  --primary: #64ffda;
-  --primary-foreground: #0a192f;
-  --secondary: #172a45;
-  --secondary-foreground: #ccd6f6;
-  --muted: #172a45;
-  --muted-foreground: #8892b0;
-  --accent: #233554;
-  --accent-foreground: #64ffda;
-  --destructive: #ef6b73;
-  --destructive-foreground: #0a192f;
-  --border: #1d2d50;
-  --input: #233554;
-  --ring: #64ffda;
-  --chart-1: #64ffda;
-  --chart-2: #71afff;
-  --chart-3: #c3a6ff;
-  --chart-4: #ffae57;
-  --chart-5: #bae67e;
-  --accent-secondary: #71afff;
+  --background: #05060e;
+  --foreground: #e7ebf7;
+  --card: #0b0e1a;
+  --card-foreground: #e7ebf7;
+  --popover: #0d1120;
+  --popover-foreground: #e7ebf7;
+  --primary: #5b8cff;
+  --primary-foreground: #05060e;
+  --secondary: #12172b;
+  --secondary-foreground: #dbe2f5;
+  --muted: #10152a;
+  --muted-foreground: #8b93ad;
+  --accent: #1a2140;
+  --accent-foreground: #cdd6ff;
+  --destructive: #f87171;
+  --destructive-foreground: #05060e;
+  --border: rgba(148, 163, 184, 0.16);
+  --input: rgba(148, 163, 184, 0.22);
+  --ring: #5b8cff;
+  --chart-1: #5b8cff;
+  --chart-2: #a78bfa;
+  --chart-3: #22d3ee;
+  --chart-4: #34d399;
+  --chart-5: #f472b6;
+  --accent-secondary: #a78bfa;
 }
 
 @layer base {
@@ -132,27 +138,54 @@
 
   body {
     font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
     background-color: var(--primary);
     color: var(--primary-foreground);
   }
+
+  /* Slim futuristic scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--primary) 40%, transparent);
+    border: 3px solid var(--background);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--accent-secondary) 55%, transparent);
+  }
 }
 
 /* ============================================================
-   Premium design utilities (rubiin-inspired glass/ambient layer)
+   Premium design utilities — glass, neon, gradients
    ============================================================ */
 @layer utilities {
   /* Frosted glass surface */
   .glass {
-    background: color-mix(in oklab, var(--card) 68%, transparent);
-    backdrop-filter: blur(14px) saturate(150%);
-    -webkit-backdrop-filter: blur(14px) saturate(150%);
-    border: 1px solid color-mix(in oklab, var(--border) 72%, transparent);
+    background: color-mix(in oklab, var(--card) 55%, transparent);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+    box-shadow: 0 24px 48px -28px color-mix(in oklab, #000 55%, transparent);
   }
 
-  /* Mint → blue gradient text */
+  .glass-strong {
+    background: color-mix(in oklab, var(--card) 82%, transparent);
+    backdrop-filter: blur(22px) saturate(170%);
+    -webkit-backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+    box-shadow: 0 32px 64px -32px color-mix(in oklab, #000 60%, transparent);
+  }
+
+  /* Blue → purple gradient text */
   .text-gradient {
     background-image: linear-gradient(115deg, var(--primary), var(--accent-secondary));
     -webkit-background-clip: text;
@@ -168,10 +201,10 @@
   /* Subtle blueprint grid */
   .grid-bg {
     background-image:
-      linear-gradient(color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
       linear-gradient(
         90deg,
-        color-mix(in oklab, var(--foreground) 5%, transparent) 1px,
+        color-mix(in oklab, var(--foreground) 6%, transparent) 1px,
         transparent 1px
       );
     background-size: 56px 56px;
@@ -186,15 +219,120 @@
     );
   }
 
-  /* Below-the-fold cards: skip rendering + layout until near the viewport.
-     `contain-intrinsic-size: auto <px>` remembers each element's last
-     rendered size, so scrollbars don't jump; the fallback is close to a
-     card's real height (~400px). Disabled under print so every item
-     renders (rendering-content-visibility). */
+  /* Rotating conic border — pair with .animated-border-shell. */
+  .animated-border {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .animated-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--border-angle, 0deg),
+      transparent 0%,
+      color-mix(in oklab, var(--primary) 70%, transparent) 14%,
+      color-mix(in oklab, var(--accent-secondary) 80%, transparent) 28%,
+      transparent 42%,
+      transparent 58%,
+      color-mix(in oklab, var(--accent-secondary) 70%, transparent) 72%,
+      color-mix(in oklab, var(--primary) 75%, transparent) 86%,
+      transparent 100%
+    );
+    animation: border-rotate 6s linear infinite;
+    opacity: 0.45;
+    transition: opacity 0.45s ease;
+  }
+
+  .animated-border:hover::before,
+  .animated-border[data-always='true']::before {
+    opacity: 1;
+  }
+
+  /* Below-the-fold cards: skip rendering + layout until near the viewport. */
   .content-visibility {
     content-visibility: auto;
     contain-intrinsic-size: auto 400px;
   }
+}
+
+/* Custom property for the rotating border angle */
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes border-rotate {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+/* ============================================================
+   Boot loader — hexagon draw + letter fade (see page-loader.tsx)
+   ============================================================ */
+/* Hexagon outline strokes itself in. The SVG sets pathLength="100", so dash
+   units are normalized: 0 100 → 100 100 draws the full path. Timing is
+   driven by CSS custom properties so the boot and pending variants share
+   one mark with different pacing. */
+.loader-draw {
+  stroke-dasharray: 0 100;
+  animation: loader-draw var(--loader-draw-duration, 1.3s) cubic-bezier(0.22, 1, 0.36, 1)
+    var(--loader-draw-delay, 0.2s) forwards;
+}
+
+@keyframes loader-draw {
+  to {
+    stroke-dasharray: 100 100;
+  }
+}
+
+/* Gradient "R" fades in as the stroke wraps up. */
+.loader-letter {
+  opacity: 0;
+  animation: loader-letter-fade 0.5s ease var(--loader-letter-delay, 1.35s) forwards;
+}
+
+@keyframes loader-letter-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Overlay + mark exit: everything scales/fades away together (0.35s). */
+#pf-boot {
+  transition: opacity 0.35s ease-in-out;
+}
+
+#pf-boot .pf-boot-mark {
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#pf-boot.pf-boot-exit {
+  opacity: 0;
+}
+
+#pf-boot.pf-boot-exit .pf-boot-mark {
+  opacity: 0;
+  transform: scale(0.1);
+}
+
+/* The loader is hidden by default (also covers no-JS visitors, who never
+   see it) and only shown for a genuine first visit: the inline <head>
+   script adds html.boot-show before first paint for first-time, non-
+   reduced-motion sessions. */
+#pf-boot {
+  display: none;
+}
+
+html.boot-show #pf-boot {
+  display: flex;
 }
 
 /* Ambient animation keyframes */
@@ -231,10 +369,63 @@
   }
 }
 
-/* Constellation dots (skills orbit): gentle twinkle + scale pulse, staggered
-   per dot via animation-delay. CSS-driven so it runs off the main thread.
-   `backwards` fill keeps dots at the dim keyframe during their delay (no
-   start jump). transform-box centers the scale on each dot. */
+/* Gentle vertical bob — floating chips / icons */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Drifting float with slight rotation for background particles */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(10px, -16px, 0) rotate(3deg);
+  }
+  66% {
+    transform: translate3d(-8px, 10px, 0) rotate(-3deg);
+  }
+}
+
+/* Sweeping diagonal light streak */
+@keyframes streak-sweep {
+  0% {
+    transform: translateX(-140%) skewX(-16deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(240%) skewX(-16deg);
+    opacity: 0;
+  }
+}
+
+/* Breathing glow for the portrait ring / orbit nodes */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Constellation dots (skills orbit): gentle twinkle + scale pulse. */
 .orbit-twinkle {
   animation: orbit-twinkle 5s ease-in-out infinite backwards;
   transform-box: fill-box;
@@ -347,6 +538,7 @@ html[data-retro='true'] {
     height: 2px;
     border-radius: 9999px;
     background: linear-gradient(90deg, var(--primary), var(--accent-secondary));
+    box-shadow: 0 0 12px color-mix(in oklab, var(--primary) 60%, transparent);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);

@@ -1,15 +1,25 @@
 'use client'
 
 import { Suspense, lazy, useRef, useEffect, useState } from 'react'
-import { Link } from '@tanstack/react-router'
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { ArrowDown, Download, Mail, PenLine, FolderGit2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import type { ComponentProps } from 'react'
-import { MagneticButton } from '@/components/animations/magnetic-button'
-import { Spotlight } from '@/components/animations/spotlight'
+import { motion, useReducedMotion, useScroll, useTransform, AnimatePresence } from 'motion/react'
+import {
+  ArrowDown,
+  Atom,
+  Braces,
+  Cloud,
+  Container,
+  Database,
+  Download,
+  FolderGit2,
+  Mail,
+  Server,
+  TerminalSquare,
+} from 'lucide-react'
 import { Counter } from '@/components/animations/counter'
+import { MagneticButton } from '@/components/animations/magnetic-button'
+import { NeonButton } from '@/components/animations/neon-button'
 import { TextReveal } from '@/components/animations/text-reveal'
+import { AnimatedBorder } from '@/components/animations/animated-border'
 import { profile } from '@/data/profile'
 import { siteConfig } from '@/data/site'
 import { updatePointerState } from '@/components/three/pointer-state'
@@ -27,16 +37,15 @@ const STATS = [
   { label: 'GitHub stars', to: 4000, suffix: '+' },
 ]
 
-const CTAS: {
-  label: string
-  to: string
-  icon: typeof Download
-  variant: NonNullable<ComponentProps<typeof Button>['variant']>
-}[] = [
-  { label: 'View Resume', to: '/resume', icon: Download, variant: 'default' },
-  { label: 'Projects', to: '/projects', icon: FolderGit2, variant: 'outline' },
-  { label: 'Blog', to: '/blog', icon: PenLine, variant: 'ghost' },
-  { label: 'Contact', to: '/contact', icon: Mail, variant: 'secondary' },
+/** Floating tech chips orbiting the portrait — decorative, CSS-driven float. */
+const FLOATING_TECH = [
+  { icon: Braces, label: 'TypeScript', className: '-top-6 -left-6 sm:-left-10', delay: '0s' },
+  { icon: Atom, label: 'React', className: '-top-3 right-0 sm:right-4', delay: '1.4s' },
+  { icon: Server, label: 'NestJS', className: 'top-[38%] -right-9 sm:-right-12', delay: '2.2s' },
+  { icon: Database, label: 'PostgreSQL', className: '-bottom-7 left-2', delay: '0.7s' },
+  { icon: Container, label: 'Docker', className: '-bottom-5 -left-8 sm:-left-12', delay: '1.8s' },
+  { icon: Cloud, label: 'AWS', className: 'right-8 -bottom-3', delay: '2.8s' },
+  { icon: TerminalSquare, label: 'Linux', className: '-left-8 top-1/4 sm:-left-14', delay: '3.4s' },
 ]
 
 /**
@@ -50,9 +59,6 @@ function useMouseParallax() {
 
   useEffect(() => {
     if (reduced) return
-    // rAF-throttled so at most one transform write per frame (matching the
-    // ambient-background pattern). Values are captured up front — browsers
-    // recycle the PointerEvent object after the handler returns.
     let raf = 0
     const onPointerMove = (e: PointerEvent) => {
       const { clientX, clientY } = e
@@ -76,17 +82,11 @@ function useMouseParallax() {
   return { layerRef }
 }
 
-/**
- * Rotating role line ("React Developer" → "TypeScript Advocate" → …).
- * Owns its own interval + state so the swap re-renders only this leaf —
- * the rest of the hero (including the 3D scene) stays untouched
- * (rerender-split-combined-hooks).
- */
+/** Rotating role line with a blinking caret. */
 function RotatingRole() {
   const reduced = useReducedMotion()
   const [roleIndex, setRoleIndex] = useState(0)
 
-  // Rotate the role line every 2.4s.
   useEffect(() => {
     if (reduced) return
     const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 2400)
@@ -104,7 +104,7 @@ function RotatingRole() {
           transition={{ duration: 0.35 }}
           className="text-lg font-medium text-muted-foreground sm:text-xl"
         >
-          {ROLES[roleIndex]}
+          <span className="text-gradient">{ROLES[roleIndex]}</span>
           <span
             className="ml-2 inline-block h-5 w-0.5 animate-pulse bg-primary align-middle"
             aria-hidden
@@ -115,17 +115,60 @@ function RotatingRole() {
   )
 }
 
+/** Glowing portrait placeholder with orbiting tech chips. */
+function PortraitPlaceholder() {
+  const nameInitials = profile.name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+
+  return (
+    <div className="relative mx-auto mt-16 w-fit lg:mt-0">
+      {/* Breathing glow behind the ring */}
+      <div
+        aria-hidden
+        className="absolute inset-6 rounded-full bg-gradient-to-br from-primary/40 to-accent-secondary/40 blur-3xl motion-reduce:animate-none animate-[pulse-glow_6s_ease-in-out_infinite]"
+      />
+
+      {/* Slowly rotating dashed orbit */}
+      <div
+        aria-hidden
+        className="absolute -inset-10 rounded-full border border-dashed border-primary/20 motion-reduce:animate-none animate-spin [animation-duration:45s]"
+      />
+
+      {/* Portrait ring */}
+      <AnimatedBorder always className="relative size-56 rounded-full sm:size-64">
+        <div className="flex size-full flex-col items-center justify-center gap-2 rounded-full bg-gradient-to-b from-card/70 to-card/20 backdrop-blur-sm">
+          <span className="font-display text-6xl font-bold tracking-tight text-gradient sm:text-7xl">
+            {nameInitials}
+          </span>
+          <span className="text-[0.65rem] font-medium tracking-[0.35em] text-muted-foreground uppercase">
+            {siteConfig.role}
+          </span>
+        </div>
+      </AnimatedBorder>
+
+      {/* Floating tech chips */}
+      {FLOATING_TECH.map(({ icon: Icon, label, className, delay }) => (
+        <span
+          key={label}
+          aria-hidden
+          className={`glass absolute flex size-11 items-center justify-center rounded-2xl text-primary motion-reduce:animate-none animate-[float-y_5s_ease-in-out_infinite] ${className}`}
+          style={{ animationDelay: delay }}
+        >
+          <Icon className="size-5" />
+        </span>
+      ))}
+    </div>
+  )
+}
+
 export function Hero() {
   const { layerRef } = useMouseParallax()
   const reduced = useReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
-  // The 3D layer is deferred until the browser is idle after first paint —
-  // the multi-hundred-KB WebGL chunk and its mount must not compete with
-  // LCP. requestIdleCallback fires post-critical-work; a 2s timeout
-  // guarantees it always mounts (even if the thread never idles). SSR and
-  // the first client render both see `sceneReady === false`, so the trees
-  // match; reduced-motion users never mount the scene at all.
   const [sceneReady, setSceneReady] = useState(false)
+
   useEffect(() => {
     const enable = () => setSceneReady(true)
     if (typeof requestIdleCallback === 'function') {
@@ -136,8 +179,6 @@ export function Hero() {
     return () => clearTimeout(id)
   }, [])
 
-  // Cinematic scroll-out: the 3D layer dims and pulls back as you scroll
-  // into the content, handing off to the next section without a hard cut.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
@@ -145,30 +186,46 @@ export function Hero() {
   const sceneOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
   const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.94])
 
+  // Scroll-scrubbed exit: as the hero scrolls away, the headline column
+  // drifts up, shrinks, and fades — dissolving into the marquee below.
+  // Static transforms for reduced motion (plain document-flow exit).
+  const textY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -110])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.55], reduced ? [1, 1] : [1, 0])
+  const textScale = useTransform(scrollYProgress, [0, 1], reduced ? [1, 1] : [1, 0.97])
+  // Portrait trails at its own slower rate for depth.
+  const portraitY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -60])
+  const portraitOpacity = useTransform(scrollYProgress, [0, 0.6], reduced ? [1, 1] : [1, 0])
+  // Scroll indicator fades away early, once scrolling starts.
+  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.25], reduced ? [1, 1] : [1, 0])
+
   return (
     <section ref={sectionRef} className="relative flex min-h-[92svh] flex-col overflow-hidden">
-      {/* Animated gradient blobs */}
+      {/* Animated gradient blobs + grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="grid-bg absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_80%_70%_at_50%_40%,black_10%,transparent_70%)]" />
         <motion.div
           className="absolute -top-32 -left-24 size-[28rem] rounded-full bg-primary/10 blur-3xl"
           animate={reduced ? undefined : { opacity: [0.5, 0.9, 0.5], scale: [1, 1.15, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute top-1/3 -right-24 size-[24rem] rounded-full bg-accent/40 blur-3xl"
+          className="absolute top-1/3 -right-24 size-[24rem] rounded-full bg-accent-secondary/15 blur-3xl"
           animate={reduced ? undefined : { opacity: [0.4, 0.8, 0.4], scale: [1.1, 1, 1.1] }}
           transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         />
-        {/* Static blob (motion budget: keep 2 animated, not 3) */}
-        <div className="absolute bottom-0 left-1/3 size-[20rem] rounded-full bg-chart-1/10 blur-3xl" />
+        <motion.div
+          className="absolute bottom-0 left-1/3 size-[20rem] rounded-full bg-chart-3/10 blur-3xl"
+          animate={reduced ? undefined : { opacity: [0.5, 0.8, 0.5], scale: [1, 1.1, 1] }}
+          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </div>
 
-      {/* 3D scene, behind content, lazy-loaded and deferred until idle; parallax via imperative ref */}
+      {/* 3D scene, behind content, lazy-loaded and deferred until idle */}
       {sceneReady && !reduced && (
         <motion.div
           ref={layerRef}
           aria-hidden
-          className="absolute inset-0 opacity-70"
+          className="absolute inset-0 opacity-60"
           style={{ opacity: sceneOpacity, scale: sceneScale }}
         >
           <Suspense fallback={null}>
@@ -178,77 +235,98 @@ export function Hero() {
       )}
 
       {/* Content */}
-      <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col items-start justify-center gap-6 px-4 pt-16 pb-12 sm:px-6">
-        {/* Availability badge */}
+      <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-10 px-4 pt-16 pb-12 sm:px-6 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-8">
         <motion.div
-          initial={reduced ? false : { opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full border bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur"
+          style={{ y: textY, opacity: textOpacity, scale: textScale }}
+          className="flex flex-col items-start gap-6"
         >
-          <span className="relative flex size-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-            <span className="relative inline-flex size-2 rounded-full bg-primary" />
-          </span>
-          Available for freelance
-        </motion.div>
+          {/* Availability badge */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-muted-foreground"
+          >
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+              <span className="relative inline-flex size-2 rounded-full bg-primary" />
+            </span>
+            Available for freelance
+          </motion.div>
 
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/0 via-background/40 to-background" />
+          <TextReveal
+            as="h1"
+            text={profile.name.split(' ').join('\n')}
+            className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
+            lineClassNames={['', 'text-gradient']}
+          />
 
-        <TextReveal
-          as="h1"
-          text={profile.name}
-          className="text-6xl font-bold tracking-tight sm:text-7xl lg:text-8xl"
-        />
+          <RotatingRole />
 
-        <RotatingRole />
+          <motion.p
+            initial={reduced ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+          >
+            {profile.shortBio}
+          </motion.p>
 
-        <motion.p
-          initial={reduced ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="max-w-xl text-base text-muted-foreground sm:text-lg"
-        >
-          {profile.shortBio}
-        </motion.p>
-
-        {/* CTAs — `to` typed as string: routes land in later tasks */}
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="flex flex-wrap items-center gap-3"
-        >
-          {CTAS.map(({ label, to, icon: Icon, variant }) => (
-            <MagneticButton key={label}>
-              <Spotlight className="rounded-md">
-                <Button asChild size="lg" variant={variant} className="gap-2">
-                  <Link to={to}>
-                    <Icon className="size-4" />
-                    {label}
-                  </Link>
-                </Button>
-              </Spotlight>
+          {/* CTAs — magnetic pull + spring scale + ripple + particle burst */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="flex flex-wrap items-center gap-3"
+          >
+            <MagneticButton>
+              <NeonButton href={siteConfig.resumePdfUrl} size="lg" download>
+                <Download className="size-4" />
+                Download Resume
+              </NeonButton>
             </MagneticButton>
-          ))}
+            <MagneticButton>
+              <NeonButton to="/projects" size="lg" variant="outline">
+                <FolderGit2 className="size-4" />
+                Projects
+              </NeonButton>
+            </MagneticButton>
+            <MagneticButton>
+              <NeonButton to="/contact" size="lg" variant="ghost">
+                <Mail className="size-4" />
+                Contact
+              </NeonButton>
+            </MagneticButton>
+          </motion.div>
+
+          {/* Stats row */}
+          <motion.dl
+            initial={reduced ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-4 grid grid-cols-3 gap-8"
+          >
+            {STATS.map(({ label, to, suffix }) => (
+              <div key={label} className="flex flex-col">
+                <dt className="order-2 text-xs text-muted-foreground">{label}</dt>
+                <dd className="order-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                  <Counter to={to} suffix={suffix ?? ''} />
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
         </motion.div>
 
-        {/* Stats row */}
-        <motion.dl
-          initial={reduced ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-6 grid grid-cols-3 gap-8"
-        >
-          {STATS.map(({ label, to, suffix }) => (
-            <div key={label} className="flex flex-col">
-              <dt className="order-2 text-xs text-muted-foreground">{label}</dt>
-              <dd className="order-1 text-3xl font-semibold tracking-tight sm:text-4xl">
-                <Counter to={to} suffix={suffix ?? ''} />
-              </dd>
-            </div>
-          ))}
-        </motion.dl>
+        {/* Portrait column — scroll-driven drift/fade wrapper + entrance */}
+        <motion.div style={{ y: portraitY, opacity: portraitOpacity }} className="relative">
+          <motion.div
+            initial={reduced ? false : { opacity: 0, scale: 0.92 }}
+            animate={reduced ? undefined : { opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <PortraitPlaceholder />
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
@@ -258,6 +336,7 @@ export function Hero() {
         className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground transition-colors hover:text-foreground"
         animate={reduced ? undefined : { y: [0, 8, 0] }}
         transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ opacity: indicatorOpacity }}
       >
         <ArrowDown className="size-5" />
       </motion.a>

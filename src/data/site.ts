@@ -12,7 +12,10 @@ export const siteConfig: SiteConfig = {
   location: 'Nepal',
   url: 'https://rubiin.is-a.dev',
   availability: true,
-  resumePdfUrl: 'https://rubiin.is-a.dev/resume.pdf',
+  // Same-origin so the browser honors the `download` attribute and forces
+  // the file download instead of opening the PDF inline.
+  resumePdfUrl: '/resume.pdf',
+  avatar: 'https://github.com/rubiin.png',
   socials: {
     github: 'https://github.com/rubiin',
     linkedin: 'https://www.linkedin.com/in/rubiin',

@@ -18,6 +18,12 @@ export const posts = defineCollection({
     tags: z.array(z.string()).default([]),
     category: z.string().default('software engineering'),
     featured: z.boolean().default(false),
+    /**
+     * Relative popularity for the blog's "popular" sort.
+     * Manually maintained — a curated estimate, not live analytics. Keep in
+     * sync with real traffic when you have numbers.
+     */
+    views: z.number().default(0),
     draft: z.boolean().default(false),
     coverImage: z.string().optional(),
     content: z.string(),

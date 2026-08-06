@@ -34,6 +34,7 @@ export const projects: Project[] = [
     tech: ['React', 'JavaScript', 'Python', 'SQL', 'AWS', 'Azure'],
     image: '/projects/takeo.png',
     demo: 'https://takeo.ai',
+    featured: true,
     challenges: [
       'Building an online learning experience that works for full-time and part-time learners alike',
       'Keeping bootcamp curricula current with in-demand technologies and AI-assisted workflows',
@@ -186,7 +187,7 @@ export const projects: Project[] = [
     year: '2019',
     tech: ['NestJS', 'TypeScript', 'pg-promise', 'PostgreSQL'],
     github: 'https://github.com/NestCrafts/nestjs-pgpromise',
-    image: '/projects/nestjs-pgpromise.png',
+    image: '/projects/nest-pgpromise.png',
     challenges: [
       "Wrapping pg-promise's promise-first API in Nest's DI lifecycle",
       'Managing connection pools and clean shutdown',
@@ -267,6 +268,7 @@ export const projects: Project[] = [
     year: '2021',
     tech: ['NestJS', 'TypeScript', 'Cloudinary'],
     github: 'https://github.com/NestCrafts/nestjs-cloudinary',
+    image: '/projects/nestjs-cloudinary.png',
     challenges: [
       'Wrapping the Cloudinary SDK in a DI-friendly module',
       'Exposing upload options without leaking implementation details',

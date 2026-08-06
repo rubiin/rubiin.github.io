@@ -1,4 +1,5 @@
 import type { NavItem } from '@/types'
+import { siteConfig } from '@/data/site'
 
 export const navItems: NavItem[] = [
   {
@@ -17,11 +18,6 @@ export const navItems: NavItem[] = [
     description: 'Selected work across the stack',
   },
   {
-    label: 'Resume',
-    href: '/resume',
-    description: 'Experience, education, certifications',
-  },
-  {
     label: 'Blog',
     href: '/blog',
     description: 'Writing on engineering and design',
@@ -30,5 +26,12 @@ export const navItems: NavItem[] = [
     label: 'Contact',
     href: '/contact',
     description: 'Get in touch',
+  },
+  // Deliberately last: it's an action (PDF download), not a page.
+  {
+    label: 'Resume',
+    href: siteConfig.resumePdfUrl ?? '#',
+    description: 'Download my résumé as a PDF',
+    download: true,
   },
 ]

@@ -3,7 +3,7 @@
 import { useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-import { FileText, FolderGit2, Navigation, TerminalSquare } from 'lucide-react'
+import { Download, FileText, FolderGit2, Navigation, TerminalSquare } from 'lucide-react'
 import {
   CommandDialog,
   CommandEmpty,
@@ -46,6 +46,15 @@ export function CommandPalette() {
     window.open(href, '_blank', 'noreferrer')
   }
 
+  const goDownload = (href: string) => {
+    setOpen(false)
+    const a = document.createElement('a')
+    a.href = href
+    a.download = ''
+    a.rel = 'noreferrer'
+    a.click()
+  }
+
   const commands = useMemo(() => {
     const nav = [
       ...navItems.map((item) => ({
@@ -53,13 +62,15 @@ export function CommandPalette() {
         label: item.label,
         hint: item.description,
         href: item.href,
-        icon: Navigation,
+        download: item.download,
+        icon: item.download ? Download : Navigation,
       })),
       {
         id: 'nav-terminal',
         label: 'Terminal',
         hint: 'Hidden CLI',
         href: '/terminal',
+        download: false,
         icon: TerminalSquare,
       },
     ]
@@ -70,6 +81,7 @@ export function CommandPalette() {
       label: p.title,
       hint: p.tagline,
       href: `/projects?category=${p.category}`,
+      download: false,
       icon: FolderGit2,
     }))
     const blog = posts.map((p) => ({
@@ -77,6 +89,7 @@ export function CommandPalette() {
       label: p.title,
       hint: p.category,
       href: `/blog/${p.slug}`,
+      download: false,
       icon: FileText,
     }))
     return [
@@ -100,11 +113,15 @@ export function CommandPalette() {
         {commands.map(({ heading, items }) =>
           items.length ? (
             <CommandGroup key={heading} heading={heading}>
-              {items.map(({ id, label, hint, href, icon: Icon }) => (
+              {items.map(({ id, label, hint, href, download, icon: Icon }) => (
                 <CommandItem
                   key={id}
                   value={`${heading} ${label} ${hint ?? ''}`}
-                  onSelect={() => (href.startsWith('http') ? goExternal(href) : go(href))}
+                  onSelect={() => {
+                    if (download) goDownload(href)
+                    else if (href.startsWith('http')) goExternal(href)
+                    else go(href)
+                  }}
                 >
                   <Icon />
                   <span>{label}</span>

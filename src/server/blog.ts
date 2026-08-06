@@ -10,6 +10,8 @@ export type PostSummary = {
   tags: string[]
   category: string
   featured: boolean
+  /** Relative popularity, used by the blog's "popular" sort. */
+  views: number
   coverImage?: string
   readingTime: number
 }
@@ -23,6 +25,7 @@ function toSummary(post: Post): PostSummary {
     tags: post.tags,
     category: post.category,
     featured: post.featured,
+    views: post.views,
     coverImage: post.coverImage,
     readingTime: post.readingTime,
   }

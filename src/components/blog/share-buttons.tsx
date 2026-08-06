@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { Check, Link2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { FacebookIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
 
 /**
@@ -26,27 +25,42 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
   const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
   const facebookHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title)}`
 
+  const iconBtn =
+    'glass flex size-9 items-center justify-center rounded-xl text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_20px_-6px_color-mix(in_oklab,var(--primary)_60%,transparent)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50'
+
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm font-medium text-muted-foreground">Share</span>
-      <Button variant="outline" size="icon" asChild aria-label="Share on X">
-        <a href={xHref} target="_blank" rel="noopener noreferrer">
-          <XIcon className="size-4" />
-        </a>
-      </Button>
-      <Button variant="outline" size="icon" asChild aria-label="Share on LinkedIn">
-        <a href={linkedinHref} target="_blank" rel="noopener noreferrer">
-          <LinkedInIcon className="size-4" />
-        </a>
-      </Button>
-      <Button variant="outline" size="icon" asChild aria-label="Share on Facebook">
-        <a href={facebookHref} target="_blank" rel="noopener noreferrer">
-          <FacebookIcon className="size-4" />
-        </a>
-      </Button>
-      <Button variant="outline" size="icon" onClick={copy} aria-label="Copy link">
+      <span className="mr-1 text-sm font-medium text-muted-foreground">Share</span>
+      <a
+        href={xHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on X"
+        className={iconBtn}
+      >
+        <XIcon className="size-4" />
+      </a>
+      <a
+        href={linkedinHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on LinkedIn"
+        className={iconBtn}
+      >
+        <LinkedInIcon className="size-4" />
+      </a>
+      <a
+        href={facebookHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on Facebook"
+        className={iconBtn}
+      >
+        <FacebookIcon className="size-4" />
+      </a>
+      <button type="button" onClick={copy} aria-label="Copy link" className={iconBtn}>
         {copied ? <Check className="size-4 text-primary" /> : <Link2 className="size-4" />}
-      </Button>
+      </button>
     </div>
   )
 }

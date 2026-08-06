@@ -2,9 +2,11 @@ import { useMemo, useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowRight, SearchX } from 'lucide-react'
 import { BlogSearch } from '@/components/blog/blog-search'
+import { AnimatedBorder } from '@/components/animations/animated-border'
+import { NeonButton } from '@/components/animations/neon-button'
+import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { buildMeta } from '@/lib/seo'
 import { getPostCategories, getPosts } from '@/server/blog'
 import type { PostSummary } from '@/server/blog'
@@ -48,6 +50,7 @@ function CategoriesPage() {
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
+          level="h1"
           eyebrow="Writing"
           title="All categories."
           description={`${categories.length} topic categories across ${posts.length} articles — dive into each one.`}
@@ -64,46 +67,55 @@ function CategoriesPage() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center gap-4 rounded-xl border bg-card p-12 text-center">
+        <div className="glass flex flex-col items-center gap-5 rounded-2xl p-12 text-center">
           <SearchX className="size-8 text-muted-foreground" aria-hidden />
           <p className="text-muted-foreground">No categories match “{q}”.</p>
-          <Button variant="outline" onClick={() => setQ('')}>
+          <NeonButton variant="outline" size="sm" onClick={() => setQ('')}>
             Clear filter
-          </Button>
+          </NeonButton>
         </div>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map(({ category, count }) => {
+          {filtered.map(({ category, count }, i) => {
             const samples = (byCategory.get(category) ?? []).slice(0, 3)
             return (
-              <div key={category} className="flex flex-col rounded-xl border bg-card p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <Badge>{category}</Badge>
-                  <span className="text-xs text-muted-foreground">
-                    {count} {count === 1 ? 'article' : 'articles'}
-                  </span>
-                </div>
-                <ul className="mt-4 flex flex-1 flex-col gap-2.5">
-                  {samples.map((p) => (
-                    <li key={p.slug}>
-                      <Link
-                        to={`/blog/${p.slug}` as string}
-                        className="line-clamp-1 text-sm text-foreground/85 transition-colors hover:text-primary"
-                      >
-                        {p.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/blog"
-                  search={{ category, tag: 'all', q: '', page: 1 }}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
-                >
-                  View all {count}
-                  <ArrowRight className="size-3.5" aria-hidden />
-                </Link>
-              </div>
+              <Reveal key={category} delay={(i % 3) * 0.06} className="h-full">
+                <AnimatedBorder className="h-full">
+                  <div className="group flex h-full flex-col rounded-[inherit] p-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <Badge className="bg-gradient-to-r from-primary to-accent-secondary text-primary-foreground dark:text-[#05060e]">
+                        {category}
+                      </Badge>
+                      <span className="text-xs tabular-nums text-muted-foreground">
+                        {count} {count === 1 ? 'article' : 'articles'}
+                      </span>
+                    </div>
+                    <ul className="mt-4 flex flex-1 flex-col gap-2.5">
+                      {samples.map((p) => (
+                        <li key={p.slug}>
+                          <Link
+                            to={`/blog/${p.slug}` as string}
+                            className="line-clamp-1 text-sm text-foreground/85 transition-colors hover:text-primary"
+                          >
+                            {p.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      to="/blog"
+                      search={{ category, tag: 'all', q: '', page: 1, sort: 'newest' }}
+                      className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/25 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-primary transition-all duration-300 hover:border-primary/45 hover:bg-primary/15 hover:shadow-[0_0_20px_-8px_color-mix(in_oklab,var(--primary)_55%,transparent)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                    >
+                      View all {count}
+                      <ArrowRight
+                        className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                        aria-hidden
+                      />
+                    </Link>
+                  </div>
+                </AnimatedBorder>
+              </Reveal>
             )
           })}
         </div>

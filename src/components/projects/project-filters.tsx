@@ -2,13 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { PROJECT_CATEGORIES } from '@/lib/constants'
 import type { ProjectCategory } from '@/types'
 import { cn } from '@/lib/utils'
 
 export type ProjectFilter = ProjectCategory | 'all'
+
+/** Shared filter-pill styling: gradient fill when active, glass when not. */
+function pillClasses(active: boolean) {
+  return cn(
+    'rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-300',
+    'focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
+    active
+      ? 'border-transparent bg-gradient-to-r from-primary to-accent-secondary text-primary-foreground shadow-[0_6px_24px_-8px_color-mix(in_oklab,var(--primary)_70%,transparent)] dark:text-[#05060e]'
+      : 'border-border/40 bg-muted/30 text-muted-foreground backdrop-blur-sm hover:border-primary/40 hover:text-foreground hover:shadow-[0_0_20px_-8px_color-mix(in_oklab,var(--primary)_50%,transparent)]',
+  )
+}
 
 /**
  * Category pills + debounced search input for the projects grid.
@@ -57,16 +67,15 @@ export function ProjectFilters({
           const label =
             option === 'all' ? 'All' : PROJECT_CATEGORIES.find((c) => c.value === option)?.label
           return (
-            <Button
+            <button
               key={option}
-              size="sm"
-              variant={active === option ? 'default' : 'outline'}
+              type="button"
               onClick={() => onCategoryChange(option)}
               aria-pressed={active === option}
-              className={cn('rounded-full')}
+              className={pillClasses(active === option)}
             >
               {label}
-            </Button>
+            </button>
           )
         })}
       </div>
@@ -81,7 +90,7 @@ export function ProjectFilters({
           onChange={(e) => setDraft(e.target.value)}
           placeholder="Search by title, tech, or tagline…"
           aria-label="Search projects"
-          className="pl-9"
+          className="rounded-xl border-border/50 bg-card/50 pl-9 backdrop-blur-sm transition-shadow duration-300 focus-visible:shadow-[0_0_0_1px_color-mix(in_oklab,var(--primary)_45%,transparent),0_0_28px_-8px_color-mix(in_oklab,var(--primary)_55%,transparent)]"
         />
       </div>
     </div>

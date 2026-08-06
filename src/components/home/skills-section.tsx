@@ -1,13 +1,24 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { animate, useInView, useReducedMotion } from 'motion/react'
-import { Brain, Cloud, Layers, Layout, Server, Smartphone } from 'lucide-react'
+import {
+  Brain,
+  Cloud,
+  Layers,
+  Layout,
+  Server,
+  Smartphone,
+  Braces,
+  Atom,
+  Container,
+  Database,
+  TerminalSquare,
+  Cpu,
+} from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Progress } from '@/components/ui/progress'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Reveal } from '@/components/animations/reveal'
-import { SectionHeading } from '@/components/home/section-heading'
+import { ProgressCircle } from '@/components/animations/progress-circle'
+import { ChapterHeading } from '@/components/home/chapter-heading'
 import { SkillsOrbit } from '@/components/home/skills-orbit'
 import { skillCategories } from '@/data/skills'
 import { yearsSince } from '@/lib/constants'
@@ -22,78 +33,41 @@ const CATEGORY_ICONS: Record<string, typeof Layout> = {
   'Full Stack': Layers,
 }
 
-/** Progress bar that animates its width when scrolled into view. */
-function AnimatedBar({
-  value,
-  className,
-  label,
-}: {
-  value: number
-  className?: string
-  label: string
-}) {
-  const ref = useRef<HTMLDivElement>(null)
-  const indicatorRef = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-40px' })
-  const reduced = useReducedMotion()
-  const [width, setWidth] = useState(0)
+/** Floating tech-logos strip under the rings — decorative (`aria-hidden`). */
+const FLOATING_LOGOS = [
+  { icon: Braces, label: 'TypeScript' },
+  { icon: Atom, label: 'React' },
+  { icon: Server, label: 'NestJS' },
+  { icon: Container, label: 'Docker' },
+  { icon: Database, label: 'PostgreSQL' },
+  { icon: Cpu, label: 'Golang' },
+  { icon: TerminalSquare, label: 'Linux' },
+]
 
-  useEffect(() => {
-    const el = indicatorRef.current
-    if (!inView || !el) return
-    if (reduced) {
-      setWidth(value)
-      return
-    }
-    // Drive the fill imperatively via Motion — no per-frame React
-    // re-renders (rerender-defer-reads). Commit the final value once so
-    // the Radix root's aria-valuenow is accurate.
-    const controls = animate(0, value, {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => {
-        el.style.transform = `translateX(-${100 - v}%)`
-      },
-      onComplete: () => setWidth(value),
-    })
-    return () => controls.stop()
-  }, [inView, value, reduced])
-
+function SkillTile({ skill }: { skill: Skill }) {
   return (
-    <div ref={ref} className={className}>
-      <Progress value={width} indicatorRef={indicatorRef} aria-label={label} />
-    </div>
-  )
-}
-
-function SkillRow({ skill }: { skill: Skill }) {
-  return (
-    <div className="flex flex-col gap-2">
-      <Tooltip>
-        <TooltipTrigger asChild>
-          {/* Focusable button so keyboard users can reveal the tooltip too */}
-          <button
-            type="button"
-            className="flex w-full items-center justify-between gap-4 rounded-sm text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-          >
-            <span className="text-sm font-medium text-foreground">{skill.name}</span>
-            <span className="text-xs tabular-nums text-muted-foreground">{skill.level}%</span>
-          </button>
-        </TooltipTrigger>
-        <TooltipContent className="max-w-xs">
-          <div className="space-y-1">
-            <p className="font-semibold">{yearsSince(skill.since)} years of experience</p>
-            {skill.technologies && (
-              <p className="text-muted-foreground">{skill.technologies.join(' · ')}</p>
-            )}
-            {skill.relatedProjects && skill.relatedProjects.length > 0 && (
-              <p className="text-muted-foreground">Used in: {skill.relatedProjects.join(', ')}</p>
-            )}
-          </div>
-        </TooltipContent>
-      </Tooltip>
-      <AnimatedBar value={skill.level} className="w-full" label={`${skill.name} proficiency`} />
-    </div>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          className="glass-strong group flex w-full flex-col items-center gap-3 rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_16px_48px_-16px_color-mix(in_oklab,var(--primary)_50%,transparent)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        >
+          <ProgressCircle value={skill.level} label={skill.name} size={92} stroke={7} />
+          <span className="text-sm font-medium text-foreground">{skill.name}</span>
+        </button>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-xs">
+        <div className="space-y-1">
+          <p className="font-semibold">{yearsSince(skill.since)} years of experience</p>
+          {skill.technologies && (
+            <p className="text-muted-foreground">{skill.technologies.join(' · ')}</p>
+          )}
+          {skill.relatedProjects && skill.relatedProjects.length > 0 && (
+            <p className="text-muted-foreground">Used in: {skill.relatedProjects.join(', ')}</p>
+          )}
+        </div>
+      </TooltipContent>
+    </Tooltip>
   )
 }
 
@@ -103,20 +77,28 @@ export function SkillsSection() {
       <SkillsOrbit />
 
       <div className="relative">
-        <SectionHeading
+        <ChapterHeading
+          chapter="02"
           eyebrow="Skills"
           title="A full-stack toolkit, sharpened for years."
-          description="Hover a skill for years of experience and related projects. Bars fill as you scroll."
+          description="Proficiency rings for my core stack. Hover a ring for years of experience and related projects."
         />
 
         <Reveal>
           <TooltipProvider delayDuration={150}>
             <Tabs defaultValue={skillCategories[0]?.name} className="w-full">
-              <TabsList variant="line" className="mb-8 flex-wrap">
+              <TabsList
+                variant="line"
+                className="mb-10 h-auto flex-wrap gap-1.5 rounded-full border border-border/40 bg-muted/30 p-1.5 backdrop-blur-sm"
+              >
                 {skillCategories.map((cat) => {
                   const Icon = CATEGORY_ICONS[cat.name] ?? Layout
                   return (
-                    <TabsTrigger key={cat.name} value={cat.name}>
+                    <TabsTrigger
+                      key={cat.name}
+                      value={cat.name}
+                      className="rounded-full px-4 after:hidden data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent-secondary data-[state=active]:text-primary-foreground data-[state=active]:shadow-[0_6px_24px_-8px_color-mix(in_oklab,var(--primary)_70%,transparent)] dark:data-[state=active]:text-[#05060e]"
+                    >
                       <Icon />
                       {cat.name}
                     </TabsTrigger>
@@ -126,15 +108,31 @@ export function SkillsSection() {
 
               {skillCategories.map((cat) => (
                 <TabsContent key={cat.name} value={cat.name} className="mt-0">
-                  <div className="grid gap-x-10 gap-y-5 rounded-xl border bg-card p-6 sm:p-8 md:grid-cols-2">
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                     {cat.skills.map((skill) => (
-                      <SkillRow key={skill.name} skill={skill} />
+                      <SkillTile key={skill.name} skill={skill} />
                     ))}
                   </div>
                 </TabsContent>
               ))}
             </Tabs>
           </TooltipProvider>
+        </Reveal>
+
+        {/* Floating tech logos */}
+        <Reveal delay={0.1} className="mt-12">
+          <div aria-hidden className="flex flex-wrap items-center justify-center gap-3">
+            {FLOATING_LOGOS.map(({ icon: Icon, label }, i) => (
+              <span
+                key={label}
+                className="glass flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium text-muted-foreground motion-reduce:animate-none animate-[float-y_5s_ease-in-out_infinite]"
+                style={{ animationDelay: `${i * 0.35}s` }}
+              >
+                <Icon className="size-4 text-primary" />
+                {label}
+              </span>
+            ))}
+          </div>
         </Reveal>
       </div>
     </section>

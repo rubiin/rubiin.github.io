@@ -232,7 +232,7 @@ export function NotFoundComponent() {
           , or{' '}
           <Link
             to="/blog"
-            search={{ category: 'all', tag: 'all', q: '', page: 1 }}
+            search={{ category: 'all', tag: 'all', q: '', page: 1, sort: 'newest' }}
             className="rounded-sm font-medium text-primary underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring hover:underline"
           >
             search for something

@@ -20,6 +20,7 @@ function ContactPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionHeading
+        level="h1"
         eyebrow="Contact"
         title="Let's build something together."
         description="Tell me about your project, team, or idea — I'd love to hear from you."

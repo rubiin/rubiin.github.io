@@ -13,24 +13,28 @@ export function TextReveal({
   text,
   className,
   lineClassName,
+  lineClassNames,
   delay = 0,
   as: Tag = 'h1',
 }: {
   text: string
   className?: string
   lineClassName?: string
+  /** Per-line class overrides, applied instead of lineClassName. */
+  lineClassNames?: string[]
   delay?: number
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span'
 }) {
   const reduced = useReducedMotion()
   const lines = text.split('\n')
+  const lineClass = (i: number) => lineClassNames?.[i] ?? lineClassName
 
   if (reduced) {
     return (
       <Tag className={cn('whitespace-pre-line', className)}>
         {lines.map((line, i) => (
           // oxlint-disable-next-line react/no-array-index-key -- static split lines, never reordered
-          <span key={i} className={cn('block', lineClassName)}>
+          <span key={i} className={cn('block', lineClass(i))}>
             {line || '\u00A0'}
           </span>
         ))}
@@ -44,7 +48,7 @@ export function TextReveal({
         // oxlint-disable-next-line react/no-array-index-key -- static split lines, never reordered
         <span key={i} className="block overflow-hidden">
           <motion.span
-            className={cn('block', lineClassName)}
+            className={cn('block', lineClass(i))}
             initial={{ y: '110%' }}
             whileInView={{ y: 0 }}
             viewport={{ once: true, margin: '-40px' }}

@@ -3,7 +3,6 @@ import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tan
 import { Suspense, lazy, useEffect, useRef, type ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
 import { ThemeProvider } from '@/components/layout/theme-provider'
-import { Skeleton } from '@/components/ui/skeleton'
 import { QueryProvider } from '@/components/layout/query-provider'
 import { LenisProvider } from '@/components/layout/lenis-provider'
 import { SkipLink } from '@/components/layout/skip-link'
@@ -13,10 +12,11 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { NotFoundComponent } from '@/components/layout/not-found'
 import { ErrorComponent } from '@/components/layout/error-boundary'
 import { Toaster } from '@/components/ui/sonner'
-import { BootScreen } from '@/components/layout/boot-screen'
+import { PageLoader, PendingLoader } from '@/components/layout/page-loader'
 import { AmbientBackground } from '@/components/layout/ambient-background'
 import { AnimatedFavicon } from '@/components/layout/animated-favicon'
 import { FloatingDock } from '@/components/layout/floating-dock'
+import { ScrollToTop } from '@/components/layout/scroll-to-top'
 import { EasterEggs } from '@/components/layout/easter-eggs'
 import { siteConfig } from '@/data/site'
 import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
@@ -33,7 +33,7 @@ const CommandPalette = lazy(() =>
 export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
-  pendingComponent: RootSkeleton,
+  pendingComponent: PendingLoader,
   head: () => ({
     meta: [
       {
@@ -61,7 +61,7 @@ export const Route = createRootRoute({
       { name: 'twitter:title', content: siteConfig.seo.title },
       { name: 'twitter:description', content: siteConfig.seo.description },
       { name: 'twitter:image', content: absoluteUrl(siteConfig.seo.ogImage) },
-      { name: 'theme-color', content: '#0f172a' },
+      { name: 'theme-color', content: '#05060e' },
       {
         name: 'keywords',
         content: siteConfig.seo.keywords.join(', '),
@@ -79,6 +79,14 @@ export const Route = createRootRoute({
         // <head>, before the body renders.
         children: `(function(){try{var t=localStorage.getItem('${STORAGE_KEYS.theme}')||localStorage.getItem('${LEGACY_STORAGE_KEYS.theme}');var theme=t==='light'||t==='dark'||t==='system'?t:'system';var resolved=theme==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):theme;var root=document.documentElement;root.classList.toggle('dark',resolved==='dark');root.style.colorScheme=resolved}catch(e){}})()`,
       },
+      {
+        // The R loader is hidden by default (CSS) and only shown for a
+        // genuine first visit: add html.boot-show before first paint for
+        // first-time, non-reduced-motion sessions. Repeat visits and
+        // reduced-motion users never flash it — mirrors PageLoader's
+        // bootDone check. No-JS visitors simply never see the loader.
+        children: `(function(){try{var done=sessionStorage.getItem('${STORAGE_KEYS.bootDone}')||sessionStorage.getItem('${LEGACY_STORAGE_KEYS.bootDone}');var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(done!=='1'&&!reduced){document.documentElement.classList.add('boot-show')}}catch(e){}})()`,
+      },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
@@ -93,10 +101,10 @@ export const Route = createRootRoute({
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
       },
       { rel: 'manifest', href: '/manifest.webmanifest' },
-      { rel: 'icon', href: '/og.png' },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'apple-touch-icon', href: '/og.png' },
     ],
   }),
@@ -104,7 +112,7 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <SkipLink />
-      <BootScreen />
+      <PageLoader />
       <AmbientBackground />
       <AnimatedFavicon />
       <EasterEggs />
@@ -121,6 +129,7 @@ export const Route = createRootRoute({
         </Suspense>
       </LenisProvider>
       <FloatingDock />
+      <ScrollToTop />
       <Toaster richColors position="bottom-right" />
     </>
   ),
@@ -172,36 +181,4 @@ function RouteFocusReset() {
   }, [pathname])
 
   return null
-}
-
-function RootSkeleton() {
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div className="mb-8 space-y-4">
-        <Skeleton className="h-5 w-40" />
-        <Skeleton className="h-9 w-full max-w-2xl" />
-        <Skeleton className="h-4 w-96" />
-      </div>
-      <div className="space-y-6">
-        {Array.from({ length: 4 }).map((value, index) => (
-          // oxlint-disable-next-line react/no-array-index-key -- static skeleton
-          <div key={index} className="rounded-3xl border bg-card p-6">
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <Skeleton className="h-5 w-2/5" />
-              <Skeleton className="h-5 w-24" />
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Skeleton className="h-40 w-full rounded-2xl" />
-              <div className="space-y-3">
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-4/5" />
-                <Skeleton className="h-9 w-32" />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
 }

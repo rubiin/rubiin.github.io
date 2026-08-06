@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Search, X } from 'lucide-react'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 
 /**
  * Debounced search input, controlled via props so the route owns the
@@ -13,11 +14,13 @@ export function BlogSearch({
   onQueryChange,
   placeholder = 'Search articles…',
   ariaLabel = 'Search articles',
+  className,
 }: {
   query: string
   onQueryChange: (query: string) => void
   placeholder?: string
   ariaLabel?: string
+  className?: string
 }) {
   const [draft, setDraft] = useState(query)
 
@@ -42,7 +45,7 @@ export function BlogSearch({
   }, [draft, query])
 
   return (
-    <div className="relative w-full lg:w-72">
+    <div className={cn('relative w-full lg:w-72', className)}>
       <Search
         className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
         aria-hidden
@@ -52,7 +55,7 @@ export function BlogSearch({
         onChange={(e) => setDraft(e.target.value)}
         placeholder={placeholder}
         aria-label={ariaLabel}
-        className="pl-9 pr-9"
+        className="rounded-xl border-border/50 bg-card/50 pl-9 pr-9 backdrop-blur-sm transition-shadow duration-300 focus-visible:shadow-[0_0_0_1px_color-mix(in_oklab,var(--primary)_45%,transparent),0_0_28px_-8px_color-mix(in_oklab,var(--primary)_55%,transparent)]"
       />
       {draft && (
         <button

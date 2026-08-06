@@ -43,7 +43,7 @@ const HELP = [
   '  about      who I am',
   '  skills     what I work with',
   '  projects   open the projects grid',
-  '  resume     view my resume',
+  '  resume     download my resume (PDF)',
   '  blog       read my writing',
   '  contact    ways to reach me',
   '  github     open GitHub',
@@ -170,7 +170,9 @@ export function Terminal() {
           print(<span>Opening {link('the projects grid', '/projects')}…</span>)
           break
         case 'resume':
-          print(<span>Opening {link('my resume', '/resume')}…</span>)
+          print(
+            <span>Downloading {link('resume.pdf', siteConfig.resumePdfUrl ?? '#', true)}…</span>,
+          )
           break
         case 'blog':
           print(<span>Opening {link('the blog', '/blog')}…</span>)

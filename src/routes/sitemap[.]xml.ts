@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { getPosts } from '@/server/blog'
 import { absoluteUrl, xmlEscape } from '@/lib/seo'
 
-const STATIC_PATHS = ['', '/projects', '/resume', '/blog', '/contact', '/rss.xml'] as const
+const STATIC_PATHS = ['', '/projects', '/blog', '/contact', '/rss.xml'] as const
 
 async function sitemapXml() {
   const posts = await getPosts()

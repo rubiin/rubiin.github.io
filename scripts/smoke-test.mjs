@@ -76,12 +76,6 @@ async function baseContext(opts = {}) {
   return context
 }
 
-/** goto + 'load' + settle; hydration in dev is slower than 'load'. */
-async function gotoReady(page, url) {
-  await page.goto(url, { waitUntil: 'load', timeout: 20000 })
-  await page.waitForTimeout(1500)
-}
-
 const BOOT = '[class*="z-[200]"]'
 
 // ── 1. Theme: inline bootstrap, JS fully blocked ──────────────────────────
@@ -180,53 +174,35 @@ try {
   record('theme: full-load section', false, err.message.split('\n')[0])
 }
 
-// ── 3. BootScreen lifecycle ───────────────────────────────────────────────
+// ── 3. PageLoader lifecycle ───────────────────────────────────────────────
 {
-  // 3a. Fresh session → overlay plays, then disappears, flag set
+  // 3a. Fresh session → loader is server-rendered (visible at first paint),
+  //     plays, removes itself, sets the session flag.
   try {
     const context = await baseContext()
     const page = await context.newPage()
     watchPage(page, 'boot-fresh')
     page.setDefaultTimeout(10000)
-    await gotoReady(page, BASE + '/')
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded', timeout: 20000 })
 
-    await page.addInitScript(() => {
-      window.bootTrace = []
-      const isBoot = (n) =>
-        n.nodeType === 1 && String(n.getAttribute?.('class') ?? '').includes('z-[200]')
-      new MutationObserver((muts) => {
-        for (const m of muts) {
-          m.addedNodes.forEach((n) => {
-            if (isBoot(n))
-              window.bootTrace.push({ ev: 'added', flag: sessionStorage.getItem('pf:boot:v1') })
-          })
-          m.removedNodes.forEach((n) => {
-            if (isBoot(n))
-              window.bootTrace.push({ ev: 'removed', flag: sessionStorage.getItem('pf:boot:v1') })
-          })
-        }
-      }).observe(document, { childList: true, subtree: true })
+    // Server-rendered HTML must already contain the loader — no JS needed.
+    const presentAtPaint = (await page.locator(BOOT).count()) > 0
+    record('boot: loader present in initial HTML (first paint)', presentAtPaint)
+
+    // After hydration + the ~2.5s cinematic it must unmount and set the flag.
+    await page.waitForFunction(() => document.querySelector('[class*="z-[200]"]') === null, {
+      timeout: 10000,
     })
-    await gotoReady(page, BASE + '/')
-    await page.waitForTimeout(2000) // let the full cinematic complete
-
-    const trace = await page.evaluate(() => window.bootTrace)
-    const added = trace.find((t) => t.ev === 'added')
-    const removed = trace.find((t) => t.ev === 'removed')
     const flagNow = await page.evaluate(() => sessionStorage.getItem('pf:boot:v1'))
-    record('boot: overlay appears on fresh session', !!added)
-    record('boot: session flag unset while overlay is up', added ? added.flag === null : true)
-    record(
-      'boot: overlay removes itself after appearing',
-      !!added && !!removed && trace.indexOf(removed) > trace.indexOf(added),
-    )
+    record('boot: overlay removes itself after cinematic', true)
     record('boot: session flag set after completion', flagNow === '1')
     await context.close()
   } catch (err) {
     record('boot: fresh-session section', false, err.message.split('\n')[0])
   }
 
-  // 3b. Slow load (performance.now faked past the 1200ms budget) → skipped
+  // 3b. Slow load — the loader still shows (no LCP skip anymore; the exit is
+  //     anchored to the CSS draw's end, so slow hydration can't stall it).
   try {
     const slowCtx = await baseContext()
     await slowCtx.addInitScript(() => {
@@ -235,26 +211,56 @@ try {
     const slowPage = await slowCtx.newPage()
     watchPage(slowPage, 'boot-slow')
     slowPage.setDefaultTimeout(10000)
-    await gotoReady(slowPage, BASE + '/')
+    await slowPage.goto(BASE + '/', { waitUntil: 'domcontentloaded', timeout: 20000 })
     const slowShown = (await slowPage.locator(BOOT).count()) > 0
-    const slowFlag = await slowPage.evaluate(() => sessionStorage.getItem('pf:boot:v1'))
-    record('boot: skipped on slow load', !slowShown)
-    record('boot: slow-load skip still marks session', slowFlag === '1')
+    const slowVisible = await slowPage.evaluate(() => {
+      const el = document.getElementById('pf-boot')
+      return el && getComputedStyle(el).display !== 'none'
+    })
+    record('boot: loader shows even on slow loads', slowShown && slowVisible)
     await slowCtx.close()
   } catch (err) {
     record('boot: slow-load section', false, err.message.split('\n')[0])
   }
 
-  // 3c. Reduced motion → never runs, flag NOT set
+  // 3c. No JS → the loader stays hidden (CSS default) so content is always
+  //     reachable even without JavaScript.
+  try {
+    const noJsCtx = await baseContext()
+    await noJsCtx.route('**/*', (route) =>
+      route.request().resourceType() === 'script' ? route.abort() : route.continue(),
+    )
+    const noJsPage = await noJsCtx.newPage()
+    watchPage(noJsPage, 'boot-no-js')
+    noJsPage.setDefaultTimeout(10000)
+    await noJsPage.goto(BASE + '/', { waitUntil: 'domcontentloaded', timeout: 20000 })
+    await noJsPage.waitForTimeout(500)
+    const noJsShown = await noJsPage.evaluate(() => {
+      const el = document.getElementById('pf-boot')
+      return el && getComputedStyle(el).display !== 'none'
+    })
+    record('boot: loader hidden without JS (content reachable)', !noJsShown)
+    await noJsCtx.close()
+  } catch (err) {
+    record('boot: no-js section', false, err.message.split('\n')[0])
+  }
+
+  // 3d. Reduced motion → hidden by the inline head script before first paint;
+  //     flag never set.
   try {
     const rmCtx = await baseContext({ reducedMotion: 'reduce' })
     const rmPage = await rmCtx.newPage()
     watchPage(rmPage, 'boot-reduced-motion')
     rmPage.setDefaultTimeout(10000)
-    await gotoReady(rmPage, BASE + '/')
-    const rmShown = (await rmPage.locator(BOOT).count()) > 0
+    await rmPage.goto(BASE + '/', { waitUntil: 'domcontentloaded', timeout: 20000 })
+    const rmHidden = await rmPage.evaluate(() => {
+      const el = document.getElementById('pf-boot')
+      if (!el) return true // unmounted after hydration
+      return getComputedStyle(el).display === 'none'
+    })
     const rmFlag = await rmPage.evaluate(() => sessionStorage.getItem('pf:boot:v1'))
-    record('boot: never runs under reduced motion', !rmShown && rmFlag === null)
+    record('boot: loader hidden under reduced motion', rmHidden)
+    record('boot: reduced motion never sets the flag', rmFlag === null)
     await rmCtx.close()
   } catch (err) {
     record('boot: reduced-motion section', false, err.message.split('\n')[0])
@@ -280,14 +286,12 @@ try {
   const input = dialog.locator('input[placeholder*="Search"]')
   record('palette: opens with ⌘K and shows search input', (await input.count()) > 0)
 
-  await input.fill('resume')
-  const resumeItem = dialog.getByText('Resume', { exact: true })
-  const itemVisible = await resumeItem.isVisible().catch(() => false)
-  record('palette: fuzzy-search finds "Resume"', itemVisible)
-
-  await resumeItem.click()
-  await page.waitForURL('**/resume', { timeout: 5000 })
-  record('palette: selecting a result navigates to /resume', page.url().endsWith('/resume'))
+  // Resume is now a download action, so navigation is verified with Contact.
+  await input.fill('contact')
+  const contactItem = dialog.getByText('Contact', { exact: true })
+  await contactItem.click()
+  await page.waitForURL('**/contact', { timeout: 5000 })
+  record('palette: selecting a result navigates to /contact', page.url().endsWith('/contact'))
 
   // ⌘K toggles closed (Escape handled by dialog too)
   await page.keyboard.press('Control+K')

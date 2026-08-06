@@ -5,8 +5,10 @@ import { AboutSection } from '@/components/home/about-section'
 import { SkillsSection } from '@/components/home/skills-section'
 import { ExperienceSection } from '@/components/home/experience-section'
 import { ProjectsSection } from '@/components/home/projects-section'
-import { ContactCta } from '@/components/home/contact-cta'
-import { SectionDivider } from '@/components/animations/section-divider'
+import { TestimonialsSection } from '@/components/home/testimonials-section'
+import { ContactSection } from '@/components/home/contact-section'
+import { ChapterDivider } from '@/components/home/chapter-divider'
+import { ChapterProgress } from '@/components/layout/chapter-progress'
 import { buildMeta } from '@/lib/seo'
 
 export const Route = createFileRoute('/')({
@@ -21,19 +23,29 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
+/**
+ * The home page reads as a story in six chapters — About → Skills →
+ * Experience → Projects → Testimonials → Contact — separated by quiet
+ * scene-change dividers and tracked by the fixed chapter rail.
+ */
 function Home() {
   return (
     <>
       <Hero />
       <Marquee />
+      <ChapterDivider className="mt-2" />
       <AboutSection />
-      <SectionDivider />
+      <ChapterDivider />
       <SkillsSection />
-      <SectionDivider flip />
+      <ChapterDivider />
       <ExperienceSection />
-      <SectionDivider />
+      <ChapterDivider />
       <ProjectsSection />
-      <ContactCta />
+      <ChapterDivider />
+      <TestimonialsSection />
+      <ChapterDivider />
+      <ContactSection />
+      <ChapterProgress />
     </>
   )
 }

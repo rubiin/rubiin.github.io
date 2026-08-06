@@ -9,6 +9,7 @@ export interface SiteConfig {
   url: string
   availability: boolean
   resumePdfUrl?: string
+  avatar?: string
   socials: {
     github: string
     linkedin: string
@@ -28,6 +29,8 @@ export interface NavItem {
   label: string
   href: string
   description?: string
+  /** Renders as a direct download link instead of a route link. */
+  download?: boolean
 }
 
 export interface Profile {
@@ -118,13 +121,4 @@ export interface Testimonial {
   role: string
   company: string
   avatar?: string
-}
-
-export interface ResumeData {
-  profile: Profile
-  experience: ExperienceItem[]
-  education: EducationItem[]
-  certifications: Certification[]
-  awards: Award[]
-  skills: SkillCategory[]
 }

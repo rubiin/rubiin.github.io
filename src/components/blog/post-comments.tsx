@@ -57,8 +57,13 @@ export function PostComments({ slug }: { slug: string }) {
 
   return (
     <section aria-label="Comments" className="mt-16">
-      <h2 className="mb-6 text-2xl font-semibold tracking-tight">Discussion</h2>
-      <div ref={ref} className="min-h-32" />
+      <h2 className="mb-6 flex items-center gap-3 font-display text-2xl font-semibold tracking-tight">
+        Discussion
+        <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-primary/40 to-transparent" />
+      </h2>
+      <div className="glass rounded-2xl p-5 sm:p-6">
+        <div ref={ref} className="min-h-32" />
+      </div>
       <noscript>Comments require JavaScript and GitHub Discussions.</noscript>
     </section>
   )

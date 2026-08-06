@@ -10,6 +10,8 @@ import { PostComments } from '@/components/blog/post-comments'
 import { LazyKatexCss } from '@/components/blog/lazy-katex-css'
 import { ImageZoom } from '@/components/blog/image-zoom'
 import { BlogReadingGlow } from '@/components/blog/blog-reading-glow'
+import { AnimatedBorder } from '@/components/animations/animated-border'
+import { KineticTitle } from '@/components/animations/kinetic-title'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
@@ -61,6 +63,7 @@ export const Route = createFileRoute('/blog/$slug')({
                   '@type': 'Person',
                   name: siteConfig.name,
                   url: siteConfig.url,
+                  image: siteConfig.avatar,
                 },
                 publisher: {
                   '@type': 'Person',
@@ -90,44 +93,71 @@ function BlogPostPage() {
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         {/* Header */}
         <header className="mx-auto max-w-3xl text-center">
-          <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
-            {post.title}
+          <span className="mb-4 inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
+            <span
+              aria-hidden
+              className="h-px w-8 bg-gradient-to-r from-primary to-accent-secondary shadow-[0_0_8px_color-mix(in_oklab,var(--primary)_70%,transparent)]"
+            />
+            Article
+            <span
+              aria-hidden
+              className="h-px w-8 bg-gradient-to-r from-accent-secondary to-primary shadow-[0_0_8px_color-mix(in_oklab,var(--accent-secondary)_70%,transparent)]"
+            />
+          </span>
+          <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+            <KineticTitle text={post.title} />
           </h1>
-          {/* Category kicker below the title — clickable, solid primary chip, so categories read differently from the muted tags */}
+          {/* Category kicker below the title — clickable, solid gradient chip, so categories read differently from the muted tags */}
           <div className="mt-4 flex justify-center">
-            <Badge asChild>
-              <Link to="/blog" search={{ category: post.category, tag: 'all', q: '', page: 1 }}>
+            <Badge
+              asChild
+              className="bg-gradient-to-r from-primary to-accent-secondary text-primary-foreground shadow-[0_4px_18px_-6px_color-mix(in_oklab,var(--primary)_70%,transparent)] dark:text-[#05060e]"
+            >
+              <Link
+                to="/blog"
+                search={{ category: post.category, tag: 'all', q: '', page: 1, sort: 'newest' }}
+              >
                 {post.category}
               </Link>
             </Badge>
           </div>
           <p className="mt-4 text-lg text-muted-foreground">{post.description}</p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5">
-              <User className="size-4" aria-hidden />
-              {siteConfig.name}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
+            <span className="glass inline-flex items-center gap-2 rounded-full py-1 pr-3.5 pl-1.5">
+              {siteConfig.avatar ? (
+                <img
+                  src={siteConfig.avatar}
+                  alt=""
+                  loading="lazy"
+                  className="size-6 rounded-full object-cover ring-2 ring-primary/25"
+                />
+              ) : (
+                <User className="size-4 text-primary/70" aria-hidden />
+              )}
+              <span>{siteConfig.name}</span>
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays className="size-4" aria-hidden />
+            <span className="glass inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5">
+              <CalendarDays className="size-4 text-primary/70" aria-hidden />
               {formatDate(post.date)}
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="size-4" aria-hidden />
+            <span className="glass inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5">
+              <Clock className="size-4 text-primary/70" aria-hidden />
               {post.readingTime} min read
             </span>
           </div>
         </header>
 
         {/* Cover */}
-        {post.coverImage ? (
-          <ImageZoom
-            src={post.coverImage}
-            alt={post.title}
-            className="mx-auto mt-10 aspect-[16/9] w-full max-w-4xl rounded-2xl border"
-          />
-        ) : (
-          <div className="mx-auto mt-10 aspect-[16/9] w-full max-w-4xl rounded-2xl border bg-gradient-to-br from-primary/15 via-accent/20 to-chart-1/10" />
-        )}
+        <AnimatedBorder
+          className="mx-auto mt-10 w-full max-w-4xl"
+          surfaceClassName="overflow-hidden"
+        >
+          {post.coverImage ? (
+            <ImageZoom src={post.coverImage} alt={post.title} className="aspect-[16/9] w-full" />
+          ) : (
+            <div className="aspect-[16/9] w-full bg-gradient-to-br from-primary/15 via-accent-secondary/15 to-chart-3/10" />
+          )}
+        </AnimatedBorder>
 
         {/* Body + TOC */}
         <div className="mx-auto mt-12 grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
@@ -156,8 +186,8 @@ function BlogPostPage() {
               <Link
                 key={tag}
                 to="/blog"
-                search={{ category: 'all', tag, q: '', page: 1 }}
-                className="group inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/50 hover:bg-accent hover:text-foreground"
+                search={{ category: 'all', tag, q: '', page: 1, sort: 'newest' }}
+                className="glass group inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_20px_-8px_color-mix(in_oklab,var(--primary)_55%,transparent)]"
               >
                 <Hash className="size-3 text-primary" aria-hidden />
                 {tag}

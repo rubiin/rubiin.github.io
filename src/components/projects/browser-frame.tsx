@@ -16,7 +16,11 @@ export function BrowserFrame({
   className?: string
 }) {
   return (
-    <div className={cn('flex flex-col overflow-hidden bg-muted/40', className)}>
+    <div className={cn('relative flex flex-col overflow-hidden bg-muted/40', className)}>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-primary/70 via-accent-secondary/50 to-transparent"
+      />
       {/* Chrome bar */}
       <div className="flex items-center gap-2 border-b border-border/70 bg-background/70 px-3 py-1.5">
         <span aria-hidden className="flex gap-1.5">

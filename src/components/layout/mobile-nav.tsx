@@ -1,7 +1,7 @@
 'use client'
 
 import { Link, useLocation } from '@tanstack/react-router'
-import { Mail, Rss } from 'lucide-react'
+import { Download, Mail, Rss } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
 import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
@@ -45,6 +45,21 @@ export function MobileNav({
 
         <nav aria-label="Mobile" className="flex flex-col gap-1 px-4">
           {navItems.map((item) => {
+            // Download actions are direct links, styled as a filled CTA and
+            // placed last in the nav.
+            if (item.download) {
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  download
+                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-primary to-accent-secondary px-3 py-2.5 text-base font-semibold text-primary-foreground shadow-[0_4px_18px_-6px_color-mix(in_oklab,var(--primary)_70%,transparent)] dark:text-[#05060e]"
+                >
+                  <Download className="size-4" aria-hidden />
+                  {item.label}
+                </a>
+              )
+            }
             const active = !item.href.startsWith('/#') && location.pathname === item.href
             return (
               <Link

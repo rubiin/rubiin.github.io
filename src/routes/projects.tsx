@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import { ProjectCard } from '@/components/projects/project-card'
 import { ProjectFilters, type ProjectFilter } from '@/components/projects/project-filters'
-import { Button } from '@/components/ui/button'
+import { AnimatedGrid } from '@/components/animations/animated-grid'
+import { NeonButton } from '@/components/animations/neon-button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Reveal } from '@/components/animations/reveal'
 import { SectionHeading } from '@/components/home/section-heading'
 import { PROJECT_CATEGORIES } from '@/lib/constants'
 import { buildMeta } from '@/lib/seo'
@@ -51,9 +51,16 @@ function ProjectsSkeleton() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          // oxlint-disable-next-line react/no-array-index-key -- static skeleton
-          <div key={i} className="flex flex-col gap-3 rounded-xl border bg-card p-5">
-            <Skeleton className="aspect-video w-full" />
+          <div
+            // oxlint-disable-next-line react/no-array-index-key -- static skeleton
+            key={i}
+            className="relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border/50 bg-card p-5"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/70 via-accent-secondary/50 to-transparent"
+            />
+            <Skeleton className="aspect-video w-full rounded-xl" />
             <Skeleton className="h-5 w-2/3" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-4/5" />
@@ -93,6 +100,7 @@ function ProjectsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionHeading
+        level="h1"
         eyebrow="Work"
         title="Projects."
         description="Things I've shipped across the stack — explore by category or search."
@@ -106,20 +114,18 @@ function ProjectsPage() {
       />
 
       {filtered.length === 0 ? (
-        <div className="mt-16 flex flex-col items-center gap-4 rounded-xl border bg-card p-12 text-center">
+        <div className="glass mt-16 flex flex-col items-center gap-5 rounded-2xl p-12 text-center">
           <p className="text-muted-foreground">No projects match your filters.</p>
-          <Button variant="outline" onClick={clearFilters}>
+          <NeonButton variant="outline" size="sm" onClick={clearFilters}>
             Clear filters
-          </Button>
+          </NeonButton>
         </div>
       ) : (
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((project, i) => (
-            <Reveal key={project.slug} delay={(i % 3) * 0.06}>
-              <ProjectCard project={project} />
-            </Reveal>
-          ))}
-        </div>
+        <AnimatedGrid
+          items={filtered}
+          renderItem={(project) => <ProjectCard project={project} />}
+          className="mt-10 md:grid-cols-2 lg:grid-cols-3"
+        />
       )}
     </div>
   )
