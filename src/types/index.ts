@@ -71,30 +71,6 @@ export interface ExperienceItem {
   technologies: string[]
 }
 
-export interface EducationItem {
-  school: string
-  degree: string
-  field: string
-  start: string
-  end: string
-  notes?: string
-}
-
-export interface Certification {
-  name: string
-  issuer: string
-  year: string
-  url?: string
-  credentialId?: string
-}
-
-export interface Award {
-  name: string
-  issuer: string
-  year: string
-  description: string
-}
-
 export type ProjectCategory = 'frontend' | 'backend' | 'ai' | 'terminal' | 'full-stack'
 
 export interface Project {

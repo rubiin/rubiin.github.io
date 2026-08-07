@@ -1,50 +1,4 @@
-@import 'tailwindcss' source('../');
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-accent-secondary: var(--accent-secondary);
-
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-
-  --font-sans:
-    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    sans-serif;
-  --font-display:
-    'Space Grotesk', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-    sans-serif;
-  --font-mono:
-    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
-
-  --animate-marquee: marquee 32s linear infinite;
-}
+@unocss;
 
 @keyframes marquee {
   from {
@@ -55,6 +9,9 @@
   }
 }
 
+/* Type ramp — kept as CSS variables (not just UnoCSS theme tokens) because
+   inline styles (page-loader, not-found) reference `var(--font-*)` directly. */
+
 /* ============================================================
    Futuristic palette — deep navy-black with vibrant blue +
    purple neon. Dark is the primary expression; light is a
@@ -62,6 +19,14 @@
    ============================================================ */
 :root {
   --radius: 1rem;
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-display:
+    'Space Grotesk', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
   --background: #f4f6fd;
   --foreground: #12162b;
   --card: #ffffff;
@@ -117,15 +82,18 @@
   --accent-secondary: #a78bfa;
 }
 
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-border, currentcolor);
-  }
+/* UnoCSS's preflight resets borders to `0 solid` (currentcolor). Restore the
+   design-token default border color that the Tailwind v4 `--color-border`
+   mapping provided, so bare `border` utilities keep using the token. */
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  border-color: var(--border, currentcolor);
+}
 
+@layer base {
   html {
     color-scheme: light dark;
     scroll-behavior: smooth;
@@ -165,98 +133,99 @@
 }
 
 /* ============================================================
-   Premium design utilities — glass, neon, gradients
+   Premium design utilities — glass, neon, gradients.
+   Kept unlayered (matching the Tailwind build, where these custom
+   classes lived at the end of the utilities layer and therefore won
+   conflicts against generated utilities).
    ============================================================ */
-@layer utilities {
-  /* Frosted glass surface */
-  .glass {
-    background: color-mix(in oklab, var(--card) 55%, transparent);
-    backdrop-filter: blur(18px) saturate(160%);
-    -webkit-backdrop-filter: blur(18px) saturate(160%);
-    border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
-    box-shadow: 0 24px 48px -28px color-mix(in oklab, #000 55%, transparent);
-  }
+/* Frosted glass surface */
+.glass {
+  background: color-mix(in oklab, var(--card) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  box-shadow: 0 24px 48px -28px color-mix(in oklab, #000 55%, transparent);
+}
 
-  .glass-strong {
-    background: color-mix(in oklab, var(--card) 82%, transparent);
-    backdrop-filter: blur(22px) saturate(170%);
-    -webkit-backdrop-filter: blur(22px) saturate(170%);
-    border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-    box-shadow: 0 32px 64px -32px color-mix(in oklab, #000 60%, transparent);
-  }
+.glass-strong {
+  background: color-mix(in oklab, var(--card) 82%, transparent);
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  box-shadow: 0 32px 64px -32px color-mix(in oklab, #000 60%, transparent);
+}
 
-  /* Blue → purple gradient text */
-  .text-gradient {
-    background-image: linear-gradient(115deg, var(--primary), var(--accent-secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+/* Blue → purple gradient text */
+.text-gradient {
+  background-image: linear-gradient(115deg, var(--primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
-  /* Film-grain noise overlay (SVG feTurbulence data URI) */
-  .noise-bg {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  }
+/* Film-grain noise overlay (SVG feTurbulence data URI) */
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
 
-  /* Subtle blueprint grid */
-  .grid-bg {
-    background-image:
-      linear-gradient(color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
-      linear-gradient(
-        90deg,
-        color-mix(in oklab, var(--foreground) 6%, transparent) 1px,
-        transparent 1px
-      );
-    background-size: 56px 56px;
-  }
-
-  /* Radial mouse-follow glow (driven by --mx/--my) */
-  .mouse-glow {
-    background: radial-gradient(
-      560px circle at var(--mx, 50%) var(--my, 50%),
-      color-mix(in oklab, var(--primary) 9%, transparent),
-      transparent 65%
+/* Subtle blueprint grid */
+.grid-bg {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--foreground) 6%, transparent) 1px,
+      transparent 1px
     );
-  }
+  background-size: 56px 56px;
+}
 
-  /* Rotating conic border — pair with .animated-border-shell. */
-  .animated-border {
-    position: relative;
-    isolation: isolate;
-  }
+/* Radial mouse-follow glow (driven by --mx/--my) */
+.mouse-glow {
+  background: radial-gradient(
+    560px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklab, var(--primary) 9%, transparent),
+    transparent 65%
+  );
+}
 
-  .animated-border::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    z-index: -1;
-    border-radius: inherit;
-    background: conic-gradient(
-      from var(--border-angle, 0deg),
-      transparent 0%,
-      color-mix(in oklab, var(--primary) 70%, transparent) 14%,
-      color-mix(in oklab, var(--accent-secondary) 80%, transparent) 28%,
-      transparent 42%,
-      transparent 58%,
-      color-mix(in oklab, var(--accent-secondary) 70%, transparent) 72%,
-      color-mix(in oklab, var(--primary) 75%, transparent) 86%,
-      transparent 100%
-    );
-    animation: border-rotate 6s linear infinite;
-    opacity: 0.45;
-    transition: opacity 0.45s ease;
-  }
+/* Rotating conic border — pair with .animated-border-shell. */
+.animated-border {
+  position: relative;
+  isolation: isolate;
+}
 
-  .animated-border:hover::before,
-  .animated-border[data-always='true']::before {
-    opacity: 1;
-  }
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--border-angle, 0deg),
+    transparent 0%,
+    color-mix(in oklab, var(--primary) 70%, transparent) 14%,
+    color-mix(in oklab, var(--accent-secondary) 80%, transparent) 28%,
+    transparent 42%,
+    transparent 58%,
+    color-mix(in oklab, var(--accent-secondary) 70%, transparent) 72%,
+    color-mix(in oklab, var(--primary) 75%, transparent) 86%,
+    transparent 100%
+  );
+  animation: border-rotate 6s linear infinite;
+  opacity: 0.45;
+  transition: opacity 0.45s ease;
+}
 
-  /* Below-the-fold cards: skip rendering + layout until near the viewport. */
-  .content-visibility {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 400px;
-  }
+.animated-border:hover::before,
+.animated-border[data-always='true']::before {
+  opacity: 1;
+}
+
+/* Below-the-fold cards: skip rendering + layout until near the viewport. */
+.content-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
 }
 
 /* Custom property for the rotating border angle */
@@ -462,7 +431,10 @@ html[data-retro='true'] {
   --chart-5: #b967ff;
 }
 
-/* Hand-rolled prose styles for MDX blog content (no typography plugin). */
+/* Hand-rolled prose styles for MDX blog content (no typography plugin).
+   Kept inside a real cascade layer so generated utilities (unlayered)
+   keep winning conflicts against prose defaults — matching Tailwind's
+   base < components < utilities ordering. */
 @layer components {
   .prose {
     @apply text-foreground/90 leading-relaxed;

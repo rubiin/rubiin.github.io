@@ -1,6 +1,6 @@
 # Rubin Bhandari — Portfolio, Interactive Resume & MDX Blog
 
-A production-ready personal website built on the **TanStack ecosystem**: TanStack Start (SSR + server functions), TanStack Router (file-based routing, search params), TanStack Query, TanStack Form, and TanStack Store — with Tailwind CSS v4, shadcn/ui, Motion, and a lazy-loaded React Three Fiber 3D scene on the home page.
+A production-ready personal website built on the **TanStack ecosystem**: TanStack Start (SSR + server functions), TanStack Router (file-based routing, search params), TanStack Query, TanStack Form, and TanStack Store — with UnoCSS (wind4 preset, a drop-in Tailwind v4 replacement), shadcn/ui, Motion, and a lazy-loaded React Three Fiber 3D scene on the home page.
 
 ![Stack](https://img.shields.io/badge/TanStack-Start%20%7C%20Router%20%7C%20Query%20%7C%20Form%20%7C%20Store-ff4154)
 
@@ -14,7 +14,7 @@ A production-ready personal website built on the **TanStack ecosystem**: TanStac
 | **Sections** | About, interactive skills (tabs + orbit constellation + tooltips), experience timeline (scroll-grown line, accordions), featured projects, contact CTA |
 | **Projects** | `/projects` — search-param driven category pills + debounced search, responsive grid, empty state |
 | **Blog** | `/blog` + `/blog/:slug` — MDX via content-collections, Shiki code blocks, KaTeX math, Mermaid diagrams, TOC, share buttons, related posts, giscus comments |
-| **Resume** | `/resume` — printable (Print / Save as PDF), sections composed from data files |
+| **Resume** | Downloadable PDF (`/resume.pdf`) via header/hero/terminal links |
 | **Contact** | `/contact` — TanStack Form + shared Zod schema, server-side submit with graceful email fallback |
 | **Extras** | ⌘K command palette, light/dark/system theme, smooth scrolling (Lenis), scroll progress, custom 404 + error pages, RSS, sitemap, robots.txt, JSON-LD |
 
@@ -22,7 +22,7 @@ A production-ready personal website built on the **TanStack ecosystem**: TanStac
 
 - **Framework:** TanStack Start 1.168, React 19.2, TypeScript 6 (strict)
 - **Data & routing:** TanStack Router 1.170, TanStack Query 5, TanStack Form 1.33, TanStack Store
-- **Styling:** Tailwind CSS 4, shadcn/ui, CSS-variable design tokens
+- **Styling:** UnoCSS (preset-wind4 — 1:1 with the former Tailwind CSS v4, see `compare.md`), shadcn/ui, CSS-variable design tokens
 - **Motion & 3D:** Motion 12, Lenis, Three.js 0.185 + @react-three/fiber + drei (lazy-loaded)
 - **Content:** content-collections + @content-collections/mdx, Shiki, KaTeX, Mermaid
 - **Backend:** Resend (optional) for contact-form email
@@ -51,6 +51,32 @@ Other scripts:
 | `pnpm start` | Run the production server |
 | `pnpm typecheck` | `tsc --noEmit` |
 | `pnpm content:build` | Regenerate `content-collections` output |
+| `pnpm test:snapshots` | Build + compare visual snapshots against the Tailwind v4 baseline goldens |
+| `pnpm test:snapshots:baseline` | Regenerate baseline goldens from the Tailwind v4 build (`HEAD`) |
+
+## Visual Snapshot Testing
+
+A Playwright suite guards against visual regressions by comparing the rendered site, **pixel-for-pixel**, against goldens captured from the previous Tailwind CSS v4 build. This is how the UnoCSS migration was verified as visually 1:1 (see `compare.md` for the full audit).
+
+```bash
+pnpm test:snapshots              # build + run the suite (22 tests)
+```
+
+- **What it covers** — 22 tests: 6 pages (home, blog, blog post, projects, contact, terminal) × light/dark (terminal is dark-only) × desktop (1280×800) and mobile (390×844) viewports, so responsive breakpoints and the mobile nav are guarded too.
+- **Determinism** — third-party requests (Google Fonts, analytics, …) are aborted so both builds render with identical fallback fonts; animations/transitions are frozen; reduced motion and the theme are forced per test; the GPU-dependent 3D hero canvas is masked with a flat theme background.
+- **Failure** — any pixel drift above the per-test threshold fails the test, and CI (`snapshots` job) uploads a Playwright report with the expected/actual/diff images.
+
+### Regenerating the goldens
+
+Goldens live in `tests/e2e/__screenshots__/visual.spec.ts/` and were captured from the Tailwind v4 baseline (`HEAD`). Regenerate them only when the baseline intentionally changes (e.g. a deliberate redesign):
+
+```bash
+pnpm test:snapshots:baseline     # builds HEAD in a temp worktree, serves it on :3199, captures goldens
+```
+
+This checks out the given ref (default `HEAD`) in a throwaway git worktree, installs and builds it, serves it on port 3199, and runs `playwright test --update-snapshots` against it. Existing goldens are swapped out safely — if the capture fails, the previous goldens are restored. `tests/snapshots/baseline.json` records which commit the goldens came from.
+
+> **Note:** the default `HEAD` is only the correct baseline **while the UnoCSS migration is uncommitted**. Once it lands, pin the ref to the last Tailwind commit explicitly — e.g. `pnpm test:snapshots:baseline <tailwind-commit-hash>` — so goldens are always captured from the Tailwind build.
 
 ## Environment Variables
 
@@ -92,10 +118,8 @@ All site content is data-driven in `src/data/`:
 | `profile.ts` | Hero bio, highlights, interests, philosophy |
 | `skills.ts` | Skill categories, levels, years, related projects |
 | `experience.ts` | Work history + achievements + technologies |
-| `education.ts`, `certifications.ts`, `awards.ts` | Credentials |
 | `projects.ts` | Portfolio projects (categories, tech, links) |
 | `testimonials.ts` | Quotes |
-| `resume.ts` | Aggregates the above for the resume page |
 
 Edit a file, save, and the UI updates — no component changes required.
 
@@ -112,6 +136,8 @@ Edit a file, save, and the UI updates — no component changes required.
 content/blog/          MDX posts (one file = one post)
 content-collections.config.ts
 public/                robots.txt, og.png
+scripts/               content build, smoke test, snapshot-baseline helpers
+tests/e2e/             Playwright visual snapshot suite + Tailwind v4 goldens
 src/
   components/
     animations/        Reveal, MagneticButton, TiltCard, Counter, TextReveal
@@ -120,7 +146,6 @@ src/
     home/              Hero, sections, marquee
     layout/            Header, footer, command palette, theme, lenis…
     projects/          Project card + filters
-    resume/            Resume sections
     three/             Lazy 3D scene
     ui/                shadcn/ui primitives
   data/                All editable site content
@@ -137,7 +162,7 @@ src/
 Before going public, consider:
 
 - **Comments:** set real GitHub repo / category IDs in `src/lib/constants.ts` (`GISCUS_*`) so giscus threads work.
-- **Resume PDF:** point `siteConfig.resumePdfUrl` at a hosted PDF (the page falls back to Print / Save as PDF).
+- **Resume PDF:** replace `public/resume.pdf` (or point `siteConfig.resumePdfUrl` at a hosted PDF).
 - **Contact spam:** add a rate limiter or honeypot in front of `submitContact`, and enable TanStack Start's CSRF middleware if you deploy to a separate origin.
 - **OG image:** replace `public/og.png` (currently a generated placeholder) with a designed 1200×630 asset.
 

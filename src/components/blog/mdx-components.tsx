@@ -45,5 +45,3 @@ export const mdxComponents = {
   h4: (props: ComponentPropsWithoutRef<'h4'>) => <AnimatedHeading level="h4" {...props} />,
   Mermaid,
 }
-
-export type MDXComponents = typeof mdxComponents

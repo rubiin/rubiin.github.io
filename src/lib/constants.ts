@@ -12,11 +12,10 @@ export const CATEGORY_LABELS: Record<ProjectCategory, string> = Object.fromEntri
   PROJECT_CATEGORIES.map(({ value, label }) => [value, label]),
 ) as Record<ProjectCategory, string>
 
-export const PROJECTS_PER_PAGE = 6
 export const POSTS_PER_PAGE = 6
 
 /** Year Rubin started professionally — drives the always-current experience count. */
-export const CAREER_START_YEAR = 2017
+const CAREER_START_YEAR = 2017
 
 /** Years of experience, computed from the start year so it never goes stale. */
 export const YEARS_OF_EXPERIENCE = new Date().getFullYear() - CAREER_START_YEAR

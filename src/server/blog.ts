@@ -47,16 +47,6 @@ export const getPost = createServerFn({ method: 'GET' })
     return post ?? null
   })
 
-/** Posts sharing a tag, newest first. */
-export const getPostsByTag = createServerFn({ method: 'GET' })
-  .validator((tag: string) => tag)
-  .handler(async ({ data: tag }) => {
-    return allPosts
-      .filter((p) => !p.draft && p.tags.includes(tag))
-      .sort((a, b) => (a.date < b.date ? 1 : -1))
-      .map(toSummary)
-  })
-
 /** Tag frequency across published posts. */
 export const getPostTags = createServerFn().handler(async () => {
   const counts = new Map<string, number>()

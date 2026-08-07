@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext } from 'react'
+import { createContext } from 'react'
 import type Lenis from 'lenis'
 
 // Module-level ref, written by <LenisProvider> and read by `lenisScrollTo`
@@ -8,16 +8,6 @@ import type Lenis from 'lenis'
 const instanceRef: { current: Lenis | null } = { current: null }
 
 export const LenisContext = createContext<Lenis | null>(null)
-
-/**
- * Access the active Lenis instance (provided by <LenisProvider>).
- * Returns `null` when smooth scrolling is disabled (reduced motion,
- * touch-only viewports) or outside the provider — callers must handle
- * the null case and fall back to native scrolling.
- */
-export function useLenis(): Lenis | null {
-  return useContext(LenisContext)
-}
 
 /**
  * Smooth-scroll to a selector or pixel offset via the active Lenis

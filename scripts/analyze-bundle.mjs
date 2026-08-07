@@ -5,7 +5,8 @@
  * Reports motion/framer-motion ("Motion family") bytes per chunk, plus the
  * total sizes of the main entry chunks.
  *
- * Usage: node scripts/analyze-bundle.mjs /tmp/bundle-stats.json
+ * Usage: npx vite-bundle-visualizer --output /tmp/bundle-stats.json && node scripts/analyze-bundle.mjs /tmp/bundle-stats.json
+ * (vite-bundle-visualizer is no longer a devDependency — run it via npx.)
  */
 import { readFileSync } from 'node:fs'
 

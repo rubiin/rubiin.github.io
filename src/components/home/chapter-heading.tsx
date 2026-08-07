@@ -50,7 +50,7 @@ export function ChapterHeading({
         <span
           aria-hidden
           className={cn(
-            'pointer-events-none absolute -top-16 right-0 hidden font-display text-[6.5rem] leading-none font-bold tracking-tight text-primary/[0.06] select-none sm:block sm:text-[8rem]',
+            'pointer-events-none absolute -top-16 right-0 hidden font-display text-[6.5rem] leading-none font-bold tracking-tight text-primary/[6%] select-none sm:block sm:text-[8rem]',
             centered && 'left-1/2 -translate-x-1/2',
           )}
         >
