@@ -27,7 +27,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <TiltCard className="h-full rounded-2xl">
       <AnimatedBorder className="h-full">
-        <article className="group flex h-full flex-col overflow-hidden rounded-[inherit]">
+        <article className="content-visibility group flex h-full flex-col overflow-hidden rounded-[inherit]">
           {/* Media — framed like a browser window */}
           <BrowserFrame url={domainOf(project.title, project.demo)} className="aspect-[16/10]">
             <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-primary/15 via-accent-secondary/15 to-chart-3/10">
@@ -36,6 +36,8 @@ export function ProjectCard({ project }: { project: Project }) {
                   src={project.image}
                   alt={`${project.title} interface`}
                   loading="lazy"
+                  width={800}
+                  height={500}
                   className="size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
               ) : (

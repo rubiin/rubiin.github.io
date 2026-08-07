@@ -229,6 +229,15 @@ imported in the root route. Font stacks in `globals.css`/`uno.config.ts` updated
 `Variable` family names. Browsers now fetch only the latin subsets same-origin (~108 KiB total)
 with `font-display: swap`; the 22 snapshots were regenerated so goldens render real fonts.
 
+## 📐 Project image resize + CLS hardening
+
+Resized the 10 project images wider than 800px down to 800px wide (`magick -resize 800x>` —
+cards render at ~352px, so 800px is 2.3× DPR headroom); project image payload dropped from
+~570 KiB → 414 KiB. Blog covers kept full-res (the post hero renders them at ~848px+).
+Added intrinsic display-box `width`/`height` hints to the card `<img>`s (`project-card.tsx`,
+`projects-section.tsx` 16:10, `post-card.tsx` 16:9) so layout is reserved before the CSS box
+applies, plus `content-visibility` on the project card. Goldens regenerated (5 changed).
+
 ## Files touched this session
 
 | File                                     | Change                                                            |
@@ -236,7 +245,8 @@ with `font-display: swap`; the 22 snapshots were regenerated so goldens render r
 | `uno.config.ts`                          | `after:`/`before:` variants injecting `content:""` (order −1) **and** `mergeSelectors:false` (bug #3) |
 | `src/data/projects.ts`, 6 blog `.mdx` files, `public/projects/*`, `public/blog/*` | PNG/JPG → WebP conversion (q85) + reference updates; `og.png` kept as PNG |
 | `src/routes/__root.tsx`, `src/styles/globals.css`, `uno.config.ts` (font tokens), `package.json`, `pnpm-lock.yaml` | self-hosted fonts via Fontsource variable packages (Google Fonts link removed) |
-| `tests/e2e/__screenshots__/**`, `tests/snapshots/baseline.json` | goldens regenerated from the UnoCSS+WebP+self-hosted-fonts build (provenance noted) |
+| `public/projects/*.webp` (10 resized), `src/components/projects/project-card.tsx`, `src/components/home/projects-section.tsx`, `src/components/blog/post-card.tsx` | project images resized to 800px wide + intrinsic width/height + content-visibility (CLS hardening) |
+| `tests/e2e/__screenshots__/**`, `tests/snapshots/baseline.json` | goldens regenerated from the UnoCSS+WebP+fonts+resize build (provenance noted) |
 | `tests/e2e/helpers.ts`, `playwright.config.ts`, `scripts/smoke-test.mjs`, `README.md` | docs/comments updated: fonts no longer aborted (self-hosted) |
 | `src/components/home/chapter-heading.tsx`| `text-primary/[0.06]` → `text-primary/[6%]`                       |
 | `playwright.config.ts`, `tests/e2e/visual.spec.ts` (22 tests × desktop/mobile), `tests/e2e/helpers.ts`, `scripts/snapshot-baseline.mjs`, `tests/snapshots/baseline.json`, `tests/e2e/__screenshots__/**` | snapshot suite + Tailwind goldens |

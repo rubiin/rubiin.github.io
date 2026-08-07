@@ -2,7 +2,7 @@
   "framework": "unocss",
   "ref": "HEAD",
   "commit": "5eab7cd1dd4e1e6a4ad36e988067f6d045c5b83f",
-  "date": "2026-08-07T20:21:06.000Z",
+  "date": "2026-08-07T20:35:32.000Z",
   "url": "http://localhost:3000",
-  "note": "Goldens regenerated from the UnoCSS working tree after: (1) WebP image conversion (26 project/blog images) and (2) self-hosted fonts via Fontsource variable packages (Inter/Space Grotesk/JetBrains Mono) — fonts now render for real instead of aborted-fallback, which changed all 22 goldens. This capture includes uncommitted working-tree changes, so checking out the recorded commit alone would not reproduce them. Original Tailwind baseline: 8b4b6240b601b25cd67da7088158b01f6e44419d."
+  "note": "Goldens regenerated from the UnoCSS working tree after: (1) WebP image conversion, (2) self-hosted Fontsource fonts, and (3) project images resized to 800px wide (display size, ~352px cards at 2.3x DPR) with intrinsic width/height + content-visibility added to cards. This capture includes uncommitted working-tree changes, so checking out the recorded commit alone would not reproduce them. Original Tailwind baseline: 8b4b6240b601b25cd67da7088158b01f6e44419d."
 }

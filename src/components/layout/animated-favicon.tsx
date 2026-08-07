@@ -2,12 +2,7 @@
 
 import { useEffect } from 'react'
 
-/**
- * Animated favicon: a canvas "R" monogram with a slowly rotating ring.
- * Only animates while the tab has focus (and motion is allowed); otherwise
- * it renders a static frame. Colors are read from the theme tokens so it
- * follows light/dark automatically. Returns null — pure side effect.
- */
+// Canvas "R" monogram favicon; animates only while the tab has focus.
 export function AnimatedFavicon() {
   useEffect(() => {
     const canvas = document.createElement('canvas')
@@ -35,7 +30,6 @@ export function AnimatedFavicon() {
       const fg = cssVar('--foreground', '#ccd6f6')
 
       ctx.clearRect(0, 0, 32, 32)
-      // Rounded backdrop (fallback to plain rect on older engines)
       ctx.fillStyle = bg
       if (typeof ctx.roundRect === 'function') {
         ctx.beginPath()
@@ -45,7 +39,6 @@ export function AnimatedFavicon() {
         ctx.fillRect(1, 1, 30, 30)
       }
 
-      // Rotating ring (arc from -90°)
       ctx.strokeStyle = brand
       ctx.lineWidth = 2
       ctx.lineCap = 'round'
@@ -53,7 +46,6 @@ export function AnimatedFavicon() {
       ctx.arc(16, 16, 11, -Math.PI / 2, -Math.PI / 2 + angle)
       ctx.stroke()
 
-      // "R" monogram
       ctx.fillStyle = fg
       ctx.font = '700 16px Inter, ui-sans-serif, system-ui, sans-serif'
       ctx.textAlign = 'center'
@@ -65,7 +57,7 @@ export function AnimatedFavicon() {
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    // Redraw on theme toggle too.
+    // Redraw on theme toggle (class flips on <html>).
     const themeObserver = new MutationObserver(() => draw(angle, document.hasFocus()))
     themeObserver.observe(document.documentElement, {
       attributes: true,
@@ -79,20 +71,16 @@ export function AnimatedFavicon() {
       return () => themeObserver.disconnect()
     }
 
-    // Throttled to ~2.5fps: each tick does a synchronous toDataURL + href
-    // swap, so the old 120ms cadence was ~8fps of string encoding for a
-    // 32×32 icon. The angle step is scaled to preserve the ring's speed.
+    // Throttled to ~2.5fps — each tick does a synchronous toDataURL + href swap.
     interval = window.setInterval(() => {
       if (document.hasFocus()) {
         angle = (angle + 0.73) % (Math.PI * 2)
         draw(angle, true)
       } else {
-        // Static ring quarter while unfocused (cheap, once per tick).
         draw(Math.PI / 2, false)
       }
     }, 400)
 
-    // Respect light/dark: force a redraw when theme class flips.
     return () => {
       clearInterval(interval)
       themeObserver.disconnect()

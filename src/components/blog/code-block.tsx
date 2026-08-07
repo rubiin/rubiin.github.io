@@ -5,15 +5,7 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-/**
- * Canonical Shiki grammar for the fence languages this blog actually uses.
- * Importing from `@shikijs/langs/<id>` (instead of the umbrella `shiki`
- * entry) keeps only these grammars in the bundle — the full distribution
- * ships chunks for ~150 languages and a ~0.6 MB inlined oniguruma WASM.
- *
- * Each entry loads lazily, so only grammars present on the current page
- * are fetched. Aliases (`sh` → bash, `vim` → viml) resolve to one module.
- */
+// Lazy per-language Shiki grammars (no ~0.6 MB oniguruma WASM umbrella).
 const LANGUAGE_MODULES = {
   bash: { load: () => import('@shikijs/langs/bash'), id: 'bash' },
   sh: { load: () => import('@shikijs/langs/bash'), id: 'bash' },
@@ -30,8 +22,7 @@ const LANGUAGE_MODULES = {
   dockerfile: { load: () => import('@shikijs/langs/dockerfile'), id: 'dockerfile' },
   json: { load: () => import('@shikijs/langs/json'), id: 'json' },
   go: { load: () => import('@shikijs/langs/go'), id: 'go' },
-  // Common extras so future posts don't silently lose highlighting — each
-  // grammar is a small on-demand chunk, only fetched when actually used.
+  // Common extras — small on-demand chunks, fetched only when used.
   python: { load: () => import('@shikijs/langs/python'), id: 'python' },
   css: { load: () => import('@shikijs/langs/css'), id: 'css' },
   html: { load: () => import('@shikijs/langs/html'), id: 'html' },
@@ -42,10 +33,7 @@ const LANGUAGE_MODULES = {
   rust: { load: () => import('@shikijs/langs/rust'), id: 'rust' },
 }
 
-/**
- * Client component that highlights code with Shiki and provides a
- * copy-to-clipboard button. Falls back to a plain <pre> if Shiki fails.
- */
+// Shiki-highlights code client-side; falls back to a plain <pre> on failure.
 export function CodeBlock({
   code,
   lang,
@@ -65,20 +53,16 @@ export function CodeBlock({
 
     const highlight = async () => {
       try {
-        // Fine-grained Shiki: core + a single theme + the JS regex engine
-        // (no WASM fetch), so a code block costs a fraction of the old
-        // `shiki` umbrella import.
         const [
           { createHighlighterCore },
           { default: githubDark },
           { createJavaScriptRegexEngine },
         ] = await Promise.all([
-          // `@shikijs/core` directly (not `shiki/core`) so the oniguruma
-          // engine — and its inlined WASM — never enter the bundle.
           import('@shikijs/core'),
           import('@shikijs/themes/github-dark'),
           import('@shikijs/engine-javascript'),
         ])
+        // Core + JS regex engine only, so no WASM fetch.
         const highlighter = await createHighlighterCore({
           themes: [githubDark],
           langs: [],

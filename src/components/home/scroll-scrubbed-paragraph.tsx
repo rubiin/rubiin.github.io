@@ -4,11 +4,7 @@ import { Fragment, useMemo, useRef, type ReactNode } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { cn } from '@/lib/utils'
 
-/**
- * Word-level scrub unit: exactly one hook per word. Opacity ramps from a
- * dim "unread" state to full as the scroll read-head passes the word.
- * Highlighted words fade up wearing the gradient fill.
- */
+// One word, one useTransform: opacity ramps up as the read-head passes it.
 function ScrubWord({
   word,
   highlighted,
@@ -33,10 +29,7 @@ function ScrubWord({
   )
 }
 
-/**
- * Global word indices covered by any highlight phrase (case-insensitive,
- * whitespace-normalized to match the rendered word stream).
- */
+// Word indices covered by any highlight phrase (case-insensitive).
 function computeHighlighted(wordList: string[], highlights: string[]): Set<number> {
   const set = new Set<number>()
   if (highlights.length === 0 || wordList.length === 0) return set
@@ -69,14 +62,7 @@ function computeHighlighted(wordList: string[], highlights: string[]): Set<numbe
 
 const NO_HIGHLIGHTS: string[] = []
 
-/**
- * Scroll-scrubbed narrative paragraph: as the reader scrolls, the read head
- * sweeps through the text and words brighten from muted to full. Key
- * phrases light up in the site gradient. The text is real, readable markup
- * (screen readers see the full text; opacity is purely visual). Reduced
- * motion renders the whole text at full opacity — identical DOM, only the
- * animation is skipped.
- */
+// Scroll read-head brightens words as they pass; reduced motion renders full opacity.
 export function ScrollScrubbedParagraph({
   text,
   highlights = NO_HIGHLIGHTS,
@@ -90,7 +76,6 @@ export function ScrollScrubbedParagraph({
   className?: string
 }) {
   const ref = useRef<HTMLDivElement>(null)
-  // Strict boolean — `useReducedMotion` can be null on first render.
   const reduced = useReducedMotion() === true
 
   const paragraphs = useMemo(() => text.split('\n\n').filter(Boolean), [text])
@@ -115,7 +100,6 @@ export function ScrollScrubbedParagraph({
   return (
     <div
       ref={ref}
-      // Iconed rows read as a list to assistive tech.
       role={icon ? 'list' : undefined}
       className={cn('space-y-4', className)}
     >

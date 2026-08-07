@@ -23,6 +23,9 @@ names in `globals.css` + `uno.config.ts`.
 `/assets/*.woff2` in a headless browser; typecheck ✓ lint ✓ knip ✓; all 22 snapshots
 regenerated (`--update-snapshots=all`) and passing — goldens now render real fonts instead of
 aborted fallbacks, which is *more* deterministic (no network variance by construction).
+The three latin woff2s are also `rel=preload`d in the root head (`as=font`,
+`crossorigin=anonymous`) with hashes matching the `@font-face` rules exactly, so first paint
+swaps to real fonts without a late font fetch.
 
 > **Tradeoff:** the variable packages' `index.css` declares *all* unicode-range subsets
 > (cyrillic/greek/vietnamese/latin-ext), so the build emits ~34 woff2 files. Browsers fetch
@@ -30,21 +33,25 @@ aborted fallbacks, which is *more* deterministic (no network variance by constru
 > just sit in `.output`. Static `@fontsource/*` packages ship per-subset CSS entries
 > (`@fontsource/inter/latin-400.css`) if build-size hygiene ever matters.
 
-### Image formats: PNG/JPG → WebP (biggest single win)
+### Image formats: PNG/JPG → WebP + display-size resize (biggest single win)
 
 Converted **26 raster images** (20 project screenshots + 6 blog inline images) from PNG/JPG to
 WebP with `magick -strip -quality 85 -define webp:method=6`, updated every reference
-(`src/data/projects.ts`, 6 blog MDX files), and deleted the originals.
+(`src/data/projects.ts`, 6 blog MDX files), and deleted the originals. Then resized the **10
+project images wider than 800px** down to 800px (`magick -resize 800x>` — cards render at
+~352px in the 3-col grid, so 800px = 2.3× DPR headroom). Blog covers were **kept full-res**
+because the post hero renders them at `max-w-4xl` (~848px+).
 
 | Metric | Before | After |
 | ----------------------------- | ------- | ------- |
 | 26 converted files            | 4.79 MiB | ~0.59 MiB (**−88%**) |
-| Total imagery in `public/`    | ~6.3 MiB | **1.58 MiB** |
-| Largest files                 | `pokego.png` 708 KiB · `tsumiki.png` 711 KiB | `pokego.webp` 100 KiB · `tsumiki.webp` 50 KiB |
+| Project images (after resize) | ~570 KiB  | **414 KiB** |
+| Total imagery in `public/`    | ~6.3 MiB | **1.41 MiB** |
+| Largest files                 | `pokego.png` 708 KiB · `tsumiki.png` 711 KiB | `pokego.webp` 68 KiB · `tsumiki.webp` 27 KiB |
 
 - `og.png` intentionally stays PNG (13 KiB — apple-touch-icon + `og:image` compatibility).
 - All 22 Playwright snapshots regenerated (`--update-snapshots=all`) and pass against the new
-  WebP pixels; `baseline.json` provenance updated.
+  WebP + resized pixels; `baseline.json` provenance updated.
 - Full verification: typecheck ✓ · lint 0/0 ✓ · knip 0 ✓ · build ✓ · snapshots 22/22 ✓.
 
 ---
@@ -58,13 +65,14 @@ WebP with `magick -strip -quality 85 -define webp:method=6`, updated every refer
 unused `three`/`drei` imports (bundle-visualizer can show what). **Effort:** medium ·
 **Impact:** ~186 KiB br off the home page's post-load budget.
 
-### 2. Image dimensions / CLS
-Project cards and post covers have `aspect-[16/10]`/`aspect-[16/9]` containers (good — no
-layout shift from the box), but the `<img>` tags carry no `width`/`height`. Browsers can't
-reserve intrinsic size and the `loading="lazy"` decode reserves the box via CSS, so CLS is
-low — still, adding intrinsic dims or `content-visibility` on the card would harden it.
-Also: files are still full-resolution (e.g. 1280×720) while cards render ~352 px wide —
-resizing to display size would cut the remaining payload further. **Effort:** low–medium.
+### 2. Image dimensions / CLS — **done**
+Project cards and post covers had aspect-locked containers (no box CLS) but the `<img>` tags
+carried no `width`/`height`. Added display-box intrinsic hints (`width`/`height` matching the
+16:10/16:9 rendered ratio) to `project-card.tsx`, `projects-section.tsx` and `post-card.tsx`
+so layout is reserved even before the CSS box applies, plus `content-visibility` on the
+project card (post-card already had it). Source files were full-resolution while cards render
+~352px wide — the 10 project images wider than 800px were resized to 800px (see above),
+keeping the post hero's ~848px+ cover render intact.
 
 ---
 
@@ -85,9 +93,10 @@ boot screen) if entry weight matters. **Effort:** medium · **Impact:** tens of 
 critical path.
 
 ### 5. Inline images & covers lack intrinsic dimensions
-Blog covers are already WebP but `<img>` in `post-card.tsx` (and MDX inline images) have no
-`width`/`height`. While lazy + aspect boxes prevent most CLS, adding dims is cheap insurance
-and helps LCP by reserving space. **Effort:** low.
+`post-card.tsx` covers now carry a 16:9 intrinsic hint (done in #2 above). MDX inline images
+(rendered via `ImageZoom`) still have no dims — they vary in size per post, and the prose
+container reserves flow space, so CLS is minor. Adding per-image dims in MDX frontmatter is
+possible but low value. **Effort:** low.
 
 ---
 
@@ -127,5 +136,4 @@ repeat-visit win for an offline-capable PWA. **Effort:** low.
 
 **Quick wins ranked by effort:**
 1. IntersectionObserver-gated mermaid — keeps ~225 KiB br off most posts.
-2. Image dimensions — CLS hardening.
-3. CSS extractor cleanup.
+2. CSS extractor cleanup.

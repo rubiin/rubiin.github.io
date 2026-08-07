@@ -21,10 +21,6 @@ export default defineConfig({
   // — a real layout drift vs the Tailwind v4 baseline.
   mergeSelectors: false,
 
-  // Content scanning targets for the @unocss/postcss plugin.
-  // The filesystem globs tell the postcss plugin which source files
-  // to scan for utility classes (bg-primary, animate-marquee, …).
-  // Inline content is populated by the plugin from .tsx/.ts files.
   content: {
     filesystem: [
       'src/**/*.{ts,tsx,js,jsx,html}',

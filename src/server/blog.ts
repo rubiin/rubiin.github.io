@@ -31,7 +31,7 @@ function toSummary(post: Post): PostSummary {
   }
 }
 
-/** All published posts, newest first. */
+// All published posts, newest first.
 export const getPosts = createServerFn().handler(async () => {
   return allPosts
     .filter((post) => !post.draft)
@@ -39,7 +39,7 @@ export const getPosts = createServerFn().handler(async () => {
     .map(toSummary)
 })
 
-/** A single post by slug, or null when missing/draft. */
+// A single post by slug, or null when missing/draft.
 export const getPost = createServerFn({ method: 'GET' })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
@@ -47,7 +47,7 @@ export const getPost = createServerFn({ method: 'GET' })
     return post ?? null
   })
 
-/** Tag frequency across published posts. */
+// Tag frequency across published posts.
 export const getPostTags = createServerFn().handler(async () => {
   const counts = new Map<string, number>()
   for (const post of allPosts) {
@@ -59,7 +59,7 @@ export const getPostTags = createServerFn().handler(async () => {
     .sort((a, b) => b.count - a.count)
 })
 
-/** Category frequency across published posts. */
+// Category frequency across published posts.
 export const getPostCategories = createServerFn().handler(async () => {
   const counts = new Map<string, number>()
   for (const post of allPosts) {
@@ -71,28 +71,19 @@ export const getPostCategories = createServerFn().handler(async () => {
     .sort((a, b) => b.count - a.count)
 })
 
-/**
- * Prev/next neighbors for a post (newest-first by date). Returns only the
- * two neighboring summaries — the post page uses this instead of fetching
- * the whole posts list just to build its footer nav (server-serialization).
- */
+// Prev/next neighbors only — no need to serialize the whole posts list.
 export const getPostNeighbors = createServerFn({ method: 'GET' })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
     const all = allPosts.filter((post) => !post.draft).sort((a, b) => (a.date < b.date ? 1 : -1))
     const idx = all.findIndex((p) => p.slug === slug)
     if (idx === -1) return { newer: null, older: null }
-    // `all` is newest-first, so the item before the index is newer and the
-    // item after it is older.
     const newer = idx > 0 ? toSummary(all[idx - 1]!) : null
     const older = idx < all.length - 1 ? toSummary(all[idx + 1]!) : null
     return { newer, older }
   })
 
-/**
- * Related posts: same category first, then shared tags, then newest.
- * Capped at `n`, excluding the current slug.
- */
+// Related posts: same category first, then shared tags, then newest.
 export const getRelatedPosts = createServerFn({ method: 'GET' })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }) => {

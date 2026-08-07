@@ -21,6 +21,8 @@ export function PostCard({ post }: { post: PostSummary }) {
                 src={post.coverImage}
                 alt={post.title}
                 loading="lazy"
+                   width={1600}
+                height={900}
                 className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
