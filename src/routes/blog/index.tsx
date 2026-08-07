@@ -37,6 +37,7 @@ const SORT_OPTIONS = [
 
 type BlogSort = (typeof SORT_OPTIONS)[number]['value']
 const SORTS = SORT_OPTIONS.map((o) => o.value)
+const SORT_LABELS = Object.fromEntries(SORT_OPTIONS.map((o) => [o.value, o.label])) as Record<BlogSort, string>
 
 interface BlogSearchParams {
   category: string
@@ -220,7 +221,7 @@ function BlogIndexPage() {
               <DropdownMenuTrigger asChild>
                 <button type="button" className={cn(pillClasses(false), 'cursor-pointer')}>
                   <ArrowUpDown className="size-3.5 text-primary" aria-hidden />
-                  Sort: {SORT_OPTIONS.find((o) => o.value === sort)?.label ?? 'Newest'}
+                  Sort: {SORT_LABELS[sort]}
                   <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
                 </button>
               </DropdownMenuTrigger>

@@ -37,6 +37,17 @@ const COMMANDS = [
   'clear',
 ]
 
+const TITLE_BAR = (
+  <div className="flex items-center gap-2 border-b border-border/70 bg-[#0a192f]/80 px-4 py-3">
+    <span aria-hidden className="size-3 rounded-full bg-[#ef6b73]" />
+    <span aria-hidden className="size-3 rounded-full bg-[#ffae57]" />
+    <span aria-hidden className="size-3 rounded-full bg-[#bae67e]" />
+    <span className="ml-3 truncate font-mono text-xs text-muted-foreground">
+      rubin@portfolio — zsh
+    </span>
+  </div>
+)
+
 const HELP = [
   'Available commands:',
   '  help       show this help',
@@ -285,15 +296,7 @@ export function Terminal() {
   return (
     <div className="terminal-root mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-5xl flex-col px-4 py-10 sm:px-6">
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-[#04101f]/95 shadow-2xl shadow-black/30">
-        {/* Title bar */}
-        <div className="flex items-center gap-2 border-b border-border/70 bg-[#0a192f]/80 px-4 py-3">
-          <span aria-hidden className="size-3 rounded-full bg-[#ef6b73]" />
-          <span aria-hidden className="size-3 rounded-full bg-[#ffae57]" />
-          <span aria-hidden className="size-3 rounded-full bg-[#bae67e]" />
-          <span className="ml-3 truncate font-mono text-xs text-muted-foreground">
-            rubin@portfolio — zsh
-          </span>
-        </div>
+        {TITLE_BAR}
 
         {/* Output */}
         <div

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { PROJECT_CATEGORIES } from '@/lib/constants'
+import { CATEGORY_LABELS, PROJECT_CATEGORIES } from '@/lib/constants'
 import type { ProjectCategory } from '@/types'
 import { cn } from '@/lib/utils'
 
@@ -64,8 +64,7 @@ export function ProjectFilters({
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-2">
         {options.map((option) => {
-          const label =
-            option === 'all' ? 'All' : PROJECT_CATEGORIES.find((c) => c.value === option)?.label
+          const label = option === 'all' ? 'All' : CATEGORY_LABELS[option]
           return (
             <button
               key={option}
