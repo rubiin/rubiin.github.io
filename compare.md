@@ -202,11 +202,32 @@ Sub-0.001% — imperceptible.
 
 ---
 
+## 🖼️ Image format optimization (WebP)
+
+Converted **26 raster images** (20 project screenshots + 6 blog inline images) from PNG/JPG to
+WebP (`magick -strip -quality 85 -define webp:method=6`) and updated every reference
+(`src/data/projects.ts`, 6 blog MDX files). `og.png` intentionally stays PNG (apple-touch-icon
++ `og:image` compatibility — only 13 KiB).
+
+| Metric                      | Before         | After         |
+| --------------------------- | -------------- | ------------- |
+| 26 converted files          | 4.79 MiB       | ~0.59 MiB     |
+| Total image payload (`public/`) | ~6.3 MiB (PNG/JPG + covers) | **1.58 MiB** |
+| Biggest single file         | `pokego.png` 708 KiB | `pokego.webp` 100 KiB (−86%) |
+
+Examples: `dotfiles.png` 683→75 KiB, `flippay.png` 679→48 KiB, `tsumiki.png` 711→50 KiB,
+`git-log.png` 312→111 KiB. The Playwright goldens were regenerated from the current build
+(`--update-snapshots=all`) so the suite keeps guarding against drift; `baseline.json` records
+the new provenance (UnoCSS build at `5eab7cd`, original Tailwind baseline noted). All 22
+snapshots still pass 22/22.
+
 ## Files touched this session
 
 | File                                     | Change                                                            |
 | ---------------------------------------- | ----------------------------------------------------------------- |
 | `uno.config.ts`                          | `after:`/`before:` variants injecting `content:""` (order −1) **and** `mergeSelectors:false` (bug #3) |
+| `src/data/projects.ts`, 6 blog `.mdx` files, `public/projects/*`, `public/blog/*` | PNG/JPG → WebP conversion (q85) + reference updates; `og.png` kept as PNG |
+| `tests/e2e/__screenshots__/**`, `tests/snapshots/baseline.json` | goldens regenerated from the UnoCSS+WebP build (provenance noted) |
 | `src/components/home/chapter-heading.tsx`| `text-primary/[0.06]` → `text-primary/[6%]`                       |
 | `playwright.config.ts`, `tests/e2e/visual.spec.ts` (22 tests × desktop/mobile), `tests/e2e/helpers.ts`, `scripts/snapshot-baseline.mjs`, `tests/snapshots/baseline.json`, `tests/e2e/__screenshots__/**` | snapshot suite + Tailwind goldens |
 | `package.json`, `.github/workflows/ci.yml` | `test:snapshots` / `snapshot:baseline` scripts + CI snapshots job |

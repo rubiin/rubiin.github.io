@@ -1,7 +1,8 @@
 {
-  "framework": "tailwindcss",
+  "framework": "unocss",
   "ref": "HEAD",
-  "commit": "8b4b6240b601b25cd67da7088158b01f6e44419d",
-  "date": "2026-08-07T18:52:02.188Z",
-  "url": "http://localhost:3199"
+  "commit": "5eab7cd1dd4e1e6a4ad36e988067f6d045c5b83f",
+  "date": "2026-08-07T20:05:26.000Z",
+  "url": "http://localhost:3000",
+  "note": "Goldens regenerated from the UnoCSS working tree after converting 26 project/blog images from PNG/JPG to WebP (q85) — this capture includes those uncommitted image changes, so checking out the recorded commit alone would not reproduce them. Original Tailwind baseline (before the migration + image conversion): 8b4b6240b601b25cd67da7088158b01f6e44419d."
 }

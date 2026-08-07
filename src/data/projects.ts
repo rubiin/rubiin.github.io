@@ -10,7 +10,7 @@ export const projects: Project[] = [
     category: 'full-stack',
     year: '2023',
     tech: ['React', 'Node.js', 'REST API', 'Payments', 'Lending'],
-    image: '/projects/finkey.png',
+    image: '/projects/finkey.webp',
     demo: 'https://finkey.co',
     featured: true,
     challenges: [
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     category: 'full-stack',
     year: '2019',
     tech: ['React', 'JavaScript', 'Python', 'SQL', 'AWS', 'Azure'],
-    image: '/projects/takeo.png',
+    image: '/projects/takeo.webp',
     demo: 'https://takeo.ai',
     featured: true,
     challenges: [
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     year: '2022',
     featured: true,
     tech: ['React', 'Node.js', 'AWS', 'REST API', 'Webhooks', 'Payments'],
-    image: '/projects/flippay.png',
+    image: '/projects/flippay.webp',
     demo: 'https://flippay.com.au',
     challenges: [
       'Orchestrating pay-now and pay-later flows with real-time status updates and webhooks',
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     category: 'terminal',
     year: '2024',
     tech: ['Python', 'Fabric', 'Hyprland', 'Wayland', 'GTK'],
-    image: '/projects/tsumiki.png',
+    image: '/projects/tsumiki.webp',
     github: 'https://github.com/rubiin/tsumiki',
     demo: 'https://tsumikii.pages.dev',
     featured: true,
@@ -100,7 +100,7 @@ export const projects: Project[] = [
     category: 'backend',
     year: '2019',
     tech: ['NestJS', 'TypeScript', 'i18n', 'Internationalization'],
-    image: '/projects/nestjs-i18n.png',
+    image: '/projects/nestjs-i18n.webp',
     github: 'https://github.com/toonvanstrijp/nestjs-i18n',
     demo: 'https://nestjs-i18n.com',
     featured: true,
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     category: 'backend',
     year: '2023',
     tech: ['NestJS', 'TypeScript', 'MikroORM', 'PostgreSQL', 'Docker', 'AWS'],
-    image: '/projects/ultimate-nestjs.png',
+    image: '/projects/ultimate-nestjs.webp',
     github: 'https://github.com/rubiin/ultimate-nest',
     featured: true,
     challenges: [
@@ -144,7 +144,7 @@ export const projects: Project[] = [
     category: 'terminal',
     year: '2023',
     tech: ['Node.js', 'TypeScript', 'CLI'],
-    image: '/projects/sample-env.png',
+    image: '/projects/sample-env.webp',
     github: 'https://github.com/rubiin/sample-env',
     featured: true,
     challenges: [
@@ -165,7 +165,7 @@ export const projects: Project[] = [
     category: 'backend',
     year: '2022',
     tech: ['NestJS', 'TypeScript', 'dotenv'],
-    image: '/projects/nestjs-easyconfig.png',
+    image: '/projects/nestjs-easyconfig.webp',
     github: 'https://github.com/NestCrafts/nestjs-easyconfig',
     featured: true,
     challenges: [
@@ -187,7 +187,7 @@ export const projects: Project[] = [
     year: '2019',
     tech: ['NestJS', 'TypeScript', 'pg-promise', 'PostgreSQL'],
     github: 'https://github.com/NestCrafts/nestjs-pgpromise',
-    image: '/projects/nest-pgpromise.png',
+    image: '/projects/nest-pgpromise.webp',
     challenges: [
       "Wrapping pg-promise's promise-first API in Nest's DI lifecycle",
       'Managing connection pools and clean shutdown',
@@ -206,7 +206,7 @@ export const projects: Project[] = [
     category: 'terminal',
     year: '2023',
     tech: ['Golang', 'Shell'],
-    image: '/projects/projecto.png',
+    image: '/projects/projecto.webp',
     github: 'https://github.com/rubiin/projecto',
     featured: true,
     challenges: [
@@ -228,7 +228,7 @@ export const projects: Project[] = [
     year: '2023',
     tech: ['Lua', 'Neovim', 'Vim'],
     github: 'https://github.com/rubiin/fortune.nvim',
-    image: '/projects/fortune-nvim.png',
+    image: '/projects/fortune-nvim.webp',
     challenges: [
       'Writing Lua that works across Neovim versions',
       'Keeping the dashboard layout stable with injected content',
@@ -248,7 +248,7 @@ export const projects: Project[] = [
     year: '2022',
     tech: ['TypeScript', 'JavaScript', 'npm'],
     github: 'https://github.com/rubiin/helper-fns',
-    image: '/projects/helper-fns.png',
+    image: '/projects/helper-fns.webp',
     challenges: [
       'Keeping the API surface small and well-typed',
       'Avoiding bundle bloat with tree-shakeable exports',
@@ -268,7 +268,7 @@ export const projects: Project[] = [
     year: '2021',
     tech: ['NestJS', 'TypeScript', 'Cloudinary'],
     github: 'https://github.com/NestCrafts/nestjs-cloudinary',
-    image: '/projects/nestjs-cloudinary.png',
+    image: '/projects/nestjs-cloudinary.webp',
     challenges: [
       'Wrapping the Cloudinary SDK in a DI-friendly module',
       'Exposing upload options without leaking implementation details',
@@ -288,7 +288,7 @@ export const projects: Project[] = [
     year: '2021',
     tech: ['NestJS', 'TypeScript', 'MinIO'],
     github: 'https://github.com/NestCrafts/nestjs-minio',
-    image: '/projects/nestjs-minio.png',
+    image: '/projects/nestjs-minio.webp',
     challenges: [
       'Mirroring the Cloudinary module API for consistency',
       'Handling bucket lifecycle and error propagation cleanly',
@@ -308,7 +308,7 @@ export const projects: Project[] = [
     year: '2024',
     tech: ['TypeScript', 'Node.js', 'REST'],
     github: 'https://github.com/rubiin/url-minify',
-    image: '/projects/url-minify.png',
+    image: '/projects/url-minify.webp',
     challenges: [
       'Abstracting multiple shortening providers behind one API',
       'Keeping the library isomorphic across Node and browser',
@@ -328,7 +328,7 @@ export const projects: Project[] = [
     year: '2024',
     tech: ['Go', 'Terminal', 'CLI'],
     github: 'https://github.com/rubiin/pokego',
-    image: '/projects/pokego.png',
+    image: '/projects/pokego.webp',
     challenges: [
       'Porting sprite rendering logic from Bash to idiomatic Go with a real speed win',
       'Keeping output crisp across terminal color profiles',
@@ -367,7 +367,7 @@ export const projects: Project[] = [
     year: '2023',
     tech: ['TypeScript', 'Node.js', 'CLI', 'npm'],
     github: 'https://github.com/rubiin/nfdl',
-    image: '/projects/nfdl.png',
+    image: '/projects/nfdl.webp',
     challenges: [
       'Curating and maintaining the font list against upstream releases',
       'Handling download, unarchive, and install across OSes',
@@ -386,7 +386,7 @@ export const projects: Project[] = [
     category: 'terminal',
     year: '2024',
     tech: ['Chezmoi', 'Neovim', 'Tmux', 'Zsh', 'Linux'],
-    image: '/projects/dotfiles.png',
+    image: '/projects/dotfiles.webp',
     github: 'https://github.com/rubiin/dotfiles',
     challenges: [
       'Versioning secrets and machine-specific overrides with Chezmoi',
@@ -407,7 +407,7 @@ export const projects: Project[] = [
     year: '2021',
     tech: ['Go', 'CLI', 'Git'],
     github: 'https://github.com/rubiin/gitignorer',
-    image: '/projects/gitignorer.png',
+    image: '/projects/gitignorer.webp',
     challenges: [
       'Sourcing and maintaining a solid template library',
       'Detecting the project type to suggest the right ignore file',
@@ -426,7 +426,7 @@ export const projects: Project[] = [
     category: 'backend',
     year: '2019',
     tech: ['VS Code', 'NestJS', 'TypeScript', 'Snippets'],
-    image: '/projects/vscode-nestjs-snippets.png',
+    image: '/projects/vscode-nestjs-snippets.webp',
     github: 'https://github.com/rubiin/vscode-nestjs-snippets',
     challenges: [
       'Designing snippet bodies that produce idiomatic, configurable code',

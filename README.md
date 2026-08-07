@@ -68,15 +68,16 @@ pnpm test:snapshots              # build + run the suite (22 tests)
 
 ### Regenerating the goldens
 
-Goldens live in `tests/e2e/__screenshots__/visual.spec.ts/` and were captured from the Tailwind v4 baseline (`HEAD`). Regenerate them only when the baseline intentionally changes (e.g. a deliberate redesign):
+Goldens live in `tests/e2e/__screenshots__/visual.spec.ts/` and were originally captured from the Tailwind v4 baseline (`8b4b624`) via `scripts/snapshot-baseline.mjs HEAD`. They were since regenerated from the UnoCSS build after the WebP image conversion (see below); `tests/snapshots/baseline.json` records the current provenance (UnoCSS build + original Tailwind commit). Regenerate them only when the baseline intentionally changes (e.g. a deliberate redesign):
 
 ```bash
 pnpm test:snapshots:baseline     # builds HEAD in a temp worktree, serves it on :3199, captures goldens
+pnpm exec playwright test --update-snapshots=all   # or: regenerate in place against the current build
 ```
 
-This checks out the given ref (default `HEAD`) in a throwaway git worktree, installs and builds it, serves it on port 3199, and runs `playwright test --update-snapshots` against it. Existing goldens are swapped out safely — if the capture fails, the previous goldens are restored. `tests/snapshots/baseline.json` records which commit the goldens came from.
-
-> **Note:** the default `HEAD` is only the correct baseline **while the UnoCSS migration is uncommitted**. Once it lands, pin the ref to the last Tailwind commit explicitly — e.g. `pnpm test:snapshots:baseline <tailwind-commit-hash>` — so goldens are always captured from the Tailwind build.
+> **Note:** `--update-snapshots` (default mode) only rewrites *missing or failing* snapshots —
+> use `--update-snapshots=all` to bake in an intentional visual change (e.g. the image-format
+> conversion), since the old goldens may still pass within the pixel threshold.
 
 ## Environment Variables
 
@@ -135,7 +136,7 @@ Edit a file, save, and the UI updates — no component changes required.
 ```
 content/blog/          MDX posts (one file = one post)
 content-collections.config.ts
-public/                robots.txt, og.png
+public/                robots.txt, og.png, projects/*.webp, blog/**/*.webp (all imagery is WebP — converted from PNG/JPG, see `compare.md`)
 scripts/               content build, smoke test, snapshot-baseline helpers
 tests/e2e/             Playwright visual snapshot suite + Tailwind v4 goldens
 src/
