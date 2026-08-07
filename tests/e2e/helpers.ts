@@ -5,9 +5,10 @@ const BASE_HOST = new URL(BASE_URL).host
 
 /**
  * Prepare a page for a deterministic screenshot:
- *  1. Abort every third-party request (Google Fonts, analytics, …). Both the
- *     Tailwind baseline and the UnoCSS build then render with the *same*
- *     fallback fonts, so goldens stay valid regardless of network/CI.
+ *  1. Abort every third-party request (analytics, CDNs, …). Fonts are now
+ *     self-hosted (Fontsource, same-origin), so they render identically in
+ *     every environment without any network variance — no font fallback
+ *     mismatch possible.
  *  2. Persist the theme *before* any page script runs — the inline <head>
  *     bootstrap applies `.dark` pre-paint from `pf:theme:v1`.
  *  3. Freeze CSS animations/transitions via an injected stylesheet

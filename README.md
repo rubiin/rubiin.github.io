@@ -63,7 +63,7 @@ pnpm test:snapshots              # build + run the suite (22 tests)
 ```
 
 - **What it covers** — 22 tests: 6 pages (home, blog, blog post, projects, contact, terminal) × light/dark (terminal is dark-only) × desktop (1280×800) and mobile (390×844) viewports, so responsive breakpoints and the mobile nav are guarded too.
-- **Determinism** — third-party requests (Google Fonts, analytics, …) are aborted so both builds render with identical fallback fonts; animations/transitions are frozen; reduced motion and the theme are forced per test; the GPU-dependent 3D hero canvas is masked with a flat theme background.
+- **Determinism** — third-party requests (analytics, CDNs, …) are aborted, and fonts are self-hosted (Fontsource, same-origin) so they render identically in every environment without network variance; animations/transitions are frozen; reduced motion and the theme are forced per test; the GPU-dependent 3D hero canvas is masked with a flat theme background.
 - **Failure** — any pixel drift above the per-test threshold fails the test, and CI (`snapshots` job) uploads a Playwright report with the expected/actual/diff images.
 
 ### Regenerating the goldens

@@ -2,6 +2,13 @@
 import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
 import { Suspense, lazy, useEffect, useRef, type ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
+// Self-hosted fonts (Fontsource) — replaces the render-blocking Google Fonts
+// <link>. Variable fonts cover every weight in one file per unicode-range
+// subset, and ship with `font-display: swap` baked in. Same-origin = no
+// third-party round-trip and deterministic rendering for the snapshot suite.
+import '@fontsource-variable/inter'
+import '@fontsource-variable/space-grotesk'
+import '@fontsource-variable/jetbrains-mono'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { QueryProvider } from '@/components/layout/query-provider'
 import { LenisProvider } from '@/components/layout/lenis-provider'
@@ -90,19 +97,7 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
-      {
-        rel: 'preconnect',
-        href: 'https://fonts.googleapis.com',
-      },
-      {
-        rel: 'preconnect',
-        href: 'https://fonts.gstatic.com',
-        crossOrigin: '',
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
-      },
+      // Fonts are self-hosted (imported above) — no Google Fonts <link>.
       { rel: 'manifest', href: '/manifest.webmanifest' },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'apple-touch-icon', href: '/og.png' },

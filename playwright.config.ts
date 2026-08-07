@@ -12,8 +12,9 @@ import { defineConfig } from '@playwright/test'
  *  - `SNAPSHOT_EXTERNAL` points the tests at an externally served build (the
  *    baseline script serves the Tailwind build on :3199). Without it, the
  *    built nitro server on :3000 is started by Playwright's `webServer`.
- *  - third-party requests (Google Fonts, analytics, …) are aborted so font
- *    fallbacks and network are identical across environments (helpers.ts).
+ *  - third-party requests (analytics, CDNs, …) are aborted; fonts are
+ *    self-hosted (Fontsource) so they render identically everywhere
+ *    (helpers.ts).
  *  - reduced motion + `animations: 'disabled'` freeze every CSS animation.
  */
 const BASE_URL = process.env.SNAPSHOT_EXTERNAL ?? 'http://localhost:3000'

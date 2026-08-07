@@ -9,6 +9,27 @@
 
 ## ✅ Done this session
 
+### 1. Self-hosted fonts (render-blocking Google Fonts removed)
+
+Replaced the blocking `fonts.googleapis.com/css2…` `<link>` (+ two preconnects) in
+`src/routes/__root.tsx` with **Fontsource variable packages** — `@fontsource-variable/inter`,
+`@fontsource-variable/space-grotesk`, `@fontsource-variable/jetbrains-mono` — imported
+directly in the root route. Font faces ship same-origin as hashed woff2 assets with
+`font-display: swap` and per-subset `unicode-range`, so browsers fetch only the **latin** files
+this English site uses (3 woff2, ~108 KiB total). Font stacks updated to the `Variable` family
+names in `globals.css` + `uno.config.ts`.
+
+**Verified:** no `fonts.googleapis` in the served HTML; all three families load from
+`/assets/*.woff2` in a headless browser; typecheck ✓ lint ✓ knip ✓; all 22 snapshots
+regenerated (`--update-snapshots=all`) and passing — goldens now render real fonts instead of
+aborted fallbacks, which is *more* deterministic (no network variance by construction).
+
+> **Tradeoff:** the variable packages' `index.css` declares *all* unicode-range subsets
+> (cyrillic/greek/vietnamese/latin-ext), so the build emits ~34 woff2 files. Browsers fetch
+> only the 3 latin files this English site uses (~108 KiB), so downloads stay lean — the rest
+> just sit in `.output`. Static `@fontsource/*` packages ship per-subset CSS entries
+> (`@fontsource/inter/latin-400.css`) if build-size hygiene ever matters.
+
 ### Image formats: PNG/JPG → WebP (biggest single win)
 
 Converted **26 raster images** (20 project screenshots + 6 blog inline images) from PNG/JPG to
@@ -30,23 +51,14 @@ WebP with `magick -strip -quality 85 -define webp:method=6`, updated every refer
 
 ## 🥇 High impact (open)
 
-### 1. Render-blocking Google Fonts
-**Current:** every page ships a blocking `<link>` to
-`fonts.googleapis.com/css2?family=Inter…&family=Space+Grotesk…&family=JetBrains+Mono…`
-(`src/routes/__root.tsx:104`) plus two preconnects. It delays first paint by a third-party
-round-trip; the helper script in Playwright even has to abort it to keep goldens deterministic.
-**Fix:** self-host the three woff2 families (they're all Google Fonts — download once, ship in
-`public/fonts/` with `font-display: swap`). Removes the blocking request entirely and makes
-the snapshots immune to font-network variance by construction. **Effort:** low · **Impact:** largest single request removed.
-
-### 2. Hero 3D chunk is the biggest asset (862 KiB raw / 186 KiB br)
+### 1. Hero 3D chunk is the biggest asset (862 KiB raw / 186 KiB br)
 `hero-scene-*.js` is already `lazy()` + wrapped in `Suspense` and deferred (comment says
 "deferred until idle"), but it still hydrates/loads on the home page after load.
 **Fix options:** gate on `requestIdleCallback`/scroll past the fold instead of mount; or trim
 unused `three`/`drei` imports (bundle-visualizer can show what). **Effort:** medium ·
 **Impact:** ~186 KiB br off the home page's post-load budget.
 
-### 3. Image dimensions / CLS
+### 2. Image dimensions / CLS
 Project cards and post covers have `aspect-[16/10]`/`aspect-[16/9]` containers (good — no
 layout shift from the box), but the `<img>` tags carry no `width`/`height`. Browsers can't
 reserve intrinsic size and the `loading="lazy"` decode reserves the box via CSS, so CLS is
@@ -58,21 +70,21 @@ resizing to display size would cut the remaining payload further. **Effort:** lo
 
 ## 🥈 Medium impact
 
-### 4. Mermaid chain loads on any post with a diagram
+### 3. Mermaid chain loads on any post with a diagram
 `mermaid` core (647 KiB raw / 112 KiB br) + `cytoscape.esm` (425 KiB raw / 113 KiB br) are
 dynamic-imported (good) but on `useEffect` mount (`src/components/blog/mermaid.tsx:21`),
 even if the diagram is below the fold.
 **Fix:** gate the `import('mermaid')` on an `IntersectionObserver` on the diagram element so
 below-the-fold diagrams don't pull ~225 KiB br immediately. **Effort:** low.
 
-### 5. Entry chunk still carries `motion` (481 KiB raw / 128 KiB br)
+### 4. Entry chunk still carries `motion` (481 KiB raw / 128 KiB br)
 The critical-path entry chunk (`index-*.js`) includes the `motion` animation library
 (perf.md finding #2 — measured and deferred earlier). Revisit the recorded recommendations
 (rAF-based `ScrollProgress`, CSS-only `FloatingDock`, `.nav-underline` pill, CSS keyframe
 boot screen) if entry weight matters. **Effort:** medium · **Impact:** tens of KiB br on the
 critical path.
 
-### 6. Inline images & covers lack intrinsic dimensions
+### 5. Inline images & covers lack intrinsic dimensions
 Blog covers are already WebP but `<img>` in `post-card.tsx` (and MDX inline images) have no
 `width`/`height`. While lazy + aspect boxes prevent most CLS, adding dims is cheap insurance
 and helps LCP by reserving space. **Effort:** low.
@@ -81,18 +93,18 @@ and helps LCP by reserving space. **Effort:** low.
 
 ## 🥉 Low impact / cleanup
 
-### 7. CSS extractor bloat
+### 6. CSS extractor bloat
 `globals.css` is 111.7 KiB raw (a few KiB br). Substring scanning emits ~25 junk selectors
 (`.m1831`, `.my`, `.me`, `.py`, `.tab`, `.ease` — documented in `compare.md`) that no element
 matches. A safelist/blocklist cleanup trims a few KiB. **Effort:** low · **Impact:** small.
 
-### 8. Static asset caching
+### 7. Static asset caching
 Hashed assets get fresh `Cache-Control`, and `.br`/`.gz`/`.zst` variants are pre-generated by
 the build, but there's no CDN / `stale-while-revalidate` on `public/` images and fonts.
 Verify the Nitro server's `Accept-Encoding` negotiation actually serves the pre-compressed
 variants. **Effort:** low–medium · **Impact:** repeat-visit latency.
 
-### 9. `sw.js` offline cache is network-first
+### 8. `sw.js` offline cache is network-first
 `public/sw.js` registers on every page (`__root.tsx:157`). Check whether it precaches
 critical assets (fonts, entry chunk) rather than fetching them per visit — a real
 repeat-visit win for an offline-capable PWA. **Effort:** low.
@@ -110,10 +122,10 @@ repeat-visit win for an offline-capable PWA. **Effort:** low.
 | `katex-*.js`                    | 253 KiB | 62 KiB |
 | `react-*.js`                    | 119 KiB | 34 KiB |
 | `globals-*.css`                 | 112 KiB | — |
+| Fonts (latin, fetched)          | — | ~108 KiB (3 woff2) |
 | **Total JS**                    | 6.30 MiB raw | — |
 
 **Quick wins ranked by effort:**
-1. Self-host fonts (#1) — removes a blocking request.
-2. IntersectionObserver-gated mermaid (#4) — keeps ~225 KiB br off most posts.
-3. Image dimensions (#3/#6) — CLS hardening.
-4. CSS extractor cleanup (#7).
+1. IntersectionObserver-gated mermaid — keeps ~225 KiB br off most posts.
+2. Image dimensions — CLS hardening.
+3. CSS extractor cleanup.

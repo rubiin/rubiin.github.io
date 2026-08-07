@@ -66,7 +66,7 @@ async function baseContext(opts = {}) {
     viewport: { width: 1280, height: 800 },
     ...opts,
   })
-  // Abort third-party requests (Google Fonts etc.) — they hang in sandboxes
+  // Abort third-party requests — they hang in sandboxes
   // and would otherwise block 'load'/'networkidle' forever.
   await context.route('**/*', (route) => {
     const url = route.request().url()

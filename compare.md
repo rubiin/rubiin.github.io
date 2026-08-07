@@ -221,13 +221,23 @@ Examples: `dotfiles.png` 683→75 KiB, `flippay.png` 679→48 KiB, `tsumiki.png`
 the new provenance (UnoCSS build at `5eab7cd`, original Tailwind baseline noted). All 22
 snapshots still pass 22/22.
 
+## 🅰️ Self-hosted fonts (removes the render-blocking Google Fonts request)
+
+Replaced the blocking `fonts.googleapis.com` `<link>` + preconnects in `__root.tsx` with
+Fontsource variable packages (`@fontsource-variable/{inter,space-grotesk,jetbrains-mono}`),
+imported in the root route. Font stacks in `globals.css`/`uno.config.ts` updated to the
+`Variable` family names. Browsers now fetch only the latin subsets same-origin (~108 KiB total)
+with `font-display: swap`; the 22 snapshots were regenerated so goldens render real fonts.
+
 ## Files touched this session
 
 | File                                     | Change                                                            |
 | ---------------------------------------- | ----------------------------------------------------------------- |
 | `uno.config.ts`                          | `after:`/`before:` variants injecting `content:""` (order −1) **and** `mergeSelectors:false` (bug #3) |
 | `src/data/projects.ts`, 6 blog `.mdx` files, `public/projects/*`, `public/blog/*` | PNG/JPG → WebP conversion (q85) + reference updates; `og.png` kept as PNG |
-| `tests/e2e/__screenshots__/**`, `tests/snapshots/baseline.json` | goldens regenerated from the UnoCSS+WebP build (provenance noted) |
+| `src/routes/__root.tsx`, `src/styles/globals.css`, `uno.config.ts` (font tokens), `package.json`, `pnpm-lock.yaml` | self-hosted fonts via Fontsource variable packages (Google Fonts link removed) |
+| `tests/e2e/__screenshots__/**`, `tests/snapshots/baseline.json` | goldens regenerated from the UnoCSS+WebP+self-hosted-fonts build (provenance noted) |
+| `tests/e2e/helpers.ts`, `playwright.config.ts`, `scripts/smoke-test.mjs`, `README.md` | docs/comments updated: fonts no longer aborted (self-hosted) |
 | `src/components/home/chapter-heading.tsx`| `text-primary/[0.06]` → `text-primary/[6%]`                       |
 | `playwright.config.ts`, `tests/e2e/visual.spec.ts` (22 tests × desktop/mobile), `tests/e2e/helpers.ts`, `scripts/snapshot-baseline.mjs`, `tests/snapshots/baseline.json`, `tests/e2e/__screenshots__/**` | snapshot suite + Tailwind goldens |
 | `package.json`, `.github/workflows/ci.yml` | `test:snapshots` / `snapshot:baseline` scripts + CI snapshots job |
