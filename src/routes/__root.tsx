@@ -20,7 +20,7 @@ import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { NotFoundComponent } from '@/components/layout/not-found'
 import { ErrorComponent } from '@/components/layout/error-boundary'
-import { Toaster } from '@/components/ui/sonner'
+import { Toaster } from '@/components/ui/toaster'
 import { PageLoader, PendingLoader } from '@/components/layout/page-loader'
 import { AmbientBackground } from '@/components/layout/ambient-background'
 import { AnimatedFavicon } from '@/components/layout/animated-favicon'
@@ -136,7 +136,7 @@ export const Route = createRootRoute({
       </LenisProvider>
       <FloatingDock />
       <ScrollToTop />
-      <Toaster richColors position="bottom-right" />
+      <Toaster />
     </>
   ),
 })

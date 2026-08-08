@@ -1,8 +1,8 @@
 # Rubin Bhandari — Portfolio, Interactive Resume & MDX Blog
 
-A production-ready personal website built on the **TanStack ecosystem**: TanStack Start (SSR + server functions), TanStack Router (file-based routing, search params), TanStack Query, TanStack Form, and TanStack Store — with UnoCSS (wind4 preset, a drop-in Tailwind v4 replacement), shadcn/ui, Motion, and a lazy-loaded React Three Fiber 3D scene on the home page.
+A production-ready personal website built on the **TanStack ecosystem**: TanStack Start (SSR + server functions), TanStack Router (file-based routing, search params), TanStack Query, and TanStack Store — with UnoCSS (wind4 preset, a drop-in Tailwind v4 replacement), shadcn/ui, Motion, and a lazy-loaded React Three Fiber 3D scene on the home page.
 
-![Stack](https://img.shields.io/badge/TanStack-Start%20%7C%20Router%20%7C%20Query%20%7C%20Form%20%7C%20Store-ff4154)
+![Stack](https://img.shields.io/badge/TanStack-Start%20%7C%20Router%20%7C%20Query%20%7C%20Store-ff4154)
 
 ---
 
@@ -15,17 +15,17 @@ A production-ready personal website built on the **TanStack ecosystem**: TanStac
 | **Projects** | `/projects` — search-param driven category pills + debounced search, responsive grid, empty state |
 | **Blog** | `/blog` + `/blog/:slug` — MDX via content-collections, Shiki code blocks, KaTeX math, Mermaid diagrams, TOC, share buttons, related posts, giscus comments |
 | **Resume** | Downloadable PDF (`/resume.pdf`) via header/hero/terminal links |
-| **Contact** | `/contact` — TanStack Form + shared Zod schema, server-side submit with graceful email fallback |
+| **Contact** | Home section — interactive card: copy-email chip with clipboard feedback, availability badge, and a magnetic mailto CTA |
 | **Extras** | ⌘K command palette, light/dark/system theme, smooth scrolling (Lenis), scroll progress, custom 404 + error pages, RSS, sitemap, robots.txt, JSON-LD |
 
 ## Tech Stack
 
 - **Framework:** TanStack Start 1.168, React 19.2, TypeScript 6 (strict)
-- **Data & routing:** TanStack Router 1.170, TanStack Query 5, TanStack Form 1.33, TanStack Store
+- **Data & routing:** TanStack Router 1.170, TanStack Query 5, TanStack Store
 - **Styling:** UnoCSS (preset-wind4 — 1:1 with the former Tailwind CSS v4, see `compare.md`), shadcn/ui, CSS-variable design tokens
 - **Motion & 3D:** Motion 12, Lenis, Three.js 0.185 + @react-three/fiber + drei (lazy-loaded)
 - **Content:** content-collections + @content-collections/mdx, Shiki, KaTeX, Mermaid
-- **Backend:** Resend (optional) for contact-form email
+- **Backend:** none — server functions read static build-time content only
 
 > **Note on Radix imports:** UI primitives are imported exclusively from the `radix-ui` monolith (e.g. `import { Slot } from 'radix-ui'`), not from individual `@radix-ui/react-*` packages — those are transitive deps and not listed in `package.json`. Keep it that way when adding components.
 
@@ -59,10 +59,10 @@ Other scripts:
 A Playwright suite guards against visual regressions by comparing the rendered site, **pixel-for-pixel**, against goldens captured from the previous Tailwind CSS v4 build. This is how the UnoCSS migration was verified as visually 1:1 (see `compare.md` for the full audit).
 
 ```bash
-pnpm test:snapshots              # build + run the suite (22 tests)
+pnpm test:snapshots              # build + run the suite (18 tests)
 ```
 
-- **What it covers** — 22 tests: 6 pages (home, blog, blog post, projects, contact, terminal) × light/dark (terminal is dark-only) × desktop (1280×800) and mobile (390×844) viewports, so responsive breakpoints and the mobile nav are guarded too.
+- **What it covers** — 18 tests: 5 pages (home, blog, blog post, projects, terminal) × light/dark (terminal is dark-only) × desktop (1280×800) and mobile (390×844) viewports, so responsive breakpoints and the mobile nav are guarded too.
 - **Determinism** — third-party requests (analytics, CDNs, …) are aborted, and fonts are self-hosted (Fontsource, same-origin) so they render identically in every environment without network variance; animations/transitions are frozen; reduced motion and the theme are forced per test; the GPU-dependent 3D hero canvas is masked with a flat theme background.
 - **Failure** — any pixel drift above the per-test threshold fails the test, and CI (`snapshots` job) uploads a Playwright report with the expected/actual/diff images.
 
@@ -81,15 +81,7 @@ pnpm exec playwright test --update-snapshots=all   # or: regenerate in place aga
 
 ## Environment Variables
 
-Copy `.env.example` to `.env`. All are optional — the app runs without them.
-
-| Variable | Purpose | Required |
-| --- | --- | --- |
-| `RESEND_API_KEY` | Send contact-form emails via Resend | No |
-| `RESEND_FROM_EMAIL` | From-address for emails | No |
-| `CONTACT_TO_EMAIL` | Where contact messages are delivered | No |
-
-Without `RESEND_API_KEY`, no email is sent — the contact form still succeeds. Nothing crashes.
+The app needs no environment variables — all content, fonts, and imagery are build-time static data.
 
 ## Adding a Blog Post
 
@@ -128,8 +120,7 @@ Edit a file, save, and the UI updates — no component changes required.
 
 1. Push the repo to GitHub and import it into Vercel.
 2. Vercel auto-detects the framework. Build command `pnpm build`, output `.output/public`.
-3. Add optional env vars (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `CONTACT_TO_EMAIL`).
-4. Deploy. The site is SSR'd with route-level code splitting; the 3D scene, Mermaid, Shiki, and giscus load lazily.
+3. Deploy. The site is SSR'd with route-level code splitting; the 3D scene, Mermaid, Shiki, and giscus load lazily.
 
 ## Project Structure
 
@@ -143,16 +134,17 @@ src/
   components/
     animations/        Reveal, MagneticButton, TiltCard, Counter, TextReveal
     blog/              MDX renderer, code blocks, TOC, share, giscus…
-    contact/           Contact form + info
     home/              Hero, sections, marquee
     layout/            Header, footer, command palette, theme, lenis…
     projects/          Project card + filters
     three/             Lazy 3D scene
-    ui/                shadcn/ui primitives
+    ui/                Primitives: button, badge, tabs, dialog, sheet, dropdown-menu,
+                        command, tooltip, accordion, input, skeleton, toast, toaster,
+                        brand-icons, responsive-image
   data/                All editable site content
-  lib/                 cn util, constants, schemas, seo helpers
+  lib/                 cn util, constants, seo helpers
   routes/              File-based routes (incl. sitemap.xml, rss.xml)
-  server/              Server functions (blog, contact, email)
+  server/              Server functions (blog)
   stores/              Theme + command palette stores
   styles/globals.css   Design tokens, prose, print styles
   types/               Shared TypeScript types
@@ -164,7 +156,6 @@ Before going public, consider:
 
 - **Comments:** set real GitHub repo / category IDs in `src/lib/constants.ts` (`GISCUS_*`) so giscus threads work.
 - **Resume PDF:** replace `public/resume.pdf` (or point `siteConfig.resumePdfUrl` at a hosted PDF).
-- **Contact spam:** add a rate limiter or honeypot in front of `submitContact`, and enable TanStack Start's CSRF middleware if you deploy to a separate origin.
 - **OG image:** replace `public/og.png` (currently a generated placeholder) with a designed 1200×630 asset.
 
 ## Accessibility & Motion

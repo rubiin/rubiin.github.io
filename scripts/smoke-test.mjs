@@ -286,12 +286,15 @@ try {
   const input = dialog.locator('input[placeholder*="Search"]')
   record('palette: opens with ⌘K and shows search input', (await input.count()) > 0)
 
-  // Resume is now a download action, so navigation is verified with Contact.
-  await input.fill('contact')
-  const contactItem = dialog.getByText('Contact', { exact: true })
-  await contactItem.click()
-  await page.waitForURL('**/contact', { timeout: 5000 })
-  record('palette: selecting a result navigates to /contact', page.url().endsWith('/contact'))
+  // Resume is now a download action, so navigation is verified with Projects.
+  await input.fill('projects')
+  // Scope to the nav CommandItem — "Projects" is also a palette group heading
+  // (and every project item's value starts with that heading), so a bare
+  // getByText would hit multiple elements.
+  const projectsItem = dialog.locator('[data-value^="Navigation Projects"]')
+  await projectsItem.click()
+  await page.waitForURL('**/projects', { timeout: 5000 })
+  record('palette: selecting a result navigates to /projects', page.url().endsWith('/projects'))
 
   // ⌘K toggles closed (Escape handled by dialog too)
   await page.keyboard.press('Control+K')

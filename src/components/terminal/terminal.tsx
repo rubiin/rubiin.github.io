@@ -24,7 +24,6 @@ const COMMANDS = [
   'projects',
   'resume',
   'blog',
-  'contact',
   'github',
   'linkedin',
   'theme',
@@ -56,7 +55,6 @@ const HELP = [
   '  projects   open the projects grid',
   '  resume     download my resume (PDF)',
   '  blog       read my writing',
-  '  contact    ways to reach me',
   '  github     open GitHub',
   '  linkedin   open LinkedIn',
   '  theme      toggle light/dark',
@@ -188,14 +186,6 @@ export function Terminal() {
         case 'blog':
           print(<span>Opening {link('the blog', '/blog')}…</span>)
           break
-        case 'contact':
-          print(
-            <span>
-              Email {link(siteConfig.email, siteConfig.socials.email, true)} or open{' '}
-              {link('the contact page', '/contact')}.
-            </span>,
-          )
-          break
         case 'github':
           print(<span>Opening {link('github.com/rubiin', siteConfig.socials.github, true)}…</span>)
           break
@@ -224,7 +214,7 @@ export function Terminal() {
         case 'ls':
           print(
             <span className="text-muted-foreground">
-              about.md skills.ts projects/ blog/ resume.pdf contact.ts secrets/
+              about.md skills.ts projects/ blog/ resume.pdf secrets/
             </span>,
           )
           break

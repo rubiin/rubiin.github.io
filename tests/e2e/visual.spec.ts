@@ -18,7 +18,6 @@ const CASES = [
   { name: 'home', path: '/', maskCanvas: true },
   { name: 'blog', path: '/blog' },
   { name: 'projects', path: '/projects' },
-  { name: 'contact', path: '/contact' },
   { name: 'blog-post', path: '/blog/unknown-type-in-typescript' },
   // Terminal forces its own dark scheme — single capture is enough.
   { name: 'terminal', path: '/terminal', themes: ['dark'] as const },

@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
-import { toast } from 'sonner'
 import { useKonami } from '@/hooks/use-konami'
+import { useToast } from '@/hooks/use-toast'
 import { readStorage, writeStorage } from '@/lib/storage'
 
 function isRetro() {
@@ -14,6 +14,8 @@ function isRetro() {
  * "retro" palette (persisted in localStorage) with a toast confirmation.
  */
 export function EasterEggs() {
+  const { toast } = useToast()
+
   // Restore the retro mode on load if it was enabled previously.
   useEffect(() => {
     if (readStorage('retro') === '1' && !isRetro()) {
@@ -25,7 +27,8 @@ export function EasterEggs() {
     const next = !isRetro()
     document.documentElement.dataset.retro = next ? 'true' : 'false'
     writeStorage('retro', next ? '1' : '0')
-    toast(next ? '🕹️ Konami unlocked — retro mode on!' : 'Retro mode off. Back to the future.', {
+    toast({
+      title: next ? '🕹️ Konami unlocked — retro mode on!' : 'Retro mode off. Back to the future.',
       description: next ? 'Hot pink & cyan, just like 1984.' : undefined,
       duration: 3200,
     })

@@ -292,7 +292,7 @@ export function Hero() {
               </NeonButton>
             </MagneticButton>
             <MagneticButton>
-              <NeonButton to="/contact" size="lg" variant="ghost">
+              <NeonButton to="/#contact" size="lg" variant="ghost">
                 <Mail className="size-4" />
                 Contact
               </NeonButton>

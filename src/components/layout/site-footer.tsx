@@ -48,7 +48,7 @@ export function SiteFooter() {
             ))}
           </div>
           <p className="mt-2 text-sm text-muted-foreground">
-            Built with TanStack Start, Tailwind CSS, and Motion.
+            Built with TanStack Start, Uno CSS, and Motion.
           </p>
         </div>
       </div>

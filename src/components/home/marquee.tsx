@@ -8,7 +8,7 @@ const ITEMS = [
   'Node.js',
   'Three.js',
   'TanStack Start',
-  'Tailwind CSS',
+  'Uno CSS',
   'PostgreSQL',
   'Prisma',
   'Motion',

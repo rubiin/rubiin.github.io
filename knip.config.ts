@@ -11,6 +11,9 @@ const config: KnipConfig = {
   entry: ['content-collections.config.ts'],
   project: ['src/**/*.{ts,tsx}', 'scripts/**/*.{ts,mjs}', 'tests/**/*.ts'],
   ignore: ['scripts/smoke-test.mjs', 'scripts/analyze-bundle.mjs', 'src/components/ui/**'],
+  // ImageMagick CLI invoked by scripts/optimize-images.mjs — a system binary,
+  // not a package dependency.
+  ignoreBinaries: ['magick'],
   ignoreDependencies: [
     // Used via `unocss/preset-wind4` in uno.config.ts (knip doesn't resolve
     // the package's subpath exports).

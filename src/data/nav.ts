@@ -8,9 +8,9 @@ export const navItems: NavItem[] = [
     description: 'Biography, philosophy, and career highlights',
   },
   {
-    label: 'Skills',
-    href: '/#skills',
-    description: 'Technologies and proficiencies',
+    label: 'Experience',
+    href: '/#experience',
+    description: 'Work history and achievements',
   },
   {
     label: 'Projects',
@@ -21,11 +21,6 @@ export const navItems: NavItem[] = [
     label: 'Blog',
     href: '/blog',
     description: 'Writing on engineering and design',
-  },
-  {
-    label: 'Contact',
-    href: '/contact',
-    description: 'Get in touch',
   },
   // Deliberately last: it's an action (PDF download), not a page.
   {

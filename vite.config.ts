@@ -26,7 +26,7 @@ const colorMixOklab = () => ({
 })
 colorMixOklab.postcss = true
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   server: {
     host: '0.0.0.0',
     port: 3000,
@@ -46,9 +46,18 @@ export default defineConfig({
     chunkSizeWarningLimit: 2000,
     sourcemap: false,
   },
-  optimizeDeps: {
-    include: ['react', 'react-dom', '@tanstack/react-router', '@tanstack/react-query'],
-  },
+  // Only force-include deps for the production build. During `vite dev` this
+  // block is inert: the TanStack Start plugin injects its own per-environment
+  // optimizeDeps (discovery from the client/server entries), which replaces
+  // the top-level config — and react/react-dom are CJS, so the browser needs
+  // them pre-bundled in dev regardless.
+  ...(command === 'build'
+    ? {
+        optimizeDeps: {
+          include: ['react', 'react-dom', '@tanstack/react-router', '@tanstack/react-query'],
+        },
+      }
+    : {}),
   css: {
     postcss: {
       plugins: [
@@ -93,18 +102,10 @@ export default defineConfig({
       // prerender every route to static HTML at build: Nitro then serves the
       // files instead of SSR-ing each request (better TTFB, cacheable).
       // crawlLinks discovers /blog/$slug posts by walking the pagination and
-      // prev/next chains. Server functions (contact POST) and any path not
-      // prerendered still fall back to the SSR server at runtime.
+      // prev/next chains. Server functions and any path not prerendered still
+      // fall back to the SSR server at runtime.
       prerender: {
-        routes: [
-          '/',
-          '/blog/tags',
-          '/blog/categories',
-          '/contact',
-          '/terminal',
-          '/rss.xml',
-          '/sitemap.xml',
-        ],
+        routes: ['/', '/blog/tags', '/blog/categories', '/terminal', '/rss.xml', '/sitemap.xml'],
         crawlLinks: true,
         ignore: [
           // /blog and /projects 307 to their canonical search-param URL
@@ -118,4 +119,4 @@ export default defineConfig({
       },
     }),
   ],
-})
+}))
