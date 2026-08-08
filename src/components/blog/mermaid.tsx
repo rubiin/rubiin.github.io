@@ -5,8 +5,9 @@ import { cn } from '@/lib/utils'
 
 /**
  * Client component that renders a Mermaid diagram from a chart string.
- * Mermaid is dynamically imported so it never loads unless a diagram is on
- * the page.
+ * Mermaid is dynamically imported — and that import is deferred until the
+ * diagram approaches the viewport — so the chunk is never loaded for
+ * diagrams that stay below the fold.
  */
 export function Mermaid({ chart, className }: { chart: string; className?: string }) {
   const id = useId().replace(/:/g, '')
@@ -14,7 +15,11 @@ export function Mermaid({ chart, className }: { chart: string; className?: strin
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
     let cancelled = false
+    let observer: IntersectionObserver | null = null
 
     const run = async () => {
       try {
@@ -31,9 +36,26 @@ export function Mermaid({ chart, className }: { chart: string; className?: strin
       }
     }
 
-    run()
+    if (typeof IntersectionObserver === 'undefined') {
+      run()
+    } else {
+      // Fire once the diagram gets within 200px of the viewport; disconnect
+      // after the first intersection so the import + render run exactly once.
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            observer?.disconnect()
+            run()
+          }
+        },
+        { rootMargin: '200px 0px' },
+      )
+      observer.observe(el)
+    }
+
     return () => {
       cancelled = true
+      observer?.disconnect()
     }
   }, [chart, id])
 

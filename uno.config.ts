@@ -11,6 +11,17 @@ import transformerDirectives from '@unocss/transformer-directives'
  */
 export default defineConfig({
   presets: [presetWind4()],
+  // Substring scanning of non-class string literals emits utility rules no
+  // element matches (CSS-extractor bloat): SVG path data (`m1831` in
+  // not-found.tsx), motion value var names (`px`/`py` in tilt-card,
+  // neon-button), transition `ease:` props, comments (`~50 ms`, "table of
+  // contents", "in a new tab"), and `const container` in post-comments.
+  // Blocking them keeps the generated CSS lean; none of these bare tokens
+  // are used as real classes anywhere in the source. Note: most of these
+  // shadow *valid* utility names (px, py, ms, me, my, tab, ease, table,
+  // container) — if a future component genuinely needs one, remove it from
+  // this list.
+  blocklist: ['m1831', 'ms', 'px', 'py', 'tab', 'ease', 'table', 'container', 'my', 'me'],
   // Disable `:is()` selector merging. With merging on, a plain utility like
   // `px-4` gets grouped with higher-specificity variants (e.g. the
   // `has-[>svg]:px-4:has(>svg)` used by `ui/button.tsx`), and since `:is()`
