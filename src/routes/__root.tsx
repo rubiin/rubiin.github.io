@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
-import { Suspense, lazy, useEffect, useRef, type ReactNode } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState, type ReactNode } from 'react'
 import appCss from '../styles/globals.css?url'
 // Self-hosted variable fonts replace the render-blocking Google Fonts link.
 import '@fontsource-variable/inter'
@@ -15,6 +15,7 @@ import { QueryProvider } from '@/components/layout/query-provider'
 import { LenisProvider } from '@/components/layout/lenis-provider'
 import { SkipLink } from '@/components/layout/skip-link'
 import { ScrollProgress } from '@/components/layout/scroll-progress'
+import { useCommand } from '@/hooks/use-command'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { NotFoundComponent } from '@/components/layout/not-found'
@@ -30,7 +31,8 @@ import { siteConfig } from '@/data/site'
 import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
 import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from '@/lib/storage'
 
-// ⌘K palette is closed on every page — load its chunk off the critical path.
+// ⌘K palette is closed on virtually every page — CommandPaletteGate keeps
+// this chunk unloaded until the palette is first opened.
 const CommandPalette = lazy(() =>
   import('@/components/layout/command-palette').then((m) => ({ default: m.CommandPalette })),
 )
@@ -130,9 +132,7 @@ export const Route = createRootRoute({
           <Outlet />
         </main>
         <SiteFooter />
-        <Suspense fallback={null}>
-          <CommandPalette />
-        </Suspense>
+        <CommandPaletteGate />
       </LenisProvider>
       <FloatingDock />
       <ScrollToTop />
@@ -140,6 +140,25 @@ export const Route = createRootRoute({
     </>
   ),
 })
+
+/**
+ * ⌘K palette: binds the shortcut once (gate is always mounted), but keeps
+ * the lazy palette chunk (~9 KiB br) unloaded until the palette is first
+ * opened — it's then fetched once and stays mounted for instant reopens.
+ */
+function CommandPaletteGate() {
+  const { open, setOpen } = useCommand()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    if (open) setMounted(true)
+  }, [open])
+  if (!mounted) return null
+  return (
+    <Suspense fallback={null}>
+      <CommandPalette open={open} setOpen={setOpen} />
+    </Suspense>
+  )
+}
 
 function RootDocument({ children }: { children: ReactNode }) {
   return (

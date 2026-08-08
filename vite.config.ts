@@ -69,6 +69,53 @@ export default defineConfig({
     viteReact(),
     // Pre-compress public assets at build time so the SSR server serves
     // .br/.gz variants (hero-scene chunk: 882 KB raw → ~230 KB gzip wire).
-    nitro({ compressPublicAssets: true }),
+    nitro({
+      compressPublicAssets: true,
+      // Cache-control strategy (cache-everything):
+      //  - /assets/** (hashed JS/CSS/images/fonts): Nitro's built-in default
+      //    is `public, max-age=31536000, immutable` + ETag — perfect, so no
+      //    override here (most-specific rule wins).
+      //  - Prerendered HTML + server responses: always revalidate via ETag
+      //    (browser max-age=0 → fast 304s, never stale), while shared caches
+      //    (Vercel CDN) may hold pages for an hour with SWR to absorb bursts.
+      //  - /sw.js: no-cache so browsers always check for service-worker
+      //    updates — a stale SW would delay new content from going live.
+      routeRules: {
+        '/**': {
+          headers: {
+            'Cache-Control':
+              'public, s-maxage=3600, stale-while-revalidate=86400, max-age=0, must-revalidate',
+          },
+        },
+        '/sw.js': { headers: { 'Cache-Control': 'no-cache' } },
+      },
+      // All content is static build-time data (content-collections), so
+      // prerender every route to static HTML at build: Nitro then serves the
+      // files instead of SSR-ing each request (better TTFB, cacheable).
+      // crawlLinks discovers /blog/$slug posts by walking the pagination and
+      // prev/next chains. Server functions (contact POST) and any path not
+      // prerendered still fall back to the SSR server at runtime.
+      prerender: {
+        routes: [
+          '/',
+          '/blog/tags',
+          '/blog/categories',
+          '/contact',
+          '/terminal',
+          '/rss.xml',
+          '/sitemap.xml',
+        ],
+        crawlLinks: true,
+        ignore: [
+          // /blog and /projects 307 to their canonical search-param URL
+          // (TanStack Router search canonicalization), which Nitro can't
+          // prerender — routes containing "?" are skipped as files. Ignore
+          // the bare paths so the build doesn't EISDIR trying to write them;
+          // they stay SSR'd at runtime (fast, in-memory static data). Posts
+          // are still discovered via the categories page + prev/next chains.
+          (route: string) => route === '/blog' || route === '/projects',
+        ],
+      },
+    }),
   ],
 })

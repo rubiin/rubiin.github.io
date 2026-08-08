@@ -60,7 +60,10 @@ try {
   run('git', ['worktree', 'prune'])
   if (existsSync(worktree)) rmSync(worktree, { recursive: true, force: true })
   run('git', ['worktree', 'add', '-f', worktree, ref])
-  const commit = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: worktree, encoding: 'utf8' }).stdout.trim()
+  const commit = spawnSync('git', ['rev-parse', 'HEAD'], {
+    cwd: worktree,
+    encoding: 'utf8',
+  }).stdout.trim()
 
   // 2. Install (old lockfile carries tailwindcss) + build.
   run('pnpm', ['install', '--prefer-offline'], { cwd: worktree })

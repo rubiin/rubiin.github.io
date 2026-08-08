@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { motion } from 'motion/react'
-import { Command, Download, Menu } from 'lucide-react'
+import { Command, Download } from 'lucide-react'
 import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
 import { Button } from '@/components/ui/button'
@@ -46,7 +46,6 @@ function useElevatedHeader() {
 export function SiteHeader() {
   const elevated = useElevatedHeader()
   const location = useLocation()
-  const [mobileOpen, setMobileOpen] = useState(false)
 
   const pathname = location.pathname
   // Scrollspy only on the home page (where the anchor sections live).
@@ -172,27 +171,9 @@ export function SiteHeader() {
 
           <ThemeToggle tooltip="Theme" />
 
-          <TooltipProvider delayDuration={150}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="md:hidden"
-                  aria-label="Open menu"
-                  aria-expanded={mobileOpen}
-                  onClick={() => setMobileOpen(true)}
-                >
-                  <Menu className="size-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom">Menu</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <MobileNav />
         </div>
       </div>
-
-      <MobileNav open={mobileOpen} onOpenChange={setMobileOpen} />
     </header>
   )
 }

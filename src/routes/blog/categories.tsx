@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useDeferredValue, useMemo, useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowRight, SearchX } from 'lucide-react'
 import { BlogSearch } from '@/components/blog/blog-search'
@@ -30,7 +30,10 @@ export const Route = createFileRoute('/blog/categories')({
 function CategoriesPage() {
   const { categories, posts } = Route.useLoaderData()
   const [q, setQ] = useState('')
-  const needle = q.trim().toLowerCase()
+  // Deferred filter: typing stays urgent, the list update trails a tick
+  // behind so keystrokes never block on the re-render (useDeferredValue).
+  const deferredQ = useDeferredValue(q)
+  const needle = deferredQ.trim().toLowerCase()
   const filtered = useMemo(
     () =>
       needle ? categories.filter((c) => c.category.toLowerCase().includes(needle)) : categories,

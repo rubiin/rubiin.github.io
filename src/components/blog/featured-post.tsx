@@ -1,20 +1,29 @@
+import { memo } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, CalendarDays, Clock } from 'lucide-react'
 import { AnimatedBorder } from '@/components/animations/animated-border'
+import { ResponsiveImage } from '@/components/ui/responsive-image'
+import { usePrefetchMode } from '@/hooks/use-prefetch-mode'
 import type { PostSummary } from '@/server/blog'
 
 /** Large two-column featured post card with a rotating gradient border. */
-export function FeaturedPost({ post }: { post: PostSummary }) {
+export const FeaturedPost = memo(function FeaturedPost({ post }: { post: PostSummary }) {
+  // Visibility-based prefetch — skipped for data-saver users.
+  const preload = usePrefetchMode('viewport')
   return (
-    <Link to={`/blog/${post.slug}` as string} className="group block rounded-2xl">
+    <Link to={`/blog/${post.slug}` as string} preload={preload} className="group block rounded-2xl">
       <AnimatedBorder className="h-full" surfaceClassName="grid overflow-hidden md:grid-cols-2">
         <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/20 via-accent-secondary/20 to-chart-3/15 md:aspect-auto">
           {post.coverImage ? (
-            <img
+            <ResponsiveImage
               src={post.coverImage}
               alt={post.title}
+              widths={[480, 960, 1280]}
+              sizes="(min-width: 768px) 576px, 100vw"
+              width={1280}
+              height={737}
               loading="lazy"
-              className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <div className="flex size-full items-center justify-center text-6xl font-bold text-primary/25">
@@ -56,4 +65,4 @@ export function FeaturedPost({ post }: { post: PostSummary }) {
       </AnimatedBorder>
     </Link>
   )
-}
+})

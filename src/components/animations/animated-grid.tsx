@@ -26,8 +26,11 @@ export function AnimatedGrid<T extends { slug: string }>({
   const reduced = useReducedMotion()
 
   const cards = items.map((item, i) => {
+    // Reduced motion: Reveal renders a bare wrapper div (no animation), so
+    // skip it — the grid cell below is the only DOM node needed (fewer
+    // nodes per card for reduced-motion users).
+    if (reduced) return <div key={item.slug}>{renderItem(item, i)}</div>
     const inner = <Reveal delay={(i % 3) * 0.06}>{renderItem(item, i)}</Reveal>
-    if (reduced) return <div key={item.slug}>{inner}</div>
     return (
       <motion.div
         key={item.slug}

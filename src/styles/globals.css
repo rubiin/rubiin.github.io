@@ -21,11 +21,11 @@
   --radius: 1rem;
   /* Fontsource variable families — family names carry the `Variable` suffix. */
   --font-sans:
-    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
   --font-display:
-    'Space Grotesk Variable', 'Inter Variable', ui-sans-serif, system-ui, -apple-system,
-    'Segoe UI', Roboto, sans-serif;
+    'Space Grotesk Variable', 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
   --font-mono:
     'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono',
     monospace;

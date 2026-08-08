@@ -1,9 +1,11 @@
+import { memo } from 'react'
 import { ExternalLink, FolderGit2 } from 'lucide-react'
 import { TiltCard } from '@/components/animations/tilt-card'
 import { AnimatedBorder } from '@/components/animations/animated-border'
 import { NeonButton } from '@/components/animations/neon-button'
 import { BrowserFrame } from '@/components/projects/browser-frame'
 import { GitHubIcon } from '@/components/ui/brand-icons'
+import { ResponsiveImage } from '@/components/ui/responsive-image'
 import { CATEGORY_LABELS } from '@/lib/constants'
 import type { Project } from '@/types'
 
@@ -22,8 +24,10 @@ function domainOf(title: string, demo?: string) {
  * Data-driven project card: media (image/video or gradient placeholder),
  * category badge, title, tagline, tech badges, and GitHub/demo links.
  * Tilt on hover + rotating gradient border, matching the home section.
+ * Memoized: the /projects grid re-renders while filtering, and `project`
+ * is a stable static-data reference, so cards skip re-rendering.
  */
-export function ProjectCard({ project }: { project: Project }) {
+export const ProjectCard = memo(function ProjectCard({ project }: { project: Project }) {
   return (
     <TiltCard className="h-full rounded-2xl">
       <AnimatedBorder className="h-full">
@@ -32,13 +36,15 @@ export function ProjectCard({ project }: { project: Project }) {
           <BrowserFrame url={domainOf(project.title, project.demo)} className="aspect-[16/10]">
             <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-primary/15 via-accent-secondary/15 to-chart-3/10">
               {project.image ? (
-                <img
+                <ResponsiveImage
                   src={project.image}
                   alt={`${project.title} interface`}
-                  loading="lazy"
+                  widths={[320, 640, 800]}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   width={800}
                   height={500}
-                  className="size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  loading="lazy"
+                  className="object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
               ) : (
                 <div className="flex size-full items-center justify-center" aria-hidden>
@@ -93,4 +99,4 @@ export function ProjectCard({ project }: { project: Project }) {
       </AnimatedBorder>
     </TiltCard>
   )
-}
+})

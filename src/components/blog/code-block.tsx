@@ -53,6 +53,14 @@ export function CodeBlock({
 
     const highlight = async () => {
       try {
+        // Start the language chunk in parallel with the core bundle — the
+        // grammar module doesn't depend on createHighlighterCore, so awaiting
+        // it after would serialize two network fetches (a waterfall).
+        const grammarModule = grammar?.load() ?? null
+        // Consume early rejections so a fast chunk failure isn't reported as
+        // unhandled before the await below attaches; the inner try/catch
+        // still handles it at that point.
+        grammarModule?.catch(() => {})
         const [
           { createHighlighterCore },
           { default: githubDark },
@@ -70,8 +78,8 @@ export function CodeBlock({
         })
 
         try {
-          if (grammar) {
-            await highlighter.loadLanguage((await grammar.load()).default)
+          if (grammarModule) {
+            await highlighter.loadLanguage((await grammarModule).default)
           }
         } catch {
           // Unsupported language — render the plain fallback.

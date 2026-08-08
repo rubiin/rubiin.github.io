@@ -1,29 +1,39 @@
+import { memo } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, CalendarDays, Clock } from 'lucide-react'
 import { AnimatedBorder } from '@/components/animations/animated-border'
+import { ResponsiveImage } from '@/components/ui/responsive-image'
+import { usePrefetchMode } from '@/hooks/use-prefetch-mode'
 import type { PostSummary } from '@/server/blog'
 
 /**
  * Blog post card: cover (or gradient), category badge, date, title,
  * description, tags, reading time. Rotating gradient border + lift glow.
+ * Memoized: the blog index re-renders on every search/filter keystroke, and
+ * `post` is a stable loader reference, so cards skip re-rendering.
  */
-export function PostCard({ post }: { post: PostSummary }) {
+export const PostCard = memo(function PostCard({ post }: { post: PostSummary }) {
+  // Visibility-based prefetch — skipped for data-saver users.
+  const preload = usePrefetchMode('viewport')
   return (
     <Link
       to={`/blog/${post.slug}` as string}
+      preload={preload}
       className="content-visibility group block h-full rounded-2xl"
     >
       <AnimatedBorder className="h-full">
         <article className="flex h-full flex-col overflow-hidden rounded-[inherit]">
           <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-primary/15 via-accent-secondary/15 to-chart-3/10">
             {post.coverImage ? (
-              <img
+              <ResponsiveImage
                 src={post.coverImage}
                 alt={post.title}
+                widths={[480, 960, 1280]}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                width={1280}
+                height={737}
                 loading="lazy"
-                   width={1600}
-                height={900}
-                className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
               <div className="flex size-full items-center justify-center text-4xl font-bold text-primary/30">
@@ -78,4 +88,4 @@ export function PostCard({ post }: { post: PostSummary }) {
       </AnimatedBorder>
     </Link>
   )
-}
+})

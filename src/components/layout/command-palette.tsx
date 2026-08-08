@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { startTransition, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { Download, FileText, FolderGit2, Navigation, TerminalSquare } from 'lucide-react'
@@ -15,15 +15,19 @@ import {
 import { navItems } from '@/data/nav'
 import { projects } from '@/data/projects'
 import { getPosts } from '@/server/blog'
-import { useCommand } from '@/hooks/use-command'
 import { BLOG_POSTS_QUERY_KEY } from '@/lib/constants'
 
 /**
  * ⌘K palette: fuzzy-search navigation, projects, and blog posts.
  * Keyboard navigable via cmdk; selects navigate through the router.
  */
-export function CommandPalette() {
-  const { open, setOpen } = useCommand()
+export function CommandPalette({
+  open,
+  setOpen,
+}: {
+  open: boolean
+  setOpen: (open: boolean) => void
+}) {
   const navigate = useNavigate()
 
   // Shares BLOG_POSTS_QUERY_KEY with the blog index loader, which seeds the
@@ -38,7 +42,11 @@ export function CommandPalette() {
 
   const go = (href: string) => {
     setOpen(false)
-    void navigate({ to: href })
+    // Navigation as a transition: the palette closes instantly and the
+    // route renders off the critical path (use-transitions).
+    startTransition(() => {
+      void navigate({ to: href })
+    })
   }
 
   const goExternal = (href: string) => {

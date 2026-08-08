@@ -5,6 +5,7 @@ import { AnimatedBorder } from '@/components/animations/animated-border'
 import { NeonButton } from '@/components/animations/neon-button'
 import { GitHubIcon } from '@/components/ui/brand-icons'
 import { BrowserFrame } from '@/components/projects/browser-frame'
+import { ResponsiveImage } from '@/components/ui/responsive-image'
 import { ChapterHeading } from '@/components/home/chapter-heading'
 import { CATEGORY_LABELS } from '@/lib/constants'
 import { projects } from '@/data/projects'
@@ -48,13 +49,15 @@ export function ProjectsSection() {
                     className="aspect-[16/10]"
                   >
                     {project.image ? (
-                      <img
+                      <ResponsiveImage
                         src={project.image}
                         alt={`${project.title} interface`}
-                        loading="lazy"
-                         width={800}
+                        widths={[320, 640, 800]}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        width={800}
                         height={500}
-                        className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        loading="lazy"
+                        className="object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/15 via-accent-secondary/15 to-chart-3/10">

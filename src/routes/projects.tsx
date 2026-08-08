@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { startTransition, useMemo } from 'react'
 import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import { ProjectCard } from '@/components/projects/project-card'
 import { ProjectFilters, type ProjectFilter } from '@/components/projects/project-filters'
@@ -9,6 +9,7 @@ import { SectionHeading } from '@/components/home/section-heading'
 import { PROJECT_CATEGORIES } from '@/lib/constants'
 import { buildMeta } from '@/lib/seo'
 import { projects } from '@/data/projects'
+import type { Project } from '@/types'
 
 interface ProjectsSearch {
   category: ProjectFilter
@@ -16,6 +17,11 @@ interface ProjectsSearch {
 }
 
 const CATEGORY_VALUES = PROJECT_CATEGORIES.map((c) => c.value)
+
+// Stable renderItem — module scope so the reference never changes across re-renders.
+function renderProjectCard(project: Project) {
+  return <ProjectCard project={project} />
+}
 
 export const Route = createFileRoute('/projects')({
   validateSearch: (search: Record<string, unknown>): ProjectsSearch => {
@@ -75,16 +81,24 @@ function ProjectsPage() {
   const { category, q } = useSearch({ from: '/projects' })
   const navigate = useNavigate()
 
+  // Non-urgent filter updates (use-transitions): the URL change + grid
+  // re-render run as transitions, so typing/clicks stay responsive.
   const setCategory = (next: ProjectFilter) => {
-    void navigate({ to: '/projects', search: { category: next, q } })
+    startTransition(() => {
+      void navigate({ to: '/projects', search: { category: next, q } })
+    })
   }
 
   const setQuery = (next: string) => {
-    void navigate({ to: '/projects', search: { category, q: next } })
+    startTransition(() => {
+      void navigate({ to: '/projects', search: { category, q: next } })
+    })
   }
 
   const clearFilters = () => {
-    void navigate({ to: '/projects', search: { category: 'all', q: '' } })
+    startTransition(() => {
+      void navigate({ to: '/projects', search: { category: 'all', q: '' } })
+    })
   }
 
   const filtered = useMemo(() => {
@@ -123,7 +137,7 @@ function ProjectsPage() {
       ) : (
         <AnimatedGrid
           items={filtered}
-          renderItem={(project) => <ProjectCard project={project} />}
+          renderItem={renderProjectCard}
           className="mt-10 md:grid-cols-2 lg:grid-cols-3"
         />
       )}

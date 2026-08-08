@@ -98,11 +98,7 @@ export function ScrollScrubbedParagraph({
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.45'] })
 
   return (
-    <div
-      ref={ref}
-      role={icon ? 'list' : undefined}
-      className={cn('space-y-4', className)}
-    >
+    <div ref={ref} role={icon ? 'list' : undefined} className={cn('space-y-4', className)}>
       {rows.map((row, pi) => {
         const scrubbed = (
           <>

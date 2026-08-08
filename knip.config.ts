@@ -10,11 +10,7 @@ const config: KnipConfig = {
   // the rehype/remark/mdast pipeline deps it pulls in.
   entry: ['content-collections.config.ts'],
   project: ['src/**/*.{ts,tsx}', 'scripts/**/*.{ts,mjs}', 'tests/**/*.ts'],
-  ignore: [
-    'scripts/smoke-test.mjs',
-    'scripts/analyze-bundle.mjs',
-    'src/components/ui/**',
-  ],
+  ignore: ['scripts/smoke-test.mjs', 'scripts/analyze-bundle.mjs', 'src/components/ui/**'],
   ignoreDependencies: [
     // Used via `unocss/preset-wind4` in uno.config.ts (knip doesn't resolve
     // the package's subpath exports).

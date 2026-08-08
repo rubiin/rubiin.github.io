@@ -10,9 +10,7 @@ import transformerDirectives from '@unocss/transformer-directives'
  * `.dark` on `<html>` (see `src/stores/theme-store.ts`).
  */
 export default defineConfig({
-  presets: [
-    presetWind4(),
-  ],
+  presets: [presetWind4()],
   // Disable `:is()` selector merging. With merging on, a plain utility like
   // `px-4` gets grouped with higher-specificity variants (e.g. the
   // `has-[>svg]:px-4:has(>svg)` used by `ui/button.tsx`), and since `:is()`
@@ -22,9 +20,7 @@ export default defineConfig({
   mergeSelectors: false,
 
   content: {
-    filesystem: [
-      'src/**/*.{ts,tsx,js,jsx,html}',
-    ],
+    filesystem: ['src/**/*.{ts,tsx,js,jsx,html}'],
   },
   transformers: [
     transformerDirectives(), // expands `@apply` in globals.css
@@ -122,7 +118,8 @@ export default defineConfig({
     },
     font: {
       sans: "'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-      display: "'Space Grotesk Variable', 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+      display:
+        "'Space Grotesk Variable', 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
       mono: "'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace",
     },
     radius: {

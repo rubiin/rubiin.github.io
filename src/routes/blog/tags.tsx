@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useDeferredValue, useMemo, useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Hash, SearchX } from 'lucide-react'
 import { BlogSearch } from '@/components/blog/blog-search'
@@ -26,10 +26,13 @@ export const Route = createFileRoute('/blog/tags')({
 function TagsPage() {
   const { tags, posts } = Route.useLoaderData()
   const [q, setQ] = useState('')
+  // Deferred filter: typing stays urgent, the list update trails a tick
+  // behind so keystrokes never block on the re-render (useDeferredValue).
+  const deferredQ = useDeferredValue(q)
   const filtered = useMemo(() => {
-    const needle = q.trim().toLowerCase()
+    const needle = deferredQ.trim().toLowerCase()
     return needle ? tags.filter((t) => t.tag.toLowerCase().includes(needle)) : tags
-  }, [tags, q])
+  }, [tags, deferredQ])
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">

@@ -23,14 +23,14 @@
 
 ### Raw stats (final builds, after fixes)
 
-| Metric                          | Tailwind v4            | UnoCSS wind4           |
-| ------------------------------- | ---------------------- | ---------------------- |
-| Generated CSS size              | 135,399 B              | 109,129 B (−19%)       |
-| Individual selectors            | 1,087                  | 1,091                  |
-| Rule-level: only in one build   | 203 (all equivalent)   | 115 (all equivalent)   |
-| Rule-level: differing values    | 130 (all equivalent)   | —                      |
-| Keyframes                       | identical              | identical             |
-| Theme tokens (`:root`/`.dark`)  | identical              | identical             |
+| Metric                         | Tailwind v4          | UnoCSS wind4         |
+| ------------------------------ | -------------------- | -------------------- |
+| Generated CSS size             | 135,399 B            | 109,129 B (−19%)     |
+| Individual selectors           | 1,087                | 1,091                |
+| Rule-level: only in one build  | 203 (all equivalent) | 115 (all equivalent) |
+| Rule-level: differing values   | 130 (all equivalent) | —                    |
+| Keyframes                      | identical            | identical            |
+| Theme tokens (`:root`/`.dark`) | identical            | identical            |
 
 ---
 
@@ -49,7 +49,7 @@ active-underline indicator was invisible:
 ```
 
 **Fix** (`uno.config.ts`): custom `after:`/`before:` variants that append the pseudo-element
-via the `pseudo` slot (so it lands *after* trailing attribute/`:is()` parts from stacked
+via the `pseudo` slot (so it lands _after_ trailing attribute/`:is()` parts from stacked
 variants) and inject `content:""` via a `body` rewrite, guarded to never clobber an explicit
 `content-[…]` utility:
 
@@ -91,7 +91,9 @@ merged the plain `px-4` utility with the higher-specificity variant used by `ui/
 
 ```css
 /* UnoCSS, mergeSelectors: true */
-:is(.has-\[>svg\]\:px-4:has(>svg), .px-4) { padding-inline: calc(var(--spacing) * 4) }
+:is(.has-\[ > svg\]\:px-4:has(> svg), .px-4) {
+  padding-inline: calc(var(--spacing) * 4);
+}
 ```
 
 `:is()` adopts the **maximum specificity of its arguments**, so the merged rule scored (0,2,1) —
@@ -101,7 +103,7 @@ media query at all viewports**. Result: the header content sat 8 px further left
 (logo x=80 vs 88; right controls x=1080 vs 1072) — and the same drift affected any other
 responsive utility paired with a base utility that has a `has-[>svg]:…` sibling (every button).
 
-This was invisible to the selector diff (the merged selector still *matched* the same elements)
+This was invisible to the selector diff (the merged selector still _matched_ the same elements)
 and only surfaced via a live computed-style probe against the two servers, then a pixel-level
 screenshot comparison.
 
@@ -134,33 +136,39 @@ The comparison is now **enforced automatically** so future UnoCSS changes cannot
 ## ✅ Verified-equivalent differences (no visual impact)
 
 ### Internal variable namespaces
+
 UnoCSS uses `--un-*` (`--un-text-opacity`, `--un-shadow`, …) where Tailwind uses `--tw-*`, and
 defaults them on `*` instead of via `@property` initial-values. Self-consistent within each
 build; identical computed values. (UnoCSS also emits its `@property` blocks separately.)
 
 ### Selector assembly forms
-| Class                            | Tailwind                                  | UnoCSS                                   | Equivalent? |
-| -------------------------------- | ----------------------------------------- | ---------------------------------------- | ----------- |
-| `dark:bg-input/30`               | `.dark\:bg-input\/30:is(.dark *)`         | `.dark .dark\:bg-input\/30`              | ✅ `.dark .x` ≡ `:is(.dark .x)` |
-| `has-[>svg]:px-4` + `px-4`       | two separate rules                        | **no longer merged** (`mergeSelectors:false`) — was the cause of bug #3 | ✅ separate rules |
-| `group-hover:scale-105`          | `:is(:where(.group):hover *)`             | `.group:hover `                          | ✅ |
-| `…:data-[state=active]:after…`   | `…:is(…)[data-state=active]:after`        | `…[data-state=active]:is(…):after`       | ✅ same predicate |
-| `peer-focus:top-3`               | `:is(:where(.peer):focus~*)`              | `.peer:focus~`                           | ✅ |
-| preflight `[hidden]` / `:-moz-focusring` | `:where(:not([hidden=until-found]))` | `:where(:not([hidden~=until-found]))`    | ✅ |
+
+| Class                                    | Tailwind                             | UnoCSS                                                                  | Equivalent?                     |
+| ---------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------- | ------------------------------- |
+| `dark:bg-input/30`                       | `.dark\:bg-input\/30:is(.dark *)`    | `.dark .dark\:bg-input\/30`                                             | ✅ `.dark .x` ≡ `:is(.dark .x)` |
+| `has-[>svg]:px-4` + `px-4`               | two separate rules                   | **no longer merged** (`mergeSelectors:false`) — was the cause of bug #3 | ✅ separate rules               |
+| `group-hover:scale-105`                  | `:is(:where(.group):hover *)`        | `.group:hover `                                                         | ✅                              |
+| `…:data-[state=active]:after…`           | `…:is(…)[data-state=active]:after`   | `…[data-state=active]:is(…):after`                                      | ✅ same predicate               |
+| `peer-focus:top-3`                       | `:is(:where(.peer):focus~*)`         | `.peer:focus~`                                                          | ✅                              |
+| preflight `[hidden]` / `:-moz-focusring` | `:where(:not([hidden=until-found]))` | `:where(:not([hidden~=until-found]))`                                   | ✅                              |
 
 ### Opacity representation
+
 Theme-keyed colors with opacity render as `color-mix(in oklab, var(--x) var(--un-*-opacity),
 transparent)` with the opacity var defaulting to 100% — numerically identical to Tailwind's
 literal value. Both builds already render in **oklab** (the `colorMixOklab` PostCSS pass in
 `vite.config.ts` rewrites wind4's default `in srgb`).
 
 ### Spacing math
+
 UnoCSS always writes `calc(var(--spacing) * N)` — including `* 0` for `inset-0`, `top-0`,
 `p-0` — where Tailwind collapses to `0`. `calc(var(--spacing) * 0)` computes to `0`.
 
 ### Theme var vs inlined value
+
 Tailwind v4's `@theme inline` bakes theme values into utilities; UnoCSS references the same
 CSS variables (both defined in the emitted `:host`/`:root`):
+
 - `font-display` → Tailwind inlines `Space Grotesk, Inter, …`; UnoCSS `var(--font-display)` (same stack)
 - `rounded` → `border-radius:.25rem` vs `var(--radius-DEFAULT)` (defined as `.25rem`)
 - `rounded-lg` → `var(--radius)` vs `var(--radius-lg)` (defined as `var(--radius)`)
@@ -168,22 +176,26 @@ CSS variables (both defined in the emitted `:host`/`:root`):
 - `font-semibold`/`leading-none` → renamed `--font-weight-semibold` / `--leading-none` (same values)
 
 ### `transition` property lists
+
 Tailwind 4.1's `transition`/`transition-colors` include `outline-color` and the discrete
 `display, content-visibility, overlay, pointer-events` (which cannot animate anyway); UnoCSS's
 list omits them. All continuous properties (color, background, opacity, shadow, transform, …)
 transition identically.
 
 ### `rounded-full` sentinel
+
 Tailwind `border-radius:2147483647px` (int32 max) vs UnoCSS `3.40282e38px` (float32 max) —
 both effectively infinite.
 
 ### Preflight surface details
+
 - `.sr-only`: `clip-path:inset(50%)` vs the legacy `clip:rect(0,0,0,0)` — both hide visually and keep the element in the a11y tree.
 - `html`/`body`/`code`/`pre` font-fallback variables use different names
   (`--default-mono-font-family` vs `--default-monoFont-family`) with identical fallback stacks.
 - UnoCSS preflight adds `line-height:1.5; tab-size:4` on `html` (Tailwind has the same defaults).
 
 ### Color rounding
+
 Hex-with-opacity utilities get baked to `lab()` by lightningcss; the two builds round the 5th
 significant digit differently (e.g. `bg-[#0a192f]/80` → `lab(8.45302% …)` vs `lab(8.45304% …)`).
 Sub-0.001% — imperceptible.
@@ -207,13 +219,14 @@ Sub-0.001% — imperceptible.
 Converted **26 raster images** (20 project screenshots + 6 blog inline images) from PNG/JPG to
 WebP (`magick -strip -quality 85 -define webp:method=6`) and updated every reference
 (`src/data/projects.ts`, 6 blog MDX files). `og.png` intentionally stays PNG (apple-touch-icon
-+ `og:image` compatibility — only 13 KiB).
 
-| Metric                      | Before         | After         |
-| --------------------------- | -------------- | ------------- |
-| 26 converted files          | 4.79 MiB       | ~0.59 MiB     |
-| Total image payload (`public/`) | ~6.3 MiB (PNG/JPG + covers) | **1.58 MiB** |
-| Biggest single file         | `pokego.png` 708 KiB | `pokego.webp` 100 KiB (−86%) |
+- `og:image` compatibility — only 13 KiB).
+
+| Metric                          | Before                      | After                        |
+| ------------------------------- | --------------------------- | ---------------------------- |
+| 26 converted files              | 4.79 MiB                    | ~0.59 MiB                    |
+| Total image payload (`public/`) | ~6.3 MiB (PNG/JPG + covers) | **1.58 MiB**                 |
+| Biggest single file             | `pokego.png` 708 KiB        | `pokego.webp` 100 KiB (−86%) |
 
 Examples: `dotfiles.png` 683→75 KiB, `flippay.png` 679→48 KiB, `tsumiki.png` 711→50 KiB,
 `git-log.png` 312→111 KiB. The Playwright goldens were regenerated from the current build
@@ -240,21 +253,21 @@ applies, plus `content-visibility` on the project card. Goldens regenerated (5 c
 
 ## Files touched this session
 
-| File                                     | Change                                                            |
-| ---------------------------------------- | ----------------------------------------------------------------- |
-| `uno.config.ts`                          | `after:`/`before:` variants injecting `content:""` (order −1) **and** `mergeSelectors:false` (bug #3) |
-| `src/data/projects.ts`, 6 blog `.mdx` files, `public/projects/*`, `public/blog/*` | PNG/JPG → WebP conversion (q85) + reference updates; `og.png` kept as PNG |
-| `src/routes/__root.tsx`, `src/styles/globals.css`, `uno.config.ts` (font tokens), `package.json`, `pnpm-lock.yaml` | self-hosted fonts via Fontsource variable packages (Google Fonts link removed) |
-| `public/projects/*.webp` (10 resized), `src/components/projects/project-card.tsx`, `src/components/home/projects-section.tsx`, `src/components/blog/post-card.tsx` | project images resized to 800px wide + intrinsic width/height + content-visibility (CLS hardening) |
-| `tests/e2e/__screenshots__/**`, `tests/snapshots/baseline.json` | goldens regenerated from the UnoCSS+WebP+fonts+resize build (provenance noted) |
-| `tests/e2e/helpers.ts`, `playwright.config.ts`, `scripts/smoke-test.mjs`, `README.md` | docs/comments updated: fonts no longer aborted (self-hosted) |
-| `src/components/home/chapter-heading.tsx`| `text-primary/[0.06]` → `text-primary/[6%]`                       |
-| `playwright.config.ts`, `tests/e2e/visual.spec.ts` (22 tests × desktop/mobile), `tests/e2e/helpers.ts`, `scripts/snapshot-baseline.mjs`, `tests/snapshots/baseline.json`, `tests/e2e/__screenshots__/**` | snapshot suite + Tailwind goldens |
-| `package.json`, `.github/workflows/ci.yml` | `test:snapshots` / `snapshot:baseline` scripts + CI snapshots job |
-| `package.json`, `pnpm-lock.yaml` | removed unused deps (`giscus`, `@tanstack/zod-form-adapter`, `reading-time`, `vite-bundle-visualizer`) |
-| `knip.config.ts` + `pnpm knip` (also in CI) | dead-code guard — 0 findings |
-| `src/data/awards.ts`, `certifications.ts`, `education.ts` (deleted), `src/components/ui/progress.tsx` (deleted), `src/types/index.ts`, `src/hooks/use-lenis.ts`, `src/hooks/use-theme.ts`, `src/lib/constants.ts`, `src/server/blog.ts`, `src/components/blog/mdx-components.tsx`, `tests/e2e/helpers.ts`, `README.md` | dead-code cleanup + README sync |
-| (existing migration) `package.json`, `pnpm-lock.yaml`, `vite.config.ts`, `src/styles/globals.css` | Tailwind → UnoCSS switch (verified, not authored this session) |
+| File                                                                                                                                                                                                                                                                                                                   | Change                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `uno.config.ts`                                                                                                                                                                                                                                                                                                        | `after:`/`before:` variants injecting `content:""` (order −1) **and** `mergeSelectors:false` (bug #3)  |
+| `src/data/projects.ts`, 6 blog `.mdx` files, `public/projects/*`, `public/blog/*`                                                                                                                                                                                                                                      | PNG/JPG → WebP conversion (q85) + reference updates; `og.png` kept as PNG                              |
+| `src/routes/__root.tsx`, `src/styles/globals.css`, `uno.config.ts` (font tokens), `package.json`, `pnpm-lock.yaml`                                                                                                                                                                                                     | self-hosted fonts via Fontsource variable packages (Google Fonts link removed)                         |
+| `public/projects/*.webp` (10 resized), `src/components/projects/project-card.tsx`, `src/components/home/projects-section.tsx`, `src/components/blog/post-card.tsx`                                                                                                                                                     | project images resized to 800px wide + intrinsic width/height + content-visibility (CLS hardening)     |
+| `tests/e2e/__screenshots__/**`, `tests/snapshots/baseline.json`                                                                                                                                                                                                                                                        | goldens regenerated from the UnoCSS+WebP+fonts+resize build (provenance noted)                         |
+| `tests/e2e/helpers.ts`, `playwright.config.ts`, `scripts/smoke-test.mjs`, `README.md`                                                                                                                                                                                                                                  | docs/comments updated: fonts no longer aborted (self-hosted)                                           |
+| `src/components/home/chapter-heading.tsx`                                                                                                                                                                                                                                                                              | `text-primary/[0.06]` → `text-primary/[6%]`                                                            |
+| `playwright.config.ts`, `tests/e2e/visual.spec.ts` (22 tests × desktop/mobile), `tests/e2e/helpers.ts`, `scripts/snapshot-baseline.mjs`, `tests/snapshots/baseline.json`, `tests/e2e/__screenshots__/**`                                                                                                               | snapshot suite + Tailwind goldens                                                                      |
+| `package.json`, `.github/workflows/ci.yml`                                                                                                                                                                                                                                                                             | `test:snapshots` / `snapshot:baseline` scripts + CI snapshots job                                      |
+| `package.json`, `pnpm-lock.yaml`                                                                                                                                                                                                                                                                                       | removed unused deps (`giscus`, `@tanstack/zod-form-adapter`, `reading-time`, `vite-bundle-visualizer`) |
+| `knip.config.ts` + `pnpm knip` (also in CI)                                                                                                                                                                                                                                                                            | dead-code guard — 0 findings                                                                           |
+| `src/data/awards.ts`, `certifications.ts`, `education.ts` (deleted), `src/components/ui/progress.tsx` (deleted), `src/types/index.ts`, `src/hooks/use-lenis.ts`, `src/hooks/use-theme.ts`, `src/lib/constants.ts`, `src/server/blog.ts`, `src/components/blog/mdx-components.tsx`, `tests/e2e/helpers.ts`, `README.md` | dead-code cleanup + README sync                                                                        |
+| (existing migration) `package.json`, `pnpm-lock.yaml`, `vite.config.ts`, `src/styles/globals.css`                                                                                                                                                                                                                      | Tailwind → UnoCSS switch (verified, not authored this session)                                         |
 
 ## How to re-run the comparison
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { startTransition, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useQueryClient } from '@tanstack/react-query'
 import {
@@ -37,7 +37,15 @@ const SORT_OPTIONS = [
 
 type BlogSort = (typeof SORT_OPTIONS)[number]['value']
 const SORTS = SORT_OPTIONS.map((o) => o.value)
-const SORT_LABELS = Object.fromEntries(SORT_OPTIONS.map((o) => [o.value, o.label])) as Record<BlogSort, string>
+const SORT_LABELS = Object.fromEntries(SORT_OPTIONS.map((o) => [o.value, o.label])) as Record<
+  BlogSort,
+  string
+>
+
+// Stable renderItem — module scope so the reference never changes across re-renders.
+function renderPostCard(post: PostSummary) {
+  return <PostCard post={post} />
+}
 
 interface BlogSearchParams {
   category: string
@@ -100,15 +108,19 @@ function BlogIndexPage() {
   const update = (patch: Partial<BlogSearchParams>) => {
     // Any filter change resets to page 1; only an explicit page patch keeps it.
     const resetPage = !('page' in patch)
-    void navigate({
-      to: '/blog',
-      search: {
-        category: patch.category ?? category,
-        tag: patch.tag ?? tag,
-        q: patch.q ?? q,
-        page: resetPage ? 1 : (patch.page ?? page),
-        sort: patch.sort ?? sort,
-      },
+    // Non-urgent filter update (use-transitions): the URL change + list
+    // re-render run as a transition, so typing/clicks stay responsive.
+    startTransition(() => {
+      void navigate({
+        to: '/blog',
+        search: {
+          category: patch.category ?? category,
+          tag: patch.tag ?? tag,
+          q: patch.q ?? q,
+          page: resetPage ? 1 : (patch.page ?? page),
+          sort: patch.sort ?? sort,
+        },
+      })
     })
   }
 
@@ -288,7 +300,7 @@ function BlogIndexPage() {
         <>
           <AnimatedGrid
             items={pageItems}
-            renderItem={(post) => <PostCard post={post} />}
+            renderItem={renderPostCard}
             className="sm:grid-cols-2 lg:grid-cols-3"
           />
           {totalPages > 1 && (
