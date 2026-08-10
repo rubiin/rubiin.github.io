@@ -418,6 +418,28 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: 'mpvsub',
+    title: 'mpvsub',
+    tagline: 'A VLC-style subtitle downloader for mpv — GTK4 popup, keyboard-first.',
+    description:
+      'mpvsub is a small native GTK4/Libadwaita popup for mpv that finds subtitles on OpenSubtitles.com via the same REST API the official VLSub extension uses. It searches by file hash, title, or IMDB ID across 99 languages with server-side sorting, then saves the chosen result next to the video file so mpv auto-loads it — or loads it straight into the running player over its JSON IPC socket. No OSD rendering, no web front-end, full keyboard navigation, and a one-liner installer that sets up the whole stack.',
+    category: 'terminal',
+    year: '2026',
+    tech: ['Python', 'GTK4', 'Libadwaita', 'Lua', 'mpv'],
+    image: '/projects/mpvsub.webp',
+    github: 'https://github.com/rubiin/mpvsub',
+    featured: true,
+    challenges: [
+      'Hashing local files for exact-match subtitle search, with automatic name-search fallback',
+      'Wiring a GTK4/Libadwaita UI into a running mpv over its JSON IPC socket (sub-add + sid)',
+      'Obfuscating credentials with a machine-local key so settings can never be decoded elsewhere',
+    ],
+    lessons: [
+      'A tiny native popup beats a web front-end for a player-side tool',
+      'Server-side sorting and hash lookups keep the client thin and snappy',
+    ],
+  },
+  {
     slug: 'vscode-nestjs-snippets',
     title: 'NestJS Snippets for VS Code',
     tagline: 'Snippets for common NestJS operations in VS Code.',
