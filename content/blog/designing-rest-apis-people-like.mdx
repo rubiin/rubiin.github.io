@@ -1,0 +1,93 @@
+---
+title: "Designing REST APIs people actually like using"
+date: "2026-05-11"
+description: "Nouns, not verbs. Consistent errors. Honest status codes. The design decisions that separate APIs devs love from APIs devs complain about."
+tags: ["api", "rest", "backend"]
+category: "api"
+featured: false
+coverImage: "/blog/designing-rest-apis-people-like/cover.webp"
+views: 450
+---
+
+Every API starts with good intentions and ends with someone in a Slack channel asking "why is this endpoint returning a 500 for a validation error?" Good API design isn't about REST purity — it's about making the next developer's life predictable. Here's the stuff that matters most.
+
+## Nouns, not verbs
+
+The URL describes a resource; the HTTP method describes the action.
+
+```text
+GET    /users      → list
+POST   /users      → create
+GET    /users/42   → read one
+PATCH  /users/42   → partial update
+DELETE /users/42   → delete
+```
+
+The moment you see `/getUsers`, `/createUser`, or — my personal nemesis — `/users/deleteUser`, everyone loses predictability. Actions that don't fit a resource (like "activate" or "resend invite") are the exception where a sub-resource endpoint is fine:
+
+```text
+POST /users/42/activate
+```
+
+## Honest status codes
+
+This is where APIs earn or lose trust. Get them right:
+
+- `200` — the happy path
+- `201` — created, with a `Location` header pointing at the new resource
+- `204` — success, no body (use it for deletes)
+- `400` — malformed request (bad JSON, wrong field types)
+- `401` — not authenticated
+- `403` — authenticated but not allowed
+- `404` — doesn't exist (or you're hiding it on purpose)
+- `409` — conflict (e.g., duplicate email)
+- `422` — well-formed request that fails validation
+- `429` — rate limited; include a `Retry-After` header
+- `5xx` — *never* use these for client mistakes
+
+The cardinal sin: returning 500 for a missing field. The client can't fix a 500, so it gets reported as an outage instead of a two-second fix.
+
+## One consistent error shape
+
+Whatever error format you pick, use it everywhere — validation, auth, 404s:
+
+```json
+{
+  "error": {
+    "code": "validation_failed",
+    "message": "email must be a valid address",
+    "details": [{ "field": "email", "reason": "invalid_format" }]
+  }
+}
+```
+
+A machine-readable `code`, a human-readable `message`, and optional `details`. Clients can switch on `code` reliably, while humans get something they can paste into a ticket.
+
+## Pagination that scales
+
+Offset pagination (`?page=2&limit=20`) is simple and fine for small datasets. But it degrades: deep pages get slow, and new items shift results between pages. For anything that grows, cursor pagination is the better long-term bet:
+
+```text
+GET /users?limit=20&cursor=eyJpZCI6MTIzfQ==
+```
+
+Respond with the next cursor in the response body or a header — and never expose an opaque cursor that clients need to decode.
+
+## Versioning and breaking changes
+
+Put the version in the URL and stop agonizing:
+
+```text
+/api/v1/users
+/api/v2/users
+```
+
+Headers-based versioning exists, but a version in the URL is visible in logs, shareable in a curl command, and impossible to get wrong by accident. When you do make a breaking change, keep the old version alive long enough that clients can migrate on their own schedule.
+
+## Idempotency for the writes that matter
+
+`POST /payments` that retries on a network blip could charge someone twice. Accept an `Idempotency-Key` header, cache the key with the response, and return the stored result on repeat attempts. For payments, this isn't a nice-to-have — it's the difference between a support ticket and a chargeback.
+
+## Conclusion
+
+Predictability is the whole game. Predictable URLs, predictable status codes, one error shape, honest pagination. Your API doesn't need to be perfect — it needs to be the thing a developer can consume at 2am without reading the docs twice.

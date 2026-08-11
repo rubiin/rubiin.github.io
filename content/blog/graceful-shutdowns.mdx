@@ -1,0 +1,80 @@
+---
+title: "Graceful shutdowns: why your deploys drop requests"
+date: "2026-08-05"
+description: "SIGTERM arrives, the process dies mid-request, and users see 502s during every deploy. Graceful shutdown is the fix — here's how to do it right."
+tags: ["devops", "deployment"]
+category: "devops"
+featured: false
+coverImage: "/blog/graceful-shutdowns/cover.webp"
+views: 330
+---
+
+It's a familiar smell: every deploy at 2pm comes with a handful of error reports. Requests failing right around the deploy window, then everything's fine. Your server was killed mid-request, and the client got a connection reset instead of a response.
+
+That's what graceful shutdown fixes. When the platform sends `SIGTERM`, your process should stop taking new work, finish what it's doing, and only then exit.
+
+## What actually happens on a deploy
+
+When you deploy (or scale in, or restart a container), the orchestrator sends your process a `SIGTERM` — "please stop". If your process ignores it or exits immediately, in-flight requests die mid-response.
+
+The fix is a shutdown handler:
+
+```js
+const server = app.listen(port)
+
+async function shutdown(signal) {
+  console.log(`${signal} received, shutting down`)
+
+  // Stop accepting new connections, wait for in-flight requests
+  server.close(async () => {
+    await db.end()          // close database pool
+    process.exit(0)
+  })
+
+  // If we can't finish in time, force-quit so the platform doesn't have to
+  setTimeout(() => process.exit(1), 30_000).unref()
+}
+
+process.on('SIGTERM', shutdown)
+process.on('SIGINT', shutdown)
+```
+
+`server.close()` stops the server from accepting new requests and calls its callback once all existing ones finish. That's the core of it: new work stops, old work completes, then we clean up the database pool and exit.
+
+## The keep-alive gotcha
+
+Here's the trap: `server.close()` waits for **idle keep-alive connections** to close too — and browsers hold those open. Your 30-second grace timer fires while healthy requests are still being processed, and the process force-exits anyway.
+
+Node 18.2+ gives you an escape hatch: close idle keep-alive connections explicitly before waiting for the real ones:
+
+```js
+server.closeIdleConnections()
+server.close(callback)
+```
+
+There's also `server.closeAllConnections()` for when you want to be firm. For long-running requests (uploads, streaming), set a per-request deadline or rely on your overall grace timeout.
+
+## What the platform is actually doing
+
+Both Docker and Kubernetes follow the same script: **SIGTERM, grace period, SIGKILL.**
+
+- **Docker** sends `SIGTERM`, then `SIGKILL` after 10 seconds by default. You can adjust it with `docker stop --time` or `STOP_TIMEOUT` in compose.
+- **Kubernetes** sends `SIGTERM`, waits the pod's `terminationGracePeriodSeconds` (30 seconds by default), then `SIGKILL`s.
+
+The platform is *already* giving you time — the bug is usually that your process ignores `SIGTERM` entirely, or exits before using it. A shutdown handler turns that forced window into a graceful one.
+
+## One more thing: tell the load balancer first
+
+In Kubernetes, the readiness probe is your friend. When a pod starts terminating, kubelet stops routing new traffic to it *before* sending `SIGTERM` — but only if you run a readiness probe that starts failing. Without one, new requests can land on a dying pod while it's mid-shutdown.
+
+## The full checklist
+
+1. Handle `SIGTERM` and `SIGINT`.
+2. Stop accepting new connections (`server.close()`), close idle keep-alives.
+3. Wait for in-flight work, bounded by a grace timer.
+4. Flush logs, close DB pools, cancel background jobs (`AbortController` is your friend).
+5. Exit 0 on success, non-zero if the grace period ran out.
+
+## Conclusion
+
+Graceful shutdown is a few dozen lines that save your users from connection resets at deploy time. Your orchestrator already sends `SIGTERM` and waits — meet it halfway. Handle the signal, finish the work, exit cleanly, and your deploys stop being a source of error reports.

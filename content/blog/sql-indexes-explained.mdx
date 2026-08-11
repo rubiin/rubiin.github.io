@@ -1,0 +1,64 @@
+---
+title: "SQL indexes, explained without the scary math"
+date: "2026-07-25"
+description: "Your query was fast, then the table grew, and now it's slow. Indexes are the fix — here's how they work, when to add them, and when they make things worse."
+tags: ["sql", "database"]
+category: "sql"
+featured: false
+coverImage: "/blog/sql-indexes-explained/cover.webp"
+views: 540
+---
+
+Every developer has the same story: the query was instant in development, then the table grew, and suddenly `SELECT * FROM users WHERE email = ?` takes two seconds. The table has half a million rows and the database is reading *all of them* to find one email.
+
+Indexes are the fix. And they're a lot simpler than the database textbooks make them sound.
+
+## What an index actually is
+
+An index is a sorted copy of a column (or a few columns) that the database can search directly. Think of the index at the back of a book: instead of reading every page to find the mention of "garbage collection", you flip to the index, look it up alphabetically, and jump straight to the right pages.
+
+```sql
+CREATE INDEX idx_users_email ON users (email);
+```
+
+After that, a lookup by `email` can jump straight to the match instead of scanning the whole table. That's the entire mental model — a sorted lookup structure that trades a bit of write speed and disk space for dramatically faster reads.
+
+## The trade-off nobody tells you
+
+Every index you add makes `INSERT`, `UPDATE`, and `DELETE` slightly slower, because the database now has to maintain the index alongside the table. Ten indexes on a hot write table means ten structures to update on every write.
+
+That's fine — it's the right trade in most apps, where reads outnumber writes 10:1. But it's why "add an index on everything" is not a strategy. Indexes are a resource, not a badge.
+
+## Where to put them
+
+The sweet spot is columns you filter, join, or sort by:
+
+- **WHERE clauses** — `WHERE email = ?`, `WHERE user_id = ? AND status = 'active'`
+- **JOIN columns** — every foreign key in the join path deserves an index
+- **ORDER BY / GROUP BY columns** — sorting is much faster on an indexed column
+
+High-cardinality columns (lots of distinct values, like an email or an ID) get the most benefit. Low-cardinality columns (a boolean, a status with three values) barely benefit — an index on `is_deleted` doesn't help much when the database has to read half the table either way.
+
+## Multi-column indexes and the prefix rule
+
+When you need to filter on two columns, one combined index beats two single-column ones:
+
+```sql
+CREATE INDEX idx_orders_user_status ON orders (user_id, status);
+```
+
+But order matters. This index can serve queries filtering on `user_id` alone, or `user_id` + `status` — but *not* `status` alone. The leftmost columns have to be present for the index to help. It's called the leftmost prefix rule, and it's the most common reason a well-intentioned multi-column index silently does nothing.
+
+## Prove it with EXPLAIN
+
+Don't guess whether an index is working — ask the database:
+
+```sql
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'ada@example.com';
+```
+
+Postgres will tell you exactly what it did. Before the index you'll see a **Seq Scan** (reading every row). After, an **Index Scan** with a fraction of the cost. SQLite uses `EXPLAIN QUERY PLAN`, MySQL and Postgres both understand `EXPLAIN ANALYZE`. If you don't see an index scan for a query you expect to be indexed, your query might be written in a way that defeats it — a common culprit is wrapping the indexed column in a function (`WHERE lower(email) = ?` won't use an index on `email`).
+
+## Conclusion
+
+Indexes aren't scary once you see them as a book index: sorted lookups that skip the full scan. Start with the columns you filter and join on, keep it to a handful per table, and verify every one with `EXPLAIN ANALYZE`. Three well-placed indexes will beat thirty random ones every time.

@@ -1,0 +1,89 @@
+---
+title: "TypeScript's satisfies operator: type-safe without the ceremony"
+date: "2026-08-01"
+description: "You know that awkward dance between 'as' assertions and letting TypeScript infer everything? satisfies is the middle ground you've been missing."
+tags: ["typescript", "types"]
+category: "typescript"
+featured: false
+coverImage: "/blog/typescript-satisfies-operator/cover.webp"
+views: 610
+---
+
+There's a moment in every TypeScript project where you have an object and you want two things at once:
+
+1. You want TypeScript to *check* that the object matches a certain shape.
+2. You want TypeScript to *keep* the specific inferred types of each property.
+
+Before `satisfies` (TypeScript 4.9), you had to pick one and give up the other.
+
+## The classic dilemma
+
+Say you have a config with a couple of string values:
+
+```ts
+const colorMap = {
+  primary: 'blue',
+  danger: 'red',
+}
+```
+
+TypeScript infers `colorMap.primary` as `string`. That's fine — until you want the literal types kept, so autocomplete suggests them and typos get caught. You reach for `as const`:
+
+```ts
+const colorMap = {
+  primary: 'blue',
+  danger: 'red',
+} as const
+```
+
+Now the values are literals, but you've lost the *contract*. Nothing stops you from later writing `{ primary: 'blue', dangr: 'red' }` — the typo just becomes a new key and TypeScript shrugs.
+
+To get both, you'd historically do the dance:
+
+```ts
+const colorMap: Record<'primary' | 'danger', string> = {
+  primary: 'blue',
+  danger: 'red',
+}
+```
+
+Typed, but now `colorMap.primary` is `string` again instead of the literal `'blue'`. Argh.
+
+## satisfies gives you both
+
+`satisfies` checks the shape without changing the inferred type:
+
+```ts
+const colorMap = {
+  primary: 'blue',
+  danger: 'red',
+} satisfies Record<'primary' | 'danger', string>
+```
+
+- Missing a key? Error, because the type requires both.
+- Adding a key that isn't in the union? Error, because the value doesn't satisfy the type.
+- `colorMap.primary`? Still the literal `'blue'`. Autocomplete works, typos get caught, no ceremony.
+
+## A real-world example
+
+The classic case is a route map, or a UI config where each entry needs a function with a specific signature:
+
+```ts
+type Handler = (req: Request) => Promise<Response>
+
+const routes = {
+  '/': homeHandler,
+  '/about': aboutHandler,
+  '/users/:id': userHandler,
+} satisfies Record<string, Handler>
+```
+
+Now every handler is checked against `Handler`, so you can't forget a route or pass one with the wrong signature — but each property keeps its own function type, so callers get proper parameter autocomplete.
+
+## Where satisfies doesn't help
+
+`satisfies` is a *check*, not a *transformation*. It won't narrow types for you — if you need the literal types frozen in place, `as const` is still your tool. And if you actually want the object to *be* the annotated type (say, to widen it intentionally), an annotation is what you need; `satisfies` just validates.
+
+## Conclusion
+
+`satisfies` is one of those features that quietly disappears into your code — which is exactly the point. Type checks stay, inference stays, and the awkward "pick one" dilemma goes away. If you're still writing `as` assertions to make an object fit a shape, try replacing them with `satisfies` and see how much ceremony disappears with them.

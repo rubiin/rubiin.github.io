@@ -1,0 +1,108 @@
+---
+title: "Goroutines for people who fear concurrency"
+date: "2026-05-25"
+description: "Concurrency sounds scary until you see go, channels, and WaitGroup in action. A friendly, practical first look at Go's goroutines."
+tags: ["golang", "concurrency"]
+category: "golang"
+featured: false
+coverImage: "/blog/goroutines-for-beginners/cover.webp"
+views: 560
+---
+
+Concurrency was the thing that scared me most about learning Go. Threads, race conditions, deadlocks — it all sounded like the kind of bug that haunts you for weeks. Then I learned that a goroutine is just a function with `go` in front of it, and the whole thing stopped being scary.
+
+## What a goroutine is
+
+A goroutine is a lightweight, independently running function. You start one by putting `go` before the call:
+
+```go
+func fetchData(id int) {
+	fmt.Println("fetching", id)
+}
+
+func main() {
+	go fetchData(1)
+	go fetchData(2)
+	time.Sleep(time.Second) // don't do this, keep reading
+}
+```
+
+Both `fetchData` calls run *concurrently* — Go schedules them onto OS threads, juggling thousands of goroutines on a handful of threads. Spawning a goroutine costs a few kilobytes of stack; you can comfortably have tens of thousands of them. That's the whole pitch: concurrency without the heavy thread tax.
+
+## Waiting for your goroutines
+
+The `time.Sleep` above is a lie — it works by accident. The correct way to wait is a `WaitGroup`:
+
+```go
+var wg sync.WaitGroup
+
+for i := 0; i < 5; i++ {
+	wg.Add(1)
+	go func(id int) {
+		defer wg.Done()
+		fmt.Println("fetching", id)
+	}(i)
+}
+
+wg.Wait()
+fmt.Println("all done")
+```
+
+`Add` counts work, `Done` finishes it, `Wait` blocks until the count hits zero. Note the `defer wg.Done()` — it guarantees the counter decrements no matter what the function does. Note also that we pass `i` as an argument instead of capturing the loop variable — a classic beginner footgun.
+
+## Talking between goroutines: channels
+
+Goroutines are only useful if they can share results. Channels are typed pipes:
+
+```go
+results := make(chan int, 10)
+
+go func() {
+	results <- 42 // send
+}()
+
+value := <-results // receive
+fmt.Println(value)
+```
+
+The channel blocks until data moves. One goroutine sends, another receives, and they synchronize automatically — no locks, no shared state, no race conditions in the happy path. The rule of thumb I live by: *share memory by communicating, don't communicate by sharing memory.*
+
+## A slightly real example
+
+```go
+urls := []string{"https://a.com", "https://b.com", "https://c.com"}
+var wg sync.WaitGroup
+statuses := make(chan string, len(urls))
+
+for _, u := range urls {
+	wg.Add(1)
+	go func(u string) {
+		defer wg.Done()
+		resp, err := http.Get(u)
+		if err != nil {
+			statuses <- u + ": error"
+			return
+		}
+		resp.Body.Close()
+		statuses <- u + ": " + resp.Status
+	}(u)
+}
+
+wg.Wait()
+close(statuses)
+for s := range statuses {
+	fmt.Println(s)
+}
+```
+
+Three requests run in parallel instead of one after another. That's the whole trick — this pattern (goroutine per unit of work, results into a channel, WaitGroup to finish) covers most of what you'll ever need.
+
+## The two things that bite
+
+**Race conditions.** If two goroutines write to the same map or variable, you get undefined behavior. The fix is simple: use channels, use `sync.Mutex` for genuinely shared state, and always run `go test -race` — the race detector catches what you can't see.
+
+**Leaking goroutines.** A goroutine that blocks forever on a channel nobody will ever write to is a memory leak. Every goroutine you spawn should have a path to completion: a channel that gets closed, a context that gets cancelled, a WaitGroup that eventually hits zero.
+
+## Conclusion
+
+Goroutines are just functions with a `go` prefix, and the patterns around them — WaitGroup for waiting, channels for talking — are consistent and boring. Start with "one goroutine per unit of work, results through a channel, `-race` in CI", and you'll go a long time before you meet a deadlock you can't untangle.

@@ -1,0 +1,59 @@
+---
+title: "The JavaScript event loop, explained with a coffee shop"
+date: "2026-08-11"
+description: "One barista, two queues, and a rule about regulars. A mental model for how JavaScript handles one thing at a time without feeling slow."
+tags: ["javascript", "async"]
+category: "javascript"
+featured: true
+coverImage: "/blog/javascript-event-loop-coffee-shop/cover.webp"
+views: 720
+---
+
+Picture a tiny coffee shop with one barista. That's your JavaScript runtime: one person, one task at a time, no exceptions. So how does a single-threaded language handle thousands of network requests without freezing? The answer is a very specific kind of queuing system.
+
+## The barista
+
+The **call stack** is the barista's hands. They can only hold one coffee at a time. When you call a function, it goes on the stack; when it returns, it comes off. If something blocks — say, an infinite loop — the barista freezes mid-pour and the whole shop stops. That's your frozen tab.
+
+## The regulars cut the line
+
+Now meet the two queues.
+
+**Microtasks** (promises, `queueMicrotask`, `MutationObserver`) are the regulars. They walk past the line and get served first, every time.
+
+**Macrotasks** (`setTimeout`, `setInterval`, I/O callbacks) are everyone else. They wait in line.
+
+The rule of the shop: after the barista finishes the current order, they serve *every* waiting regular before touching the next person in line.
+
+```js
+console.log('1')                             // 1
+
+setTimeout(() => console.log('2'))           // macrotask → joins the line
+
+Promise.resolve().then(() => console.log('3')) // microtask → cuts in
+
+console.log('4')                             // 4
+```
+
+Output: `1, 4, 3, 2`. Synchronous code runs first, then the microtask queue drains completely, *then* the macrotask runs. The `setTimeout` didn't wait "0ms" — it waited for the entire microtask queue to clear, plus every macrotask ahead of it.
+
+## Why this matters
+
+This mental model explains a bunch of real bugs:
+
+- **"Why is my timeout late?"** Because microtasks and other macrotasks got served first. `setTimeout(fn, 0)` means "as soon as the queue allows", not "immediately".
+- **"Why does my promise chain run before my setTimeout?"** Because promises are regulars.
+- **"Why does my UI freeze during a long loop?"** Because the barista can't serve anyone — regulars or not — while a synchronous task is running. The render step (painting the screen) only happens between tasks, so a heavy synchronous loop starves the UI.
+
+## The full loop, one more time
+
+1. Run the current task (a macrotask) to completion.
+2. Drain the entire microtask queue.
+3. Render, if the browser needs to paint.
+4. Pick the next macrotask. Repeat forever.
+
+That's the whole event loop. One barista, one pour at a time, regulars first, painting whenever there's a spare moment.
+
+## Conclusion
+
+Everything "async" in JavaScript is really just clever scheduling around a single-threaded core. Next time you're debugging an ordering bug, ask yourself: is this a regular, or am I in line? Nine times out of ten, the answer tells you exactly why your code ran in the order it did.

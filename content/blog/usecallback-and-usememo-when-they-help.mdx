@@ -1,0 +1,62 @@
+---
+title: "useCallback and useMemo: when they actually help (and when they don't)"
+date: "2026-04-13"
+description: "Memoization is not a free win. A plain-English look at when useCallback and useMemo earn their keep — and the cases where they're just busywork."
+tags: ["react", "performance"]
+category: "react"
+featured: false
+coverImage: "/blog/usecallback-and-usememo-when-they-help/cover.webp"
+views: 340
+---
+
+I used to sprinkle `useMemo` and `useCallback` over my components like seasoning. Then I ran the profiler, looked at the bundle, and realized most of it was doing nothing except making the code harder to read.
+
+Memoization isn't free. Every cached value costs memory, and every `useCallback` wraps your function in a layer of indirection that a future reader has to untangle. So when do these hooks actually earn their keep?
+
+## What they actually do
+
+`useMemo` caches the result of a computation and only recomputes it when the dependencies change:
+
+```js
+const sortedList = useMemo(() => {
+  return [...items].sort((a, b) => a.score - b.score)
+}, [items])
+```
+
+`useCallback` does the same thing for functions — it returns a stable reference, so the function isn't recreated on every render:
+
+```js
+const handleSave = useCallback(() => {
+  saveDraft(input)
+}, [input])
+```
+
+On their own, neither makes anything faster. The win only happens downstream, when something *consumes* that stable reference.
+
+## When they actually help
+
+**1. Passing functions to memoized children.** If a child is wrapped in `React.memo` and you hand it a fresh function every render, the memo check fails every time and the child re-renders anyway. A stable callback lets the memo actually do its job:
+
+```js
+const ExpensiveChart = memo(function ExpensiveChart({ onHover }) {
+  // only re-renders when onHover actually changes
+})
+```
+
+**2. Expensive calculations that don't need to run every render.** If computing a value costs real time — filtering a 10,000-item list, parsing a big blob — and the inputs change rarely, `useMemo` is a legit win. Not for `arr.map(x => x * 2)`.
+
+**3. Keeping effects from re-running.** If an effect depends on a function, an unstable reference can trigger the effect on every render. That's the classic "why is my effect looping" bug, and a stable callback is often the fix.
+
+## When they're busywork
+
+- **Cheap computations.** Sorting a 50-item array takes microseconds. Wrapping it in `useMemo` adds more code than it saves.
+- **Functions passed to plain DOM elements.** `<button onClick={handleClick}>` doesn't care about reference stability.
+- **As a badge of seniority.** If you can't point to a specific expensive computation or memoized child you're protecting, you're probably just adding noise.
+
+## The 2026 twist: React Compiler
+
+The React Compiler now handles most of this automatically — it memoizes your components at build time, so the vast majority of hand-written `useMemo`/`useCallback` calls become unnecessary. The guidance has genuinely shifted: write the plain version first, and only reach for these hooks when the profiler shows a real problem.
+
+## Conclusion
+
+Reach for `useMemo` and `useCallback` when you can name the expensive computation or the memoized child they protect. Otherwise, trust the compiler, trust React, and keep your code boring. Boring code is fast enough, and it's a lot easier to maintain.

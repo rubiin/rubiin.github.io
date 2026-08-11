@@ -1,0 +1,81 @@
+---
+title: "fzf: the fuzzy finder that made my terminal tolerable"
+date: "2026-07-20"
+description: "Fuzzy-find anything: files, command history, git branches, docker containers. A tour of fzf and the aliases I can't live without anymore."
+tags: ["terminal", "fzf"]
+category: "linux"
+featured: false
+coverImage: "/blog/fzf-fuzzy-finder/cover.webp"
+views: 430
+---
+
+I used to avoid the terminal for anything beyond running a dev server. Directory trees, long file names, remembering that one flag — it all felt like effort. Then I installed `fzf`, and something clicked: the terminal became a search bar.
+
+fzf is a fuzzy finder. Pipe anything into it, and you get an interactive, type-to-filter list. Pick a line, and fzf prints it to stdout — which means you can chain it into any other command.
+
+## Install it
+
+```shell-session
+# macOS
+brew install fzf
+
+# Ubuntu / Debian
+sudo apt install fzf
+```
+
+## The basics
+
+```shell-session
+find . -name "*.ts" | fzf
+```
+
+Type a few characters — any position, any order — and the list narrows. `vite conf` matches `vite.config.ts` instantly. Hit enter, and the selected path is printed.
+
+That alone is handy, but the magic is how it composes. `vim "$(find . -type f | fzf)"` opens whichever file you pick — though fzf ships much better integrations than that.
+
+## The three killer keybindings
+
+fzf's install script adds shell keybindings that I genuinely use hundreds of times a week:
+
+- **Ctrl+R** — search your entire command history by typing part of it. I stopped writing long commands from memory; I just recall them.
+- **Ctrl+T** — paste a file path into your current command line, picked via fuzzy search.
+- **Alt+C** — fuzzy-cd into any directory below you.
+
+```shell-session
+eval "$(fzf --zsh)"   # or --bash
+```
+
+That one line gives you all three.
+
+## Previews change everything
+
+fzf can show a side panel with more context as you move through results. Combined with `bat` for syntax-highlighted previews, file picking stops being a guessing game:
+
+```shell-session
+fzf --preview 'bat --color=always {}'
+```
+
+For git branches or docker containers, the same trick shows you what you're about to select:
+
+```shell-session
+git branch | fzf --preview 'git log --oneline --graph -20 {}'
+```
+
+## The aliases that stick
+
+```shell-session
+# jump into a project
+alias cdp="cd \"\$(find ~/code -maxdepth 2 -type d | fzf)\""
+
+# check out a branch by fuzzy name
+alias gcb='git checkout "$(git branch --format="%(refname:short)" | fzf)"'
+
+# kill a process without typing its PID
+alias fk='kill "$(ps aux | fzf | awk "{print \$2}")"'
+```
+
+The `ps`-pipe one is my favorite — I see the full command line, confirm it's the right process, and it's gone.
+
+## Conclusion
+
+fzf doesn't make you type less. It makes you *think* less — you stop memorizing file trees and command syntax and just... search. Install it, add the keybindings, and give it a week. The terminal stops being a chore and starts being the fastest thing on your machine.

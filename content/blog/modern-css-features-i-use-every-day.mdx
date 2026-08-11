@@ -1,0 +1,96 @@
+---
+title: "Modern CSS features I use every single day"
+date: "2026-06-22"
+description: "From :has() to container queries to color-mix() — the CSS features that quietly replaced a pile of JavaScript and hacky workarounds in my projects."
+tags: ["css", "web"]
+category: "css"
+featured: false
+coverImage: "/blog/modern-css-features-i-use-every-day/cover.webp"
+views: 480
+---
+
+Somewhere around 2023, CSS stopped being the language I fought and started being the language that fought for me. A handful of features shipped, and my JavaScript and my hacky workarounds both got smaller. Here are the ones I now use in basically every project.
+
+## :has() — the parent selector we begged for
+
+For years, "style an element based on its children" required JavaScript. Not anymore:
+
+```css
+.card:has(img) {
+  padding: 0;
+}
+```
+
+That styles any card containing an image. The same trick handles form states, nav highlighting, and "is this field filled" checks:
+
+```css
+.form-row:has(input:focus) {
+  border-color: var(--accent);
+}
+
+nav a:has(+ a) {
+  /* style every link that has a following sibling */
+}
+```
+
+`form:has(input:invalid)` is one of those selectors that deletes an entire `useEffect`.
+
+## Container queries
+
+Need a component that looks different at 400px wide vs 700px wide? With viewport queries you'd be guessing based on the window size. Container queries let the *component's own width* drive the layout:
+
+```css
+.card-grid {
+  container-type: inline-size;
+}
+
+@container (min-width: 480px) {
+  .card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+}
+```
+
+The card now adapts to its container, not the screen. This is how you get genuinely reusable components.
+
+## color-mix()
+
+Need a hover state, a translucent variant, or a slightly lighter version of a brand color — without shipping a second hex value?
+
+```css
+.button:hover {
+  background: color-mix(in oklab, var(--brand) 85%, black);
+}
+```
+
+It's like having a color function in CSS. I've deleted dozens of hardcoded variants from design tokens since it shipped.
+
+## text-wrap: balance and pretty
+
+Two properties that fix ugly text with zero effort:
+
+```css
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+```
+
+`balance` makes headings break evenly across lines. `pretty` stops orphaned single words dangling at the end of paragraphs. Tiny change, instantly more polished pages.
+
+## The rest of my daily stack
+
+- **`aspect-ratio`** — goodbye, padding-bottom hacks for image containers.
+- **Logical properties** (`margin-inline`, `padding-block`) — layout that respects writing direction for free.
+- **`:focus-visible`** — visible focus rings only for keyboard users, no more `outline: none` crimes.
+- **`accent-color`** — style checkboxes and radios with one line.
+- **Subgrid** — nested grids that align with their parent's tracks.
+- **Cascade layers (`@layer`)** — finally a sane way to order your resets, components, and overrides without specificity wars.
+
+## Conclusion
+
+None of these are exotic. They're all baseline-supported, they're all in the CSS spec, and they all remove either JavaScript or hacks. Next time you reach for a classname library or a media query to solve a layout problem, ask yourself if CSS has a native answer now — it probably does, and it's probably been sitting there for a year.

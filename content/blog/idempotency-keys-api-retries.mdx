@@ -1,0 +1,78 @@
+---
+title: "Idempotency keys: making API retries safe"
+date: "2026-08-08"
+description: "The network will drop your request, the client will retry, and POST /payments will run twice. Idempotency keys are how you make 'try again' harmless."
+tags: ["api", "architecture"]
+category: "architecture"
+featured: false
+coverImage: "/blog/idempotency-keys-api-retries/cover.webp"
+views: 280
+---
+
+The network is unreliable, and your API's clients know it. They'll time out on a slow response and retry the request. For a `GET`, that's fine. For `POST /payments`, retrying means charging someone twice — and a support ticket that costs more than the transaction.
+
+Idempotency keys are the standard answer: the client tags each logical operation with a unique key, and the server promises that repeating the same key doesn't repeat the operation.
+
+## The contract
+
+The client generates a key — a UUID or similar — **once per logical operation**, and sends it on every attempt of that operation:
+
+```text
+POST /payments
+Idempotency-Key: 8b3f2c1e-9d4a-4f6b-8c2a-1e0d5b7a3f90
+```
+
+If the client retries (network blip, timeout), it sends the *same* key. The server sees the key, recognizes the operation was already handled, and returns the stored response instead of executing again.
+
+## What the server does
+
+The flow is simple:
+
+1. **Look up the key.** If a response is already stored for it, return that response — the client gets the result without the operation running again.
+2. **Run the operation.**
+3. **Store the response, keyed by the idempotency key**, with a TTL (Stripe keeps keys reusable for 24 hours — long enough for any sane retry window).
+4. **Return the response.**
+
+```js
+app.post('/payments', async (req, res) => {
+  const key = req.headers['idempotency-key']
+  if (!key) {
+    return res.status(400).json({ error: 'Idempotency-Key header required' })
+  }
+
+  const existing = await cache.get(key)
+  if (existing) {
+    return res.status(existing.status).json(existing.body)
+  }
+
+  const result = await processPayment(req.body)
+  await cache.set(key, { status: 201, body: result }, { ttl: 86_400 })
+  res.status(201).json(result)
+})
+```
+
+## The race you must handle
+
+The sneaky case: two requests with the same key arrive *at the same time*. Both check the cache, both miss, both charge the customer. A read-then-write without protection is a race condition — this is exactly the bug that idempotency keys are meant to prevent, and it happens more than people expect.
+
+The robust fix is to make the key itself the source of truth. If you're writing to a database, store the operation with a **unique constraint on the key column** — the second writer fails the insert, fetches the stored result, and returns it. With a cache like Redis, a conditional set (`SET key value NX`) does the same job: only the first writer wins.
+
+## Which endpoints need it
+
+- **`POST` creates and actions with side effects** — payments, orders, sending emails, anything that "does something" — absolutely need it.
+- **`PUT` and `DELETE`** are idempotent by design (updating or deleting the same resource twice is harmless) — no key needed, though they don't hurt.
+- **`GET`** shouldn't have side effects at all; if your `GET` mutates state, that's a separate problem to fix.
+
+## What the client must do
+
+The server can't fix a client that generates a new key per attempt. Client rules:
+
+1. Generate one key per logical operation — never reuse a key for different operations.
+2. Keep the key with the request, so a retry after an app restart still uses the same key.
+3. On retry, send the identical request body plus the identical key.
+
+Mobile apps lose the key if they regenerate it on startup — persist it with the outbound request. (Many clients support this natively now; `URLSession` on iOS has had built-in idempotent retries since iOS 18.)
+
+## Conclusion
+
+Idempotency keys turn "the client will retry" from a source of duplicate charges into a non-event. Make the header mandatory for money-touching endpoints, make the key unique at the storage layer, and return stored responses on repeats. Your support inbox will thank you — usually by staying quiet.

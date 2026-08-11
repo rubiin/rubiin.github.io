@@ -1,0 +1,81 @@
+---
+title: "Database connection pooling: why your DB is slow and your pool is empty"
+date: "2026-07-29"
+description: "Opening a database connection is expensive. Connection pooling reuses them — and getting it wrong is how you end up with 'timeout waiting for connection' at 3pm."
+tags: ["database", "nodejs"]
+category: "database"
+featured: false
+coverImage: "/blog/database-connection-pooling/cover.webp"
+views: 470
+---
+
+Opening a database connection is not like opening a file. It's a TCP handshake, a TLS negotiation, and an authentication round-trip — a few milliseconds locally, tens against a cloud database. Either way, it's real work done before a single query runs. Do that once per request and your "fast" API spends most of its time just shaking hands with the database.
+
+That's the problem connection pooling solves: a fixed set of already-open connections that get checked out for a query and returned when you're done.
+
+## Why per-request connections break down
+
+Two things happen when every request opens its own connection:
+
+1. **Connection churn.** At 100 requests/second you're opening and tearing down 100 connections per second. The database spends its CPU on handshakes instead of queries.
+2. **Connection exhaustion.** Databases only accept so many. Postgres defaults to `max_connections = 100`, and each one reserves memory. Enough concurrent requests and the database starts refusing new connections — or the app itself runs out.
+
+## The fix: a pool
+
+Almost every database driver ships one. With `node-postgres`:
+
+```js
+const { Pool } = require('pg')
+
+const pool = new Pool({
+  max: 10,              // never more than 10 open connections
+  idleTimeoutMillis: 30_000, // close idle connections after 30s
+})
+
+app.get('/users/:id', async (req, res) => {
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE id = $1',
+    [req.params.id],
+  )
+  res.json(rows)
+})
+```
+
+`pool.query` checks out a connection, runs the query, and returns the connection to the pool automatically. The app now reuses 10 connections instead of creating thousands.
+
+## The leak that empties your pool
+
+The classic bug: checking out a connection manually and forgetting to release it.
+
+```js
+// Leaky: you checked out a connection and never gave it back
+const client = await pool.connect()
+const { rows } = await client.query('SELECT ...')
+// forgot client.release()
+```
+
+Every leaked checkout permanently eats one of your `max` slots. Requests pile up waiting for a free connection, and your logs fill with `timeout waiting for connection from pool`. If you use `pool.connect()`, always release — a `try/finally` or a `defer`-style cleanup, no exceptions:
+
+```js
+const client = await pool.connect()
+try {
+  const { rows } = await client.query('SELECT ...')
+  return rows
+} finally {
+  client.release()
+}
+```
+
+## Sizing the pool
+
+Smaller than you think. A common starting rule is `(number of CPUs × 2) + 1` — on a 4-core box, that's 9 connections. More connections is not automatically better: beyond the point where your CPUs can actually service queries in parallel, extra connections just queue up and fight each other, and every idle connection is memory the database can't use for caching.
+
+If you hit the ceiling with a large deployment, that's what a pooler like **PgBouncer** is for — it sits in front of Postgres and multiplexes thousands of app connections onto a small number of real ones.
+
+## Watch the numbers
+
+Don't guess. Drivers expose pool stats — in `pg` it's `pool.totalCount`, `pool.idleCount`, and `pool.waitingCount`. If `waitingCount` climbs, your pool is too small, your queries are too slow, or something is leaking. All three are worth a dashboard line.
+
+## Conclusion
+
+Connection pooling is the difference between an API that survives traffic and one that falls over at 3pm. Use the driver's pool, keep it smaller than feels natural, release every checkout, and watch the wait counters. Your database will thank you — usually by staying under 100 connections.

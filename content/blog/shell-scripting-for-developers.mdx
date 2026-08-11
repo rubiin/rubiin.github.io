@@ -1,0 +1,105 @@
+---
+title: "Shell scripting for developers who swear they aren't shell people"
+date: "2026-04-27"
+description: "set -euo pipefail, quoting rules, and why your script works on your machine. A pragmatic starter kit for writing scripts that survive contact with reality."
+tags: ["shell", "terminal"]
+category: "shell"
+featured: false
+coverImage: "/blog/shell-scripting-for-developers/cover.webp"
+views: 380
+---
+
+"Just write a script" is the easiest sentence in software and the most dangerous. Shell is where the rules you learned in every other language quietly don't apply — unquoted variables, silent failures, spaces in file names waiting to ambush you. Here's the starter kit that keeps my scripts alive.
+
+## The non-negotiable shebang line
+
+Every script starts with:
+
+```sh
+#!/usr/bin/env bash
+```
+
+And, right after it, the three lines that prevent 90% of script misery:
+
+```sh
+set -euo pipefail
+```
+
+- `-e` — exit on the first error
+- `-u` — fail on unset variables (no more empty-string mystery bugs)
+- `pipefail` — a pipeline fails if *any* command in it fails, not just the last one
+
+Without these, a script will happily continue after a failed command, and you'll debug the *consequences* instead of the cause.
+
+## Quote. Everything.
+
+This is the number one bug in beginner scripts. Unquoted variables split on spaces:
+
+```sh
+file="my report.txt"
+cat $file        # wrong: becomes two arguments
+cat "$file"      # right
+```
+
+`cat $file` tries to open `my` and `report.txt`. The quoting rule is dead simple: **always quote variables** unless you specifically want word splitting.
+
+## Variables and arguments
+
+```sh
+#!/usr/bin/env bash
+set -euo pipefail
+
+project="${1:-default-project}"   # first arg, with a fallback
+echo "Deploying $project"
+```
+
+`${1:-default}` gives you a sane default instead of an error under `set -u`. Prefer `$1`, `$2`, and `$@` over hand-parsing flags until you genuinely need `getopts`.
+
+## Checking whether things worked
+
+With `set -e`, a failing command aborts the script — but sometimes you *want* to handle failure yourself:
+
+```sh
+if grep -q "error" app.log; then
+  echo "Found errors, aborting"
+  exit 1
+fi
+```
+
+Remember `$?` holds the last exit code, and 0 means success. A command that "prints an error" but exits 0 didn't actually fail — check exit codes, not output.
+
+## Loops without footguns
+
+```sh
+for file in src/*.ts; do
+  echo "Processing $file"
+done
+```
+
+Note the `*` — if there are no matches, the loop runs once with the literal string `src/*.ts`. Guard against it:
+
+```sh
+shopt -s nullglob   # no match → empty list
+```
+
+## Functions make scripts readable
+
+```sh
+log() {
+  echo "[$(date '+%H:%M:%S')] $*"
+}
+
+log "Starting backup"
+```
+
+Functions plus a `main` at the bottom keep a 200-line script from becoming a wall of prose.
+
+## Make it findable and runnable
+
+- `chmod +x script.sh` — otherwise it fails with a confusing "permission denied".
+- Put it in `~/bin` (or add a `bin/` directory to your PATH) so you can call it by name.
+- `bash -n script.sh` — syntax check without running anything. Cheap insurance before you trust it with real work.
+
+## Conclusion
+
+Shell scripts aren't scary if you follow a few boring rules: `set -euo pipefail`, quote your variables, check exit codes, and assume file names contain spaces. Do that, and "just write a script" stops being a Friday-night horror story and starts being the fastest automation you own.
