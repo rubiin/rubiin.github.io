@@ -224,12 +224,23 @@ try {
   }
 
   // 3c. No JS → the loader stays hidden (CSS default) so content is always
-  //     reachable even without JavaScript.
+  //     reachable even without JavaScript. Strip every <script> element from
+  //     the served HTML (the inline <head> bootstrap would otherwise still
+  //     run, add boot-show, and show the loader) and abort external scripts.
   try {
     const noJsCtx = await baseContext()
-    await noJsCtx.route('**/*', (route) =>
-      route.request().resourceType() === 'script' ? route.abort() : route.continue(),
-    )
+    await noJsCtx.route('**/*', async (route) => {
+      const request = route.request()
+      if (request.resourceType() === 'document') {
+        const response = await route.fetch()
+        const body = (await response.text()).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+        await route.fulfill({ response, body })
+      } else if (request.resourceType() === 'script') {
+        await route.abort()
+      } else {
+        await route.continue()
+      }
+    })
     const noJsPage = await noJsCtx.newPage()
     watchPage(noJsPage, 'boot-no-js')
     noJsPage.setDefaultTimeout(10000)
@@ -274,17 +285,28 @@ try {
   watchPage(page, 'palette')
   page.setDefaultTimeout(10000)
   await page.goto(BASE + '/', { waitUntil: 'load', timeout: 20000 })
-  // Wait for React hydration before sending ⌘K — the keydown listener only
-  // exists after the app mounts (dev hydration is slower than 'load').
-  await page
-    .getByRole('button', { name: 'Toggle theme' })
-    .waitFor({ state: 'visible', timeout: 20000 })
+  // Wait for hydration before sending ⌘K — the keydown listener only exists
+  // after the app mounts. The theme toggle button is server-rendered, so its
+  // visibility does NOT imply hydration; the boot loader only unmounts via
+  // PageLoader's post-hydration effect, so its removal is the hydration marker.
+  await page.waitForFunction(() => !document.getElementById('pf-boot'), { timeout: 20000 })
 
   await page.keyboard.press('Control+K')
   const dialog = page.locator('[role="dialog"]')
   await dialog.waitFor({ state: 'visible', timeout: 10000 })
   const input = dialog.locator('input[placeholder*="Search"]')
   record('palette: opens with ⌘K and shows search input', (await input.count()) > 0)
+
+  // ⌘K toggles closed (Escape handled by dialog too) — must run while the
+  // dialog is open; selecting a result below closes it, after which ⌘K would
+  // reopen rather than close.
+  await page.keyboard.press('Control+K')
+  await dialog.waitFor({ state: 'hidden', timeout: 5000 })
+  record('palette: ⌘K toggles closed', true)
+
+  // Reopen for the navigation flow.
+  await page.keyboard.press('Control+K')
+  await dialog.waitFor({ state: 'visible', timeout: 10000 })
 
   // Resume is now a download action, so navigation is verified with Projects.
   await input.fill('projects')
@@ -293,13 +315,13 @@ try {
   // getByText would hit multiple elements.
   const projectsItem = dialog.locator('[data-value^="Navigation Projects"]')
   await projectsItem.click()
-  await page.waitForURL('**/projects', { timeout: 5000 })
-  record('palette: selecting a result navigates to /projects', page.url().endsWith('/projects'))
-
-  // ⌘K toggles closed (Escape handled by dialog too)
-  await page.keyboard.press('Control+K')
-  await dialog.waitFor({ state: 'hidden', timeout: 5000 })
-  record('palette: ⌘K toggles closed', true)
+  // Search canonicalization rewrites the target to /projects?category=all&q=
+  // (validateSearch defaults) — assert on the pathname, not the raw URL.
+  await page.waitForURL((url) => url.pathname === '/projects', { timeout: 5000 })
+  record(
+    'palette: selecting a result navigates to /projects',
+    new URL(page.url()).pathname === '/projects',
+  )
   await context.close()
 } catch (err) {
   record('palette section', false, err.message.split('\n')[0])
