@@ -1,7 +1,8 @@
 /// <reference types="vite/client" />
 import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
 import { Suspense, lazy, useEffect, useRef, useState, type ReactNode } from 'react'
-import appCss from '../styles/globals.css?url'
+// Plain import: TanStack Start links the CSS from the client manifest, so the URL matches a deployed asset — a `?url` + manual <link> bakes in the SSR build's divergent UnoCSS hash and 404s on first paint (FOUC).
+import '../styles/globals.css'
 // Self-hosted variable fonts replace the render-blocking Google Fonts link.
 import '@fontsource-variable/inter'
 import '@fontsource-variable/space-grotesk'
@@ -89,7 +90,6 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: 'stylesheet', href: appCss },
       {
         rel: 'preload',
         href: interLatinWoff2,

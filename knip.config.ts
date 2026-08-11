@@ -10,7 +10,12 @@ const config: KnipConfig = {
   // the rehype/remark/mdast pipeline deps it pulls in.
   entry: ['content-collections.config.ts'],
   project: ['src/**/*.{ts,tsx}', 'scripts/**/*.{ts,mjs}', 'tests/**/*.ts'],
-  ignore: ['scripts/smoke-test.mjs', 'scripts/analyze-bundle.mjs', 'src/components/ui/**'],
+  ignore: [
+    'scripts/smoke-test.mjs',
+    'scripts/verify-fouc.mjs',
+    'scripts/analyze-bundle.mjs',
+    'src/components/ui/**',
+  ],
   // ImageMagick CLI invoked by scripts/optimize-images.mjs — a system binary,
   // not a package dependency.
   ignoreBinaries: ['magick'],
