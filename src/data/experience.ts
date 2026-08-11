@@ -3,7 +3,7 @@ import type { ExperienceItem } from '@/types'
 export const experience: ExperienceItem[] = [
   {
     company: 'Takeo.ai',
-    role: 'Senior Fullstack Developer',
+    role: 'Team Lead',
     start: '2022',
     current: true,
     description:
