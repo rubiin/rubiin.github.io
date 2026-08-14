@@ -1,25 +1,49 @@
 {
-  extends: ['config:recommended', 'schedule:weekly'],
-  labels: ['dependencies'],
-  pin: {
-    enabled: false,
-  },
-  rangeStrategy: 'bump',
-  packageRules: [
-    {
-      matchDepTypes: ['peerDependencies'],
-      enabled: false,
-    },
-    {
-      matchFileNames: ['examples/**'],
-      matchUpdateTypes: ['minor', 'patch'],
-      groupName: 'all non-major examples dependencies',
-      groupSlug: 'all-minor-patch-examples',
-    },
-    {
-      matchUpdateTypes: ['minor', 'patch'],
-      groupName: 'all non-major dependencies',
-      groupSlug: 'all-minor-patch',
-    },
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "labels": [
+    "dependencies"
   ],
+  "rangeStrategy": "bump",
+  "extends": [
+    "config:recommended"
+  ],
+  "enabledManagers": [
+    "npm",
+    "github-actions"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "all non-major npm dependencies",
+      "groupSlug": "npm-all-minor-patch"
+    },
+    {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": "all major npm dependencies",
+      "groupSlug": "npm-all-major"
+    },
+    {
+      "matchFileNames": [
+        "docs/package.json"
+      ],
+      "labels": [
+        "dependencies",
+        "docs"
+      ]
+    }
+  ],
+  "schedule": [
+    "before 2am on Saturday"
+  ]
 }
