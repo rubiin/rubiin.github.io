@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "private": true,
-  "description": "Personal portfolio, interactive resume and MDX blog — TanStack Start (SSR + server functions), React 19, UnoCSS, Motion and a lazy-loaded React Three Fiber scene.",
+  "description": "My personal portfolio, interactive resume and MDX blog.",
   "type": "module",
   "sideEffects": false,
   "scripts": {
@@ -30,7 +30,6 @@
     "@shikijs/core": "4.4.2",
     "@shikijs/engine-javascript": "4.4.2",
     "@shikijs/langs": "4.4.2",
-    "@shikijs/themes": "4.4.2",
     "@tanstack/react-query": "^5.101.4",
     "@tanstack/react-router": "^1.170.29",
     "@tanstack/react-start": "^1.168.46",

@@ -3,7 +3,16 @@
 import { startTransition, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-import { Download, FileText, FolderGit2, Navigation, TerminalSquare } from 'lucide-react'
+import {
+  Download,
+  FileText,
+  FolderGit2,
+  Navigation,
+  TerminalSquare,
+  type LucideIcon,
+} from 'lucide-react'
+import { useTheme } from '@/hooks/use-theme'
+import { PALETTES } from '@/stores/theme-store'
 import {
   CommandDialog,
   CommandEmpty,
@@ -21,6 +30,17 @@ import { BLOG_POSTS_QUERY_KEY } from '@/lib/constants'
  * ⌘K palette: fuzzy-search navigation, projects, and blog posts.
  * Keyboard navigable via cmdk; selects navigate through the router.
  */
+type CommandEntry = {
+  id: string
+  label: string
+  hint?: string
+  href?: string
+  download?: boolean
+  icon?: LucideIcon
+  swatch?: [string, string, string]
+  onSelect?: () => void
+}
+
 export function CommandPalette({
   open,
   setOpen,
@@ -29,6 +49,7 @@ export function CommandPalette({
   setOpen: (open: boolean) => void
 }) {
   const navigate = useNavigate()
+  const { palette, setPalette } = useTheme()
 
   // Shares BLOG_POSTS_QUERY_KEY with the blog index loader, which seeds the
   // cache on page load — opening ⌘K then never refetches. Posts are static
@@ -63,8 +84,8 @@ export function CommandPalette({
     a.click()
   }
 
-  const commands = useMemo(() => {
-    const nav = [
+  const commands = useMemo<{ heading: string; items: CommandEntry[] }[]>(() => {
+    const nav: CommandEntry[] = [
       ...navItems.map((item) => ({
         id: `nav-${item.href}`,
         label: item.label,
@@ -84,7 +105,7 @@ export function CommandPalette({
     ]
     // No per-project detail route exists, so project items land on the
     // projects grid pre-filtered to their category.
-    const proj = projects.map((p) => ({
+    const proj: CommandEntry[] = projects.map((p) => ({
       id: `project-${p.slug}`,
       label: p.title,
       hint: p.tagline,
@@ -92,7 +113,7 @@ export function CommandPalette({
       download: false,
       icon: FolderGit2,
     }))
-    const blog = posts.map((p) => ({
+    const blog: CommandEntry[] = posts.map((p) => ({
       id: `post-${p.slug}`,
       label: p.title,
       hint: p.category,
@@ -100,12 +121,26 @@ export function CommandPalette({
       download: false,
       icon: FileText,
     }))
+    // Pick the color palette without leaving the page — same registry as
+    // the PaletteToggle dropdown in the header.
+    const palettes: CommandEntry[] = PALETTES.map(({ value, label, swatch }) => ({
+      id: `palette-${value}`,
+      label,
+      hint: value === palette ? 'Active' : undefined,
+      download: false,
+      swatch,
+      onSelect: () => {
+        setPalette(value)
+        setOpen(false)
+      },
+    }))
     return [
       { heading: 'Navigation', items: nav },
       { heading: 'Projects', items: proj },
       { heading: 'Blog', items: blog },
+      { heading: 'Theme', items: palettes },
     ]
-  }, [posts])
+  }, [posts, palette, setPalette, setOpen])
 
   return (
     <CommandDialog
@@ -121,17 +156,33 @@ export function CommandPalette({
         {commands.map(({ heading, items }) =>
           items.length ? (
             <CommandGroup key={heading} heading={heading}>
-              {items.map(({ id, label, hint, href, download, icon: Icon }) => (
+              {items.map(({ id, label, hint, href, download, swatch, icon: Icon, onSelect }) => (
                 <CommandItem
                   key={id}
                   value={`${heading} ${label} ${hint ?? ''}`}
                   onSelect={() => {
-                    if (download) goDownload(href)
-                    else if (href.startsWith('http')) goExternal(href)
-                    else go(href)
+                    if (onSelect) {
+                      onSelect()
+                      return
+                    }
+                    if (download && href) goDownload(href)
+                    else if (href?.startsWith('http')) goExternal(href)
+                    else if (href) go(href)
                   }}
                 >
-                  <Icon />
+                  {swatch ? (
+                    <span className="flex shrink-0 items-center gap-0.5" aria-hidden>
+                      {swatch.map((color) => (
+                        <span
+                          key={color}
+                          className="size-2 rounded-full"
+                          style={{ backgroundColor: color }}
+                        />
+                      ))}
+                    </span>
+                  ) : (
+                    Icon && <Icon />
+                  )}
                   <span>{label}</span>
                   {hint && (
                     <span className="ml-auto truncate pl-4 text-xs text-muted-foreground">

@@ -54,6 +54,42 @@
   --chart-4: #059669;
   --chart-5: #d946ef;
   --accent-secondary: #7c5cf0;
+
+  /* Shiki css-variables theme — syntax token colors follow the active
+     palette. The derived aliases resolve against the current palette's
+     variables; per-palette blocks below override the distinct accents. */
+  --shiki-foreground: var(--foreground);
+  --shiki-background: var(--background);
+  --shiki-token-comment: var(--muted-foreground);
+  --shiki-token-punctuation: var(--muted-foreground);
+  --shiki-token-parameter: var(--foreground);
+  --shiki-token-link: var(--primary);
+  --shiki-token-deleted: var(--destructive);
+  /* Default palette — futuristic blue/purple (overridden per palette). */
+  --shiki-token-keyword: #7c5cf0;
+  --shiki-token-string: #059669;
+  --shiki-token-string-expression: #059669;
+  --shiki-token-constant: #d946ef;
+  --shiki-token-function: #3b6ef6;
+  --shiki-token-inserted: #059669;
+  --shiki-token-changed: #0891b2;
+  /* Shell output (ANSI) — aliased to the syntax accents above. */
+  --shiki-ansi-black: var(--background);
+  --shiki-ansi-red: var(--shiki-token-deleted);
+  --shiki-ansi-green: var(--shiki-token-inserted);
+  --shiki-ansi-yellow: var(--shiki-token-changed);
+  --shiki-ansi-blue: var(--shiki-token-function);
+  --shiki-ansi-magenta: var(--shiki-token-keyword);
+  --shiki-ansi-cyan: var(--shiki-token-string-expression);
+  --shiki-ansi-white: var(--foreground);
+  --shiki-ansi-bright-black: var(--muted-foreground);
+  --shiki-ansi-bright-red: var(--shiki-token-deleted);
+  --shiki-ansi-bright-green: var(--shiki-token-inserted);
+  --shiki-ansi-bright-yellow: var(--shiki-token-changed);
+  --shiki-ansi-bright-blue: var(--shiki-token-function);
+  --shiki-ansi-bright-magenta: var(--shiki-token-keyword);
+  --shiki-ansi-bright-cyan: var(--shiki-token-string-expression);
+  --shiki-ansi-bright-white: var(--foreground);
 }
 
 .dark {
@@ -82,6 +118,518 @@
   --chart-4: #34d399;
   --chart-5: #f472b6;
   --accent-secondary: #a78bfa;
+  /* Default dark syntax accents (overridden per palette). */
+  --shiki-token-keyword: #a78bfa;
+  --shiki-token-string: #34d399;
+  --shiki-token-string-expression: #34d399;
+  --shiki-token-constant: #f472b6;
+  --shiki-token-function: #5b8cff;
+  --shiki-token-inserted: #34d399;
+  --shiki-token-changed: #22d3ee;
+}
+
+/* ============================================================
+   Palette themes — switched via `data-theme` on <html> (see
+   theme-store.ts). Each palette defines a light (default) and
+   dark (`.dark`) variant; the mode toggle picks which applies.
+   Kept above the `[data-retro]` override so the Konami easter
+   egg still wins at equal specificity.
+   ============================================================ */
+/* Catppuccin — Latte (light) / Mocha (dark) */
+html[data-theme='catppuccin'] {
+  --background: #eff1f5;
+  --foreground: #4c4f69;
+  --card: #ffffff;
+  --card-foreground: #4c4f69;
+  --popover: #ffffff;
+  --popover-foreground: #4c4f69;
+  --primary: #1e66f5;
+  --primary-foreground: #ffffff;
+  --secondary: #ccd0da;
+  --secondary-foreground: #4c4f69;
+  --muted: #ccd0da;
+  --muted-foreground: #6c6f85;
+  --accent: #bcc0cc;
+  --accent-foreground: #4c4f69;
+  --destructive: #d20f39;
+  --destructive-foreground: #ffffff;
+  --border: #bcc0cc;
+  --input: #acb0be;
+  --ring: #1e66f5;
+  --chart-1: #1e66f5;
+  --chart-2: #8839ef;
+  --chart-3: #179299;
+  --chart-4: #40a02b;
+  --chart-5: #fe640b;
+  --accent-secondary: #8839ef;
+  --shiki-token-keyword: #8839ef;
+  --shiki-token-string: #40a02b;
+  --shiki-token-string-expression: #40a02b;
+  --shiki-token-constant: #fe640b;
+  --shiki-token-function: #1e66f5;
+  --shiki-token-inserted: #40a02b;
+  --shiki-token-changed: #df8e1d;
+}
+
+html[data-theme='catppuccin'].dark {
+  --background: #1e1e2e;
+  --foreground: #cdd6f4;
+  --card: #181825;
+  --card-foreground: #cdd6f4;
+  --popover: #313244;
+  --popover-foreground: #cdd6f4;
+  --primary: #89b4fa;
+  --primary-foreground: #1e1e2e;
+  --secondary: #313244;
+  --secondary-foreground: #cdd6f4;
+  --muted: #313244;
+  --muted-foreground: #a6adc8;
+  --accent: #45475a;
+  --accent-foreground: #cdd6f4;
+  --destructive: #f38ba8;
+  --destructive-foreground: #1e1e2e;
+  --border: #45475a;
+  --input: #45475a;
+  --ring: #89b4fa;
+  --chart-1: #89b4fa;
+  --chart-2: #cba6f7;
+  --chart-3: #94e2d5;
+  --chart-4: #a6e3a1;
+  --chart-5: #fab387;
+  --accent-secondary: #cba6f7;
+  --shiki-token-keyword: #cba6f7;
+  --shiki-token-string: #a6e3a1;
+  --shiki-token-string-expression: #a6e3a1;
+  --shiki-token-constant: #fab387;
+  --shiki-token-function: #89b4fa;
+  --shiki-token-inserted: #a6e3a1;
+  --shiki-token-changed: #f9e2af;
+}
+
+/* Rosé Pine — Dawn (light) / Rosé Pine (dark) */
+html[data-theme='rosepine'] {
+  --background: #faf4ed;
+  --foreground: #575279;
+  --card: #ffffff;
+  --card-foreground: #575279;
+  --popover: #ffffff;
+  --popover-foreground: #575279;
+  --primary: #907aa9;
+  --primary-foreground: #ffffff;
+  --secondary: #f2e9e1;
+  --secondary-foreground: #575279;
+  --muted: #f2e9e1;
+  --muted-foreground: #797593;
+  --accent: #f2e9e1;
+  --accent-foreground: #575279;
+  --destructive: #b4637a;
+  --destructive-foreground: #ffffff;
+  --border: #e5dcd0;
+  --input: #d9cfc2;
+  --ring: #907aa9;
+  --chart-1: #b4637a;
+  --chart-2: #907aa9;
+  --chart-3: #56949f;
+  --chart-4: #ea9d34;
+  --chart-5: #d7827e;
+  --accent-secondary: #56949f;
+  --shiki-token-keyword: #907aa9;
+  --shiki-token-string: #56949f;
+  --shiki-token-string-expression: #56949f;
+  --shiki-token-constant: #ea9d34;
+  --shiki-token-function: #d7827e;
+  --shiki-token-inserted: #56949f;
+  --shiki-token-changed: #ea9d34;
+}
+
+html[data-theme='rosepine'].dark {
+  --background: #191724;
+  --foreground: #e0def4;
+  --card: #1f1d2e;
+  --card-foreground: #e0def4;
+  --popover: #26233a;
+  --popover-foreground: #e0def4;
+  --primary: #c4a7e7;
+  --primary-foreground: #191724;
+  --secondary: #26233a;
+  --secondary-foreground: #e0def4;
+  --muted: #26233a;
+  --muted-foreground: #908caa;
+  --accent: #403d52;
+  --accent-foreground: #e0def4;
+  --destructive: #eb6f92;
+  --destructive-foreground: #191724;
+  --border: #524f67;
+  --input: #524f67;
+  --ring: #c4a7e7;
+  --chart-1: #eb6f92;
+  --chart-2: #c4a7e7;
+  --chart-3: #9ccfd8;
+  --chart-4: #f6c177;
+  --chart-5: #ebbcba;
+  --accent-secondary: #9ccfd8;
+  --shiki-token-keyword: #c4a7e7;
+  --shiki-token-string: #9ccfd8;
+  --shiki-token-string-expression: #9ccfd8;
+  --shiki-token-constant: #f6c177;
+  --shiki-token-function: #ebbcba;
+  --shiki-token-inserted: #9ccfd8;
+  --shiki-token-changed: #f6c177;
+}
+
+/* Nord — Snow Storm (light) / Polar Night (dark) */
+html[data-theme='nord'] {
+  --background: #eceff4;
+  --foreground: #2e3440;
+  --card: #ffffff;
+  --card-foreground: #2e3440;
+  --popover: #ffffff;
+  --popover-foreground: #2e3440;
+  --primary: #5e81ac;
+  --primary-foreground: #ffffff;
+  --secondary: #e5e9f0;
+  --secondary-foreground: #2e3440;
+  --muted: #e5e9f0;
+  --muted-foreground: #4c566a;
+  --accent: #d8dee9;
+  --accent-foreground: #2e3440;
+  --destructive: #bf616a;
+  --destructive-foreground: #ffffff;
+  --border: #d8dee9;
+  --input: #4c566a;
+  --ring: #5e81ac;
+  --chart-1: #5e81ac;
+  --chart-2: #8fbcbb;
+  --chart-3: #a3be8c;
+  --chart-4: #ebcb8b;
+  --chart-5: #b48ead;
+  --accent-secondary: #8fbcbb;
+  --shiki-token-keyword: #5e81ac;
+  --shiki-token-string: #a3be8c;
+  --shiki-token-string-expression: #a3be8c;
+  --shiki-token-constant: #b48ead;
+  --shiki-token-function: #81a1c1;
+  --shiki-token-inserted: #a3be8c;
+  --shiki-token-changed: #ebcb8b;
+}
+
+html[data-theme='nord'].dark {
+  --background: #2e3440;
+  --foreground: #d8dee9;
+  --card: #3b4252;
+  --card-foreground: #d8dee9;
+  --popover: #3b4252;
+  --popover-foreground: #d8dee9;
+  --primary: #88c0d0;
+  --primary-foreground: #2e3440;
+  --secondary: #3b4252;
+  --secondary-foreground: #d8dee9;
+  --muted: #3b4252;
+  --muted-foreground: #81a1c1;
+  --accent: #434c5e;
+  --accent-foreground: #d8dee9;
+  --destructive: #bf616a;
+  --destructive-foreground: #2e3440;
+  --border: #4c566a;
+  --input: #4c566a;
+  --ring: #88c0d0;
+  --chart-1: #88c0d0;
+  --chart-2: #5e81ac;
+  --chart-3: #a3be8c;
+  --chart-4: #ebcb8b;
+  --chart-5: #b48ead;
+  --accent-secondary: #81a1c1;
+  --shiki-token-keyword: #81a1c1;
+  --shiki-token-string: #a3be8c;
+  --shiki-token-string-expression: #a3be8c;
+  --shiki-token-constant: #b48ead;
+  --shiki-token-function: #88c0d0;
+  --shiki-token-inserted: #a3be8c;
+  --shiki-token-changed: #ebcb8b;
+}
+
+/* Dracula — light variant is community-derived (Dracula ships dark only) */
+html[data-theme='dracula'] {
+  --background: #f8f8f2;
+  --foreground: #282a36;
+  --card: #ffffff;
+  --card-foreground: #282a36;
+  --popover: #ffffff;
+  --popover-foreground: #282a36;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #efefe9;
+  --secondary-foreground: #282a36;
+  --muted: #efefe9;
+  --muted-foreground: #6272a4;
+  --accent: #e8e8e2;
+  --accent-foreground: #282a36;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e4e4dd;
+  --input: #d9d9d0;
+  --ring: #8b5cf6;
+  --chart-1: #db2777;
+  --chart-2: #7c3aed;
+  --chart-3: #0e7490;
+  --chart-4: #16a34a;
+  --chart-5: #ca8a04;
+  --accent-secondary: #db2777;
+  --shiki-token-keyword: #db2777;
+  --shiki-token-string: #ca8a04;
+  --shiki-token-string-expression: #ca8a04;
+  --shiki-token-constant: #7c3aed;
+  --shiki-token-function: #16a34a;
+  --shiki-token-inserted: #16a34a;
+  --shiki-token-changed: #d97706;
+}
+
+html[data-theme='dracula'].dark {
+  --background: #282a36;
+  --foreground: #f8f8f2;
+  --card: #21222c;
+  --card-foreground: #f8f8f2;
+  --popover: #21222c;
+  --popover-foreground: #f8f8f2;
+  --primary: #bd93f9;
+  --primary-foreground: #282a36;
+  --secondary: #44475a;
+  --secondary-foreground: #f8f8f2;
+  --muted: #343746;
+  --muted-foreground: #6272a4;
+  --accent: #44475a;
+  --accent-foreground: #f8f8f2;
+  --destructive: #ff5555;
+  --destructive-foreground: #282a36;
+  --border: #44475a;
+  --input: #44475a;
+  --ring: #bd93f9;
+  --chart-1: #ff79c6;
+  --chart-2: #bd93f9;
+  --chart-3: #8be9fd;
+  --chart-4: #50fa7b;
+  --chart-5: #f1fa8c;
+  --accent-secondary: #ff79c6;
+  --shiki-token-keyword: #ff79c6;
+  --shiki-token-string: #f1fa8c;
+  --shiki-token-string-expression: #f1fa8c;
+  --shiki-token-constant: #bd93f9;
+  --shiki-token-function: #50fa7b;
+  --shiki-token-inserted: #50fa7b;
+  --shiki-token-changed: #ffb86c;
+}
+
+/* Tokyo Night — Day (light) / Tokyo Night (dark) */
+html[data-theme='tokyonight'] {
+  --background: #e1e2e7;
+  --foreground: #3760bf;
+  --card: #ffffff;
+  --card-foreground: #3760bf;
+  --popover: #ffffff;
+  --popover-foreground: #3760bf;
+  --primary: #2e7de9;
+  --primary-foreground: #ffffff;
+  --secondary: #c4c8da;
+  --secondary-foreground: #3760bf;
+  --muted: #d6d8de;
+  --muted-foreground: #848cb5;
+  --accent: #c4c8da;
+  --accent-foreground: #3760bf;
+  --destructive: #f52a65;
+  --destructive-foreground: #ffffff;
+  --border: #b9c1cc;
+  --input: #a9b1d6;
+  --ring: #2e7de9;
+  --chart-1: #2e7de9;
+  --chart-2: #9854f1;
+  --chart-3: #007197;
+  --chart-4: #587539;
+  --chart-5: #b15c00;
+  --accent-secondary: #9854f1;
+  --shiki-token-keyword: #9854f1;
+  --shiki-token-string: #587539;
+  --shiki-token-string-expression: #587539;
+  --shiki-token-constant: #b15c00;
+  --shiki-token-function: #2e7de9;
+  --shiki-token-inserted: #2e7c6b;
+  --shiki-token-changed: #8c6c3e;
+}
+
+html[data-theme='tokyonight'].dark {
+  --background: #1a1b26;
+  --foreground: #c0caf5;
+  --card: #16161e;
+  --card-foreground: #c0caf5;
+  --popover: #16161e;
+  --popover-foreground: #c0caf5;
+  --primary: #7aa2f7;
+  --primary-foreground: #1a1b26;
+  --secondary: #292e42;
+  --secondary-foreground: #c0caf5;
+  --muted: #232738;
+  --muted-foreground: #565f89;
+  --accent: #292e42;
+  --accent-foreground: #c0caf5;
+  --destructive: #f7768e;
+  --destructive-foreground: #1a1b26;
+  --border: #2f3549;
+  --input: #2f3549;
+  --ring: #7aa2f7;
+  --chart-1: #7aa2f7;
+  --chart-2: #bb9af7;
+  --chart-3: #7dcfff;
+  --chart-4: #9ece6a;
+  --chart-5: #ff9e64;
+  --accent-secondary: #bb9af7;
+  --shiki-token-keyword: #bb9af7;
+  --shiki-token-string: #9ece6a;
+  --shiki-token-string-expression: #9ece6a;
+  --shiki-token-constant: #ff9e64;
+  --shiki-token-function: #7aa2f7;
+  --shiki-token-inserted: #73daca;
+  --shiki-token-changed: #e0af68;
+}
+
+/* Gruvbox — light (medium) / dark (medium) */
+html[data-theme='gruvbox'] {
+  --background: #fbf1c7;
+  --foreground: #3c3836;
+  --card: #ffffff;
+  --card-foreground: #3c3836;
+  --popover: #ffffff;
+  --popover-foreground: #3c3836;
+  --primary: #076678;
+  --primary-foreground: #ffffff;
+  --secondary: #ebdbb2;
+  --secondary-foreground: #3c3836;
+  --muted: #ebdbb2;
+  --muted-foreground: #7c6f64;
+  --accent: #d5c4a1;
+  --accent-foreground: #3c3836;
+  --destructive: #cc241d;
+  --destructive-foreground: #ffffff;
+  --border: #d5c4a1;
+  --input: #bdae93;
+  --ring: #076678;
+  --chart-1: #076678;
+  --chart-2: #8f3f71;
+  --chart-3: #427b58;
+  --chart-4: #79740e;
+  --chart-5: #af3a03;
+  --accent-secondary: #8f3f71;
+  --shiki-token-keyword: #9d0006;
+  --shiki-token-string: #79740e;
+  --shiki-token-string-expression: #79740e;
+  --shiki-token-constant: #8f3f71;
+  --shiki-token-function: #076678;
+  --shiki-token-inserted: #79740e;
+  --shiki-token-changed: #b57614;
+}
+
+html[data-theme='gruvbox'].dark {
+  --background: #282828;
+  --foreground: #ebdbb2;
+  --card: #3c3836;
+  --card-foreground: #ebdbb2;
+  --popover: #3c3836;
+  --popover-foreground: #ebdbb2;
+  --primary: #83a598;
+  --primary-foreground: #282828;
+  --secondary: #3c3836;
+  --secondary-foreground: #ebdbb2;
+  --muted: #3c3836;
+  --muted-foreground: #928374;
+  --accent: #504945;
+  --accent-foreground: #ebdbb2;
+  --destructive: #fb4934;
+  --destructive-foreground: #282828;
+  --border: #504945;
+  --input: #665c54;
+  --ring: #83a598;
+  --chart-1: #83a598;
+  --chart-2: #d3869b;
+  --chart-3: #8ec07c;
+  --chart-4: #b8bb26;
+  --chart-5: #fe8019;
+  --accent-secondary: #d3869b;
+  --shiki-token-keyword: #fb4934;
+  --shiki-token-string: #b8bb26;
+  --shiki-token-string-expression: #b8bb26;
+  --shiki-token-constant: #d3869b;
+  --shiki-token-function: #83a598;
+  --shiki-token-inserted: #b8bb26;
+  --shiki-token-changed: #fabd2f;
+}
+
+/* Everforest — light (medium) / dark (medium) */
+html[data-theme='everforest'] {
+  --background: #fdf6e3;
+  --foreground: #5c6a72;
+  --card: #ffffff;
+  --card-foreground: #5c6a72;
+  --popover: #ffffff;
+  --popover-foreground: #5c6a72;
+  --primary: #3a94c5;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f0d9;
+  --secondary-foreground: #5c6a72;
+  --muted: #f4f0d9;
+  --muted-foreground: #939f91;
+  --accent: #efebd4;
+  --accent-foreground: #5c6a72;
+  --destructive: #f85552;
+  --destructive-foreground: #ffffff;
+  --border: #e6e2cc;
+  --input: #e0dcc7;
+  --ring: #3a94c5;
+  --chart-1: #3a94c5;
+  --chart-2: #df69ba;
+  --chart-3: #35a77c;
+  --chart-4: #8da101;
+  --chart-5: #f57d26;
+  --accent-secondary: #35a77c;
+  --shiki-token-keyword: #f85552;
+  --shiki-token-string: #8da101;
+  --shiki-token-string-expression: #8da101;
+  --shiki-token-constant: #df69ba;
+  --shiki-token-function: #8da101;
+  --shiki-token-inserted: #8da101;
+  --shiki-token-changed: #dfa000;
+}
+
+html[data-theme='everforest'].dark {
+  --background: #2d353b;
+  --foreground: #d3c6aa;
+  --card: #343f44;
+  --card-foreground: #d3c6aa;
+  --popover: #343f44;
+  --popover-foreground: #d3c6aa;
+  --primary: #7fbbb3;
+  --primary-foreground: #2d353b;
+  --secondary: #343f44;
+  --secondary-foreground: #d3c6aa;
+  --muted: #343f44;
+  --muted-foreground: #859289;
+  --accent: #3d484d;
+  --accent-foreground: #d3c6aa;
+  --destructive: #e67e80;
+  --destructive-foreground: #2d353b;
+  --border: #475258;
+  --input: #4f585e;
+  --ring: #7fbbb3;
+  --chart-1: #7fbbb3;
+  --chart-2: #d699b6;
+  --chart-3: #83c092;
+  --chart-4: #a7c080;
+  --chart-5: #e69875;
+  --accent-secondary: #83c092;
+  --shiki-token-keyword: #e67e80;
+  --shiki-token-string: #a7c080;
+  --shiki-token-string-expression: #a7c080;
+  --shiki-token-constant: #d699b6;
+  --shiki-token-function: #a7c080;
+  --shiki-token-inserted: #a7c080;
+  --shiki-token-changed: #dbbc7f;
 }
 
 /* UnoCSS's preflight resets borders to `0 solid` (currentcolor). Restore the

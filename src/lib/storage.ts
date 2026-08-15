@@ -1,6 +1,7 @@
 // Namespaced, versioned keys so a future format change can migrate cleanly.
 export const STORAGE_KEYS = {
   theme: 'pf:theme:v1',
+  palette: 'pf:palette:v1',
   retro: 'pf:retro:v1',
   bootDone: 'pf:boot:v1',
 } as const
@@ -10,6 +11,7 @@ export type StorageKey = keyof typeof STORAGE_KEYS
 // Pre-v1 keys, migrated into the versioned keys on first read.
 export const LEGACY_STORAGE_KEYS: Record<StorageKey, string> = {
   theme: 'theme',
+  palette: 'pf-palette',
   retro: 'pf-retro',
   bootDone: 'pf-boot-done',
 }

@@ -1,7 +1,7 @@
 import { useStore } from '@tanstack/react-store'
-import { setTheme, themeStore } from '@/stores/theme-store'
+import { setMode, setPalette, themeStore } from '@/stores/theme-store'
 
 export function useTheme() {
-  const theme = useStore(themeStore)
-  return { theme, setTheme }
+  const { mode, palette } = useStore(themeStore)
+  return { mode, palette, setMode, setPalette }
 }

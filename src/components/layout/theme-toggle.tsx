@@ -11,16 +11,16 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
-import type { Theme } from '@/stores/theme-store'
+import type { Mode } from '@/stores/theme-store'
 
-const OPTIONS: { value: Theme; label: string; icon: typeof Sun }[] = [
+const OPTIONS: { value: Mode; label: string; icon: typeof Sun }[] = [
   { value: 'light', label: 'Light', icon: Sun },
   { value: 'dark', label: 'Dark', icon: Moon },
   { value: 'system', label: 'System', icon: Monitor },
 ]
 
 export function ThemeToggle({ className, tooltip }: { className?: string; tooltip?: string }) {
-  const { theme, setTheme } = useTheme()
+  const { mode, setMode } = useTheme()
 
   return (
     <DropdownMenu>
@@ -60,12 +60,12 @@ export function ThemeToggle({ className, tooltip }: { className?: string; toolti
         {OPTIONS.map(({ value, label, icon: Icon }) => (
           <DropdownMenuItem
             key={value}
-            onClick={() => setTheme(value)}
-            className={cn(value === theme && 'font-medium text-primary')}
+            onClick={() => setMode(value)}
+            className={cn(value === mode && 'font-medium text-primary')}
           >
             <Icon className="size-4" />
             {label}
-            {value === theme && <span className="ml-auto sr-only">(active)</span>}
+            {value === mode && <span className="ml-auto sr-only">(active)</span>}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

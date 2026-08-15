@@ -5,7 +5,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { siteConfig } from '@/data/site'
 import { skillCategories } from '@/data/skills'
 import { profile } from '@/data/profile'
-import { setTheme, themeStore } from '@/stores/theme-store'
+import { setMode, themeStore } from '@/stores/theme-store'
 
 const BANNER = [
   '   ____          _             _      ',
@@ -197,8 +197,8 @@ export function Terminal() {
           )
           break
         case 'theme': {
-          const next: 'light' | 'dark' = themeStore.state === 'light' ? 'dark' : 'light'
-          setTheme(next)
+          const next: 'light' | 'dark' = themeStore.state.mode === 'light' ? 'dark' : 'light'
+          setMode(next)
           print(<span>Theme toggled to {next}.</span>)
           break
         }

@@ -8,6 +8,7 @@ import { navItems } from '@/data/nav'
 import { siteConfig } from '@/data/site'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/layout/theme-toggle'
+import { PaletteToggle } from '@/components/layout/palette-toggle'
 import { MobileNav } from '@/components/layout/mobile-nav'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { GitHubIcon } from '@/components/ui/brand-icons'
@@ -170,6 +171,7 @@ export function SiteHeader() {
           </TooltipProvider>
 
           <ThemeToggle tooltip="Theme" />
+          <PaletteToggle tooltip="Palette" />
 
           <MobileNav />
         </div>

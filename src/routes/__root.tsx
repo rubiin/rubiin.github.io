@@ -81,8 +81,8 @@ export const Route = createRootRoute({
         children: JSON.stringify(jsonLdPerson()),
       },
       {
-        // Apply the persisted theme pre-paint to avoid a dark/light flash.
-        children: `(function(){try{var t=localStorage.getItem('${STORAGE_KEYS.theme}')||localStorage.getItem('${LEGACY_STORAGE_KEYS.theme}');var theme=t==='light'||t==='dark'||t==='system'?t:'system';var resolved=theme==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):theme;var root=document.documentElement;root.classList.toggle('dark',resolved==='dark');root.style.colorScheme=resolved}catch(e){}})()`,
+        // Apply the persisted theme + palette pre-paint to avoid a dark/light flash.
+        children: `(function(){try{var t=localStorage.getItem('${STORAGE_KEYS.theme}')||localStorage.getItem('${LEGACY_STORAGE_KEYS.theme}');var theme=t==='light'||t==='dark'||t==='system'?t:'system';var resolved=theme==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):theme;var root=document.documentElement;root.classList.toggle('dark',resolved==='dark');root.style.colorScheme=resolved;var p=localStorage.getItem('${STORAGE_KEYS.palette}');if(p&&p!=='default'){root.setAttribute('data-theme',p)}}catch(e){}})()`,
       },
       {
         // Only show the boot loader on genuine first visits.

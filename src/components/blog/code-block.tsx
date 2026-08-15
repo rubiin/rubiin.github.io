@@ -62,17 +62,16 @@ export function CodeBlock({
         // still handles it at that point.
         grammarModule?.catch(() => {})
         const [
-          { createHighlighterCore },
-          { default: githubDark },
+          { createHighlighterCore, createCssVariablesTheme },
           { createJavaScriptRegexEngine },
-        ] = await Promise.all([
-          import('@shikijs/core'),
-          import('@shikijs/themes/github-dark'),
-          import('@shikijs/engine-javascript'),
-        ])
+        ] = await Promise.all([import('@shikijs/core'), import('@shikijs/engine-javascript')])
+        // CSS-variables theme: token colors are `var(--shiki-*)`, resolved from
+        // the active palette in globals.css — code blocks re-theme live when the
+        // palette/mode changes, with no re-highlighting or extra theme chunks.
+        const cssTheme = createCssVariablesTheme()
         // Core + JS regex engine only, so no WASM fetch.
         const highlighter = await createHighlighterCore({
-          themes: [githubDark],
+          themes: [cssTheme],
           langs: [],
           engine: createJavaScriptRegexEngine(),
         })
@@ -94,7 +93,7 @@ export function CodeBlock({
 
         const out = highlighter.codeToHtml(code, {
           lang: grammar?.id ?? 'text',
-          theme: 'github-dark',
+          theme: cssTheme,
         })
         highlighter.dispose()
         if (!cancelled) setHtml(out)

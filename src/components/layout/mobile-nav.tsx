@@ -16,6 +16,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet'
 import { ThemeToggle } from '@/components/layout/theme-toggle'
+import { PaletteToggle } from '@/components/layout/palette-toggle'
 import { cn } from '@/lib/utils'
 
 const SOCIALS = [
@@ -99,7 +100,10 @@ export function MobileNav() {
           <div className="mt-auto flex flex-col gap-4 px-4 pb-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Theme</span>
-              <ThemeToggle />
+              <div className="flex items-center gap-1">
+                <PaletteToggle />
+                <ThemeToggle />
+              </div>
             </div>
             <div className="flex items-center gap-1.5 border-t pt-4">
               {SOCIALS.map(({ label, href, icon: Icon }) => (
