@@ -92,6 +92,27 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: 'vitely',
+    title: 'Vitely',
+    tagline: 'An opinionated Vue 3 starter template with Vite — batteries included.',
+    description:
+      'A simple, opinionated Vue 3 + TypeScript starter template built on Vite, forked from vitesome with more goodies — components and APIs auto-importing, state management with Pinia, PWA support, UnoCSS for instant on-demand atomic CSS, icon sets via uno-iconify, and i18n out of the box. Comes pre-packed with E2E testing via Cypress on GitHub Actions and zero-config deploys to Netlify, Vercel, or Cloudflare Pages.',
+    category: 'frontend',
+    year: '2022',
+    tech: ['Vue 3', 'Vite', 'TypeScript', 'Pinia', 'UnoCSS', 'PWA'],
+    image: '/projects/vitely.webp',
+    github: 'https://github.com/rubiin/vitely',
+    demo: 'https://vitely.pages.dev',
+    challenges: [
+      'Packing a full opinionated toolchain — Pinia, UnoCSS, i18n, PWA — into a template that stays approachable',
+      'Keeping auto-imports and component auto-registration from turning into magic that confuses newcomers',
+    ],
+    lessons: [
+      'A great starter template ships opinions, not just dependencies',
+      'Opinionated defaults with zero-config deploys lower the barrier for new Vue projects',
+    ],
+  },
+  {
     slug: 'nestjs-i18n',
     title: 'Nestjs-i18n',
     tagline: 'The i18n module for NestJS — internationalization the Nest way.',
