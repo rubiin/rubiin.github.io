@@ -51,6 +51,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.52.1",
     "@content-collections/vite": "^0.3.0",
     "@playwright/test": "^1.62.1",
     "@types/mdast": "^4.0.4",

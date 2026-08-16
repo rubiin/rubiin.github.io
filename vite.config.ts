@@ -5,7 +5,7 @@ import { nitro } from 'nitro/vite'
 import contentCollections from '@content-collections/vite'
 import unocssPostcss from '@unocss/postcss'
 import type { Root } from 'postcss'
-
+import { cloudflare } from "@cloudflare/vite-plugin"
 /**
  * PostCSS plugin: replaces `color-mix(in srgb, …)` with `in oklab` so the
  * rendered colors stay pixel-identical to the previous Tailwind v4 build.
@@ -76,6 +76,7 @@ export default defineConfig(({ command }) => ({
     }),
 
     viteReact(),
+    cloudflare(),
     // Pre-compress public assets at build time so the SSR server serves
     // .br/.gz variants (hero-scene chunk: 882 KB raw → ~230 KB gzip wire).
     nitro({
