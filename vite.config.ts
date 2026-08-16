@@ -79,7 +79,9 @@ export default defineConfig(({ command }) => ({
     // Pre-compress public assets at build time so the SSR server serves
     // .br/.gz variants (hero-scene chunk: 882 KB raw → ~230 KB gzip wire).
     nitro({
-      compressPublicAssets: true,
+      compressPublicAssets: {
+        brotli: true,
+      },
       // Cache-control strategy (cache-everything):
       //  - /assets/** (hashed JS/CSS/images/fonts): Nitro's built-in default
       //    is `public, max-age=31536000, immutable` + ETag — perfect, so no
