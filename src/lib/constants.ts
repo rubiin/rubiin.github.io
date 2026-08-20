@@ -31,6 +31,6 @@ export const yearsSince = (since: number) => new Date().getFullYear() - since
 export const BLOG_POSTS_QUERY_KEY = ['blog-posts'] as const
 
 export const GISCUS_REPO = 'rubiin/rubiin.github.io'
-export const GISCUS_REPO_ID = 'R_kgDOK_PORTFOLIO'
-export const GISCUS_CATEGORY = 'Announcements'
-export const GISCUS_CATEGORY_ID = 'DIC_kwDOK_PORTFOLIO'
+export const GISCUS_REPO_ID = 'R_kgDOMZN7JA'
+export const GISCUS_CATEGORY = 'General'
+export const GISCUS_CATEGORY_ID = 'DIC_kwDOMZN7JM4DDyl-'
