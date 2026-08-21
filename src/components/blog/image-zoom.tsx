@@ -45,7 +45,13 @@ export function ImageZoom({
       >
         <picture>
           {avifSrc && <source type="image/avif" srcSet={avifSrc} />}
-          <img src={src} alt={alt} className="size-full object-cover" />
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            className="size-full object-cover"
+          />
         </picture>
         <span
           aria-hidden

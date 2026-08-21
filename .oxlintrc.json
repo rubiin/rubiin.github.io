@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript"],
+  "plugins": ["react", "typescript", "import", "promise", "jsx-a11y"],
   "env": {
     "browser": true,
     "es2024": true,
@@ -16,14 +16,298 @@
     "nursery": "off"
   },
   "rules": {
-    // React 19 + Vite use the automatic JSX runtime — the legacy
-    // react-in-jsx-scope rule (require React import) is obsolete here.
+    // ── React ──────────────────────────────────────────────────────────
+    // React 19 + Vite use the automatic JSX runtime.
     "react/react-in-jsx-scope": "off",
-    // jsx-max-depth is too aggressive for deeply nested layout components.
+    // Too aggressive for deeply nested layout components.
     "react/jsx-max-depth": "off",
+    // Button should always specify type attribute.
+    // Disabled: NeonButton passes type={type} with destructured default 'button',
+    // but oxlint can't resolve the default parameter value.
+    "react/button-has-type": "off",
+    // Disabled: intentionally used in code-block.tsx for syntax-highlighted MDX code.
+    "react/no-danger": "off",
+    // Prevent cloneElement — prefer composition.
+    "react/no-clone-element": "warn",
+    // Ensure keys in lists are not array indices.
+    "react/no-array-index-key": "error",
+    // Disabled: flagged in ThemeProvider's <>{children}</> which is intentional.
+    "react/jsx-no-useless-fragment": "off",
+    // Warn on unescaped entities in JSX.
+    "react/no-unescaped-entities": "warn",
+    // Disabled: oxlint can't statically analyze ternary expressions like
+    // `target={x ? '_blank' : undefined}` + `rel={x ? 'noreferrer' : undefined}`
+    // and false-positives on code that already has rel="noreferrer".
+    "react/jsx-no-target-blank": "off",
+    // Disabled: flags valid React Three Fiber JSX attributes (attach, args,
+    // castShadow, position, rotation, etc.) as unknown DOM properties.
+    "react/no-unknown-property": "off",
+    // Ensure component names start with uppercase.
+    "react/capitalized-calls": "warn",
+    // Enforce hooks rules (already enabled by category, but explicit).
+    "react/rules-of-hooks": "error",
+    // Warn on direct DOM node references in SSR-unfriendly ways.
+    "react/no-find-dom-node": "error",
+    // Prevent string refs.
+    "react/no-string-refs": "error",
+    // Warn on void DOM elements with children.
+    "react/void-dom-elements-no-children": "error",
+    // Enforce exhaustive deps in useEffect/useMemo/useCallback.
+    // Disabled: the React Compiler's exhaustive-deps variant is overly strict
+    // for intentional one-time-init effects (empty deps) used in providers.
+    "react/exhaustive-deps": "off",
+    // Disabled: the React Compiler variant flags legitimate useRef patterns
+    // (callback ref + prev-value sync) as errors. The actual react-hooks
+    // exhaustive-deps already catches real missing deps.
+    "react/refs": "off",
+    // Disabled: React Compiler variant of exhaustive-deps that flags extra
+    // dependencies as errors. Too strict for intentional one-time-init effects.
+    "react/exhaustive-effect-dependencies": "off",
+    // Disabled: flags setMount(true) inside useEffect for one-time client
+    // initialization — a standard React hydration pattern.
+    "react/set-state-in-effect": "off",
+    // Disabled: flags intentional mutations inside useFrame (R3F render loop)
+    // where refs are mutated imperatively. Correct pattern for Three.js.
+    "react/purity": "off",
+    // Warn on iframe without sandbox.
+    "react/iframe-missing-sandbox": "warn",
+    // Warn on stable dependency memoization.
+    "react/memo-dependencies": "warn",
+    // Warn on unstable nested component definitions.
+    "react/no-unstable-nested-components": "error",
+    // Enforce consistent return in components.
+    "react/checked-requires-onchange-or-readonly": "warn",
+
+    // ── TypeScript ──────────────────────────────────────────────────────
     // Deliberate double-underscore convention: __setLenisInstance
-    // (module-internal Lenis API).
-    "eslint/no-underscore-dangle": ["error", { "allow": ["__setLenisInstance"] }]
+    "eslint/no-underscore-dangle": ["error", { "allow": ["__setLenisInstance"] }],
+    // Require explicit return types on exported functions.
+    "typescript/explicit-function-return-type": "off",
+    // Warn on @ts-ignore — prefer @ts-expect-error.
+    "typescript/prefer-ts-expect-error": "warn",
+    // Disallow // @ts-ignore.
+    "typescript/ban-ts-comment": [
+      "warn",
+      {
+        "ts-ignore": true,
+        "ts-nocheck": true,
+        "ts-expect-error": "allow-with-description",
+        "ts-check": false
+      }
+    ],
+    // Warn on unsafe type operations.
+    "typescript/no-unsafe-argument": "warn",
+    "typescript/no-unsafe-assignment": "warn",
+    "typescript/no-unsafe-call": "warn",
+    "typescript/no-unsafe-member-access": "warn",
+    "typescript/no-unsafe-return": "warn",
+    // Prefer nullish coalescing over logical OR for default values.
+    "typescript/prefer-nullish-coalescing": "warn",
+    // Prefer optional chaining.
+    "typescript/prefer-optional-chain": "off",
+    // Warn on no-misused-promises.
+    "typescript/no-misused-promises": [
+      "warn",
+      {
+        "checksVoidReturn": { "attributes": false, "properties": true }
+      }
+    ],
+    // Require switch exhaustiveness checks.
+    "typescript/switch-exhaustiveness-check": "warn",
+    // Warn on no-deprecated usage.
+    "typescript/no-deprecated": "warn",
+    // Prefer includes over indexOf for boolean checks.
+    "typescript/prefer-includes": "warn",
+    // Warn on confusing void expressions.
+    "typescript/no-confusing-void-expression": "warn",
+    // Warn on no-floating-promises.
+    "typescript/no-floating-promises": ["warn", { "ignoreVoid": true }],
+    // Warn on no-for-in-array.
+    "typescript/no-for-in-array": "warn",
+    // Warn on unnecessary template expressions.
+    "typescript/no-unnecessary-template-expression": "warn",
+    // Warn on unnecessary type assertions.
+    "typescript/no-unnecessary-type-assertion": "warn",
+    // Warn on unnecessary boolean literal compare.
+    "typescript/no-unnecessary-boolean-literal-compare": "warn",
+    // Warn on unsafe enum comparison.
+    "typescript/no-unsafe-enum-comparison": "warn",
+    // Warn on no-unnecessary-type-conversion.
+    "typescript/no-unnecessary-type-conversion": "warn",
+
+    // ── Import ─────────────────────────────────────────────────────────
+    // Prevent default exports (encourage named exports).
+    "import/no-default-export": "warn",
+    // Warn on cycles.
+    "import/no-cycle": "warn",
+    // Disallow require() calls.
+    "import/no-commonjs": "warn",
+    // Require file extensions.
+    "import/extensions": "warn",
+    // Disabled: flags side-effect imports like @fontsource-variable/*
+    // which register @font-face rules and CSS. These are intentional.
+    "import/no-unassigned-import": "off",
+
+    // ── Promise ────────────────────────────────────────────────────────
+    // Always return from promise handlers.
+    "promise/always-return": "warn",
+    // Disallow callback in promise.then().
+    "promise/no-promise-in-callback": "warn",
+    // No multiple resolved.
+    "promise/no-multiple-resolved": "warn",
+    // Require catch for promises.
+    "promise/catch-or-return": "warn",
+
+    // ── JSX-A11y ───────────────────────────────────────────────────────
+    // All images must have alt text.
+    "jsx-a11y/alt-text": "error",
+    // Anchors must have content.
+    "jsx-a11y/anchor-has-content": "error",
+    // Anchor must be valid (no href="#").
+    "jsx-a11y/anchor-is-valid": "warn",
+    // html tag must have lang.
+    "jsx-a11y/html-has-lang": "error",
+    // iframes must have title.
+    "jsx-a11y/iframe-has-title": "error",
+    // Headings must have content.
+    "jsx-a11y/heading-has-content": "error",
+    // Click events must have key events.
+    "jsx-a11y/click-events-have-key-events": "warn",
+    // No access key.
+    "jsx-a11y/no-access-key": "warn",
+    // Disabled: terminal component intentionally uses autofocus for UX.
+    "jsx-a11y/no-autofocus": "off",
+    // No distracting elements.
+    "jsx-a11y/no-distracting-elements": "error",
+    // Label must have associated control.
+    "jsx-a11y/label-has-associated-control": "warn",
+    // Media must have caption.
+    "jsx-a11y/media-has-caption": "warn",
+    // Mouse events must have key events.
+    "jsx-a11y/mouse-events-have-key-events": "warn",
+    // ARIA props must be valid.
+    "jsx-a11y/aria-props": "error",
+    // ARIA role must be valid.
+    "jsx-a11y/aria-role": "error",
+    // No redundant roles.
+    "jsx-a11y/no-redundant-roles": "warn",
+    // Interactive elements must be focusable.
+    "jsx-a11y/interactive-supports-focus": "warn",
+    // No tabindex positive.
+    "jsx-a11y/tabindex-no-positive": "warn",
+    // No aria-hidden on focusable.
+    "jsx-a11y/no-aria-hidden-on-focusable": "warn",
+    // Disabled: flags role="list"/"listitem"/"status" on <div> containers
+    // where semantic <ul>/<li>/<span> elements don't fit the layout.
+    "jsx-a11y/prefer-tag-over-role": "off",
+
+    // ── Pedantic ───────────────────────────────────────────────────────
+    // Prefer const assertion.
+    "typescript/prefer-enum-initializers": "warn",
+    // No mixed enums.
+    "typescript/no-mixed-enums": "warn",
+    // Prefer return await in async functions.
+    "typescript/return-await": "warn",
+    // Prevent no-prototype-builtins.
+    "eslint/no-prototype-builtins": "warn",
+    // No constructor return.
+    "eslint/no-constructor-return": "warn",
+    // No self-compare.
+    "eslint/no-self-compare": "error",
+    // Require radix for parseInt.
+    "eslint/radix": "warn",
+    // No throw literal.
+    "eslint/no-throw-literal": "warn",
+    // Prefer promise reject errors.
+    "eslint/prefer-promise-reject-errors": "warn",
+    // No array constructor.
+    "eslint/no-array-constructor": "warn",
+    // No object constructor.
+    "eslint/no-object-constructor": "warn",
+    // Require symbol description.
+    "eslint/symbol-description": "warn",
+    // No fallthrough.
+    "eslint/no-fallthrough": "warn",
+    // No case declarations.
+    "eslint/no-case-declarations": "warn",
+    // No inner declarations.
+    "eslint/no-inner-declarations": "warn",
+    // Require await.
+    "typescript/require-await": "warn",
+    // Prefer readonly parameter types.
+    "typescript/prefer-readonly-parameter-types": "off",
+    // Strict boolean expressions.
+    "typescript/strict-boolean-expressions": "off",
+
+    // ── Pedantic (Unicorn) ─────────────────────────────────────────────
+    // Prefer modern math APIs.
+    "unicorn/prefer-modern-math-apis": "warn",
+    // No unnecessary array flat depth.
+    "unicorn/no-unnecessary-array-flat-depth": "warn",
+    // No unnecessary array splice count.
+    "unicorn/no-unnecessary-array-splice-count": "warn",
+    // No unnecessary slice end.
+    "unicorn/no-unnecessary-slice-end": "warn",
+    // No useless promise resolve/reject.
+    "unicorn/no-useless-promise-resolve-reject": "warn",
+    // Consistent empty array spread.
+    "unicorn/consistent-empty-array-spread": "warn",
+    // Escape case.
+    "unicorn/escape-case": "warn",
+    // Explicit length check.
+    "unicorn/explicit-length-check": "warn",
+    // No hex escape.
+    "unicorn/no-hex-escape": "warn",
+    // No typeof undefined.
+    "unicorn/no-typeof-undefined": "warn",
+    // No static only class.
+    "unicorn/no-static-only-class": "warn",
+    // No this assignment.
+    "unicorn/no-this-assignment": "warn",
+    // No instance of array.
+    "unicorn/no-instanceof-array": "warn",
+    // Consistent assert.
+    "unicorn/consistent-assert": "warn",
+    // No useless switch case.
+    "unicorn/no-useless-switch-case": "warn",
+    // No negated condition.
+    "unicorn/no-negated-condition": "warn",
+
+    // ── Suspicious (Unicorn) ───────────────────────────────────────────
+    // Consistent function scoping.
+    "unicorn/consistent-function-scoping": "warn",
+    // No array sort.
+    "unicorn/no-array-sort": "warn",
+    // No array reverse.
+    "unicorn/no-array-reverse": "warn",
+    // Require post message target origin.
+    "unicorn/require-post-message-target-origin": "warn",
+    // No accessor recursion.
+    "unicorn/no-accessor-recursion": "warn",
+
+    // ── Suspicious (Oxc) ───────────────────────────────────────────────
+    // Misrefactored assign op.
+    "oxc/misrefactored-assign-op": "warn",
+    // Approx constant.
+    "oxc/approx-constant": "warn",
+    // No this in exported function.
+    "oxc/no-this-in-exported-function": "warn",
+    // No async endpoint handlers.
+    "oxc/no-async-endpoint-handlers": "warn",
+
+    // ── Perf (Oxc) ─────────────────────────────────────────────────────
+    // No accumulating spread.
+    "oxc/no-accumulating-spread": "warn",
+    // No map spread.
+    "oxc/no-map-spread": "warn",
+
+    // ── Restriction (Oxc) ──────────────────────────────────────────────
+    // No barrel file.
+    "oxc/no-barrel-file": "warn",
+    // No const enum.
+    "oxc/no-const-enum": "warn",
+    // No async await (prefer explicit promise).
+    "oxc/no-async-await": "off"
   },
   "ignorePatterns": [
     "node_modules/**",
@@ -32,6 +316,9 @@
     ".content-collections/**",
     ".tanstack/**",
     "public/**",
-    "content/**"
+    "content/**",
+    // Config files legitimately use export default.
+    "*.config.*",
+    ".lintstagedrc.*"
   ]
 }

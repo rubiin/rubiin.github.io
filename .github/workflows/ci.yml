@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Dependency audit
+        run: pnpm audit --audit-level=high
+
       - name: Lint (oxlint)
         run: pnpm lint:ci
 
@@ -69,6 +72,9 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Bundle size budget
+        run: pnpm budget
 
   snapshots:
     name: Visual snapshots (vs Tailwind baseline)

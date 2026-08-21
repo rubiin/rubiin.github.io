@@ -111,6 +111,12 @@ export const Route = createRootRoute({
         type: 'font/woff2',
         crossOrigin: 'anonymous',
       },
+      // Resource hints: preconnect to origins used for avatar + comments;
+      // dns-prefetch the rest so DNS is warm when the user scrolls to them.
+      { rel: 'preconnect', href: 'https://github.com' },
+      { rel: 'dns-prefetch', href: 'https://giscus.app' },
+      { rel: 'dns-prefetch', href: 'https://x.com' },
+      { rel: 'dns-prefetch', href: 'https://www.linkedin.com' },
       { rel: 'manifest', href: '/manifest.webmanifest' },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'apple-touch-icon', href: '/og.png' },

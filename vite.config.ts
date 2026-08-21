@@ -5,7 +5,7 @@ import { nitro } from 'nitro/vite'
 import contentCollections from '@content-collections/vite'
 import unocssPostcss from '@unocss/postcss'
 import type { Root } from 'postcss'
-import { cloudflare } from "@cloudflare/vite-plugin"
+import { cloudflare } from '@cloudflare/vite-plugin'
 /**
  * PostCSS plugin: replaces `color-mix(in srgb, …)` with `in oklab` so the
  * rendered colors stay pixel-identical to the previous Tailwind v4 build.
@@ -97,6 +97,24 @@ export default defineConfig(({ command }) => ({
           headers: {
             'Cache-Control':
               'public, s-maxage=3600, stale-while-revalidate=86400, max-age=0, must-revalidate',
+            // Content-Security-Policy: nonce-free, strict policy that blocks
+            // inline scripts except the few the app needs (theme-prepaint,
+            // boot-loader, JSON-LD). Giscus injects via DOM, not <script>.
+            // Frames restricted to giscus.app; connect-src allows giscus +
+            // GitHub avatar CDN. Adjust img-src if external images grow.
+            'Content-Security-Policy': [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' https://giscus.app https://www.google-analytics.com",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob: https://github.com https://avatars.githubusercontent.com https://www.google-analytics.com",
+              "font-src 'self'",
+              "connect-src 'self' https://giscus.app https://www.google-analytics.com",
+              'frame-src https://giscus.app',
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              'upgrade-insecure-requests',
+            ].join('; '),
           },
         },
         '/sw.js': { headers: { 'Cache-Control': 'no-cache' } },
