@@ -27,7 +27,7 @@ const colorMap = {
 }
 ```
 
-TypeScript infers `colorMap.primary` as `string`. That's fine — until you want the literal types kept, so autocomplete suggests them and typos get caught. You reach for `as const`:
+TypeScript infers `colorMap.primary` as `string`. That's fine, until you want the literal types kept, so autocomplete suggests them and typos get caught. You reach for `as const`:
 
 ```ts
 const colorMap = {
@@ -36,7 +36,7 @@ const colorMap = {
 } as const
 ```
 
-Now the values are literals, but you've lost the *contract*. Nothing stops you from later writing `{ primary: 'blue', dangr: 'red' }` — the typo just becomes a new key and TypeScript shrugs.
+Now the values are literals, but you've lost the *contract*. Nothing stops you from later writing `{ primary: 'blue', dangr: 'red' }`. The typo just becomes a new key and TypeScript shrugs.
 
 To get both, you'd historically do the dance:
 
@@ -78,12 +78,12 @@ const routes = {
 } satisfies Record<string, Handler>
 ```
 
-Now every handler is checked against `Handler`, so you can't forget a route or pass one with the wrong signature — but each property keeps its own function type, so callers get proper parameter autocomplete.
+Now every handler is checked against `Handler`, so you can't forget a route or pass one with the wrong signature, but each property keeps its own function type, so callers get proper parameter autocomplete.
 
 ## Where satisfies doesn't help
 
-`satisfies` is a *check*, not a *transformation*. It won't narrow types for you — if you need the literal types frozen in place, `as const` is still your tool. And if you actually want the object to *be* the annotated type (say, to widen it intentionally), an annotation is what you need; `satisfies` just validates.
+`satisfies` is a *check*, not a *transformation*. It won't narrow types for you. If you need the literal types frozen in place, `as const` is still your tool. And if you actually want the object to *be* the annotated type (say, to widen it intentionally), an annotation is what you need; `satisfies` just validates.
 
 ## Conclusion
 
-`satisfies` is one of those features that quietly disappears into your code — which is exactly the point. Type checks stay, inference stays, and the awkward "pick one" dilemma goes away. If you're still writing `as` assertions to make an object fit a shape, try replacing them with `satisfies` and see how much ceremony disappears with them.
+`satisfies` is one of those features that quietly disappears into your code, which is exactly the point. Type checks stay, inference stays, and the awkward "pick one" dilemma goes away. If you're still writing `as` assertions to make an object fit a shape, try replacing them with `satisfies` and see how much ceremony disappears.

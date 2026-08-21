@@ -9,23 +9,23 @@ coverImage: "/blog/custom-jenkins-images-with-plugins-pre-installed/cover.webp"
 views: 10900
 ---
 
-If you do continuous delivery or continuous integration, you'll frequently run into Jenkins. It's a core part of our CI/CD pipeline, and the moment you need to stand up a fresh instance, the plugin setup can become a chore. This post shows how I packaged a Jenkins image with all the plugins pre-installed — so you can skip the setup wizard entirely.
+If you do CI/CD, you'll run into Jenkins sooner or later. It's a core part of our pipeline, and the moment you stand up a fresh instance, the plugin setup becomes a chore. This post shows how I packaged a Jenkins image with all the plugins pre-installed, so you can skip the setup wizard entirely.
 
-## Why we love Jenkins
+## Why we like Jenkins
 
-- It is an open system that is platform, language, and methodology agnostic, letting us support a diverse client base with one non-proprietary CI/CD platform.
-- It is the industry reference implementation for what a CI/CD system should be, with a rich ecosystem of more than 1,100 plugins that integrate Jenkins with everything from Active Directory to GitHub to the OpenShift PaaS.
-- It is focused on CI/CD, and is not trying to be what it is not (Git repository, Chat client, Docker storage, etc.).
-- You are not locked into any proprietary vendor — it has major industry support and many engineers are already familiar with it.
-- It offers a plethora of features out of the box, so you don't have to search Google for hacks.
+- It's open source and not locked into any proprietary vendor.
+- It works across platforms, languages, and methodologies.
+- The ecosystem has over 1,100 plugins covering everything from Active Directory to GitHub to OpenShift.
+- It stays focused on CI/CD. It's not trying to be a Git host or a chat client.
+- Lots of engineers already know it, so onboarding is easy.
 
 ## The pain: plugin setup
 
-However, one thing that has been a pain over years of using Jenkins is the initial setup — mostly the plugin installation. I mean this:
+However, one thing that has been a pain over years of using Jenkins is the initial setup, mostly the plugin installation. I mean this:
 
 ![](/blog/custom-jenkins-images-with-plugins-pre-installed/jenkins.webp)
 
-So I wrote a custom Jenkins image with all the plugins pre-installed, a default user, and Docker plus Docker Compose installed — for people who want to use Jenkins without the hassle of configuring it:
+So I wrote a custom Jenkins image with all the plugins pre-installed, a default user, and Docker plus Docker Compose installed, for people who want to use Jenkins without the hassle of configuring it:
 
 ```dockerfile
 FROM jenkins/jenkins
@@ -57,7 +57,7 @@ USER jenkins
 
 ### A slimmer alpine variant
 
-Worried about image size? I've got you covered — I also wrote an Alpine-based image for people who are space-conservative:
+Worried about image size? I've got you covered. I also wrote an Alpine-based image for people who are space-conservative:
 
 ```dockerfile
 FROM jenkins/jenkins:alpine

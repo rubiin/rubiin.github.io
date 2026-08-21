@@ -1,7 +1,7 @@
 ---
 title: "git reflog: undoing your undo"
 date: "2026-06-08"
-description: "git reset --hard gone wrong? Branch deleted? The reflog is your safety net — here's how to fish commits back out of thin air."
+description: "git reset --hard gone wrong? Branch deleted? The reflog is your safety net. Here's how to fish commits back out of thin air."
 tags: ["git", "terminal"]
 category: "git"
 featured: false
@@ -15,7 +15,7 @@ It's fine. Git kept a receipt. The **reflog** remembers everything.
 
 ## What the reflog actually is
 
-The reflog ("reference log") is a local history of where your `HEAD` has pointed. Every time you commit, reset, rebase, merge, checkout, or stash, an entry is written. It's Git's own undo history — a log of the *changes to the log*.
+The reflog ("reference log") is a local history of where your `HEAD` has pointed. Every time you commit, reset, rebase, merge, checkout, or stash, an entry is written. It's Git's own undo history, a log of the *changes to the log*.
 
 ```shell-session
 git reflog
@@ -29,7 +29,7 @@ a1b2c3d HEAD@{0}: reset: moving to HEAD~3
 5a4b3c2 HEAD@{2}: commit: fix auth cookie expiry
 ```
 
-`HEAD@{1}` means "where HEAD was one step ago" — and that commit is still there, fully intact, waiting for you.
+`HEAD@{1}` means "where HEAD was one step ago", and that commit is still there, fully intact, waiting for you.
 
 ## The classic recovery
 
@@ -55,9 +55,9 @@ Either way, your work is back. The reflog is why "deleted" commits aren't really
 
 ## Recovering a deleted branch
 
-You deleted a branch that hadn't been merged (oops). If you had that branch checked out at some point, the HEAD reflog still holds a `checkout:` entry mentioning it — `git reflog | grep feature-email` finds the tip, and `git branch feature-email <hash>` brings it back.
+You deleted a branch that hadn't been merged (oops). If you had that branch checked out at some point, the HEAD reflog still holds a `checkout:` entry mentioning it. `git reflog | grep feature-email` finds the tip, and `git branch feature-email <hash>` brings it back.
 
-But the dependable path doesn't rely on the reflog at all. A deleted branch becomes *dangling commits* — reachable from nothing, but still sitting on disk. `git fsck` hunts those down:
+But the dependable path doesn't rely on the reflog at all. A deleted branch becomes *dangling commits*, reachable from nothing, but still sitting on disk. `git fsck` hunts those down:
 
 ```shell-session
 git fsck --lost-found
@@ -81,16 +81,16 @@ git reflog
 git reset --hard <that-hash>
 ```
 
-The pre-rebase state is in the reflog, always. Rebase doesn't delete the old commits until the reflog entries expire — which takes about 90 days by default.
+The pre-rebase state is in the reflog, always. Rebase doesn't delete the old commits until the reflog entries expire, which takes about 90 days by default.
 
 ## When the reflog can't save you
 
 A few honest caveats:
 
-- The reflog is **local**. If the work never existed on your machine (it's on a server, and the remote branch was force-pushed over), your reflog won't have it — but the remote's reflog or a colleague's clone might.
+- The reflog is **local**. If the work never existed on your machine (it's on a server, and the remote branch was force-pushed over), your reflog won't have it. But the remote's reflog or a colleague's clone might.
 - Reflog entries **expire** (90 days by default for unreachable commits). Very old "lost" work may be genuinely gone.
 - `git gc` with aggressive settings can prune dangling commits sooner.
 
 ## Conclusion
 
-The reflog is the reason I stopped fearing destructive git commands. `reset --hard` stops being a heart attack and starts being a tool, because I know the receipt exists. Next time you panic — and you will — type `git reflog` before you type anything else.
+The reflog is the reason I stopped fearing destructive git commands. `reset --hard` stops being a heart attack and starts being a tool, because I know the receipt exists. Next time you panic, and you will, type `git reflog` before you type anything else.

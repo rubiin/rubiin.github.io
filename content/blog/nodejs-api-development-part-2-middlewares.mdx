@@ -9,15 +9,15 @@ coverImage: "/blog/nodejs-api-development-part-2-middlewares/cover.webp"
 views: 17400
 ---
 
-Last time we learned the basics of the Express web framework — how to set up routes, GET and POST requests, and so on. In this part, we'll talk about **middleware**, which adds more functionality to the Express framework.
+Last time we learned the basics of the Express web framework, how to set up routes, GET and POST requests, and so on. In this part, we'll talk about **middleware**, which adds more functionality to the Express framework.
 
 Middleware functions are functions that have access to the request object (`req`), the response object (`res`), and the next middleware function in the application's request-response cycle. If you haven't forgotten the last part: `body-parser` and `morgan` are examples of the third-party middleware that Express offers.
 
 ## What are middlewares?
 
-Middlewares are a fundamental concept of Node.js, often used in the context of the Express.js framework. In a nutshell, a middleware is a function that has access to the request and response objects of your application. The way I like to think about it: a series of "checks/pre-screens" that a request goes through before it's handled by the application.
+A middleware is a function that has access to the request and response objects of your application. The way I like to think about it: a series of checks that a request goes through before it's handled by the application.
 
-For example, a middleware is a good fit to determine if a request is authenticated before it proceeds — returning the login page if it isn't — or to log each request. A lot of third-party middlewares are available that enable a variety of functionality.
+For example, a middleware is a good fit to determine if a request is authenticated before it proceeds, returning the login page if it isn't, or to log each request. A lot of third-party middlewares are available that enable a variety of functionality.
 
 ### A simple middleware example
 
@@ -41,7 +41,7 @@ Based on usage, Express classifies middlewares into the following types:
 
 ## Application-level middleware
 
-Think of this as a global middleware — all the routes in your application go through it. This is what we used in the example above: when we call `app.use`, we're saying the entire application instance is going to use this middleware. It doesn't matter which router — whenever a request comes in, it will always run through it. This type of middleware is handy when you want to impose something on every route in your application, like authentication or logging.
+Think of this as a global middleware. All the routes in your application go through it. This is what we used in the example above: when we call `app.use`, we're saying the entire application instance is going to use this middleware. It doesn't matter which router, whenever a request comes in, it will always run through it. This type of middleware is handy when you want to impose something on every route in your application, like authentication or logging.
 
 **Example:**
 
@@ -75,7 +75,7 @@ The difference between this and the application-level example is that only the r
 
 ## Error-handling middleware
 
-Error-handling middleware is a little different from regular middleware. Like all the other middleware, it's a function — it just takes one extra argument: the error. It has to be the **first** argument. If you don't put it there, Express won't think you're making an error middleware — it will treat it like regular middleware. If you put error, request, response, and then next, Express knows you're handling errors.
+Error-handling middleware is a little different from regular middleware. Like all the other middleware, it's a function. It just takes one extra argument: the error. It has to be the **first** argument. If you don't put it there, Express won't think you're making an error middleware. It will treat it like regular middleware. If you put error, request, response, and then next, Express knows you're handling errors.
 
 **Example:**
 
@@ -96,7 +96,7 @@ Starting with version 4.x, Express no longer depends on Connect. The middleware 
 
 ## Third-party middleware
 
-In some cases, we'll be adding extra features to our backend — that's where third-party middlewares come into play. Remember `morgan` and `body-parser`? They're examples of these.
+In some cases, we'll be adding extra features to our backend. That's where third-party middlewares come into play. Remember `morgan` and `body-parser`? They're examples of these.
 
 **Example:** `body-parser`
 
@@ -135,6 +135,6 @@ A couple of things to keep in mind while using middlewares:
 
 ## Conclusion
 
-Middlewares allow developers to modularize their code by handling tasks such as logging, authentication, error handling, and request parsing. By chaining multiple middleware functions together, Express enables flexible and reusable code, making it easier to build robust, maintainable applications with a clean separation of concerns.
+Middlewares let you split concerns: logging in one file, auth in another, error handling in a third. Chain them in the right order, and each request passes through the checks it needs before reaching the handler.
 
-On the next post, we'll look into templating engines that render compiled HTML on Express.
+In the next post, we'll look at templating engines that render HTML in Express.

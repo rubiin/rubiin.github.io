@@ -1,7 +1,7 @@
 ---
 title: "Debugging Node.js memory leaks without losing your mind"
 date: "2026-07-06"
-description: "Heap snapshots, listener leaks, and the 'compare two snapshots' trick — a practical, step-by-step approach to finding memory leaks in long-running Node.js processes."
+description: "Heap snapshots, listener leaks, and the 'compare two snapshots' trick. A practical, step-by-step approach to finding memory leaks in long-running Node.js processes."
 tags: ["nodejs", "performance", "debugging"]
 category: "nodejs"
 featured: false
@@ -11,11 +11,11 @@ views: 520
 
 The worst kind of bug is the one that doesn't crash. Your Node service runs fine for a day, two days, then someone pings you at 3am because the container is at 98% memory and the deploy script just killed it.
 
-Memory leaks in Node are rarely one big mistake. They're usually a slow drip — a listener added on every request, a cache that never evicts, a closure holding onto something it shouldn't. The good news: they're findable, and you don't need to be a V8 intern to do it.
+Memory leaks in Node are rarely one big mistake. They're usually a slow drip: a listener added on every request, a cache that never evicts, a closure holding onto something it shouldn't. The good news: they're findable, and you don't need to be a V8 intern to do it.
 
 ## Step 1: Confirm it's actually a leak
 
-Before hunting, make sure memory isn't just *growing* — it's *never coming back*. Add a quick check:
+Before hunting, make sure memory isn't just *growing*. It's *never coming back*. Add a quick check:
 
 ```js
 setInterval(() => {
@@ -41,7 +41,7 @@ Then open `chrome://inspect` in Chrome, click your process, and open the **Memor
 3. Take a second snapshot.
 4. Take a *third* snapshot and select it in the dropdown.
 
-DevTools shows a comparison between the last two snapshots. What you want is the **"Retained size" delta** — the objects that were born between snapshot 2 and 3 and never released. Look for the biggest deltas with names you recognize: your own classes, buffers, socket objects.
+DevTools shows a comparison between the last two snapshots. What you want is the **"Retained size" delta**: the objects that were born between snapshot 2 and 3 and never released. Look for the biggest deltas with names you recognize: your own classes, buffers, socket objects.
 
 ## Step 3: The usual suspects
 
@@ -56,9 +56,9 @@ db.on('change', handleChange)
 
 If you must listen per-request, use `{ once: true }` where you can, remove the listener in a cleanup path, or attach the listener once at startup and pass the request context through.
 
-**Caches without eviction.** A `Map` that stores results keyed by request — and never clears. If your cache doesn't have a max size, a TTL, or an LRU strategy, it's not a cache, it's a leak with good intentions. `lru-cache` or a simple size check beats a growing `Map` every time.
+**Caches without eviction.** A `Map` that stores results keyed by request and never clears. If your cache doesn't have a max size, a TTL, or an LRU strategy, it's not a cache, it's a leak with good intentions. `lru-cache` or a simple size check beats a growing `Map` every time.
 
-**Closures over large objects.** A function defined inside a route handler captures a big request body, then gets stored somewhere that outlives the request — a listener, a queue, a module-level array. The classic: pushing into a module-level array "temporarily" and forgetting to shift.
+**Closures over large objects.** A function defined inside a route handler captures a big request body, then gets stored somewhere that outlives the request: a listener, a queue, a module-level array. The classic: pushing into a module-level array "temporarily" and forgetting to shift.
 
 ## Step 4: The heap profiler
 
@@ -68,14 +68,14 @@ For leaks tied to specific operations, the built-in `--heap-prof` flag records a
 node --heap-prof --heap-prof-interval 512 server.js
 ```
 
-It writes a `.heapprofile` file you can open in DevTools' Memory tab. The "Allocation sampling" view sorts by total allocation — anything huge that you can't explain is worth a closer look.
+It writes a `.heapprofile` file you can open in DevTools' Memory tab. The "Allocation sampling" view sorts by total allocation. Anything huge that you can't explain is worth a closer look.
 
 ## Prevention beats debugging
 
 - Set `--max-old-space-size` so the process fails loudly instead of OOM-ing the whole box.
 - Add a leak test to CI: run your smoke test thousands of times and assert heap usage stays flat.
-- Use `process.on('warning', ...)` to catch `MaxListenersExceededWarning` — Node literally tells you when you're adding too many listeners, and ignoring it is how the drip starts.
+- Use `process.on('warning', ...)` to catch `MaxListenersExceededWarning`. Node literally tells you when you're adding too many listeners, and ignoring it is how the drip starts.
 
 ## Conclusion
 
-Memory leaks are boring to hunt and embarrassing to find — usually it's a cache or a listener you wrote with good intentions. Snapshot, compare, suspect the cache. And once you find it, add a guard so it can't sneak back in.
+Memory leaks are boring to hunt and embarrassing to find. Usually it's a cache or a listener you wrote with good intentions. Snapshot, compare, suspect the cache. And once you find it, add a guard so it can't sneak back in.

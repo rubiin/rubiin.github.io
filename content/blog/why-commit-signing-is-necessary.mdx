@@ -9,7 +9,7 @@ coverImage: "/blog/why-commit-signing-is-necessary/cover.webp"
 views: 11800
 ---
 
-In Git, when you push code to origin (a.k.a. the remote server), it uses your email address and name to distinguish between commits made by individual users — out of the box. So you can identify the commits made by you or your coworker by simply checking `git log`.
+In Git, when you push code to origin (a.k.a. the remote server), it uses your email address and name to distinguish between commits made by individual users, out of the box. So you can identify the commits made by you or your coworker by simply checking `git log`.
 
 A simple `git log` would output something like this:
 
@@ -19,7 +19,7 @@ As you can see, a name and email under the author tag is associated with every c
 
 ## How spoofing works
 
-Since this info is readily available to anyone who can view the repo, anyone can mimic a user by simply changing their own Git config file and adding the target's name and email address. If that person has permission to push changes to the repo, all their commits from then on would look like they were made by the target. That's where **commit signing** comes into play — and helps mitigate this.
+Since this info is readily available to anyone who can view the repo, anyone can mimic a user by simply changing their own Git config file and adding the target's name and email address. If that person has permission to push changes to the repo, all their commits from then on would look like they were made by the target. That's where **commit signing** comes into play, and helps mitigate this.
 
 ## How signing works
 
@@ -27,6 +27,6 @@ Signing a commit involves using your private key to create a unique digital fing
 
 ## Conclusion
 
-Commit signing prevents unauthorized changes and ensures the integrity of the codebase, making it a best practice for any team prioritizing security and accountability in their development workflows.
+Without signing, anyone with push access can impersonate you. With signing, every commit has a cryptographic proof of authorship. Set it up once, and your team stops wondering who actually wrote what.
 
 For a step-by-step guide, see GitHub's docs on [signing commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).

@@ -1,7 +1,7 @@
 ---
 title: "Terminal 101 - Xargs"
 date: "2024-05-15"
-description: "xargs builds and executes commands from standard input — here is how to use it safely and effectively."
+description: "xargs builds and executes commands from standard input. Here is how to use it safely and well."
 tags: ["terminal"]
 category: "linux"
 featured: false
@@ -9,7 +9,7 @@ coverImage: "/blog/terminal-101---xargs/cover.webp"
 views: 13600
 ---
 
-`xargs` is a command in Unix and Unix-like operating systems used to build and execute commands from standard input. It's particularly handy when you want to pass the output of one command as arguments to another command. Here are a few common use cases with examples.
+`xargs` builds and executes commands from standard input. It's the glue between a command that produces output and a command that takes arguments. Here are a few common use cases.
 
 ## Deleting multiple files
 
@@ -45,4 +45,4 @@ This command finds all files in `/path/to/search` containing `search_term`, then
 
 ## Conclusion
 
-Overall, `xargs` is a valuable tool for command-line efficiency, especially when dealing with large datasets or when needing to process a large number of files or arguments. Its ability to optimize command execution and handle complex scenarios makes it an essential part of a Unix-like system's toolkit.
+`xargs` turns a list on stdin into arguments for the next command. Pipe, pick, act. That's the pattern, and it covers most use cases.

@@ -13,7 +13,7 @@ Picture a tiny coffee shop with one barista. That's your JavaScript runtime: one
 
 ## The barista
 
-The **call stack** is the barista's hands. They can only hold one coffee at a time. When you call a function, it goes on the stack; when it returns, it comes off. If something blocks — say, an infinite loop — the barista freezes mid-pour and the whole shop stops. That's your frozen tab.
+The **call stack** is the barista's hands. They can only hold one coffee at a time. When you call a function, it goes on the stack; when it returns, it comes off. If something blocks, say, an infinite loop, the barista freezes mid-pour and the whole shop stops. That's your frozen tab.
 
 ## The regulars cut the line
 
@@ -35,7 +35,7 @@ Promise.resolve().then(() => console.log('3')) // microtask → cuts in
 console.log('4')                             // 4
 ```
 
-Output: `1, 4, 3, 2`. Synchronous code runs first, then the microtask queue drains completely, *then* the macrotask runs. The `setTimeout` didn't wait "0ms" — it waited for the entire microtask queue to clear, plus every macrotask ahead of it.
+Output: `1, 4, 3, 2`. Synchronous code runs first, then the microtask queue drains completely, *then* the macrotask runs. The `setTimeout` didn't wait "0ms". It waited for the entire microtask queue to clear, plus every macrotask ahead of it.
 
 ## Why this matters
 
@@ -43,7 +43,7 @@ This mental model explains a bunch of real bugs:
 
 - **"Why is my timeout late?"** Because microtasks and other macrotasks got served first. `setTimeout(fn, 0)` means "as soon as the queue allows", not "immediately".
 - **"Why does my promise chain run before my setTimeout?"** Because promises are regulars.
-- **"Why does my UI freeze during a long loop?"** Because the barista can't serve anyone — regulars or not — while a synchronous task is running. The render step (painting the screen) only happens between tasks, so a heavy synchronous loop starves the UI.
+- **"Why does my UI freeze during a long loop?"** Because the barista can't serve anyone, regulars or not, while a synchronous task is running. The render step (painting the screen) only happens between tasks, so a heavy synchronous loop starves the UI.
 
 ## The full loop, one more time
 

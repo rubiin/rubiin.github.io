@@ -9,7 +9,7 @@ coverImage: "/blog/measure-function-execution-time-in-golang/cover.webp"
 views: 8200
 ---
 
-Sometimes you want to keep track of how long a function takes to complete a task in Go — for example, for performance evaluation. Here's a one-liner that tracks the execution time of a complete function call and logs the result to standard output.
+Sometimes you want to keep track of how long a function takes to complete a task in Go, for example, for performance evaluation. Here's a one-liner that tracks the execution time of a complete function call and logs the result to standard output.
 
 ## The timeTrack helper
 
@@ -22,7 +22,7 @@ func timeTrack(start time.Time, name string) {
 
 ## Using it
 
-The usage is fairly simple and straightforward: **defer** the call to `timeTrack` before doing the actual work. Because `defer` runs when the function returns, `time.Since(start)` will measure the full duration of the call:
+**Defer** the call to `timeTrack` before doing the actual work. Because `defer` runs when the function returns, `time.Since(start)` measures the full duration of the call:
 
 ```go
 package main
@@ -38,4 +38,4 @@ func main() {
 
 ## Conclusion
 
-With a `defer` + `time.Since` pair, measuring function execution time in Go is a one-liner. It's perfect for quick performance checks — just remember to pass `time.Now()` at the top of the function you want to measure.
+With a `defer` + `time.Since` pair, measuring function execution time in Go is a one-liner. It's perfect for quick performance checks. Just remember to pass `time.Now()` at the top of the function you want to measure.

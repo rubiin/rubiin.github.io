@@ -1,7 +1,7 @@
 ---
 title: "Typescript notes"
 date: "2022-05-07"
-description: "Practical TypeScript notes — the unknown type, null and undefined checks, and everyday gotchas, each with before-and-after code examples."
+description: "Practical TypeScript notes. The unknown type, null and undefined checks, and everyday gotchas, each with before-and-after code examples."
 tags: []
 category: "typescript"
 featured: true
@@ -9,7 +9,7 @@ views: 45100
 coverImage: "/blog/typescript-notes/cover.webp"
 ---
 
-Practical TypeScript notes from everyday work — the unknown type, null and undefined checks, composing types, and the gotchas that trip people up. Each tip comes with before-and-after code examples.
+Practical TypeScript notes from everyday work. The unknown type, null and undefined checks, composing types, and the gotchas that trip people up. Each tip comes with before-and-after code examples.
 
 ## Type safety essentials
 
@@ -89,13 +89,13 @@ function isSquare(shape: Shape): boolean {
 }
 ```
 
-However, TypeScript won't know the shape is `Square` even if it returns `true` — so it's best to use the `is` form for type checking.
+However, TypeScript won't know the shape is `Square` even if it returns `true`. So it's best to use the `is` form for type checking.
 
 ## Composing types
 
 ### Intersection types (`&`)
 
-Intersection types behave like inheritance in classes — the attributes of one type are inherited by another type without duplication:
+Intersection types behave like inheritance in classes. The attributes of one type are inherited by another type without duplication:
 
 ```js
 type Point2d = {
@@ -111,11 +111,11 @@ const p1: Point2d = {x: 1, y: 2}
 const p2: Point3d = {x: 1, y: 2, z: 9}
 ```
 
-`Point3d` has all the members of `Point2d` plus member `z`. All members in intersection types are required — not passing `z` on a `Point3D` will cause an error.
+`Point3d` has all the members of `Point2d` plus member `z`. All members in intersection types are required. Not passing `z` on a `Point3D` will cause an error.
 
 ### Union types (`|`)
 
-A union type is defined with the pipe operator `|`. The value can be either of the single types or a combination — all properties of the combination are optional:
+A union type is defined with the pipe operator `|`. The value can be either of the single types or a combination. All properties of the combination are optional:
 
 ```js
 interface A {
@@ -173,7 +173,7 @@ const unionAB5: UnionAB = {
 
 ### Optional properties (`?`)
 
-Optional variables in a type are annotated with `?`. This means the value may or may not be passed — it works on class variables as well:
+Optional variables in a type are annotated with `?`. This means the value may or may not be passed. It works on class variables as well:
 
 ```js
 type PointXd = {
@@ -217,7 +217,7 @@ const student: Student = {
 
 ### Index signatures
 
-Objects in JS can be accessed with an index signature — `Obj[key]`, similar to arrays. In TypeScript we can define the type of the index while accessing object values:
+Objects in JS can be accessed with an index signature, `Obj[key]`, similar to arrays. In TypeScript we can define the type of the index while accessing object values:
 
 ```js
 type Person = {
@@ -266,7 +266,7 @@ const addFullName = <T>(obj: T) => {
 }
 ```
 
-Here we define a parameter of generic type `T`. If we try to access the properties of the parameter, even if they exist, we get an error like `Property 'lastName' does not exist on type 'T'`. We can fix this by adding generic constraints, which tell TypeScript the generic has those properties — and require the passed value to have `firstName` and `lastName`:
+Here we define a parameter of generic type `T`. If we try to access the properties of the parameter, even if they exist, we get an error like `Property 'lastName' does not exist on type 'T'`. We can fix this by adding generic constraints, which tell TypeScript the generic has those properties, and require the passed value to have `firstName` and `lastName`:
 
 ```js
 type NamedValues = {firstName: string, lastName: string};
@@ -339,7 +339,7 @@ function area(shape: Shape) {
 
 ### Interface merging
 
-Interface and `type` are somewhat the same, but `type` offers more features — and `extends` can be used with interfaces where `&` is used with types. Interfaces also support **declaration merging**: if two interfaces with the same name exist, their bodies are merged:
+Interface and `type` are somewhat the same, but `type` offers more features, and `extends` can be used with interfaces where `&` is used with types. Interfaces also support **declaration merging**: if two interfaces with the same name exist, their bodies are merged:
 
 ```js
 interface Person {
@@ -357,7 +357,7 @@ console.log(person);
 
 ### Implementing a type
 
-When a class implements a type/interface, it should have all the attributes mentioned in the interface/type — it acts as a blueprint:
+When a class implements a type/interface, it should have all the attributes mentioned in the interface/type. It acts as a blueprint:
 
 ```js
 type Person = {
@@ -374,7 +374,7 @@ class Student implements Person {
 
 ### Abstract classes
 
-An abstract class is typically used to define common behaviors for derived classes to extend. Unlike a regular class, an abstract class cannot be instantiated directly — the unimplemented methods are to be implemented by the classes that extend it:
+An abstract class is typically used to define common behaviors for derived classes to extend. Unlike a regular class, an abstract class cannot be instantiated directly. The unimplemented methods are to be implemented by the classes that extend it:
 
 ```js
 abstract class Logger {
@@ -397,17 +397,17 @@ logger.log("Hello")
 
 ### The never type
 
-The `never` type represents values that can never occur — for example, a function that always throws, or the exhaustive-else branch of a union check. It's the "empty set" of TypeScript types and helps the compiler verify that all cases are handled.
+The `never` type represents values that can never occur, for example, a function that always throws, or the exhaustive-else branch of a union check. It's the "empty set" of TypeScript types and helps the compiler verify that all cases are handled.
 
 ## Everyday gotchas
 
 ### Non-null assertion (`!`)
 
-Not-null assertion can be made using the `!` operator — see [this article](https://dev.to/this-is-learning/typescript-tips-tricks-non-null-assertion-operator-21eb) for examples.
+Not-null assertion can be made using the `!` operator. See [this article](https://dev.to/this-is-learning/typescript-tips-tricks-non-null-assertion-operator-21eb) for examples.
 
 ### Definite assignment
 
-Definitive assignment (`!`) is used to tell TypeScript that a value will be defined — and it's up to you to make sure it is:
+Definitive assignment (`!`) is used to tell TypeScript that a value will be defined, and it's up to you to make sure it is:
 
 ```js
 let person: string
@@ -429,4 +429,4 @@ let person!: string
 
 ## Conclusion
 
-TypeScript enhances JavaScript development by introducing static types, which help catch errors early in the development process and improve code maintainability. By providing a type system, it allows developers to define the structure of their code more clearly, enabling better collaboration and understanding in larger codebases.
+TypeScript's type system catches mistakes at compile time instead of in production. The features in this post, unknown, type guards, discriminated unions, generics, are the ones that come up most often in day-to-day work.

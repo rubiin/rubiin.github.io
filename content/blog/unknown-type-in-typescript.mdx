@@ -1,7 +1,7 @@
 ---
 title: "Unknown type in typescript"
 date: "2022-04-25"
-description: "The unknown type in typescript is a common type that you will likely to come across. It is a strict version of the any type and in terms of accepting data, i…"
+description: "The unknown type in TypeScript is a strict version of any. It accepts any value, but forces you to narrow the type before using it."
 tags: ["types", "javascript"]
 category: "typescript"
 featured: false
@@ -9,7 +9,7 @@ coverImage: "/blog/unknown-type-in-typescript/cover.webp"
 views: 19700
 ---
 
-The `unknown` type in TypeScript is a common type you'll likely come across. It's a strict version of the `any` type: like `any`, it accepts any data type, but there's a minor difference between them. Since an `unknown` value can hold multiple types, TypeScript forces you to perform a type assertion (or a type check) before using any of the type's functions.
+The `unknown` type in TypeScript is a strict version of `any`. Like `any`, it accepts any value, but TypeScript won't let you use that value without narrowing its type first.
 
 ## The problem with any
 
@@ -21,7 +21,7 @@ function readAny(val: any) {
 }
 ```
 
-In the above example, we use the `any` type for the value. Since `trim` is a string function, this works fine for string data. However, when you supply numbers or booleans, you get a **runtime error** — `any` skips type checking entirely.
+In the above example, we use the `any` type for the value. Since `trim` is a string function, this works fine for string data. However, when you supply numbers or booleans, you get a **runtime error**. `any` skips type checking entirely.
 
 ## Why unknown is safer
 
@@ -42,8 +42,8 @@ function readAny(val: unknown) {
 }
 ```
 
-By checking `typeof val === 'string'`, TypeScript narrows `val` to `string` inside the block — and the error disappears, while staying safe for every other type.
+By checking `typeof val === 'string'`, TypeScript narrows `val` to `string` inside the block, and the error disappears, while staying safe for every other type.
 
 ## Conclusion
 
-The `unknown` type in TypeScript provides a safe alternative to `any`, offering type safety while still allowing flexibility in dynamic programming. When a value is of type `unknown`, it forces developers to perform type checks before using the value, reducing the risk of runtime errors. This encourages more deliberate and safer code practices compared to `any`, which bypasses type checking. The `unknown` type is particularly useful in scenarios involving user input or third-party APIs, where the exact type may not be known at compile time.
+`unknown` is `any` with guardrails. You can assign anything to it, but you have to narrow it before you call methods on it. Use it when you genuinely don't know the type at compile time, like user input or third-party API responses.

@@ -1,7 +1,7 @@
 ---
 title: "Getting started with Api development on Nodejs"
 date: "2019-09-19"
-description: "Before we get our hands dirty and get a move on , I assume you have a sound knowledge of js .I am also assuming that you have nodejs installed on your machin…"
+description: "Scaffold a Node.js project and build your first Express API with a few routes. Assumes basic JavaScript knowledge."
 tags: ["backend", "express"]
 category: "nodejs"
 featured: false
@@ -9,15 +9,15 @@ views: 16900
 coverImage: "/blog/getting-started-with-api-development-on-nodejs/cover.webp"
 ---
 
-Before we get our hands dirty, I'll assume you have a sound knowledge of JavaScript and Node.js installed on your machine. In this first part, we'll scaffold a Node.js project and build our first Express API with a few routes.
+I'll assume you have a working knowledge of JavaScript and Node.js installed on your machine. In this first part, we'll scaffold a Node.js project and build our first Express API with a few routes.
 
 ## Choosing a framework
 
-There are plenty of web frameworks for Node.js — a few popular ones are **Express**, **Koa**, and **Hapi**. We'll go with Express, as it's the most widely used web framework for Node.js, with tons of modules built to work with it. The syntax and learning curve are easy to pick up, and if you get stuck, there's an answer to nearly every question on Stack Overflow.
+There are plenty of web frameworks for Node.js. A few popular ones: Express, Koa, Hapi. We'll go with Express, since it's the most widely used and has the largest ecosystem.
 
 ## Project setup
 
-To get started, create a directory and head into it. Once you're in the project directory, open your terminal and run `npm init` to start a Node.js project — fill in the details as you like.
+To get started, create a directory and head into it. Once you're in the project directory, open your terminal and run `npm init` to start a Node.js project. Fill in the details as you like.
 
 ## Installation
 
@@ -29,7 +29,7 @@ Hit enter and that should install and update the dependencies in your `package.j
 
 Here's what each module does:
 
-- **Nodemon** monitors your Node.js application for changes and automatically restarts the server — perfect for development, so you don't have to manually restart the server to see your changes.
+- **Nodemon** monitors your Node.js application for changes and automatically restarts the server. Perfect for development, so you don't have to manually restart the server to see your changes.
 - **Morgan** is an HTTP request logger middleware for Node.js.
 - **Body-parser** parses incoming request bodies in a middleware before your handlers, making the data available under `req.body`.
 
@@ -82,7 +82,7 @@ You can also use regular expressions in routes to make them more dynamic.
 
 ### Route parameters
 
-To define routes with route parameters, simply specify the parameter in the path of the route, as shown below. This will output all the parameters — `userId` and `bookId` — as an object. You can also access a single parameter with `req.params.paramname`:
+To define routes with route parameters, simply specify the parameter in the path of the route, as shown below. This will output all the parameters, `userId` and `bookId`, as an object. You can also access a single parameter with `req.params.paramname`:
 
 ```javascript
 app.get("/users/:userId/books/:bookId", function (req, res) {
@@ -123,8 +123,4 @@ app.listen(8000);
 
 ## Conclusion
 
-Building APIs with Express.js provides a fast and flexible framework for creating server-side applications in Node.js. Express offers a lightweight structure for handling HTTP requests, middleware integration, and routing, making it a popular choice for developing RESTful APIs.
-
-That's all for this part. In the next part, we'll look at middlewares and how to use them in Express.
-
-Happy coding!
+That covers the basics: a project directory, a few dependencies, and a handful of routes. In the next part, we'll look at middleware and how to use it in Express.

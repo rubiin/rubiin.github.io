@@ -9,17 +9,17 @@ coverImage: "/blog/caching-your-express-app/cover.webp"
 views: 15800
 ---
 
-Adding a caching layer to your Express app is one of the highest-impact performance wins available: it cuts repeated network roundtrips, reduces server load, and can make responses dramatically faster. In this post we'll add a Redis-backed cache to a simple Express endpoint and measure the difference.
+Adding a caching layer to your Express app cuts repeated network roundtrips, reduces server load, and makes responses faster. In this post we'll add a Redis-backed cache to a simple Express endpoint and measure the difference.
 
 ## What is caching?
 
-Fetching something over the network is both slow and expensive. Large responses require many roundtrips between the client and server, which delays when data becomes available and when the browser can process it — and it also incurs data costs for the visitor. As a result, the ability to cache and reuse previously fetched resources is a critical aspect of optimizing for performance.
+Fetching something over the network is slow and expensive. Large responses require many roundtrips between the client and server, which delays when data becomes available and when the browser can process it. It also incurs data costs for the visitor. As a result, caching and reusing previously fetched resources is a critical part of optimizing for performance.
 
 **Redis** is an open-source (BSD-licensed), in-memory data structure store, used as a database, cache, and message broker. Redis always serves and modifies data in the server's main memory, so the system can quickly retrieve the data it needs. It works to improve load performance from relational databases or NoSQL by creating an excellent in-memory cache that reduces access latency. Using Redis you can store cache entries with `SET` and `GET`; it also supports complex data types like Lists, Sets, and ordered data structures.
 
 ## Installation
 
-Installing Redis is pretty straightforward — check the [quickstart guide](https://redis.io/topics/quickstart) for your platform.
+Installing Redis is straightforward. Check the [quickstart guide](https://redis.io/topics/quickstart) for your platform.
 
 To add the Redis client to Node.js, simply run:
 
@@ -85,11 +85,9 @@ const axios = require('axios')
 async function getDogs(req,res) {
   try {
     client.get('dogsdata', async (err, result) => {
-      if (result) {
-        // Cache hit — serve the cached payload
+      if (result) {         // Cache hit: serve the cached payload
         res.send(result);
-      } else {
-        // Cache miss — fetch from the API and store the result
+      } else {         // Cache miss: fetch from the API and store the result
         const dogs = await axios.get('https://dog.ceo/api/breeds/list/all');
 
         // Set the string-key `dogsdata` in our cache with the contents of the
@@ -113,10 +111,10 @@ app.listen(3000, function() {
 
 Here we first fetch the data from the cache under the key `dogsdata`. If the data exists in the cache, we serve it directly; otherwise, we make the request to the API via axios and update the cache. Every time the API is called, the cache is refreshed with the latest data.
 
-> Remember: Redis is a key-value store, so the key you set data with must match the key you fetch data with — in this case `dogsdata`.
+> Remember: Redis is a key-value store, so the key you set data with must match the key you fetch data with. In this case `dogsdata`.
 
 If you compare both implementations, you can see that caching reduces the time taken to serve the request by almost more than 99%.
 
 ## Conclusion
 
-Effective caching can greatly enhance system performance and user experience, but it requires careful planning to balance speed, memory usage, and data accuracy.
+Cache what's expensive to compute and unlikely to change. Use a TTL so stale data doesn't stick around. And measure before and after, because the difference is usually obvious.

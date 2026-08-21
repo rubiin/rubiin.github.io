@@ -9,9 +9,9 @@ coverImage: "/blog/fzf-fuzzy-finder/cover.webp"
 views: 430
 ---
 
-I used to avoid the terminal for anything beyond running a dev server. Directory trees, long file names, remembering that one flag — it all felt like effort. Then I installed `fzf`, and something clicked: the terminal became a search bar.
+I used to avoid the terminal for anything beyond running a dev server. Directory trees, long file names, remembering that one flag, it all felt like effort. Then I installed `fzf`, and something clicked: the terminal became a search bar.
 
-fzf is a fuzzy finder. Pipe anything into it, and you get an interactive, type-to-filter list. Pick a line, and fzf prints it to stdout — which means you can chain it into any other command.
+fzf is a fuzzy finder. Pipe anything into it, and you get an interactive, type-to-filter list. Pick a line, and fzf prints it to stdout, which means you can chain it into any other command.
 
 ## Install it
 
@@ -29,9 +29,9 @@ sudo apt install fzf
 find . -name "*.ts" | fzf
 ```
 
-Type a few characters — any position, any order — and the list narrows. `vite conf` matches `vite.config.ts` instantly. Hit enter, and the selected path is printed.
+Type a few characters, any position, any order, and the list narrows. `vite conf` matches `vite.config.ts` instantly. Hit enter, and the selected path is printed.
 
-That alone is handy, but the magic is how it composes. `vim "$(find . -type f | fzf)"` opens whichever file you pick — though fzf ships much better integrations than that.
+That alone is handy, but the magic is how it composes. `vim "$(find . -type f | fzf)"` opens whichever file you pick, though fzf ships much better integrations than that.
 
 ## The three killer keybindings
 
@@ -74,8 +74,8 @@ alias gcb='git checkout "$(git branch --format="%(refname:short)" | fzf)"'
 alias fk='kill "$(ps aux | fzf | awk "{print \$2}")"'
 ```
 
-The `ps`-pipe one is my favorite — I see the full command line, confirm it's the right process, and it's gone.
+The `ps`-pipe one is my favorite. I see the full command line, confirm it's the right process, and it's gone.
 
 ## Conclusion
 
-fzf doesn't make you type less. It makes you *think* less — you stop memorizing file trees and command syntax and just... search. Install it, add the keybindings, and give it a week. The terminal stops being a chore and starts being the fastest thing on your machine.
+fzf doesn't make you type less. It makes you *think* less. You stop memorizing file trees and command syntax and just search. Install it, add the keybindings, and give it a week. The terminal stops being a chore and starts being the fastest thing on your machine.

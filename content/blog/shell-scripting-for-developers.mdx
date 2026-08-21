@@ -9,7 +9,7 @@ coverImage: "/blog/shell-scripting-for-developers/cover.webp"
 views: 380
 ---
 
-"Just write a script" is the easiest sentence in software and the most dangerous. Shell is where the rules you learned in every other language quietly don't apply — unquoted variables, silent failures, spaces in file names waiting to ambush you. Here's the starter kit that keeps my scripts alive.
+"Just write a script" is the easiest sentence in software and the most dangerous. Shell is where the rules you learned in every other language quietly don't apply. Unquoted variables, silent failures, spaces in file names waiting to ambush you. Here's the starter kit that keeps my scripts alive.
 
 ## The non-negotiable shebang line
 
@@ -57,7 +57,7 @@ echo "Deploying $project"
 
 ## Checking whether things worked
 
-With `set -e`, a failing command aborts the script — but sometimes you *want* to handle failure yourself:
+With `set -e`, a failing command aborts the script, but sometimes you *want* to handle failure yourself:
 
 ```sh
 if grep -q "error" app.log; then
@@ -66,7 +66,7 @@ if grep -q "error" app.log; then
 fi
 ```
 
-Remember `$?` holds the last exit code, and 0 means success. A command that "prints an error" but exits 0 didn't actually fail — check exit codes, not output.
+Remember `$?` holds the last exit code, and 0 means success. A command that "prints an error" but exits 0 didn't actually fail. Check exit codes, not output.
 
 ## Loops without footguns
 
@@ -76,7 +76,7 @@ for file in src/*.ts; do
 done
 ```
 
-Note the `*` — if there are no matches, the loop runs once with the literal string `src/*.ts`. Guard against it:
+Note the `*`. If there are no matches, the loop runs once with the literal string `src/*.ts`. Guard against it:
 
 ```sh
 shopt -s nullglob   # no match → empty list

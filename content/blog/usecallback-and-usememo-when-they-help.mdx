@@ -1,7 +1,7 @@
 ---
 title: "useCallback and useMemo: when they actually help (and when they don't)"
 date: "2026-04-13"
-description: "Memoization is not a free win. A plain-English look at when useCallback and useMemo earn their keep — and the cases where they're just busywork."
+description: "Memoization is not a free win. A plain-English look at when useCallback and useMemo earn their keep, and the cases where they're just busywork."
 tags: ["react", "performance"]
 category: "react"
 featured: false
@@ -23,7 +23,7 @@ const sortedList = useMemo(() => {
 }, [items])
 ```
 
-`useCallback` does the same thing for functions — it returns a stable reference, so the function isn't recreated on every render:
+`useCallback` does the same thing for functions. It returns a stable reference, so the function isn't recreated on every render:
 
 ```js
 const handleSave = useCallback(() => {
@@ -43,7 +43,7 @@ const ExpensiveChart = memo(function ExpensiveChart({ onHover }) {
 })
 ```
 
-**2. Expensive calculations that don't need to run every render.** If computing a value costs real time — filtering a 10,000-item list, parsing a big blob — and the inputs change rarely, `useMemo` is a legit win. Not for `arr.map(x => x * 2)`.
+**2. Expensive calculations that don't need to run every render.** If computing a value costs real time, filtering a 10,000-item list, parsing a big blob, and the inputs change rarely, `useMemo` is a legit win. Not for `arr.map(x => x * 2)`.
 
 **3. Keeping effects from re-running.** If an effect depends on a function, an unstable reference can trigger the effect on every render. That's the classic "why is my effect looping" bug, and a stable callback is often the fix.
 
@@ -55,7 +55,7 @@ const ExpensiveChart = memo(function ExpensiveChart({ onHover }) {
 
 ## The 2026 twist: React Compiler
 
-The React Compiler now handles most of this automatically — it memoizes your components at build time, so the vast majority of hand-written `useMemo`/`useCallback` calls become unnecessary. The guidance has genuinely shifted: write the plain version first, and only reach for these hooks when the profiler shows a real problem.
+The React Compiler now handles most of this automatically. It memoizes your components at build time, so the vast majority of hand-written `useMemo`/`useCallback` calls become unnecessary. The guidance has genuinely shifted: write the plain version first, and only reach for these hooks when the profiler shows a real problem.
 
 ## Conclusion
 

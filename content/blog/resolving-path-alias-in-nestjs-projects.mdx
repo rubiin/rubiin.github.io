@@ -9,7 +9,7 @@ coverImage: "/blog/resolving-path-alias-in-nestjs-projects/cover.webp"
 views: 9700
 ---
 
-Building a NestJS project in TypeScript is really awesome, but as the project starts to grow, your directories grow too — making your imports lengthy like this:
+Building a NestJS project in TypeScript is great, but as the project starts to grow, your directories grow too, making your imports long like this:
 
 ```javascript
 import { User } from "../../user/model";
@@ -37,7 +37,7 @@ TypeScript allows the use of **path mapping**, which lets arbitrary module paths
 }
 ```
 
-The first property we must add is `baseUrl` — notice that paths are resolved relative to `baseUrl`. The second property is `paths`, which tells the compiler: for any module import that matches the pattern `"@datorama/utils/*"`, look in the following location.
+The first property we must add is `baseUrl`. Paths are resolved relative to `baseUrl`. The second property is `paths`, which tells the compiler: for any module import that matches the pattern `"@datorama/utils/*"`, look in the following location.
 
 ## The problem
 
@@ -57,7 +57,7 @@ After doing some research on the problem, I came across multiple solutions:
 - [Using the Module Aliases package](https://medium.com/@caludio/how-to-use-module-path-aliases-in-visual-studio-typescript-and-javascript-e7851df8eeaa)
 - Bootstrapping `tsc` with explicit params
 
-Although there are a bunch of solutions above, the first and second didn't work for me. So I went with the third one, which is actually mentioned in the docs of [tsconfig-paths](https://github.com/dividab/tsconfig-paths) — the package Nest uses to resolve these paths at runtime.
+Although there are a bunch of solutions above, the first and second didn't work for me. So I went with the third one, which is mentioned in the docs of [tsconfig-paths](https://github.com/dividab/tsconfig-paths), the package Nest uses to resolve these paths at runtime.
 
 To apply the solution, make a file named `tsconfig-paths-bootstrap.js` (the name is up to you) and copy/paste the snippet below:
 

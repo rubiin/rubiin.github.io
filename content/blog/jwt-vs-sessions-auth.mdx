@@ -1,7 +1,7 @@
 ---
 title: "JWT vs sessions: choosing the right auth for your API"
 date: "2026-08-02"
-description: "Stateless tokens or server-side sessions? The answer depends on who's using your API — here's how to pick without cargo-culting either side."
+description: "Stateless tokens or server-side sessions? The answer depends on who's using your API. Here's how to pick without cargo-culting either side."
 tags: ["auth", "security"]
 category: "auth"
 featured: false
@@ -9,7 +9,7 @@ coverImage: "/blog/jwt-vs-sessions-auth/cover.webp"
 views: 390
 ---
 
-Every few months a blog post declares sessions dead, or declares JWTs a security hole, and the discourse starts again. Both camps are right about the other's weaknesses and mostly wrong about their own. The real question isn't "which is better" — it's "who is your API serving, and what do you need to do when a session goes bad?"
+Every few months a blog post declares sessions dead, or declares JWTs a security hole, and the discourse starts again. Both camps are right about the other's weaknesses and mostly wrong about their own. The real question isn't "which is better". It's "who is your API serving, and what do you need to do when a session goes bad?"
 
 ## How sessions work
 
@@ -26,16 +26,16 @@ request → server looks up session_id → reads user from store
 
 ## How JWTs work
 
-The token holds the state. On login, the server signs a token containing the user's identity and an expiry, and hands it to the client. Every request, the server verifies the signature — no storage, no lookup.
+The token holds the state. On login, the server signs a token containing the user's identity and an expiry, and hands it to the client. Every request, the server verifies the signature. No storage, no lookup.
 
 ```text
 login → server signs token → client stores it
 request → server verifies signature → trusts the claims
 ```
 
-**The superpower: statelessness.** Any instance, any region, any edge node can verify a token without touching shared state. That's why tokens dominate distributed, multi-service, and edge-rendered architectures — and why third-party integrations (OAuth flows, mobile SDKs) almost always end up token-based.
+**The superpower: statelessness.** Any instance, any region, any edge node can verify a token without touching shared state. That's why tokens dominate distributed, multi-service, and edge-rendered architectures, and why third-party integrations (OAuth flows, mobile SDKs) almost always end up token-based.
 
-**The cost:** revocation is hard. A stolen token is valid until it expires, and "log me out everywhere" requires a blacklist — which means you're keeping server-side state anyway, just for the bad cases.
+**The cost:** revocation is hard. A stolen token is valid until it expires, and "log me out everywhere" requires a blacklist, which means you're keeping server-side state anyway, just for the bad cases.
 
 ## A practical decision tree
 
@@ -44,14 +44,14 @@ request → server verifies signature → trusts the claims
 - You need instant revocation, per-device logouts, or server-side MFA/session management.
 - You're comfortable with a session store.
 
-Use a cookie with `HttpOnly`, `Secure`, and `SameSite=Lax` — that combination blocks the scariest attack classes: XSS can't read the cookie, and cross-site scripted requests won't carry it. (Lax still allows plain top-level navigations, which is fine for a JSON API.)
+Use a cookie with `HttpOnly`, `Secure`, and `SameSite=Lax`. That combination blocks the scariest attack classes: XSS can't read the cookie, and cross-site scripted requests won't carry it. (Lax still allows plain top-level navigations, which is fine for a JSON API.)
 
 **Choose short-lived JWTs when:**
 - Your API is consumed by mobile apps or third parties that can't rely on browser cookie behavior.
 - You're building microservices or an edge-deployed API where shared state is a real cost.
 - You need authentication to cross service boundaries without a round-trip.
 
-If you go JWT, do it properly: **short access tokens** (5–15 minutes), a **refresh token stored server-side**, and rotation — each refresh issues a new refresh token and invalidates the old one. Long-lived access tokens with no refresh flow are where "JWT horror stories" come from.
+If you go JWT, do it properly: **short access tokens** (5-15 minutes), a **refresh token stored server-side**, and rotation. Each refresh issues a new refresh token and invalidates the old one. Long-lived access tokens with no refresh flow are where "JWT horror stories" come from.
 
 ## The mistakes both sides make
 
@@ -62,4 +62,4 @@ If you go JWT, do it properly: **short access tokens** (5–15 minutes), a **ref
 
 ## Conclusion
 
-Sessions give you control; tokens give you reach. For a typical web app, start with sessions in an HttpOnly cookie — it's the safest default and revocation is free. Reach for short-lived JWTs when your architecture actually needs statelessness. And whatever you pick, the security properties come from how you store and expire things, not from which side of the argument you're on.
+Sessions give you control; tokens give you reach. For a typical web app, start with sessions in an HttpOnly cookie. It's the safest default and revocation is free. Reach for short-lived JWTs when your architecture actually needs statelessness. And whatever you pick, the security properties come from how you store and expire things, not from which side of the argument you're on.

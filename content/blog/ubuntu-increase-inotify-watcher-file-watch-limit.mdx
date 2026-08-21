@@ -11,7 +11,7 @@ views: 6400
 
 > Possible cause of Vue.js hot reload or LiveReload not working, and failed file watchers in IDEs.
 
-Linux (and tools like the `listen` library) use **inotify** to monitor directories for changes. It's not uncommon to hit the system limit on the number of files you can monitor — for example, Ubuntu Lucid's (64-bit) inotify limit is set to 8192.
+Linux (and tools like the `listen` library) use **inotify** to monitor directories for changes. It's not uncommon to hit the system limit on the number of files you can monitor. For example, Ubuntu Lucid's (64-bit) inotify limit is set to 8192.
 
 ## Check the current limit
 
@@ -24,13 +24,13 @@ cat /proc/sys/fs/inotify/max_user_watches
 
 ## Bump it up (temporary)
 
-You can raise the number — for example, doubling it to 16384:
+You can raise the number, for example doubling it to 16384:
 
 ```sh
 echo 16384 | sudo tee /proc/sys/fs/inotify/max_user_watches
 ```
 
-Bear in mind that inotify watches consume memory — around 160 bytes per watch on 64-bit systems.
+Bear in mind that inotify watches consume memory, around 160 bytes per watch on 64-bit systems.
 
 ## Make it permanent
 
@@ -49,4 +49,4 @@ sudo sysctl -p
 
 ## Conclusion
 
-Increasing the inotify watchers can prevent issues related to file-system monitoring, especially for applications like development tools or servers that handle numerous files or directories. The adjustment can be made temporarily or permanently, depending on your needs — and it helps maintain optimal performance for applications that rely on file-system events.
+Increasing the inotify watchers can prevent issues related to file-system monitoring, especially for applications like development tools or servers that handle many files or directories. The adjustment can be made temporarily or permanently, depending on your needs, and it helps maintain optimal performance for applications that rely on file-system events.

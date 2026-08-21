@@ -9,7 +9,7 @@ coverImage: "/blog/designing-rest-apis-people-like/cover.webp"
 views: 450
 ---
 
-Every API starts with good intentions and ends with someone in a Slack channel asking "why is this endpoint returning a 500 for a validation error?" Good API design isn't about REST purity — it's about making the next developer's life predictable. Here's the stuff that matters most.
+Every API starts with good intentions and ends with someone in a Slack channel asking "why is this endpoint returning a 500 for a validation error?" Good API design isn't about REST purity. It's about making the next developer's life predictable. Here's the stuff that matters most.
 
 ## Nouns, not verbs
 
@@ -23,7 +23,7 @@ PATCH  /users/42   → partial update
 DELETE /users/42   → delete
 ```
 
-The moment you see `/getUsers`, `/createUser`, or — my personal nemesis — `/users/deleteUser`, everyone loses predictability. Actions that don't fit a resource (like "activate" or "resend invite") are the exception where a sub-resource endpoint is fine:
+The moment you see `/getUsers`, `/createUser`, or my personal nemesis `/users/deleteUser`, everyone loses predictability. Actions that don't fit a resource (like "activate" or "resend invite") are the exception where a sub-resource endpoint is fine:
 
 ```text
 POST /users/42/activate
@@ -49,7 +49,7 @@ The cardinal sin: returning 500 for a missing field. The client can't fix a 500,
 
 ## One consistent error shape
 
-Whatever error format you pick, use it everywhere — validation, auth, 404s:
+Whatever error format you pick, use it everywhere: validation, auth, 404s:
 
 ```json
 {
@@ -71,7 +71,7 @@ Offset pagination (`?page=2&limit=20`) is simple and fine for small datasets. Bu
 GET /users?limit=20&cursor=eyJpZCI6MTIzfQ==
 ```
 
-Respond with the next cursor in the response body or a header — and never expose an opaque cursor that clients need to decode.
+Respond with the next cursor in the response body or a header, and never expose an opaque cursor that clients need to decode.
 
 ## Versioning and breaking changes
 
@@ -86,8 +86,8 @@ Headers-based versioning exists, but a version in the URL is visible in logs, sh
 
 ## Idempotency for the writes that matter
 
-`POST /payments` that retries on a network blip could charge someone twice. Accept an `Idempotency-Key` header, cache the key with the response, and return the stored result on repeat attempts. For payments, this isn't a nice-to-have — it's the difference between a support ticket and a chargeback.
+`POST /payments` that retries on a network blip could charge someone twice. Accept an `Idempotency-Key` header, cache the key with the response, and return the stored result on repeat attempts. For payments, this isn't a nice-to-have. It's the difference between a support ticket and a chargeback.
 
 ## Conclusion
 
-Predictability is the whole game. Predictable URLs, predictable status codes, one error shape, honest pagination. Your API doesn't need to be perfect — it needs to be the thing a developer can consume at 2am without reading the docs twice.
+Predictability is the whole game. Predictable URLs, predictable status codes, one error shape, honest pagination. Your API doesn't need to be perfect. It needs to be the thing a developer can consume at 2am without reading the docs twice.

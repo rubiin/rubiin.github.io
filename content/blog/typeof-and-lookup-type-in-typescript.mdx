@@ -1,7 +1,7 @@
 ---
 title: "Typeof and lookup type in typescript"
 date: "2022-05-02"
-description: "How typeof and lookup (indexed access) types work in TypeScript — create type aliases from existing values and extract property types, with real examples."
+description: "How typeof and lookup (indexed access) types work in TypeScript. Create type aliases from existing values and extract property types, with real examples."
 tags: ["types"]
 category: "typescript"
 featured: false
@@ -15,7 +15,7 @@ In TypeScript, the `typeof` operator is used to obtain the type of a variable or
 
 For example, if you have a variable `const user = { name: 'Alice', age: 25 };`, using `typeof user` creates a type that matches the shape of the `user` object, helping to enforce that other variables conform to the same structure.
 
-**Lookup types** (or indexed access types) let you access the type of a specific property within an object type. By using the syntax `Type[Key]` — where `Type` is an object type and `Key` is a property name — you can extract the type of a specific property. For instance, if you have a type `Person` with a property `age`, `Person['age']` yields the type of the `age` property. This feature is useful for creating more dynamic and flexible types based on the structure of existing types.
+**Lookup types** (or indexed access types) let you access the type of a specific property within an object type. By using the syntax `Type[Key]`, where `Type` is an object type and `Key` is a property name, you can extract the type of a specific property. For instance, if you have a type `Person` with a property `age`, `Person['age']` yields the type of the `age` property. This feature is useful for creating more dynamic and flexible types based on the structure of existing types.
 
 ## Typeof in TypeScript
 
@@ -57,4 +57,4 @@ type Roles = requestType["payload"]["roles"] //   roles: {edit: boolean,create: 
 
 ## Conclusion
 
-In TypeScript, `typeof` and lookup types enhance type safety and flexibility. The `typeof` operator allows you to create types based on existing values, ensuring consistency and reducing errors. Lookup types enable you to access and use the type of specific properties within an object, providing a way to build dynamic and reusable type definitions. Together, these features help streamline type management and improve code reliability by leveraging TypeScript's strong typing capabilities.
+`typeof` turns a value into a type. Lookup types let you pull a single property's type out of a larger object. Both are tools for deriving types from what you already have, instead of duplicating definitions.

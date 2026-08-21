@@ -43,7 +43,7 @@ CMD npm start
 
 Here we define two stages: one for compilation and one for actually running the app.
 
-**The build stage** is nothing different from a typical Node.js Dockerfile — the only difference is that we compile the app with `npm run build`.
+**The build stage** is nothing different from a typical Node.js Dockerfile. The only difference is that we compile the app with `npm run build`.
 
 **The runtime stage** is where the important lines live. We install only the production dependencies, and the `COPY --from=0` command tells Docker to copy the `dist` files from the build step onto the deployment stage. Then we expose the port as usual and run the `npm` command that starts the app.
 
@@ -51,4 +51,4 @@ Here we define two stages: one for compilation and one for actually running the 
 
 The full project can be found at: https://github.com/rubiin/dockerpipeline-with-typescript-express
 
-Docker simplifies deploying Node.js applications by packaging the app and its environment into a container. This ensures consistent behavior across different systems, regardless of local dependencies. With Docker, you can create lightweight, isolated containers that include the Node.js runtime, your application code, and any required modules — streamlining development, testing, and deployment across environments, from local machines to cloud platforms.
+Multi-stage builds keep your production image small: compile in one stage, run in another. The build tools never make it into the final image.
