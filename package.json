@@ -68,7 +68,7 @@
     "@vitejs/plugin-react": "^6.1.0",
     "husky": "^9.1.7",
     "knip": "^6.32.2",
-    "lint-staged": "^15.5.2",
+    "lint-staged": "^17.3.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "nitro": "3.0.260610-beta",
     "oxfmt": "^0.64.0",
