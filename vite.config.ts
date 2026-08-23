@@ -102,9 +102,12 @@ export default defineConfig(({ command }) => ({
             // boot-loader, JSON-LD). Giscus injects via DOM, not <script>.
             // Frames restricted to giscus.app; connect-src allows giscus +
             // GitHub avatar CDN. Adjust img-src if external images grow.
+            // 'unsafe-eval' is REQUIRED: @content-collections/mdx evaluates
+            // each post's compiled MDX bundle via Function() on the client,
+            // so every blog route would otherwise crash into the error UI.
             'Content-Security-Policy': [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' https://giscus.app https://www.google-analytics.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://www.google-analytics.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://github.com https://avatars.githubusercontent.com https://www.google-analytics.com",
               "font-src 'self'",
