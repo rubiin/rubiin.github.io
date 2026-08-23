@@ -1,0 +1,165 @@
+---
+title: "My dev setup: Arch, Hyprland, and a terminal-first workflow"
+date: "2026-08-23"
+description: "The full rundown of my Arch Linux setup: Hyprland, WezTerm, Neovim, and every CLI tool I daily drive. What works, what doesn't, and why I chose it."
+tags: ["linux", "dotfiles", "terminal"]
+category: "linux"
+featured: false
+coverImage: "/blog/my-dev-setup/cover.webp"
+views: 0
+---
+
+I've been tweaking my dotfiles for a while now, and I figured I'd write down what I actually use and why. Not every tool here was a revelation. Some I picked because a friend wouldn't shut up about them. Others I stumbled onto at 2am while down a config rabbit hole.
+
+This is the whole stack, from the OS up to the bar.
+
+## The base: Arch Linux
+
+Arch isn't for everyone, but it works for me. The AUR covers almost everything I need. The 1 out of 10 times it doesn't, I either build from source or find a workaround. What I actually care about is that Arch stays out of my way. I install what I want, nothing else. No pre-installed junk, no package manager fighting me on dependencies.
+
+The install process teaches you how Linux works. Not in a gatekeeping way, but in the "oh, so *that's* what an fstab does" way. That knowledge pays off when things break, because eventually they will.
+
+## Hyprland: the tiling compositor
+
+Hyprland is a Wayland compositor with tiling. Windows split automatically. There's no dragging and resizing. You hit a keybinding, and the layout adjusts.
+
+The big draw for me is the workflow. I have 8 workspaces mapped to specific roles:
+
+| Workspace | Role |
+|---|---|
+| W1 | Browser |
+| W2 | Terminal |
+| W3 | Editors |
+| W4 | Utilities (Postman, DB client) |
+| W5 | File manager |
+| W6 | Media players |
+| W7 | Spare |
+| W8 | Steam / Lutris |
+
+Everything opens where it should. Alt+3 takes me to Neovim. Alt+4 to Postman. No hunting through a taskbar.
+
+The config is in `hyprland.conf`. Bindings, window rules, animations, all in one place. Hyprland is fast enough that I never notice it, which is exactly how a compositor should feel.
+
+## The shell: zsh with p10k
+
+Zsh with [powerlevel10k](https://github.com/romkatv/powerlevel10k) for the prompt. I keep the prompt minimal. Git branch, exit code of the last command, current directory. That's it. No SSH indicator, no Node version, no Python virtualenv status. If I need that info, I run a command.
+
+For plugin management I use [sheldon](https://sheldon.cli.rs). Fast, no framework overhead, and the config is a TOML file I can actually read. Two plugins that matter:
+
+- **fast-syntax-highlighting** — colors commands as you type, based on whether they're valid. Sounds small, but catching typos before you hit enter saves real time.
+- **zsh-autosuggestions** — shows a greyed-out suggestion from your history as you type. Hit right arrow to accept. I rarely type full paths anymore.
+
+A few more shell pieces worth mentioning:
+
+- [mise](https://mise.jdx.dev) manages runtime versions. Node, Python, Go, whatever. `mise use --global node@22` and every new shell picks it up. Replaces nvm, pyenv, and all the single-purpose version managers.
+- [zoxide](https://github.com/ajeetdsouza/zoxide) replaces `cd`. Type a few letters of a path you've visited before and it takes you there. `z dot` jumps straight to `~/.config`. It learns from your habits.
+- [pokego](https://github.com/SilasMarvin/pokego) shows a random Pokemon on shell startup. Completely useless. I'd miss it if it stopped working.
+- There's also a [zsh insulter](https://github.com/rcaloras/bash-preexec) that fires insults when you mistype a command. Annoying at first, then funny, then motivating.
+
+## The terminal: WezTerm
+
+WezTerm is a GPU-accelerated terminal written in Lua. The config is a Lua file, which means I can use actual programming logic for things like font fallback and keybindings. It renders fast, handles Unicode well, and the ligatures in MonoLisa look right.
+
+I tried Alacritty and Kitty before this. Alacritty was fast but the YAML config felt limiting. Kitty had features I didn't use. WezTerm hit the middle ground.
+
+## Editor: Neovim
+
+Neovim is the editor. I won't rehash the "why Neovim" argument. I'll say this: once muscle memory sets in, switching between files, buffers, and splits is faster than any GUI editor I've tried. My config is in a separate repo if you want to look at it.
+
+The short version: LSP for autocompletion and diagnostics, telescope for fuzzy finding files, treesitter for syntax highlighting that actually works. Lazy.nvim manages plugins.
+
+I also wrote a few plugins that ship with the dotfiles through Chezmoi:
+
+- **fortune.nvim** — shows a random fortune in the dashboard. Pure novelty.
+- **highlighturl.nvim** — highlights URLs in buffers so they're easy to spot.
+- **goodies.nvim** — small quality-of-life functions I kept reaching for.
+- **vimwordlist.nvim** — manages a personal word list for spell checking.
+
+## tmux
+
+I run [tmux](https://github.com/tmux/tmux) inside WezTerm. Panes, windows, sessions. detach and reattach when SSH-ing into a server. The config is minimal: prefix is `Ctrl+A` (not `Ctrl+B`, which is too far from home row), vim keybindings for navigation, and a Catppuccin theme to match everything else.
+
+Most of the time I don't think about tmux. That's the point.
+
+## CLI tools that stuck
+
+These are the ones that made it past the "try it for a week" phase:
+
+- **[fzf](https://github.com/junegunn/fzf)** — fuzzy finder. Ctrl+R searches command history. Ctrl+T pastes a file path. Alt+C fuzzy-cd's into a directory. I use these hundreds of times a day without thinking.
+- **[bat](https://github.com/sharkdp/bat)** — cat with syntax highlighting and line numbers. I aliased `cat` to `bat` and never looked back.
+- **[eza](https://github.com/eza-community/eza)** — replaces `ls`. Shows git status, file types with color, and tree view. `eza --tree --level=2` is my go-to for getting oriented in a new repo.
+- **[lazygit](https://github.com/jesseduffield/lazygit)** — full TUI for git. Staging individual lines, interactive rebase, conflict resolution. I still use the CLI for quick stuff, but anything beyond a commit goes through lazygit.
+- **[atuin](https://atuin.sh)** — syncs shell history across machines and gives you a searchable UI. `atuin search` finds that command from three months ago. It replaces `Ctrl+R` in a meaningful way.
+- **[btop](https://github.com/aristocratos/btop)** — resource monitor. Looks good, shows what I need, and doesn't eat CPU while running.
+- **[yazi](https://github.com/sxyazi/yazi)** — terminal file manager. Preview pane, batch rename, built-in image preview. I still use Dolphin for GUI file management, but yazi handles the terminal side.
+- **[fastfetch](https://github.com/fastfetch-cli/fastfetch)** — system info on login. The config is tuned to show exactly what I care about: kernel, uptime, package count, memory.
+- **[ripgrep](https://github.com/BurntSushi/ripgrep)** — grep, but fast. I have a config file at `~/.config/ripgrep/config` that sets sensible defaults. fzf and Telescope both use it under the hood.
+- **[lazydocker](https://github.com/jesseduffield/lazydocker)** — like lazygit, but for Docker. Containers, images, volumes, logs. I alias it as `lzd`.
+- **[just](https://github.com/casey/just)** — command runner. Think Make, but the config file is readable. I alias it as `js`. Each project gets a `justfile` with the common tasks.
+- **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** — video and audio downloader. `ytd` for video, `ytmp3` for audio extraction.
+
+## Media: mpv
+
+[mpv](https://mpv.io) is the video player. The config in the dotfiles pulls in a stack of scripts:
+
+- **ModernZ** — clean on-screen controls with a custom icon font.
+- **sponsorblock** — skips sponsor segments on YouTube automatically.
+- **thumbfast** — generates thumbnail previews when scrubbing the timeline.
+- **autoload** — auto-loads all files in a directory when you open one.
+- **SmartCopyPaste** — copy-paste that works the way you'd expect.
+
+There's also **evafast** for speed-scrubbing and **pip_lite** for picture-in-picture. The whole setup turns mpv from a basic player into something that handles a media library.
+
+## Daily apps
+
+Not everything is terminal-based:
+
+- **Vivaldi** — the browser. Tab management is good, and the built-in ad blocker means I don't need extensions.
+- **Zathura** — PDF reader. Vim keybindings, no UI chrome, fast. Aliased as `$READER`.
+- **nvimpager** — pages man pages and diffs through Neovim. Set as `$PAGER`.
+- **Dolphin** — file manager when I need a GUI. The terminal side goes through yazi.
+
+## Git: delta and extras
+
+Two git quality-of-life additions:
+
+- [delta](https://github.com/dandavison/delta) replaces the default diff viewer. Syntax highlighting, side-by-side diffs, and a Catppuccin theme to match the rest of the setup.
+- [git-extras](https://github.com/tj/git-extras) adds commands like `git effort`, `git summary`, and `git changelog`. Small utilities that add up.
+
+## The bar: Tsumiki
+
+I wrote [Tsumiki](https://github.com/rubiin/Tsumiki), my own bar for Wayland. It shows workspace indicators, system tray, clock, and media info. Nerd fonts for icons. The bar is small and stays out of the way.
+
+I used Waybar before this. It's fine, but the JSON config got annoying. Tsumiki's config is simpler and does exactly what I need.
+
+## Themes
+
+I rotate between four dark themes:
+
+- **Catppucin** — the default. Warm, low contrast, easy on the eyes for long sessions.
+- **Gruvbox** — retro, high contrast. Good for days when Catppucin feels too soft.
+- **Nord** — cold blue tones. Clean and predictable.
+- **TokyoNight** — somewhere between Catppucin and Nord.
+
+All four work across Hyprland, WezTerm, Neovim, and the bar. Switching themes is a one-line config change.
+
+## Fonts
+
+Four fonts, each with a job:
+
+- **MonoLisa** — main UI font. The ligatures are designed for code, not decoration. Parentheses and braces are easy to distinguish at a glance.
+- **Nerd Icons** — icon glyphs for the bar, terminal, and Neovim.
+- **MapleMono** — alternate font for when I want something different.
+- **JetBrains Mono Nerd Font** — used in the bar and rofi.
+
+## How it's managed: Chezmoi
+
+All dotfiles live in a repo managed by [Chezmoi](https://www.chezmoi.io). It handles templating, secrets, and syncing across machines. Running `chezmoi apply` on a fresh install pulls in everything. The install script in the repo does the base setup: partitioning, package installation, and Chezmoi initialization.
+
+## What I'd change
+
+The setup works, but nothing is perfect. I'd like better support for clipboard history in Hyprland. Wayland clipboard management is still rough. I also haven't found a good notification daemon replacement for dunst that supports actions properly. And I keep meaning to set up proper backups for the Atuin history sync, since the cloud sync is nice but not a backup.
+
+---
+
+The full dotfiles are at [github.com/rubiin/dotfiles](https://github.com/rubiin/dotfiles). Take what's useful, skip what isn't. Every setup is personal, and copying someone else's config without understanding it defeats the purpose.
