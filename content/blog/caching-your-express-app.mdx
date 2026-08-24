@@ -43,7 +43,6 @@ app.use(responseTime());
 
 const axios = require('axios')
 
-
 async function getDogs(req,res) {
   try {
     const dogs = await axios.get('https://dog.ceo/api/breeds/list/all');
@@ -80,7 +79,6 @@ var app = express();
 app.use(responseTime());
 
 const axios = require('axios')
-
 
 async function getDogs(req,res) {
   try {

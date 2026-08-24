@@ -25,24 +25,22 @@ Hyprland is a Wayland compositor with tiling. Windows split automatically. There
 
 The big draw for me is the workflow. I have 8 workspaces mapped to specific roles:
 
-| Workspace | Role |
-|---|---|
-| W1 | Browser |
-| W2 | Terminal |
-| W3 | Editors |
-| W4 | Utilities (Postman, DB client) |
-| W5 | File manager |
-| W6 | Media players |
-| W7 | Spare |
-| W8 | Steam / Lutris |
+- **W1** — Browser
+- **W2** — Terminal
+- **W3** — Editors
+- **W4** — Utilities (Postman, DB client)
+- **W5** — File manager
+- **W6** — Media players
+- **W7** — Spare
+- **W8** — Steam / Lutris
 
-Everything opens where it should. Alt+3 takes me to Neovim. Alt+4 to Postman. No hunting through a taskbar.
+Everything opens where it should. `Alt+3` takes me to Neovim. `Alt+4` to Postman. No hunting through a taskbar.
 
 The config is in `hyprland.conf`. Bindings, window rules, animations, all in one place. Hyprland is fast enough that I never notice it, which is exactly how a compositor should feel.
 
 ## The shell: zsh with p10k
 
-Zsh with [powerlevel10k](https://github.com/romkatv/powerlevel10k) for the prompt. I keep the prompt minimal. Git branch, exit code of the last command, current directory. That's it. No SSH indicator, no Node version, no Python virtualenv status. If I need that info, I run a command.
+Zsh with [powerlevel10k](https://github.com/romkatv/powerlevel10k) for the prompt. I keep the prompt minimal — git branch, exit code of the last command, current directory. That's it. No SSH indicator, no Node version, no Python virtualenv status. If I need that info, I run a command.
 
 For plugin management I use [sheldon](https://sheldon.cli.rs). Fast, no framework overhead, and the config is a TOML file I can actually read. Two plugins that matter:
 
@@ -85,7 +83,7 @@ Most of the time I don't think about tmux. That's the point.
 
 These are the ones that made it past the "try it for a week" phase:
 
-- **[fzf](https://github.com/junegunn/fzf)** — fuzzy finder. Ctrl+R searches command history. Ctrl+T pastes a file path. Alt+C fuzzy-cd's into a directory. I use these hundreds of times a day without thinking.
+- **[fzf](https://github.com/junegunn/fzf)** — fuzzy finder. `Ctrl+R` searches command history. `Ctrl+T` pastes a file path. `Alt+C` fuzzy-cd's into a directory. I use these hundreds of times a day without thinking.
 - **[bat](https://github.com/sharkdp/bat)** — cat with syntax highlighting and line numbers. I aliased `cat` to `bat` and never looked back.
 - **[eza](https://github.com/eza-community/eza)** — replaces `ls`. Shows git status, file types with color, and tree view. `eza --tree --level=2` is my go-to for getting oriented in a new repo.
 - **[lazygit](https://github.com/jesseduffield/lazygit)** — full TUI for git. Staging individual lines, interactive rebase, conflict resolution. I still use the CLI for quick stuff, but anything beyond a commit goes through lazygit.
@@ -136,10 +134,10 @@ I used Waybar before this. It's fine, but the JSON config got annoying. Tsumiki'
 
 I rotate between four dark themes:
 
-- **Catppucin** — the default. Warm, low contrast, easy on the eyes for long sessions.
-- **Gruvbox** — retro, high contrast. Good for days when Catppucin feels too soft.
+- **Catppuccin** — the default. Warm, low contrast, easy on the eyes for long sessions.
+- **Gruvbox** — retro, high contrast. Good for days when Catppuccin feels too soft.
 - **Nord** — cold blue tones. Clean and predictable.
-- **TokyoNight** — somewhere between Catppucin and Nord.
+- **TokyoNight** — somewhere between Catppuccin and Nord.
 
 All four work across Hyprland, WezTerm, Neovim, and the bar. Switching themes is a one-line config change.
 
@@ -159,7 +157,5 @@ All dotfiles live in a repo managed by [Chezmoi](https://www.chezmoi.io). It han
 ## What I'd change
 
 The setup works, but nothing is perfect. I'd like better support for clipboard history in Hyprland. Wayland clipboard management is still rough. I also haven't found a good notification daemon replacement for dunst that supports actions properly. And I keep meaning to set up proper backups for the Atuin history sync, since the cloud sync is nice but not a backup.
-
----
 
 The full dotfiles are at [github.com/rubiin/dotfiles](https://github.com/rubiin/dotfiles). Take what's useful, skip what isn't. Every setup is personal, and copying someone else's config without understanding it defeats the purpose.
