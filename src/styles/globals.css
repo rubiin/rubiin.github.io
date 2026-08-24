@@ -1003,9 +1003,7 @@ html[data-retro='true'] {
   .prose p {
     @apply text-base;
   }
-  .prose a {
-    @apply font-medium text-primary underline underline-offset-4 decoration-primary/30 hover:decoration-primary;
-  }
+
   .prose ul {
     @apply list-disc pl-6;
   }
@@ -1095,6 +1093,16 @@ html[data-retro='true'] {
   line-height: 1.5 !important;
   margin-top: 1.5em !important;
   margin-bottom: 0.5em !important;
+}
+
+/* Link overrides — UNLAYERED to beat UnoCSS reset */
+.prose a {
+  color: var(--primary) !important;
+  text-decoration: underline !important;
+  font-weight: 500 !important;
+}
+.prose a:hover {
+  color: var(--accent-secondary) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

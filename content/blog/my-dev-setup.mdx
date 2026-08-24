@@ -81,20 +81,29 @@ Most of the time I don't think about tmux. That's the point.
 
 ## CLI tools that stuck
 
-These are the ones that made it past the "try it for a week" phase:
+These are the ones that made it past the "try it for a week" phase.
 
-- **[fzf](https://github.com/junegunn/fzf)** — fuzzy finder. `Ctrl+R` searches command history. `Ctrl+T` pastes a file path. `Alt+C` fuzzy-cd's into a directory. I use these hundreds of times a day without thinking.
-- **[bat](https://github.com/sharkdp/bat)** — cat with syntax highlighting and line numbers. I aliased `cat` to `bat` and never looked back.
-- **[eza](https://github.com/eza-community/eza)** — replaces `ls`. Shows git status, file types with color, and tree view. `eza --tree --level=2` is my go-to for getting oriented in a new repo.
-- **[lazygit](https://github.com/jesseduffield/lazygit)** — full TUI for git. Staging individual lines, interactive rebase, conflict resolution. I still use the CLI for quick stuff, but anything beyond a commit goes through lazygit.
-- **[atuin](https://atuin.sh)** — syncs shell history across machines and gives you a searchable UI. `atuin search` finds that command from three months ago. It replaces `Ctrl+R` in a meaningful way.
-- **[btop](https://github.com/aristocratos/btop)** — resource monitor. Looks good, shows what I need, and doesn't eat CPU while running.
-- **[yazi](https://github.com/sxyazi/yazi)** — terminal file manager. Preview pane, batch rename, built-in image preview. I still use Dolphin for GUI file management, but yazi handles the terminal side.
-- **[fastfetch](https://github.com/fastfetch-cli/fastfetch)** — system info on login. The config is tuned to show exactly what I care about: kernel, uptime, package count, memory.
-- **[ripgrep](https://github.com/BurntSushi/ripgrep)** — grep, but fast. I have a config file at `~/.config/ripgrep/config` that sets sensible defaults. fzf and Telescope both use it under the hood.
-- **[lazydocker](https://github.com/jesseduffield/lazydocker)** — like lazygit, but for Docker. Containers, images, volumes, logs. I alias it as `lzd`.
-- **[just](https://github.com/casey/just)** — command runner. Think Make, but the config file is readable. I alias it as `js`. Each project gets a `justfile` with the common tasks.
-- **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** — video and audio downloader. `ytd` for video, `ytmp3` for audio extraction.
+**Navigation and search:**
+
+- [fzf](https://github.com/junegunn/fzf) — fuzzy finder. `Ctrl+R` searches history, `Ctrl+T` pastes a file path, `Alt+C` fuzzy-cd's into a directory.
+- [zoxide](https://github.com/ajeetdsouza/zoxide) — smart `cd` replacement. `z dot` jumps to `~/.config`.
+- [eza](https://github.com/eza-community/eza) — replaces `ls`. Git status, color-coded file types, tree view.
+- [yazi](https://github.com/sxyazi/yazi) — terminal file manager with preview pane and batch rename.
+
+**Dev workflow:**
+
+- [lazygit](https://github.com/jesseduffield/lazygit) — full TUI for git. Staging, rebase, conflicts.
+- [lazydocker](https://github.com/jesseduffield/lazydocker) — like lazygit, but for Docker.
+- [ripgrep](https://github.com/BurntSushi/ripgrep) — grep, but fast. fzf and Telescope use it under the hood.
+- [just](https://github.com/casey/just) — command runner. Think Make, but readable.
+
+**Shell and system:**
+
+- [atuin](https://atuin.sh) — syncs shell history across machines with a searchable UI.
+- [bat](https://github.com/sharkdp/bat) — cat with syntax highlighting and line numbers.
+- [btop](https://github.com/aristocratos/btop) — resource monitor. Clean, low CPU.
+- [fastfetch](https://github.com/fastfetch-cli/fastfetch) — system info on login.
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) — video and audio downloader.
 
 ## Media: mpv
 
