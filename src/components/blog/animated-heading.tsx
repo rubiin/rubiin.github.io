@@ -38,16 +38,6 @@ export function AnimatedHeading({
           {children}
         </motion.span>
       </span>
-      {level === 'h2' && (
-        <motion.span
-          aria-hidden
-          className="mt-2 block h-px w-full bg-gradient-to-r from-primary/60 via-accent-secondary/50 to-transparent"
-          initial={reduced ? false : { scaleX: 0 }}
-          whileInView={reduced ? undefined : { scaleX: 1 }}
-          viewport={{ once: true, margin: '-70px' }}
-          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-        />
-      )}
     </Tag>
   )
 }

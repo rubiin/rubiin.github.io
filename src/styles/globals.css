@@ -989,26 +989,16 @@ html[data-retro='true'] {
   .prose {
     @apply text-foreground/90 leading-relaxed;
   }
-  .prose > * + * {
+  .prose > * + *:not(h1):not(h2):not(h3):not(h4) {
     margin-top: 1.25rem;
   }
   .prose h1,
   .prose h2,
   .prose h3,
   .prose h4 {
-    @apply font-semibold tracking-tight text-foreground scroll-mt-28;
-  }
-  .prose h1 {
-    @apply text-3xl;
-  }
-  .prose h2 {
-    @apply mt-10 text-2xl;
-  }
-  .prose h3 {
-    @apply mt-8 text-xl;
-  }
-  .prose h4 {
-    @apply mt-6 text-base;
+    color: var(--foreground);
+    letter-spacing: -0.025em;
+    scroll-margin-top: 7rem;
   }
   .prose p {
     @apply text-base;
@@ -1072,6 +1062,37 @@ html[data-retro='true'] {
   .prose .katex-display {
     @apply overflow-x-auto py-2;
   }
+}
+
+/* Heading overrides — UNLAYERED so they beat the UnoCSS preflight
+   reset ("h1,h2,...{font-size:inherit;font-weight:inherit}") which is
+   also unlayered. Inside @layer components they would always lose. */
+.prose h1 {
+  font-weight: 800;
+  font-size: 2.25em;
+  line-height: 1.111;
+  margin-top: 0;
+  margin-bottom: 0.889em;
+}
+.prose h2 {
+  font-weight: 700;
+  font-size: 1.5em;
+  line-height: 1.333;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.prose h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+  line-height: 1.6;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+}
+.prose h4 {
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
 }
 
 @media (prefers-reduced-motion: reduce) {
