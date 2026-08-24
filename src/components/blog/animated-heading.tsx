@@ -29,7 +29,7 @@ export function AnimatedHeading({
     <Tag id={id} className={className}>
       <span className="block overflow-hidden">
         <motion.span
-          className="block pb-[0.14em] -mb-[0.14em]"
+          className="block pb-[0.14em] -mb-[0.14em] mr-[-0.14em]"
           initial={reduced ? false : { y: '60%', opacity: 0.35 }}
           whileInView={reduced ? undefined : { y: 0, opacity: 1 }}
           viewport={{ once: true, margin: '-70px' }}

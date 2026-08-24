@@ -1064,35 +1064,37 @@ html[data-retro='true'] {
   }
 }
 
-/* Heading overrides — UNLAYERED so they beat the UnoCSS preflight
-   reset ("h1,h2,...{font-size:inherit;font-weight:inherit}") which is
-   also unlayered. Inside @layer components they would always lose. */
+/* Heading overrides — use !important to beat UnoCSS preflight reset
+   ("h1,h2,...{font-size:inherit;font-weight:inherit}") which is also
+   unlayered. Matches plainenglish.io prose defaults. */
 .prose h1 {
-  font-weight: 800;
-  font-size: 2.25em;
-  line-height: 1.111;
-  margin-top: 0;
-  margin-bottom: 0.889em;
+  font-weight: 800 !important;
+  font-size: 2.25em !important;
+  line-height: 1.111 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.889em !important;
 }
 .prose h2 {
-  font-weight: 700;
-  font-size: 1.5em;
-  line-height: 1.333;
-  margin-top: 2em;
-  margin-bottom: 1em;
+  font-weight: 700 !important;
+  font-size: 1.5em !important;
+  line-height: 1.333 !important;
+  margin-top: 2em !important;
+  margin-bottom: 1.25em !important;
+  padding-right: 0.25em;
 }
 .prose h3 {
-  font-weight: 600;
-  font-size: 1.25em;
-  line-height: 1.6;
-  margin-top: 1.6em;
-  margin-bottom: 0.6em;
+  font-weight: 600 !important;
+  font-size: 1.25em !important;
+  line-height: 1.6 !important;
+  margin-top: 1.6em !important;
+  margin-bottom: 0.6em !important;
 }
 .prose h4 {
-  font-weight: 600;
-  line-height: 1.5;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
+  font-weight: 600 !important;
+  font-size: 1.5em !important;
+  line-height: 1.5 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 0.5em !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

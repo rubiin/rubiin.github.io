@@ -51,7 +51,7 @@ export function ReadingParagraph({ children, className, ...props }: ComponentPro
       className={cn(
         'transition-[opacity,box-shadow] duration-500 ease-out',
         state === 'current' &&
-          'opacity-100 shadow-[inset_3px_0_0_color-mix(in_oklab,var(--primary)_55%,transparent)]',
+          'opacity-100 pl-2 shadow-[inset_3px_0_0_color-mix(in_oklab,var(--primary)_55%,transparent)]',
         state === 'read' && 'opacity-100 shadow-[inset_3px_0_0_transparent]',
         state === 'unread' && 'opacity-70 shadow-[inset_3px_0_0_transparent]',
         className,
