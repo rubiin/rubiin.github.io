@@ -79,7 +79,7 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
         <span aria-hidden className="h-px w-4 bg-gradient-to-r from-primary to-accent-secondary" />
         On this page
       </p>
-      <ul className="space-y-1.5 border-l border-border">
+      <ul className="space-y-1.5">
         {toc.map((item) => {
           const isActive = activeId === item.id
           const isFinished = !isActive && finishedIds.has(item.id)
@@ -88,10 +88,10 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
               <a
                 href={`#${item.id}`}
                 className={cn(
-                  'group relative -ml-px block border-l-2 py-0.5 pl-3 text-muted-foreground transition-all duration-300 hover:text-foreground',
+                  'group relative block py-0.5 pl-3 text-muted-foreground transition-all duration-300 hover:text-foreground',
                   item.level === 3 && 'pl-6',
-                  isActive && 'border-primary text-foreground',
-                  isFinished && 'border-border/40 opacity-55 hover:opacity-90',
+                  isActive && 'text-foreground',
+                  isFinished && 'opacity-55 hover:opacity-90',
                 )}
               >
                 {isActive && (
