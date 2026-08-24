@@ -15,6 +15,7 @@ node_modules/
 /server/build/
 /public/build/
 .tanstack/
+.wrangler/
 
 # generated
 .content-collections/
