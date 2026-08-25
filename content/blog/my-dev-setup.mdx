@@ -13,9 +13,9 @@ I've been tweaking my dotfiles for a while now, and I figured I'd write down wha
 
 This is the whole stack, from the OS up to the bar.
 
-## The base: Arch Linux
+## The base: [Arch Linux](https://archlinux.org)
 
-Arch isn't for everyone, but it works for me. The AUR covers almost everything I need. The 1 out of 10 times it doesn't, I either build from source or find a workaround. What I actually care about is that Arch stays out of my way. I install what I want, nothing else. No pre-installed junk, no package manager fighting me on dependencies.
+[Arch](https://archlinux.org) isn't for everyone, but it works for me. The AUR covers almost everything I need. The 1 out of 10 times it doesn't, I either build from source or find a workaround. What I actually care about is that Arch stays out of my way. I install what I want, nothing else. No pre-installed junk, no package manager fighting me on dependencies.
 
 The install process teaches you how Linux works. Not in a gatekeeping way, but in the "oh, so *that's* what an fstab does" way. That knowledge pays off when things break, because eventually they will.
 
@@ -44,8 +44,8 @@ Zsh with [powerlevel10k](https://github.com/romkatv/powerlevel10k) for the promp
 
 For plugin management I use [sheldon](https://sheldon.cli.rs). Fast, no framework overhead, and the config is a TOML file I can actually read. Two plugins that matter:
 
-- **fast-syntax-highlighting** — colors commands as you type, based on whether they're valid. Sounds small, but catching typos before you hit enter saves real time.
-- **zsh-autosuggestions** — shows a greyed-out suggestion from your history as you type. Hit right arrow to accept. I rarely type full paths anymore.
+- [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) — colors commands as you type, based on whether they're valid. Sounds small, but catching typos before you hit enter saves real time.
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) — shows a greyed-out suggestion from your history as you type. Hit right arrow to accept. I rarely type full paths anymore.
 
 A few more shell pieces worth mentioning:
 
@@ -54,24 +54,24 @@ A few more shell pieces worth mentioning:
 - [pokego](https://github.com/SilasMarvin/pokego) shows a random Pokemon on shell startup. Completely useless. I'd miss it if it stopped working.
 - There's also a [zsh insulter](https://github.com/rcaloras/bash-preexec) that fires insults when you mistype a command. Annoying at first, then funny, then motivating.
 
-## The terminal: WezTerm
+## The terminal: [WezTerm](https://wezfurlong.org/wezterm)
 
-WezTerm is a GPU-accelerated terminal written in Lua. The config is a Lua file, which means I can use actual programming logic for things like font fallback and keybindings. It renders fast, handles Unicode well, and the ligatures in MonoLisa look right.
+[WezTerm](https://wezfurlong.org/wezterm) is a GPU-accelerated terminal written in Lua. The config is a Lua file, which means I can use actual programming logic for things like font fallback and keybindings. It renders fast, handles Unicode well, and the ligatures in [MonoLisa](https://www.monolisa.dev) look right.
 
 I tried Alacritty and Kitty before this. Alacritty was fast but the YAML config felt limiting. Kitty had features I didn't use. WezTerm hit the middle ground.
 
-## Editor: Neovim
+## Editor: [Neovim](https://neovim.io)
 
-Neovim is the editor. I won't rehash the "why Neovim" argument. I'll say this: once muscle memory sets in, switching between files, buffers, and splits is faster than any GUI editor I've tried. My config is in a separate repo if you want to look at it.
+[Neovim](https://neovim.io) is the editor. I won't rehash the "why Neovim" argument. I'll say this: once muscle memory sets in, switching between files, buffers, and splits is faster than any GUI editor I've tried. My config is in a separate repo ([init.lua](https://github.com/rubiin/init.lua)) if you want to look at it.
 
 The short version: LSP for autocompletion and diagnostics, telescope for fuzzy finding files, treesitter for syntax highlighting that actually works. Lazy.nvim manages plugins.
 
-I also wrote a few plugins that ship with the dotfiles through Chezmoi:
+I also wrote a few plugins that ship with the dotfiles through [Chezmoi](https://www.chezmoi.io):
 
-- **fortune.nvim** — shows a random fortune in the dashboard. Pure novelty.
-- **highlighturl.nvim** — highlights URLs in buffers so they're easy to spot.
-- **goodies.nvim** — small quality-of-life functions I kept reaching for.
-- **vimwordlist.nvim** — manages a personal word list for spell checking.
+- [fortune.nvim](https://github.com/rubiin/fortune.nvim) — shows a random fortune in the dashboard. Pure novelty.
+- [highlighturl.nvim](https://github.com/rubiin/highlighturl.nvim) — highlights URLs in buffers so they're easy to spot.
+- [goodies.nvim](https://github.com/rubiin/goodies.nvim) — small quality-of-life functions I kept reaching for.
+- [vimwordlist.nvim](https://github.com/rubiin/vimwordlist.nvim) — manages a personal word list for spell checking.
 
 ## tmux
 
@@ -121,10 +121,10 @@ There's also **evafast** for speed-scrubbing and **pip_lite** for picture-in-pic
 
 Not everything is terminal-based:
 
-- **Vivaldi** — the browser. Tab management is good, and the built-in ad blocker means I don't need extensions.
-- **Zathura** — PDF reader. Vim keybindings, no UI chrome, fast. Aliased as `$READER`.
-- **nvimpager** — pages man pages and diffs through Neovim. Set as `$PAGER`.
-- **Dolphin** — file manager when I need a GUI. The terminal side goes through yazi.
+- **[Vivaldi](https://vivaldi.com)** — the browser. Tab management is good, and the built-in ad blocker means I don't need extensions.
+- **[Zathura](https://pwmt.org/projects/zathura/)** — PDF reader. Vim keybindings, no UI chrome, fast. Aliased as `$READER`.
+- **[nvimpager](https://github.com/lucc/nvimpager)** — pages man pages and diffs through Neovim. Set as `$PAGER`.
+- **[Dolphin](https://apps.kde.org/dolphin/)** — file manager when I need a GUI. The terminal side goes through yazi.
 
 ## Git: delta and extras
 
@@ -143,10 +143,10 @@ I used Waybar before this. It's fine, but the JSON config got annoying. Tsumiki'
 
 I rotate between four dark themes:
 
-- **Catppuccin** — the default. Warm, low contrast, easy on the eyes for long sessions.
-- **Gruvbox** — retro, high contrast. Good for days when Catppuccin feels too soft.
-- **Nord** — cold blue tones. Clean and predictable.
-- **TokyoNight** — somewhere between Catppuccin and Nord.
+- **[Catppuccin](https://github.com/catppuccin/catppuccin)** — the default. Warm, low contrast, easy on the eyes for long sessions.
+- **[Gruvbox](https://github.com/morhetz/gruvbox)** — retro, high contrast. Good for days when Catppuccin feels too soft.
+- **[Nord](https://www.nordtheme.com)** — cold blue tones. Clean and predictable.
+- **[TokyoNight](https://github.com/folke/tokyonight.nvim)** — somewhere between Catppuccin and Nord.
 
 All four work across Hyprland, WezTerm, Neovim, and the bar. Switching themes is a one-line config change.
 
@@ -154,10 +154,10 @@ All four work across Hyprland, WezTerm, Neovim, and the bar. Switching themes is
 
 Four fonts, each with a job:
 
-- **MonoLisa** — main UI font. The ligatures are designed for code, not decoration. Parentheses and braces are easy to distinguish at a glance.
-- **Nerd Icons** — icon glyphs for the bar, terminal, and Neovim.
-- **MapleMono** — alternate font for when I want something different.
-- **JetBrains Mono Nerd Font** — used in the bar and rofi.
+- **[MonoLisa](https://www.monolisa.dev)** — main UI font. The ligatures are designed for code, not decoration. Parentheses and braces are easy to distinguish at a glance.
+- **[Nerd Icons](https://www.nerdfonts.com)** — icon glyphs for the bar, terminal, and Neovim.
+- **[MapleMono](https://github.com/subframe7536/maple-font)** — alternate font for when I want something different.
+- **[JetBrains Mono Nerd Font](https://www.jetbrains.com/lp/mono/)** — used in the bar and rofi.
 
 ## How it's managed: Chezmoi
 
