@@ -97,10 +97,13 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Install Playwright chromium
         run: npx playwright install chromium --with-deps
+
+      - name: Lint
+        run: pnpm lint
 
       - name: Build
         run: pnpm build
