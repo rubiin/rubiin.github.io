@@ -1,10 +1,10 @@
-import { memo } from 'react'
-import { Link } from '@tanstack/react-router'
-import { ArrowRight, CalendarDays, Clock } from 'lucide-react'
-import { AnimatedBorder } from '@/components/animations/animated-border'
-import { ResponsiveImage } from '@/components/ui/responsive-image'
-import { usePrefetchMode } from '@/hooks/use-prefetch-mode'
-import type { PostSummary } from '@/server/blog'
+import { memo } from "react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, CalendarDays, Clock } from "lucide-react";
+import { AnimatedBorder } from "@/components/animations/animated-border";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { usePrefetchMode } from "@/hooks/use-prefetch-mode";
+import type { PostSummary } from "@/server/blog";
 
 /**
  * Blog post card: cover (or gradient), category badge, date, title,
@@ -14,7 +14,7 @@ import type { PostSummary } from '@/server/blog'
  */
 export const PostCard = memo(function PostCard({ post }: { post: PostSummary }) {
   // Visibility-based prefetch — skipped for data-saver users.
-  const preload = usePrefetchMode('viewport')
+  const preload = usePrefetchMode("viewport");
   return (
     <Link
       to={`/blog/${post.slug}` as string}
@@ -49,10 +49,10 @@ export const PostCard = memo(function PostCard({ post }: { post: PostSummary }) 
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1">
                 <CalendarDays className="size-3.5 text-primary/70" aria-hidden />
-                {new Date(post.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
+                {new Date(post.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
                 })}
               </span>
               <span className="inline-flex items-center gap-1">
@@ -87,5 +87,5 @@ export const PostCard = memo(function PostCard({ post }: { post: PostSummary }) 
         </article>
       </AnimatedBorder>
     </Link>
-  )
-})
+  );
+});

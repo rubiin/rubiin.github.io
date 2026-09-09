@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { motion, useReducedMotion } from 'motion/react'
-import { KineticTitle } from '@/components/animations/kinetic-title'
-import { cn } from '@/lib/utils'
+import { motion, useReducedMotion } from "motion/react";
+import { KineticTitle } from "@/components/animations/kinetic-title";
+import { cn } from "@/lib/utils";
 
-const EASE = [0.22, 1, 0.36, 1] as const
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
  * Storytelling section heading. When `chapter` is set, the heading reads as
@@ -17,31 +17,31 @@ export function ChapterHeading({
   eyebrow,
   title,
   description,
-  align = 'left',
-  level = 'h2',
+  align = "left",
+  level = "h2",
   className,
 }: {
-  chapter?: string
-  eyebrow?: string
-  title: string
-  description?: string
-  align?: 'left' | 'center'
+  chapter?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  align?: "left" | "center";
   /** Document hierarchy — pages without an outer <h1> should use 'h1'. */
-  level?: 'h1' | 'h2'
-  className?: string
+  level?: "h1" | "h2";
+  className?: string;
 }) {
-  const reduced = useReducedMotion()
-  const centered = align === 'center'
-  const TitleTag = level === 'h1' ? 'h1' : 'h2'
+  const reduced = useReducedMotion();
+  const centered = align === "center";
+  const TitleTag = level === "h1" ? "h1" : "h2";
 
   return (
     <div
       className={cn(
-        'relative mb-12 flex flex-col gap-3',
+        "relative mb-12 flex flex-col gap-3",
         // The top padding only exists to clear the ghost chapter number —
         // headings without one (page sections) keep the page's own rhythm.
-        chapter && 'pt-12 sm:pt-16',
-        centered && 'items-center text-center',
+        chapter && "pt-12 sm:pt-16",
+        centered && "items-center text-center",
         className,
       )}
     >
@@ -50,8 +50,8 @@ export function ChapterHeading({
         <span
           aria-hidden
           className={cn(
-            'pointer-events-none absolute -top-16 right-0 hidden font-display text-[6.5rem] leading-none font-bold tracking-tight text-primary/[6%] select-none sm:block sm:text-[8rem]',
-            centered && 'left-1/2 -translate-x-1/2',
+            "pointer-events-none absolute -top-16 right-0 hidden font-display text-[6.5rem] leading-none font-bold tracking-tight text-primary/[6%] select-none sm:block sm:text-[8rem]",
+            centered && "left-1/2 -translate-x-1/2",
           )}
         >
           {chapter}
@@ -61,8 +61,8 @@ export function ChapterHeading({
       {eyebrow && (
         <span
           className={cn(
-            'relative flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.28em] text-primary',
-            centered && 'justify-center',
+            "relative flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.28em] text-primary",
+            centered && "justify-center",
           )}
         >
           {!centered && (
@@ -81,14 +81,14 @@ export function ChapterHeading({
               </span>
             </>
           ) : null}
-          <span className={cn(chapter ? 'text-primary/75' : undefined)}>{eyebrow}</span>
+          <span className={cn(chapter ? "text-primary/75" : undefined)}>{eyebrow}</span>
         </span>
       )}
 
       <TitleTag
         className={cn(
-          'relative font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl',
-          centered && 'max-w-2xl',
+          "relative font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl",
+          centered && "max-w-2xl",
         )}
       >
         {/* Identical DOM for reduced + animated paths (hydration-safe); only
@@ -100,21 +100,21 @@ export function ChapterHeading({
       <motion.span
         aria-hidden
         className={cn(
-          'relative h-px w-24 bg-gradient-to-r from-primary via-accent-secondary to-transparent',
-          centered && 'mx-auto',
+          "relative h-px w-24 bg-gradient-to-r from-primary via-accent-secondary to-transparent",
+          centered && "mx-auto",
         )}
         initial={reduced ? false : { scaleX: 0 }}
         whileInView={reduced ? undefined : { scaleX: 1 }}
-        viewport={{ once: true, margin: '-60px' }}
+        viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
-        style={{ transformOrigin: centered ? 'center' : 'left' }}
+        style={{ transformOrigin: centered ? "center" : "left" }}
       />
 
       {description && (
-        <p className={cn('relative max-w-2xl text-muted-foreground', centered && 'mx-auto')}>
+        <p className={cn("relative max-w-2xl text-muted-foreground", centered && "mx-auto")}>
           {description}
         </p>
       )}
     </div>
-  )
+  );
 }

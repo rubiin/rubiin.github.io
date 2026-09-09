@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { Suspense } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { Lighting } from '@/components/three/lighting'
-import { Particles } from '@/components/three/particles'
-import { Workspace } from '@/components/three/workspace'
+import { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Lighting } from "@/components/three/lighting";
+import { Particles } from "@/components/three/particles";
+import { Workspace } from "@/components/three/workspace";
 
 /**
  * The hero's 3D workspace scene. Kept as its own client module so routes
@@ -25,5 +25,5 @@ export function HeroScene() {
         <Particles />
       </Suspense>
     </Canvas>
-  )
+  );
 }

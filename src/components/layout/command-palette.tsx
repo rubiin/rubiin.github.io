@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { startTransition, useMemo } from 'react'
-import { useNavigate } from '@tanstack/react-router'
-import { useQuery } from '@tanstack/react-query'
+import { startTransition, useMemo } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import {
   Download,
   FileText,
@@ -10,9 +10,9 @@ import {
   Navigation,
   TerminalSquare,
   type LucideIcon,
-} from 'lucide-react'
-import { useTheme } from '@/hooks/use-theme'
-import { PALETTES } from '@/stores/theme-store'
+} from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
+import { PALETTES } from "@/stores/theme-store";
 import {
   CommandDialog,
   CommandEmpty,
@@ -20,36 +20,36 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
-import { navItems } from '@/data/nav'
-import { projects } from '@/data/projects'
-import { getPosts } from '@/server/blog'
-import { BLOG_POSTS_QUERY_KEY } from '@/lib/constants'
+} from "@/components/ui/command";
+import { navItems } from "@/data/nav";
+import { projects } from "@/data/projects";
+import { getPosts } from "@/server/blog";
+import { BLOG_POSTS_QUERY_KEY } from "@/lib/constants";
 
 /**
  * ⌘K palette: fuzzy-search navigation, projects, and blog posts.
  * Keyboard navigable via cmdk; selects navigate through the router.
  */
 type CommandEntry = {
-  id: string
-  label: string
-  hint?: string
-  href?: string
-  download?: boolean
-  icon?: LucideIcon
-  swatch?: [string, string, string]
-  onSelect?: () => void
-}
+  id: string;
+  label: string;
+  hint?: string;
+  href?: string;
+  download?: boolean;
+  icon?: LucideIcon;
+  swatch?: [string, string, string];
+  onSelect?: () => void;
+};
 
 export function CommandPalette({
   open,
   setOpen,
 }: {
-  open: boolean
-  setOpen: (open: boolean) => void
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }) {
-  const navigate = useNavigate()
-  const { palette, setPalette } = useTheme()
+  const navigate = useNavigate();
+  const { palette, setPalette } = useTheme();
 
   // Shares BLOG_POSTS_QUERY_KEY with the blog index loader, which seeds the
   // cache on page load — opening ⌘K then never refetches. Posts are static
@@ -59,30 +59,30 @@ export function CommandPalette({
     queryFn: () => getPosts(),
     enabled: open,
     staleTime: Infinity,
-  })
+  });
 
   const go = (href: string) => {
-    setOpen(false)
+    setOpen(false);
     // Navigation as a transition: the palette closes instantly and the
     // route renders off the critical path (use-transitions).
     startTransition(() => {
-      void navigate({ to: href })
-    })
-  }
+      void navigate({ to: href });
+    });
+  };
 
   const goExternal = (href: string) => {
-    setOpen(false)
-    window.open(href, '_blank', 'noreferrer')
-  }
+    setOpen(false);
+    window.open(href, "_blank", "noreferrer");
+  };
 
   const goDownload = (href: string) => {
-    setOpen(false)
-    const a = document.createElement('a')
-    a.href = href
-    a.download = ''
-    a.rel = 'noreferrer'
-    a.click()
-  }
+    setOpen(false);
+    const a = document.createElement("a");
+    a.href = href;
+    a.download = "";
+    a.rel = "noreferrer";
+    a.click();
+  };
 
   const commands = useMemo<{ heading: string; items: CommandEntry[] }[]>(() => {
     const nav: CommandEntry[] = [
@@ -95,14 +95,14 @@ export function CommandPalette({
         icon: item.download ? Download : Navigation,
       })),
       {
-        id: 'nav-terminal',
-        label: 'Terminal',
-        hint: 'Hidden CLI',
-        href: '/terminal',
+        id: "nav-terminal",
+        label: "Terminal",
+        hint: "Hidden CLI",
+        href: "/terminal",
         download: false,
         icon: TerminalSquare,
       },
-    ]
+    ];
     // No per-project detail route exists, so project items land on the
     // projects grid pre-filtered to their category.
     const proj: CommandEntry[] = projects.map((p) => ({
@@ -112,7 +112,7 @@ export function CommandPalette({
       href: `/projects?category=${p.category}`,
       download: false,
       icon: FolderGit2,
-    }))
+    }));
     const blog: CommandEntry[] = posts.map((p) => ({
       id: `post-${p.slug}`,
       label: p.title,
@@ -120,27 +120,27 @@ export function CommandPalette({
       href: `/blog/${p.slug}`,
       download: false,
       icon: FileText,
-    }))
+    }));
     // Pick the color palette without leaving the page — same registry as
     // the PaletteToggle dropdown in the header.
     const palettes: CommandEntry[] = PALETTES.map(({ value, label, swatch }) => ({
       id: `palette-${value}`,
       label,
-      hint: value === palette ? 'Active' : undefined,
+      hint: value === palette ? "Active" : undefined,
       download: false,
       swatch,
       onSelect: () => {
-        setPalette(value)
-        setOpen(false)
+        setPalette(value);
+        setOpen(false);
       },
-    }))
+    }));
     return [
-      { heading: 'Navigation', items: nav },
-      { heading: 'Projects', items: proj },
-      { heading: 'Blog', items: blog },
-      { heading: 'Theme', items: palettes },
-    ]
-  }, [posts, palette, setPalette, setOpen])
+      { heading: "Navigation", items: nav },
+      { heading: "Projects", items: proj },
+      { heading: "Blog", items: blog },
+      { heading: "Theme", items: palettes },
+    ];
+  }, [posts, palette, setPalette, setOpen]);
 
   return (
     <CommandDialog
@@ -159,15 +159,15 @@ export function CommandPalette({
               {items.map(({ id, label, hint, href, download, swatch, icon: Icon, onSelect }) => (
                 <CommandItem
                   key={id}
-                  value={`${heading} ${label} ${hint ?? ''}`}
+                  value={`${heading} ${label} ${hint ?? ""}`}
                   onSelect={() => {
                     if (onSelect) {
-                      onSelect()
-                      return
+                      onSelect();
+                      return;
                     }
-                    if (download && href) goDownload(href)
-                    else if (href?.startsWith('http')) goExternal(href)
-                    else if (href) go(href)
+                    if (download && href) goDownload(href);
+                    else if (href?.startsWith("http")) goExternal(href);
+                    else if (href) go(href);
                   }}
                 >
                   {swatch ? (
@@ -196,5 +196,5 @@ export function CommandPalette({
         )}
       </CommandList>
     </CommandDialog>
-  )
+  );
 }

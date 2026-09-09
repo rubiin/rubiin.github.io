@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 /**
  * Loads the KaTeX stylesheet only when a page actually renders math.
@@ -8,7 +8,7 @@ import { useEffect } from 'react'
  */
 export function LazyKatexCss() {
   useEffect(() => {
-    void import('katex/dist/katex.min.css')
-  }, [])
-  return null
+    void import("katex/dist/katex.min.css");
+  }, []);
+  return null;
 }

@@ -1,42 +1,42 @@
 /// <reference types="vite/client" />
-import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
-import { Suspense, lazy, useEffect, useRef, useState, type ReactNode } from 'react'
+import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from "@tanstack/react-router";
+import { Suspense, lazy, useEffect, useRef, useState, type ReactNode } from "react";
 // Plain import: TanStack Start links the CSS from the client manifest, so the URL matches a deployed asset — a `?url` + manual <link> bakes in the SSR build's divergent UnoCSS hash and 404s on first paint (FOUC).
-import '../styles/globals.css'
+import "../styles/globals.css";
 // Self-hosted variable fonts replace the render-blocking Google Fonts link.
-import '@fontsource-variable/inter'
-import '@fontsource-variable/space-grotesk'
-import '@fontsource-variable/jetbrains-mono'
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/jetbrains-mono";
 // Preload the latin subsets this English site renders so first paint swaps fast.
-import interLatinWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2'
-import spaceGroteskLatinWoff2 from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2'
-import jetbrainsMonoLatinWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2'
-import { ThemeProvider } from '@/components/layout/theme-provider'
-import { QueryProvider } from '@/components/layout/query-provider'
-import { LenisProvider } from '@/components/layout/lenis-provider'
-import { SkipLink } from '@/components/layout/skip-link'
-import { ScrollProgress } from '@/components/layout/scroll-progress'
-import { useCommand } from '@/hooks/use-command'
-import { SiteHeader } from '@/components/layout/site-header'
-import { SiteFooter } from '@/components/layout/site-footer'
-import { NotFoundComponent } from '@/components/layout/not-found'
-import { ErrorComponent } from '@/components/layout/error-boundary'
-import { Toaster } from '@/components/ui/toaster'
-import { PageLoader, PendingLoader } from '@/components/layout/page-loader'
-import { AmbientBackground } from '@/components/layout/ambient-background'
-import { AnimatedFavicon } from '@/components/layout/animated-favicon'
-import { FloatingDock } from '@/components/layout/floating-dock'
-import { ScrollToTop } from '@/components/layout/scroll-to-top'
-import { EasterEggs } from '@/components/layout/easter-eggs'
-import { siteConfig } from '@/data/site'
-import { absoluteUrl, jsonLdPerson } from '@/lib/seo'
-import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from '@/lib/storage'
+import interLatinWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2";
+import spaceGroteskLatinWoff2 from "@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2";
+import jetbrainsMonoLatinWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2";
+import { ThemeProvider } from "@/components/layout/theme-provider";
+import { QueryProvider } from "@/components/layout/query-provider";
+import { LenisProvider } from "@/components/layout/lenis-provider";
+import { SkipLink } from "@/components/layout/skip-link";
+import { ScrollProgress } from "@/components/layout/scroll-progress";
+import { useCommand } from "@/hooks/use-command";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { NotFoundComponent } from "@/components/layout/not-found";
+import { ErrorComponent } from "@/components/layout/error-boundary";
+import { Toaster } from "@/components/ui/toaster";
+import { PageLoader, PendingLoader } from "@/components/layout/page-loader";
+import { AmbientBackground } from "@/components/layout/ambient-background";
+import { AnimatedFavicon } from "@/components/layout/animated-favicon";
+import { FloatingDock } from "@/components/layout/floating-dock";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
+import { EasterEggs } from "@/components/layout/easter-eggs";
+import { siteConfig } from "@/data/site";
+import { absoluteUrl, jsonLdPerson } from "@/lib/seo";
+import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "@/lib/storage";
 
 // ⌘K palette is closed on virtually every page — CommandPaletteGate keeps
 // this chunk unloaded until the palette is first opened.
 const CommandPalette = lazy(() =>
-  import('@/components/layout/command-palette').then((m) => ({ default: m.CommandPalette })),
-)
+  import("@/components/layout/command-palette").then((m) => ({ default: m.CommandPalette })),
+);
 
 export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
@@ -45,39 +45,39 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       {
-        charSet: 'utf-8',
+        charSet: "utf-8",
       },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
       },
       {
-        title: 'Rubin Bhandari — Software Engineer',
+        title: "Rubin Bhandari — Software Engineer",
       },
       {
-        name: 'description',
+        name: "description",
         content:
-          'Portfolio and blog of Rubin Bhandari — full-stack developer crafting robust web applications and API systems.',
+          "Portfolio and blog of Rubin Bhandari — full-stack developer crafting robust web applications and API systems.",
       },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: siteConfig.name },
-      { property: 'og:title', content: siteConfig.seo.title },
-      { property: 'og:description', content: siteConfig.seo.description },
-      { property: 'og:url', content: absoluteUrl('/') },
-      { property: 'og:image', content: absoluteUrl(siteConfig.seo.ogImage) },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: siteConfig.seo.title },
-      { name: 'twitter:description', content: siteConfig.seo.description },
-      { name: 'twitter:image', content: absoluteUrl(siteConfig.seo.ogImage) },
-      { name: 'theme-color', content: '#05060e' },
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: siteConfig.name },
+      { property: "og:title", content: siteConfig.seo.title },
+      { property: "og:description", content: siteConfig.seo.description },
+      { property: "og:url", content: absoluteUrl("/") },
+      { property: "og:image", content: absoluteUrl(siteConfig.seo.ogImage) },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: siteConfig.seo.title },
+      { name: "twitter:description", content: siteConfig.seo.description },
+      { name: "twitter:image", content: absoluteUrl(siteConfig.seo.ogImage) },
+      { name: "theme-color", content: "#05060e" },
       {
-        name: 'keywords',
-        content: siteConfig.seo.keywords.join(', '),
+        name: "keywords",
+        content: siteConfig.seo.keywords.join(", "),
       },
     ],
     scripts: [
       {
-        type: 'application/ld+json',
+        type: "application/ld+json",
         children: JSON.stringify(jsonLdPerson()),
       },
       {
@@ -91,35 +91,35 @@ export const Route = createRootRoute({
     ],
     links: [
       {
-        rel: 'preload',
+        rel: "preload",
         href: interLatinWoff2,
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       {
-        rel: 'preload',
+        rel: "preload",
         href: spaceGroteskLatinWoff2,
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       {
-        rel: 'preload',
+        rel: "preload",
         href: jetbrainsMonoLatinWoff2,
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       // Resource hints: preconnect to origins used for avatar + comments;
       // dns-prefetch the rest so DNS is warm when the user scrolls to them.
-      { rel: 'preconnect', href: 'https://github.com' },
-      { rel: 'dns-prefetch', href: 'https://giscus.app' },
-      { rel: 'dns-prefetch', href: 'https://x.com' },
-      { rel: 'dns-prefetch', href: 'https://www.linkedin.com' },
-      { rel: 'manifest', href: '/manifest.webmanifest' },
-      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-      { rel: 'apple-touch-icon', href: '/og.png' },
+      { rel: "preconnect", href: "https://github.com" },
+      { rel: "dns-prefetch", href: "https://giscus.app" },
+      { rel: "dns-prefetch", href: "https://x.com" },
+      { rel: "dns-prefetch", href: "https://www.linkedin.com" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "apple-touch-icon", href: "/og.png" },
     ],
   }),
   shellComponent: RootDocument,
@@ -145,7 +145,7 @@ export const Route = createRootRoute({
       <Toaster />
     </>
   ),
-})
+});
 
 /**
  * ⌘K palette: binds the shortcut once (gate is always mounted), but keeps
@@ -153,17 +153,17 @@ export const Route = createRootRoute({
  * opened — it's then fetched once and stays mounted for instant reopens.
  */
 function CommandPaletteGate() {
-  const { open, setOpen } = useCommand()
-  const [mounted, setMounted] = useState(false)
+  const { open, setOpen } = useCommand();
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    if (open) setMounted(true)
-  }, [open])
-  if (!mounted) return null
+    if (open) setMounted(true);
+  }, [open]);
+  if (!mounted) return null;
   return (
     <Suspense fallback={null}>
       <CommandPalette open={open} setOpen={setOpen} />
     </Suspense>
-  )
+  );
 }
 
 function RootDocument({ children }: { children: ReactNode }) {
@@ -180,33 +180,33 @@ function RootDocument({ children }: { children: ReactNode }) {
         <ServiceWorkerRegistration />
       </body>
     </html>
-  )
+  );
 }
 
 function ServiceWorkerRegistration() {
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch((error) => {
-        console.warn('Service worker registration failed:', error)
-      })
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch((error) => {
+        console.warn("Service worker registration failed:", error);
+      });
     }
-  }, [])
+  }, []);
 
-  return null
+  return null;
 }
 
 // Focus main content on route change (skip the initial load — skip link covers it).
 function RouteFocusReset() {
-  const pathname = useLocation().pathname
-  const firstRender = useRef(true)
+  const pathname = useLocation().pathname;
+  const firstRender = useRef(true);
 
   useEffect(() => {
     if (firstRender.current) {
-      firstRender.current = false
-      return
+      firstRender.current = false;
+      return;
     }
-    document.getElementById('main')?.focus({ preventScroll: true })
-  }, [pathname])
+    document.getElementById("main")?.focus({ preventScroll: true });
+  }, [pathname]);
 
-  return null
+  return null;
 }

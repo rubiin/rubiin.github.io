@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * Scene lighting: soft ambient plus two tinted point lights (a cool mint
@@ -12,5 +12,5 @@ export function Lighting() {
       <pointLight position={[-4, 2, -3]} intensity={24} color="#71afff" />
       <pointLight position={[0, -2, 3]} intensity={10} color="#ffffff" />
     </>
-  )
+  );
 }

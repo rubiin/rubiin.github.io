@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { motion, useReducedMotion } from 'motion/react'
+import { motion, useReducedMotion } from "motion/react";
 
-const EASE = [0.22, 1, 0.36, 1] as const
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
  * Word-by-word masked kinetic reveal for headings. Words rise out of an
@@ -11,8 +11,8 @@ const EASE = [0.22, 1, 0.36, 1] as const
  * in server-rendered headings.
  */
 export function KineticTitle({ text, className }: { text: string; className?: string }) {
-  const reduced = useReducedMotion()
-  const words = text.split(' ')
+  const reduced = useReducedMotion();
+  const words = text.split(" ");
 
   return (
     <>
@@ -24,16 +24,16 @@ export function KineticTitle({ text, className }: { text: string; className?: st
         >
           <motion.span
             className={className}
-            initial={reduced ? false : { y: '105%' }}
+            initial={reduced ? false : { y: "105%" }}
             whileInView={reduced ? undefined : { y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: i * 0.055, ease: EASE }}
           >
             {word}
           </motion.span>
-          {i < words.length - 1 && '\u00A0'}
+          {i < words.length - 1 && "\u00A0"}
         </span>
       ))}
     </>
-  )
+  );
 }

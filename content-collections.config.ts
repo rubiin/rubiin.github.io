@@ -1,22 +1,22 @@
-import { defineCollection, defineConfig } from '@content-collections/core'
-import { compileMDX } from '@content-collections/mdx'
-import rehypeKatex from 'rehype-katex'
-import rehypeSlug from 'rehype-slug'
-import remarkMath from 'remark-math'
-import { z } from 'zod'
-import { remarkMermaid } from './scripts/remark-mermaid'
-import { extractToc } from './src/server/blog-utils'
+import { defineCollection, defineConfig } from "@content-collections/core";
+import { compileMDX } from "@content-collections/mdx";
+import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
+import remarkMath from "remark-math";
+import { z } from "zod";
+import { remarkMermaid } from "./scripts/remark-mermaid";
+import { extractToc } from "./src/server/blog-utils";
 
 export const posts = defineCollection({
-  name: 'posts',
-  directory: 'content/blog',
-  include: '**/*.mdx',
+  name: "posts",
+  directory: "content/blog",
+  include: "**/*.mdx",
   schema: z.object({
     title: z.string(),
     date: z.string(),
     description: z.string(),
     tags: z.array(z.string()).default([]),
-    category: z.string().default('software engineering'),
+    category: z.string().default("software engineering"),
     featured: z.boolean().default(false),
     /**
      * Relative popularity for the blog's "popular" sort.
@@ -32,20 +32,20 @@ export const posts = defineCollection({
     const mdx = await compileMDX(context, document, {
       remarkPlugins: [remarkMath, remarkMermaid],
       rehypePlugins: [rehypeKatex, rehypeSlug],
-    })
+    });
     // `_meta` is collection-internal metadata; it must not leak into the
     // serializable output shape — but its fileName feeds the route slug.
-    const { _meta, ...data } = document
+    const { _meta, ...data } = document;
     return {
       ...data,
-      slug: _meta.fileName.replace(/\.mdx?$/, ''),
+      slug: _meta.fileName.replace(/\.mdx?$/, ""),
       mdx,
       readingTime: Math.max(1, Math.round(document.content.split(/\s+/).length / 200)),
       toc: extractToc(document.content),
-    }
+    };
   },
-})
+});
 
 export default defineConfig({
   content: [posts],
-})
+});

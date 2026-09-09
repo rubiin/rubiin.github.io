@@ -1,118 +1,118 @@
-import { startTransition, useEffect, useMemo } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { useQueryClient } from '@tanstack/react-query'
+import { startTransition, useEffect, useMemo } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   createFileRoute,
   Link,
   useLoaderData,
   useNavigate,
   useSearch,
-} from '@tanstack/react-router'
-import { ArrowUpDown, ChevronDown, FileText, Hash, LayoutGrid, Tags, X } from 'lucide-react'
-import { FeaturedPost } from '@/components/blog/featured-post'
-import { PostCard } from '@/components/blog/post-card'
-import { BlogSearch } from '@/components/blog/blog-search'
-import { BlogPagination } from '@/components/blog/pagination'
-import { AnimatedGrid } from '@/components/animations/animated-grid'
-import { NeonButton } from '@/components/animations/neon-button'
-import { SectionHeading } from '@/components/home/section-heading'
+} from "@tanstack/react-router";
+import { ArrowUpDown, ChevronDown, FileText, Hash, LayoutGrid, Tags, X } from "lucide-react";
+import { FeaturedPost } from "@/components/blog/featured-post";
+import { PostCard } from "@/components/blog/post-card";
+import { BlogSearch } from "@/components/blog/blog-search";
+import { BlogPagination } from "@/components/blog/pagination";
+import { AnimatedGrid } from "@/components/animations/animated-grid";
+import { NeonButton } from "@/components/animations/neon-button";
+import { SectionHeading } from "@/components/home/section-heading";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { BLOG_POSTS_QUERY_KEY, POSTS_PER_PAGE } from '@/lib/constants'
-import { buildMeta } from '@/lib/seo'
-import { getPostCategories, getPosts, type PostSummary } from '@/server/blog'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/dropdown-menu";
+import { BLOG_POSTS_QUERY_KEY, POSTS_PER_PAGE } from "@/lib/constants";
+import { buildMeta } from "@/lib/seo";
+import { getPostCategories, getPosts, type PostSummary } from "@/server/blog";
+import { cn } from "@/lib/utils";
 
 const SORT_OPTIONS = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'featured', label: 'Featured' },
-  { value: 'oldest', label: 'Oldest' },
-] as const
+  { value: "newest", label: "Newest" },
+  { value: "popular", label: "Popular" },
+  { value: "featured", label: "Featured" },
+  { value: "oldest", label: "Oldest" },
+] as const;
 
-type BlogSort = (typeof SORT_OPTIONS)[number]['value']
-const SORTS = SORT_OPTIONS.map((o) => o.value)
+type BlogSort = (typeof SORT_OPTIONS)[number]["value"];
+const SORTS = SORT_OPTIONS.map((o) => o.value);
 const SORT_LABELS = Object.fromEntries(SORT_OPTIONS.map((o) => [o.value, o.label])) as Record<
   BlogSort,
   string
->
+>;
 
 // Stable renderItem — module scope so the reference never changes across re-renders.
 function renderPostCard(post: PostSummary) {
-  return <PostCard post={post} />
+  return <PostCard post={post} />;
 }
 
 interface BlogSearchParams {
-  category: string
-  tag: string
-  q: string
-  page: number
-  sort: BlogSort
+  category: string;
+  tag: string;
+  q: string;
+  page: number;
+  sort: BlogSort;
 }
 
 /** Shared filter-pill styling: gradient fill when active, glass when not. */
 function pillClasses(active: boolean) {
   return cn(
-    'inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all duration-300',
-    'focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
+    "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all duration-300",
+    "focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
     active
-      ? 'border-transparent bg-gradient-to-r from-primary to-accent-secondary text-primary-foreground shadow-[0_6px_24px_-8px_color-mix(in_oklab,var(--primary)_70%,transparent)] dark:text-[#05060e]'
-      : 'border-border/40 bg-muted/30 text-muted-foreground backdrop-blur-sm hover:border-primary/40 hover:text-foreground hover:shadow-[0_0_20px_-8px_color-mix(in_oklab,var(--primary)_50%,transparent)]',
-  )
+      ? "border-transparent bg-gradient-to-r from-primary to-accent-secondary text-primary-foreground shadow-[0_6px_24px_-8px_color-mix(in_oklab,var(--primary)_70%,transparent)] dark:text-[#05060e]"
+      : "border-border/40 bg-muted/30 text-muted-foreground backdrop-blur-sm hover:border-primary/40 hover:text-foreground hover:shadow-[0_0_20px_-8px_color-mix(in_oklab,var(--primary)_50%,transparent)]",
+  );
 }
 
-export const Route = createFileRoute('/blog/')({
+export const Route = createFileRoute("/blog/")({
   validateSearch: (search: Record<string, unknown>): BlogSearchParams => {
-    const page = typeof search.page === 'number' ? search.page : Number(search.page) || 1
+    const page = typeof search.page === "number" ? search.page : Number(search.page) || 1;
     return {
-      category: typeof search.category === 'string' ? search.category : 'all',
-      tag: typeof search.tag === 'string' ? search.tag : 'all',
-      q: typeof search.q === 'string' ? search.q : '',
+      category: typeof search.category === "string" ? search.category : "all",
+      tag: typeof search.tag === "string" ? search.tag : "all",
+      q: typeof search.q === "string" ? search.q : "",
       page: page < 1 ? 1 : page,
-      sort: SORTS.includes(search.sort as BlogSort) ? (search.sort as BlogSort) : 'newest',
-    }
+      sort: SORTS.includes(search.sort as BlogSort) ? (search.sort as BlogSort) : "newest",
+    };
   },
   loader: async () => {
-    const [posts, categories] = await Promise.all([getPosts(), getPostCategories()])
-    return { posts, categories }
+    const [posts, categories] = await Promise.all([getPosts(), getPostCategories()]);
+    return { posts, categories };
   },
   head: () => ({
     meta: buildMeta({
-      title: 'Blog — Rubin Bhandari',
+      title: "Blog — Rubin Bhandari",
       description:
-        'Essays on engineering and developer tooling by Rubin Bhandari — Javascript, Linux, APIs, and terminal workflows.',
-      path: '/blog',
+        "Essays on engineering and developer tooling by Rubin Bhandari — Javascript, Linux, APIs, and terminal workflows.",
+      path: "/blog",
     }),
   }),
   component: BlogIndexPage,
-})
+});
 
 function BlogIndexPage() {
-  const reduced = useReducedMotion()
-  const { posts, categories } = useLoaderData({ from: '/blog/' })
-  const { category, tag, q, page, sort } = useSearch({ from: '/blog/' })
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
+  const reduced = useReducedMotion();
+  const { posts, categories } = useLoaderData({ from: "/blog/" });
+  const { category, tag, q, page, sort } = useSearch({ from: "/blog/" });
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   // Seed the ⌘K palette's posts cache from this loader's data — the palette
   // reads the same key, so opening it after visiting the blog never refetches.
   useEffect(() => {
-    queryClient.setQueryData(BLOG_POSTS_QUERY_KEY, posts)
-  }, [queryClient, posts])
+    queryClient.setQueryData(BLOG_POSTS_QUERY_KEY, posts);
+  }, [queryClient, posts]);
 
   const update = (patch: Partial<BlogSearchParams>) => {
     // Any filter change resets to page 1; only an explicit page patch keeps it.
-    const resetPage = !('page' in patch)
+    const resetPage = !("page" in patch);
     // Non-urgent filter update (use-transitions): the URL change + list
     // re-render run as a transition, so typing/clicks stay responsive.
     startTransition(() => {
       void navigate({
-        to: '/blog',
+        to: "/blog",
         search: {
           category: patch.category ?? category,
           tag: patch.tag ?? tag,
@@ -120,37 +120,37 @@ function BlogIndexPage() {
           page: resetPage ? 1 : (patch.page ?? page),
           sort: patch.sort ?? sort,
         },
-      })
-    })
-  }
+      });
+    });
+  };
 
   const filtered = useMemo(() => {
-    const needle = q.trim().toLowerCase()
+    const needle = q.trim().toLowerCase();
     const matches = posts.filter((post) => {
-      if (category !== 'all' && post.category !== category) return false
-      if (tag !== 'all' && !post.tags.includes(tag)) return false
-      if (!needle) return true
-      return [post.title, post.description, ...post.tags].join(' ').toLowerCase().includes(needle)
-    })
+      if (category !== "all" && post.category !== category) return false;
+      if (tag !== "all" && !post.tags.includes(tag)) return false;
+      if (!needle) return true;
+      return [post.title, post.description, ...post.tags].join(" ").toLowerCase().includes(needle);
+    });
     // Sort a copy — never mutate the loader's cached array.
     const compare: Record<BlogSort, (a: PostSummary, b: PostSummary) => number> = {
       newest: (a, b) => (a.date < b.date ? 1 : -1),
       oldest: (a, b) => (a.date > b.date ? 1 : -1),
       popular: (a, b) => b.views - a.views || (a.date < b.date ? 1 : -1),
       featured: (a, b) => Number(b.featured) - Number(a.featured) || (a.date < b.date ? 1 : -1),
-    }
-    return matches.sort(compare[sort])
-  }, [posts, category, tag, q, sort])
+    };
+    return matches.sort(compare[sort]);
+  }, [posts, category, tag, q, sort]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE))
-  const safePage = Math.min(page, totalPages)
-  const pageItems = filtered.slice((safePage - 1) * POSTS_PER_PAGE, safePage * POSTS_PER_PAGE)
-  const featured = posts.find((p) => p.featured) ?? posts[0]
-  const hasFilters = category !== 'all' || tag !== 'all' || q.trim().length > 0
-  const hasMoreCategories = categories.length > 1
-  const isCategoryFilter = category !== 'all'
-  const isTagFilter = tag !== 'all'
-  const isFiltering = isCategoryFilter || isTagFilter
+  const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
+  const safePage = Math.min(page, totalPages);
+  const pageItems = filtered.slice((safePage - 1) * POSTS_PER_PAGE, safePage * POSTS_PER_PAGE);
+  const featured = posts.find((p) => p.featured) ?? posts[0];
+  const hasFilters = category !== "all" || tag !== "all" || q.trim().length > 0;
+  const hasMoreCategories = categories.length > 1;
+  const isCategoryFilter = category !== "all";
+  const isTagFilter = tag !== "all";
+  const isFiltering = isCategoryFilter || isTagFilter;
   const headingTitle =
     isCategoryFilter && isTagFilter
       ? `Showing posts from ${category} · #${tag}`
@@ -158,28 +158,28 @@ function BlogIndexPage() {
         ? `Showing posts from ${category}`
         : isTagFilter
           ? `Showing posts from #${tag}`
-          : 'The Iteration Log.'
+          : "The Iteration Log.";
 
-  const clearFilters = () => update({ category: 'all', tag: 'all', q: '' })
+  const clearFilters = () => update({ category: "all", tag: "all", q: "" });
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionHeading
         level="h1"
-        eyebrow={isFiltering ? 'Filtered writing' : 'Writing'}
+        eyebrow={isFiltering ? "Filtered writing" : "Writing"}
         title={headingTitle}
         description={
           isFiltering
-            ? `${filtered.length} ${filtered.length === 1 ? 'article' : 'articles'}${
-                isCategoryFilter ? ` in the ${category} category` : ''
-              }${isCategoryFilter && isTagFilter ? ' ·' : ''}${isTagFilter ? ` tagged #${tag}` : ''}.`
-            : 'Practical guides on engineering, design, and the craft of building on the web for curious developers. '
+            ? `${filtered.length} ${filtered.length === 1 ? "article" : "articles"}${
+                isCategoryFilter ? ` in the ${category} category` : ""
+              }${isCategoryFilter && isTagFilter ? " ·" : ""}${isTagFilter ? ` tagged #${tag}` : ""}.`
+            : "Practical guides on engineering, design, and the craft of building on the web for curious developers. "
         }
       />
 
       {/* The featured spotlight only belongs on the default (newest) view —
           once the list is sorted another way it would contradict the order. */}
-      {featured && !hasFilters && safePage === 1 && sort === 'newest' && (
+      {featured && !hasFilters && safePage === 1 && sort === "newest" && (
         <div className="mb-12">
           <FeaturedPost post={featured} />
         </div>
@@ -209,20 +209,20 @@ function BlogIndexPage() {
                 className="inline-flex items-center gap-1.5 px-1 text-sm tabular-nums text-muted-foreground"
               >
                 <FileText className="size-3.5 text-primary/70" aria-hidden />
-                {filtered.length} {filtered.length === 1 ? 'article' : 'articles'}
+                {filtered.length} {filtered.length === 1 ? "article" : "articles"}
               </motion.span>
             </AnimatePresence>
             <span className="inline-flex items-center gap-2">
               <Link
                 to="/blog/tags"
-                className={cn(pillClasses(false), 'text-primary hover:text-primary')}
+                className={cn(pillClasses(false), "text-primary hover:text-primary")}
               >
                 <Tags className="size-3.5 text-primary" aria-hidden />
                 All tags
               </Link>
               <Link
                 to="/blog/categories"
-                className={cn(pillClasses(false), 'text-primary hover:text-primary')}
+                className={cn(pillClasses(false), "text-primary hover:text-primary")}
               >
                 <LayoutGrid className="size-3.5 text-primary" aria-hidden />
                 Categories
@@ -231,7 +231,7 @@ function BlogIndexPage() {
             <span aria-hidden className="mx-1 hidden h-5 w-px bg-border sm:block" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button type="button" className={cn(pillClasses(false), 'cursor-pointer')}>
+                <button type="button" className={cn(pillClasses(false), "cursor-pointer")}>
                   <ArrowUpDown className="size-3.5 text-primary" aria-hidden />
                   Sort: {SORT_LABELS[sort]}
                   <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
@@ -257,7 +257,7 @@ function BlogIndexPage() {
           <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-border/40 pt-3">
             {hasMoreCategories && !isTagFilter && (
               <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
-                {['all', ...categories.map((c) => c.category)].map((c) => (
+                {["all", ...categories.map((c) => c.category)].map((c) => (
                   <button
                     key={c}
                     type="button"
@@ -265,7 +265,7 @@ function BlogIndexPage() {
                     aria-pressed={category === c}
                     onClick={() => update({ category: c })}
                   >
-                    {c === 'all' ? 'All' : c}
+                    {c === "all" ? "All" : c}
                   </button>
                 ))}
               </div>
@@ -276,9 +276,9 @@ function BlogIndexPage() {
             {isTagFilter && (
               <button
                 type="button"
-                className={cn(pillClasses(true), 'text-xs', 'group inline-flex cursor-pointer')}
+                className={cn(pillClasses(true), "text-xs", "group inline-flex cursor-pointer")}
                 aria-label={`Clear tag filter ${tag}`}
-                onClick={() => update({ tag: 'all' })}
+                onClick={() => update({ tag: "all" })}
               >
                 <Hash className="size-3" aria-hidden />
                 {tag}
@@ -313,5 +313,5 @@ function BlogIndexPage() {
         </>
       )}
     </div>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import { existsSync, readdirSync } from 'node:fs'
-import { homedir } from 'node:os'
-import { join } from 'node:path'
-import { defineConfig } from '@playwright/test'
+import { existsSync, readdirSync } from "node:fs";
+import { homedir } from "node:os";
+import { join } from "node:path";
+import { defineConfig } from "@playwright/test";
 
 /**
  * Visual snapshot suite — compares the current build against goldens captured
@@ -17,41 +17,41 @@ import { defineConfig } from '@playwright/test'
  *    (helpers.ts).
  *  - reduced motion + `animations: 'disabled'` freeze every CSS animation.
  */
-const BASE_URL = process.env.SNAPSHOT_EXTERNAL ?? 'http://localhost:3000'
-const externalServer = Boolean(process.env.SNAPSHOT_EXTERNAL)
+const BASE_URL = process.env.SNAPSHOT_EXTERNAL ?? "http://localhost:3000";
+const externalServer = Boolean(process.env.SNAPSHOT_EXTERNAL);
 
 /** Reuse the cached chromium headless shell (same discovery as scripts/smoke-test.mjs). */
 function findHeadlessShell(): string | undefined {
-  const cacheDir = join(homedir(), '.cache', 'ms-playwright')
-  if (!existsSync(cacheDir)) return undefined
+  const cacheDir = join(homedir(), ".cache", "ms-playwright");
+  if (!existsSync(cacheDir)) return undefined;
   for (const dir of readdirSync(cacheDir)) {
-    if (!dir.startsWith('chromium_headless_shell-')) continue
-    const executable = join(cacheDir, dir, 'chrome-linux', 'headless_shell')
-    if (existsSync(executable)) return executable
+    if (!dir.startsWith("chromium_headless_shell-")) continue;
+    const executable = join(cacheDir, dir, "chrome-linux", "headless_shell");
+    if (existsSync(executable)) return executable;
   }
-  return undefined
+  return undefined;
 }
 
-const executablePath = findHeadlessShell()
+const executablePath = findHeadlessShell();
 
 export default defineConfig({
-  testDir: 'tests/e2e',
+  testDir: "tests/e2e",
   // Platform-independent snapshot paths (`home-light.png`, not
   // `home-light-linux.png`) — goldens are compared on whatever OS they were
   // captured on; regenerate on the same OS as CI (Linux) for reliable results.
-  snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+  snapshotPathTemplate: "{testDir}/__screenshots__/{testFilePath}/{arg}{ext}",
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
   timeout: 60_000,
   expect: { timeout: 15_000 },
-  reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
+  reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: BASE_URL,
     viewport: { width: 1280, height: 800 },
-    colorScheme: 'light',
+    colorScheme: "light",
     ...(executablePath ? { launchOptions: { executablePath } } : {}),
-    trace: 'retain-on-failure',
+    trace: "retain-on-failure",
   },
   // Always spawn a fresh server: `reuseExistingServer` would silently test a
   // stale build if a leftover dev/preview server is holding :3000 (a real trap
@@ -60,9 +60,9 @@ export default defineConfig({
   webServer: externalServer
     ? undefined
     : {
-        command: 'node .output/server/index.mjs',
-        url: 'http://localhost:3000',
+        command: "node .output/server/index.mjs",
+        url: "http://localhost:3000",
         reuseExistingServer: false,
         timeout: 60_000,
       },
-})
+});

@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { useEffect, useState, type ReactNode } from 'react'
-import { applyTheme, themeStore } from '@/stores/theme-store'
+import { useEffect, useState, type ReactNode } from "react";
+import { applyTheme, themeStore } from "@/stores/theme-store";
 
 /**
  * Applies the persisted theme to <html> on the client and keeps the
@@ -9,20 +9,20 @@ import { applyTheme, themeStore } from '@/stores/theme-store'
  * purely a side-effect provider.
  */
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    applyTheme(themeStore.state)
-    setMounted(true)
-  }, [])
+    applyTheme(themeStore.state);
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!mounted) return
-    const mq = window.matchMedia('(prefers-color-scheme: dark)')
-    const onChange = () => applyTheme(themeStore.state)
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
-  }, [mounted])
+    if (!mounted) return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = () => applyTheme(themeStore.state);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [mounted]);
 
-  return <>{children}</>
+  return <>{children}</>;
 }

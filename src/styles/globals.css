@@ -21,13 +21,13 @@
   --radius: 1rem;
   /* Fontsource variable families — family names carry the `Variable` suffix. */
   --font-sans:
-    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, sans-serif;
   --font-display:
-    'Space Grotesk Variable', 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    "Space Grotesk Variable", "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, sans-serif;
   --font-mono:
-    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono',
+    "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
     monospace;
   --background: #f4f6fd;
   --foreground: #12162b;
@@ -136,7 +136,7 @@
    egg still wins at equal specificity.
    ============================================================ */
 /* Catppuccin — Latte (light) / Mocha (dark) */
-html[data-theme='catppuccin'] {
+html[data-theme="catppuccin"] {
   --background: #eff1f5;
   --foreground: #4c4f69;
   --card: #ffffff;
@@ -171,7 +171,7 @@ html[data-theme='catppuccin'] {
   --shiki-token-changed: #df8e1d;
 }
 
-html[data-theme='catppuccin'].dark {
+html[data-theme="catppuccin"].dark {
   --background: #1e1e2e;
   --foreground: #cdd6f4;
   --card: #181825;
@@ -207,7 +207,7 @@ html[data-theme='catppuccin'].dark {
 }
 
 /* Rosé Pine — Dawn (light) / Rosé Pine (dark) */
-html[data-theme='rosepine'] {
+html[data-theme="rosepine"] {
   --background: #faf4ed;
   --foreground: #575279;
   --card: #ffffff;
@@ -242,7 +242,7 @@ html[data-theme='rosepine'] {
   --shiki-token-changed: #ea9d34;
 }
 
-html[data-theme='rosepine'].dark {
+html[data-theme="rosepine"].dark {
   --background: #191724;
   --foreground: #e0def4;
   --card: #1f1d2e;
@@ -278,7 +278,7 @@ html[data-theme='rosepine'].dark {
 }
 
 /* Nord — Snow Storm (light) / Polar Night (dark) */
-html[data-theme='nord'] {
+html[data-theme="nord"] {
   --background: #eceff4;
   --foreground: #2e3440;
   --card: #ffffff;
@@ -313,7 +313,7 @@ html[data-theme='nord'] {
   --shiki-token-changed: #ebcb8b;
 }
 
-html[data-theme='nord'].dark {
+html[data-theme="nord"].dark {
   --background: #2e3440;
   --foreground: #d8dee9;
   --card: #3b4252;
@@ -349,7 +349,7 @@ html[data-theme='nord'].dark {
 }
 
 /* Dracula — light variant is community-derived (Dracula ships dark only) */
-html[data-theme='dracula'] {
+html[data-theme="dracula"] {
   --background: #f8f8f2;
   --foreground: #282a36;
   --card: #ffffff;
@@ -384,7 +384,7 @@ html[data-theme='dracula'] {
   --shiki-token-changed: #d97706;
 }
 
-html[data-theme='dracula'].dark {
+html[data-theme="dracula"].dark {
   --background: #282a36;
   --foreground: #f8f8f2;
   --card: #21222c;
@@ -420,7 +420,7 @@ html[data-theme='dracula'].dark {
 }
 
 /* Tokyo Night — Day (light) / Tokyo Night (dark) */
-html[data-theme='tokyonight'] {
+html[data-theme="tokyonight"] {
   --background: #e1e2e7;
   --foreground: #3760bf;
   --card: #ffffff;
@@ -455,7 +455,7 @@ html[data-theme='tokyonight'] {
   --shiki-token-changed: #8c6c3e;
 }
 
-html[data-theme='tokyonight'].dark {
+html[data-theme="tokyonight"].dark {
   --background: #1a1b26;
   --foreground: #c0caf5;
   --card: #16161e;
@@ -491,7 +491,7 @@ html[data-theme='tokyonight'].dark {
 }
 
 /* Gruvbox — light (medium) / dark (medium) */
-html[data-theme='gruvbox'] {
+html[data-theme="gruvbox"] {
   --background: #fbf1c7;
   --foreground: #3c3836;
   --card: #ffffff;
@@ -526,7 +526,7 @@ html[data-theme='gruvbox'] {
   --shiki-token-changed: #b57614;
 }
 
-html[data-theme='gruvbox'].dark {
+html[data-theme="gruvbox"].dark {
   --background: #282828;
   --foreground: #ebdbb2;
   --card: #3c3836;
@@ -562,7 +562,7 @@ html[data-theme='gruvbox'].dark {
 }
 
 /* Everforest — light (medium) / dark (medium) */
-html[data-theme='everforest'] {
+html[data-theme="everforest"] {
   --background: #fdf6e3;
   --foreground: #5c6a72;
   --card: #ffffff;
@@ -597,7 +597,7 @@ html[data-theme='everforest'] {
   --shiki-token-changed: #dfa000;
 }
 
-html[data-theme='everforest'].dark {
+html[data-theme="everforest"].dark {
   --background: #2d353b;
   --foreground: #d3c6aa;
   --card: #343f44;
@@ -746,7 +746,7 @@ html[data-theme='everforest'].dark {
 }
 
 .animated-border::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -1px;
   z-index: -1;
@@ -768,7 +768,7 @@ html[data-theme='everforest'].dark {
 }
 
 .animated-border:hover::before,
-.animated-border[data-always='true']::before {
+.animated-border[data-always="true"]::before {
   opacity: 1;
 }
 
@@ -780,7 +780,7 @@ html[data-theme='everforest'].dark {
 
 /* Custom property for the rotating border angle */
 @property --border-angle {
-  syntax: '<angle>';
+  syntax: "<angle>";
   inherits: false;
   initial-value: 0deg;
 }
@@ -969,7 +969,7 @@ html.boot-show #pf-boot {
 }
 
 /* Konami easter egg: synthwave palette override (any theme). */
-html[data-retro='true'] {
+html[data-retro="true"] {
   --primary: #ff71ce;
   --primary-foreground: #0a0a0f;
   --accent-secondary: #01cdfe;
@@ -1041,7 +1041,7 @@ html[data-retro='true'] {
     position: relative;
   }
   .nav-underline::after {
-    content: '';
+    content: "";
     position: absolute;
     inset-inline: 0;
     bottom: -2px;
@@ -1054,7 +1054,7 @@ html[data-retro='true'] {
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .nav-underline:hover::after,
-  .nav-underline[data-active='true']::after {
+  .nav-underline[data-active="true"]::after {
     transform: scaleX(1);
   }
   .prose .katex-display {

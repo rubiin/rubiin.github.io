@@ -1,21 +1,21 @@
-import { CheckCircle2, Quote, Sparkles } from 'lucide-react'
-import { Reveal } from '@/components/animations/reveal'
-import { AnimatedBorder } from '@/components/animations/animated-border'
-import { ChapterHeading } from '@/components/home/chapter-heading'
-import { ScrollScrubbedParagraph } from '@/components/home/scroll-scrubbed-paragraph'
-import { profile } from '@/data/profile'
+import { CheckCircle2, Quote, Sparkles } from "lucide-react";
+import { Reveal } from "@/components/animations/reveal";
+import { AnimatedBorder } from "@/components/animations/animated-border";
+import { ChapterHeading } from "@/components/home/chapter-heading";
+import { ScrollScrubbedParagraph } from "@/components/home/scroll-scrubbed-paragraph";
+import { profile } from "@/data/profile";
 
 /** Key phrases that light up in the gradient as the reader scrolls past. */
 const BIO_HIGHLIGHTS = [
-  'Rubin Bhandari',
-  'elegant solutions',
-  'robust web applications and API systems',
-  'JavaScript and Golang',
-  'TypeScript and NestJS',
-  'PostgreSQL and MongoDB',
-  'open-source developer tooling',
-  'NestJS modules, CLI utilities, and utility libraries',
-]
+  "Rubin Bhandari",
+  "elegant solutions",
+  "robust web applications and API systems",
+  "JavaScript and Golang",
+  "TypeScript and NestJS",
+  "PostgreSQL and MongoDB",
+  "open-source developer tooling",
+  "NestJS modules, CLI utilities, and utility libraries",
+];
 
 /**
  * About section: biography + interests, and a philosophy quote card with
@@ -95,5 +95,5 @@ export function AboutSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

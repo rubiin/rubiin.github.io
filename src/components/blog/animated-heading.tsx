@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { motion, useReducedMotion } from 'motion/react'
-import type { ReactNode } from 'react'
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
 
-type Level = 'h2' | 'h3' | 'h4'
+type Level = "h2" | "h3" | "h4";
 
 /**
  * Scroll-triggered heading reveal for MDX content: each heading rises out
@@ -17,27 +17,27 @@ export function AnimatedHeading({
   children,
   className,
 }: {
-  id?: string
-  level: Level
-  children?: ReactNode
-  className?: string
+  id?: string;
+  level: Level;
+  children?: ReactNode;
+  className?: string;
 }) {
-  const reduced = useReducedMotion()
-  const Tag = level
+  const reduced = useReducedMotion();
+  const Tag = level;
 
   return (
     <Tag id={id} className={className}>
       <span className="block overflow-hidden">
         <motion.span
           className="block pb-[0.14em] -mb-[0.14em] mr-[-0.14em]"
-          initial={reduced ? false : { y: '60%', opacity: 0.35 }}
+          initial={reduced ? false : { y: "60%", opacity: 0.35 }}
           whileInView={reduced ? undefined : { y: 0, opacity: 1 }}
-          viewport={{ once: true, margin: '-70px' }}
+          viewport={{ once: true, margin: "-70px" }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
           {children}
         </motion.span>
       </span>
     </Tag>
-  )
+  );
 }

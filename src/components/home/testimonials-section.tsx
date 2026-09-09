@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
-import { ChapterHeading } from '@/components/home/chapter-heading'
-import { testimonials } from '@/data/testimonials'
-import { cn } from '@/lib/utils'
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChapterHeading } from "@/components/home/chapter-heading";
+import { testimonials } from "@/data/testimonials";
+import { cn } from "@/lib/utils";
 
 /**
  * Auto-rotating glass testimonial carousel. Advances every 5.5s, pauses
@@ -13,30 +13,30 @@ import { cn } from '@/lib/utils'
  * slide).
  */
 export function TestimonialsSection() {
-  const reduced = useReducedMotion()
-  const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const timerRef = useRef<number | null>(null)
+  const reduced = useReducedMotion();
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<number | null>(null);
 
-  const count = testimonials.length
+  const count = testimonials.length;
 
   useEffect(() => {
-    if (reduced || paused || count <= 1) return
+    if (reduced || paused || count <= 1) return;
     timerRef.current = window.setInterval(() => {
-      setIndex((i) => (i + 1) % count)
-    }, 5500)
+      setIndex((i) => (i + 1) % count);
+    }, 5500);
     return () => {
-      if (timerRef.current) window.clearInterval(timerRef.current)
-    }
-  }, [reduced, paused, count])
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
+  }, [reduced, paused, count]);
 
-  const go = (next: number) => setIndex((next + count) % count)
+  const go = (next: number) => setIndex((next + count) % count);
   // Static, non-empty data source — first entry is a safe fallback.
-  const active = testimonials[index] ?? testimonials[0]!
+  const active = testimonials[index] ?? testimonials[0]!;
   const initials = active.author
-    .split(' ')
+    .split(" ")
     .map((part) => part[0])
-    .join('')
+    .join("");
 
   return (
     <section id="testimonials" className="mx-auto max-w-4xl scroll-mt-20 px-4 py-24 sm:px-6">
@@ -115,13 +115,13 @@ export function TestimonialsSection() {
                 key={t.author}
                 type="button"
                 aria-label={`Show testimonial ${i + 1} of ${count}: ${t.author}`}
-                aria-current={i === index ? 'true' : undefined}
+                aria-current={i === index ? "true" : undefined}
                 onClick={() => go(i)}
                 className={cn(
-                  'h-1.5 rounded-full transition-all duration-300',
+                  "h-1.5 rounded-full transition-all duration-300",
                   i === index
-                    ? 'w-8 bg-gradient-to-r from-primary to-accent-secondary shadow-[0_0_10px_color-mix(in_oklab,var(--primary)_80%,transparent)]'
-                    : 'w-3 bg-muted-foreground/25 hover:bg-muted-foreground/50',
+                    ? "w-8 bg-gradient-to-r from-primary to-accent-secondary shadow-[0_0_10px_color-mix(in_oklab,var(--primary)_80%,transparent)]"
+                    : "w-3 bg-muted-foreground/25 hover:bg-muted-foreground/50",
                 )}
               />
             ))}
@@ -138,5 +138,5 @@ export function TestimonialsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

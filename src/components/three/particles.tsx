@@ -1,32 +1,32 @@
-'use client'
+"use client";
 
-import { useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { Points } from 'three'
+import { useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Points } from "three";
 
-const COUNT = 120
+const COUNT = 120;
 
 /**
  * A slowly drifting field of points around the workspace. The whole
  * points cloud rotates imperceptibly over time for a living feel.
  */
 export function Particles() {
-  const pointsRef = useRef<Points>(null)
+  const pointsRef = useRef<Points>(null);
 
   const positions = useMemo(() => {
-    const arr = new Float32Array(COUNT * 3)
+    const arr = new Float32Array(COUNT * 3);
     for (let i = 0; i < COUNT; i++) {
-      arr[i * 3] = (Math.random() - 0.5) * 12
-      arr[i * 3 + 1] = (Math.random() - 0.5) * 7
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 8
+      arr[i * 3] = (Math.random() - 0.5) * 12;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 7;
+      arr[i * 3 + 2] = (Math.random() - 0.5) * 8;
     }
-    return arr
-  }, [])
+    return arr;
+  }, []);
 
   useFrame((_, delta) => {
-    if (!pointsRef.current) return
-    pointsRef.current.rotation.y += delta * 0.02
-  })
+    if (!pointsRef.current) return;
+    pointsRef.current.rotation.y += delta * 0.02;
+  });
 
   return (
     <points ref={pointsRef}>
@@ -42,5 +42,5 @@ export function Particles() {
         depthWrite={false}
       />
     </points>
-  )
+  );
 }

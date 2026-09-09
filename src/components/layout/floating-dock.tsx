@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { Link } from '@tanstack/react-router'
-import { Command, Mail, Rss, TerminalSquare } from 'lucide-react'
-import { motion, useReducedMotion } from 'motion/react'
-import { siteConfig } from '@/data/site'
-import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
-import { openCommandPalette } from '@/stores/command-store'
-import { cn } from '@/lib/utils'
+import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { Command, Mail, Rss, TerminalSquare } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { siteConfig } from "@/data/site";
+import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/ui/brand-icons";
+import { openCommandPalette } from "@/stores/command-store";
+import { cn } from "@/lib/utils";
 
 const SOCIALS = [
-  { label: 'GitHub', href: siteConfig.socials.github, icon: GitHubIcon },
-  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
-  { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
-  { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },
-]
+  { label: "GitHub", href: siteConfig.socials.github, icon: GitHubIcon },
+  { label: "LinkedIn", href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+  { label: "X", href: siteConfig.socials.twitter, icon: XIcon },
+  { label: "RSS", href: siteConfig.socials.rss, icon: Rss },
+];
 
 /**
  * Floating glass dock: quick socials + contact + terminal + ⌘K, pinned
@@ -22,31 +22,31 @@ const SOCIALS = [
  * and expands on hover.
  */
 export function FloatingDock() {
-  const [scrolled, setScrolled] = useState(false)
-  const reduced = useReducedMotion()
+  const [scrolled, setScrolled] = useState(false);
+  const reduced = useReducedMotion();
 
   // rAF-throttled: the derived boolean only changes twice per scroll, so we
   // batch the scroll events into at most one setState per frame.
   useEffect(() => {
-    let raf = 0
+    let raf = 0;
     const onScroll = () => {
-      cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(() => setScrolled(window.scrollY > 140))
-    }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setScrolled(window.scrollY > 140));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [])
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
     <motion.div
       className={cn(
-        'fixed bottom-4 left-1/2 z-40 -translate-x-1/2',
+        "fixed bottom-4 left-1/2 z-40 -translate-x-1/2",
         // Safe-area aware on notched devices
-        'pb-[env(safe-area-inset-bottom)]',
+        "pb-[env(safe-area-inset-bottom)]",
       )}
       animate={
         reduced
@@ -55,7 +55,7 @@ export function FloatingDock() {
             ? { scale: 0.92, opacity: 0.72, y: 6 }
             : { scale: 1, opacity: 1, y: 0 }
       }
-      transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+      transition={{ type: "spring", stiffness: 320, damping: 28 }}
       onHoverStart={() => !reduced && setScrolled(false)}
       onHoverEnd={() => !reduced && setScrolled(window.scrollY > 140)}
     >
@@ -64,8 +64,8 @@ export function FloatingDock() {
           <a
             key={label}
             href={href}
-            target={href.startsWith('http') ? '_blank' : undefined}
-            rel={href.startsWith('http') ? 'noreferrer' : undefined}
+            target={href.startsWith("http") ? "_blank" : undefined}
+            rel={href.startsWith("http") ? "noreferrer" : undefined}
             aria-label={label}
             title={label}
             className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
@@ -86,7 +86,7 @@ export function FloatingDock() {
         </a>
 
         <Link
-          to={'/terminal' as string}
+          to={"/terminal" as string}
           aria-label="Open terminal"
           title="Terminal"
           className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
@@ -105,5 +105,5 @@ export function FloatingDock() {
         </button>
       </div>
     </motion.div>
-  )
+  );
 }

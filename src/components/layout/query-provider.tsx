@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useState, type ReactNode } from 'react'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState, type ReactNode } from "react";
 
 /**
  * TanStack Query provider. The client is created once per provider mount
@@ -19,7 +19,7 @@ export function QueryProvider({ children }: { children: ReactNode }) {
           },
         },
       }),
-  )
+  );
 
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>
+  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
 }

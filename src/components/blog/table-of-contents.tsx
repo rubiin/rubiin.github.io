@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import type { TocItem } from '@/server/blog-utils'
-import { cn } from '@/lib/utils'
+import { useEffect, useState } from "react";
+import type { TocItem } from "@/server/blog-utils";
+import { cn } from "@/lib/utils";
 
-const EMPTY_FINISHED: ReadonlySet<string> = new Set()
+const EMPTY_FINISHED: ReadonlySet<string> = new Set();
 
 /**
  * Sticky table of contents. Tracks the heading currently in view with an
@@ -13,62 +13,62 @@ const EMPTY_FINISHED: ReadonlySet<string> = new Set()
  * dimmed — mirroring the paragraph read-head on the article body.
  */
 export function TableOfContents({ toc }: { toc: TocItem[] }) {
-  const [activeId, setActiveId] = useState<string | null>(null)
-  const [finishedIds, setFinishedIds] = useState<ReadonlySet<string>>(EMPTY_FINISHED)
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [finishedIds, setFinishedIds] = useState<ReadonlySet<string>>(EMPTY_FINISHED);
 
   useEffect(() => {
-    if (toc.length === 0) return
-    const ids = toc.map((item) => item.id)
+    if (toc.length === 0) return;
+    const ids = toc.map((item) => item.id);
 
     const activeObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
-            break
+            setActiveId(entry.target.id);
+            break;
           }
         }
       },
-      { rootMargin: '-80px 0px -70% 0px', threshold: 0 },
-    )
+      { rootMargin: "-80px 0px -70% 0px", threshold: 0 },
+    );
 
     // Headings above the reading line (~46% of the viewport) are finished.
     // Derived live from intersection, so scrolling back up restores them.
     const finishedObserver = new IntersectionObserver(
       (entries) => {
         setFinishedIds((prev) => {
-          const next = new Set(prev)
-          let changed = false
+          const next = new Set(prev);
+          let changed = false;
           for (const entry of entries) {
-            const id = entry.target.id
+            const id = entry.target.id;
             if (entry.isIntersecting && !next.has(id)) {
-              next.add(id)
-              changed = true
+              next.add(id);
+              changed = true;
             } else if (!entry.isIntersecting && next.has(id)) {
-              next.delete(id)
-              changed = true
+              next.delete(id);
+              changed = true;
             }
           }
-          return changed ? next : prev
-        })
+          return changed ? next : prev;
+        });
       },
-      { rootMargin: '0px 0px -54% 0px', threshold: 0 },
-    )
+      { rootMargin: "0px 0px -54% 0px", threshold: 0 },
+    );
 
     for (const id of ids) {
-      const el = document.getElementById(id)
+      const el = document.getElementById(id);
       if (el) {
-        activeObserver.observe(el)
-        finishedObserver.observe(el)
+        activeObserver.observe(el);
+        finishedObserver.observe(el);
       }
     }
     return () => {
-      activeObserver.disconnect()
-      finishedObserver.disconnect()
-    }
-  }, [toc])
+      activeObserver.disconnect();
+      finishedObserver.disconnect();
+    };
+  }, [toc]);
 
-  if (toc.length === 0) return null
+  if (toc.length === 0) return null;
 
   return (
     <nav
@@ -81,17 +81,17 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
       </p>
       <ul className="space-y-1.5">
         {toc.map((item) => {
-          const isActive = activeId === item.id
-          const isFinished = !isActive && finishedIds.has(item.id)
+          const isActive = activeId === item.id;
+          const isFinished = !isActive && finishedIds.has(item.id);
           return (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
                 className={cn(
-                  'group relative block py-0.5 pl-3 text-muted-foreground transition-all duration-300 hover:text-foreground',
-                  item.level === 3 && 'pl-6',
-                  isActive && 'text-foreground',
-                  isFinished && 'opacity-55 hover:opacity-90',
+                  "group relative block py-0.5 pl-3 text-muted-foreground transition-all duration-300 hover:text-foreground",
+                  item.level === 3 && "pl-6",
+                  isActive && "text-foreground",
+                  isFinished && "opacity-55 hover:opacity-90",
                 )}
               >
                 {isActive && (
@@ -103,9 +103,9 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
                 {item.text}
               </a>
             </li>
-          )
+          );
         })}
       </ul>
     </nav>
-  )
+  );
 }

@@ -1,72 +1,72 @@
-import { useRef } from 'react'
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
-import { CalendarDays, Clock, Hash, User } from 'lucide-react'
-import { MDXContent } from '@/components/blog/mdx-content'
-import { TableOfContents } from '@/components/blog/table-of-contents'
-import { ShareButtons } from '@/components/blog/share-buttons'
-import { RelatedPosts } from '@/components/blog/related-posts'
-import { PrevNextNav } from '@/components/blog/prev-next-nav'
-import { PostComments } from '@/components/blog/post-comments'
-import { LazyKatexCss } from '@/components/blog/lazy-katex-css'
-import { ImageZoom } from '@/components/blog/image-zoom'
-import { BlogReadingGlow } from '@/components/blog/blog-reading-glow'
-import { AnimatedBorder } from '@/components/animations/animated-border'
-import { KineticTitle } from '@/components/animations/kinetic-title'
-import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Button } from '@/components/ui/button'
-import { siteConfig } from '@/data/site'
-import { buildMeta } from '@/lib/seo'
-import { getPost, getPostNeighbors, getRelatedPosts } from '@/server/blog'
+import { useRef } from "react";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { CalendarDays, Clock, Hash, User } from "lucide-react";
+import { MDXContent } from "@/components/blog/mdx-content";
+import { TableOfContents } from "@/components/blog/table-of-contents";
+import { ShareButtons } from "@/components/blog/share-buttons";
+import { RelatedPosts } from "@/components/blog/related-posts";
+import { PrevNextNav } from "@/components/blog/prev-next-nav";
+import { PostComments } from "@/components/blog/post-comments";
+import { LazyKatexCss } from "@/components/blog/lazy-katex-css";
+import { ImageZoom } from "@/components/blog/image-zoom";
+import { BlogReadingGlow } from "@/components/blog/blog-reading-glow";
+import { AnimatedBorder } from "@/components/animations/animated-border";
+import { KineticTitle } from "@/components/animations/kinetic-title";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/data/site";
+import { buildMeta } from "@/lib/seo";
+import { getPost, getPostNeighbors, getRelatedPosts } from "@/server/blog";
 
 function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
-export const Route = createFileRoute('/blog/$slug')({
+export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
     const [post, related, neighbors] = await Promise.all([
       getPost({ data: params.slug }),
       getRelatedPosts({ data: params.slug }),
       getPostNeighbors({ data: params.slug }),
-    ])
-    if (!post) throw notFound()
+    ]);
+    if (!post) throw notFound();
 
-    return { post, related, ...neighbors }
+    return { post, related, ...neighbors };
   },
   head: ({ loaderData }) => {
-    const post = loaderData?.post
-    const path = `/blog/${post?.slug ?? ''}`
-    const url = `${siteConfig.url}${path}`
+    const post = loaderData?.post;
+    const path = `/blog/${post?.slug ?? ""}`;
+    const url = `${siteConfig.url}${path}`;
     return {
       meta: buildMeta({
-        title: `${post?.title ?? 'Article'} — ${siteConfig.name}`,
+        title: `${post?.title ?? "Article"} — ${siteConfig.name}`,
         description: post?.description ?? siteConfig.seo.description,
         path,
-        type: 'article',
+        type: "article",
       }),
       scripts: post
         ? [
             {
-              type: 'application/ld+json',
+              type: "application/ld+json",
               children: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'Article',
+                "@context": "https://schema.org",
+                "@type": "Article",
                 headline: post.title,
                 description: post.description,
                 datePublished: post.date,
                 author: {
-                  '@type': 'Person',
+                  "@type": "Person",
                   name: siteConfig.name,
                   url: siteConfig.url,
                   image: siteConfig.avatar,
                 },
                 publisher: {
-                  '@type': 'Person',
+                  "@type": "Person",
                   name: siteConfig.name,
                 },
                 mainEntityOfPage: url,
@@ -74,17 +74,17 @@ export const Route = createFileRoute('/blog/$slug')({
             },
           ]
         : [],
-    }
+    };
   },
   pendingComponent: PostSkeleton,
   errorComponent: PostError,
   component: BlogPostPage,
-})
+});
 
 function BlogPostPage() {
-  const { post, related, newer, older } = Route.useLoaderData()
-  const url = `${siteConfig.url}/blog/${post.slug}`
-  const articleRef = useRef<HTMLElement>(null)
+  const { post, related, newer, older } = Route.useLoaderData();
+  const url = `${siteConfig.url}/blog/${post.slug}`;
+  const articleRef = useRef<HTMLElement>(null);
 
   return (
     <article ref={articleRef}>
@@ -115,7 +115,7 @@ function BlogPostPage() {
             >
               <Link
                 to="/blog"
-                search={{ category: post.category, tag: 'all', q: '', page: 1, sort: 'newest' }}
+                search={{ category: post.category, tag: "all", q: "", page: 1, sort: "newest" }}
               >
                 {post.category}
               </Link>
@@ -186,7 +186,7 @@ function BlogPostPage() {
               <Link
                 key={tag}
                 to="/blog"
-                search={{ category: 'all', tag, q: '', page: 1, sort: 'newest' }}
+                search={{ category: "all", tag, q: "", page: 1, sort: "newest" }}
                 className="glass group inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_20px_-8px_color-mix(in_oklab,var(--primary)_55%,transparent)]"
               >
                 <Hash className="size-3 text-primary" aria-hidden />
@@ -201,7 +201,7 @@ function BlogPostPage() {
         <PostComments slug={post.slug} />
       </div>
     </article>
-  )
+  );
 }
 
 function PostSkeleton() {
@@ -220,7 +220,7 @@ function PostSkeleton() {
         <Skeleton className="h-4 w-3/5" />
       </div>
     </div>
-  )
+  );
 }
 
 function PostError({ error }: { error: Error }) {
@@ -228,11 +228,11 @@ function PostError({ error }: { error: Error }) {
     <div className="mx-auto flex max-w-xl flex-col items-center gap-4 px-4 py-24 text-center">
       <h1 className="text-2xl font-semibold">Something went wrong</h1>
       <p className="text-muted-foreground">
-        {error.message || 'This article could not be loaded. Please try again.'}
+        {error.message || "This article could not be loaded. Please try again."}
       </p>
       <Button asChild variant="outline">
         <a href="/blog">Back to blog</a>
       </Button>
     </div>
-  )
+  );
 }
