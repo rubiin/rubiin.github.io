@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
-import { Monitor, Moon, Sun } from 'lucide-react'
-import { useTheme } from '@/hooks/use-theme'
-import { Button } from '@/components/ui/button'
+import { Monitor, Moon, Sun } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { cn } from '@/lib/utils'
-import type { Mode } from '@/stores/theme-store'
+} from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import type { Mode } from "@/stores/theme-store";
 
 const OPTIONS: { value: Mode; label: string; icon: typeof Sun }[] = [
-  { value: 'light', label: 'Light', icon: Sun },
-  { value: 'dark', label: 'Dark', icon: Moon },
-  { value: 'system', label: 'System', icon: Monitor },
-]
+  { value: "light", label: "Light", icon: Sun },
+  { value: "dark", label: "Dark", icon: Moon },
+  { value: "system", label: "System", icon: Monitor },
+];
 
 export function ThemeToggle({ className, tooltip }: { className?: string; tooltip?: string }) {
-  const { mode, setMode } = useTheme()
+  const { mode, setMode } = useTheme();
 
   return (
     <DropdownMenu>
@@ -32,7 +32,7 @@ export function ThemeToggle({ className, tooltip }: { className?: string; toolti
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={cn('relative size-9', className)}
+                  className={cn("relative size-9", className)}
                   aria-label="Toggle theme"
                 >
                   <Sun className="size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
@@ -48,7 +48,7 @@ export function ThemeToggle({ className, tooltip }: { className?: string; toolti
           <Button
             variant="ghost"
             size="icon"
-            className={cn('relative size-9', className)}
+            className={cn("relative size-9", className)}
             aria-label="Toggle theme"
           >
             <Sun className="size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
@@ -61,7 +61,7 @@ export function ThemeToggle({ className, tooltip }: { className?: string; toolti
           <DropdownMenuItem
             key={value}
             onClick={() => setMode(value)}
-            className={cn(value === mode && 'font-medium text-primary')}
+            className={cn(value === mode && "font-medium text-primary")}
           >
             <Icon className="size-4" />
             {label}
@@ -70,5 +70,5 @@ export function ThemeToggle({ className, tooltip }: { className?: string; toolti
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

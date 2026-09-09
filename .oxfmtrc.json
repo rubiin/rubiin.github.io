@@ -1,8 +1,8 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "printWidth": 100,
-  "singleQuote": true,
-  "semi": false,
+  "singleQuote": false,
+  "semi": true,
   "tabWidth": 2,
   "trailingComma": "all",
   "arrowParens": "always",
@@ -22,6 +22,8 @@
     "pnpm-lock.yaml",
     "pnpm-workspace.yaml",
     "README.md",
-    "LICENSE*"
+    "LICENSE*",
+    "dist",
+    "out"
   ]
 }

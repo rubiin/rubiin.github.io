@@ -4,10 +4,10 @@
  * so `pnpm content:build` produces .content-collections/generated without
  * starting a dev server.
  */
-import { createBuilder } from '@content-collections/core'
+import { createBuilder } from "@content-collections/core";
 
-const configurationPath = './content-collections.config.ts'
+const configurationPath = "./content-collections.config.ts";
 
-const builder = await createBuilder(configurationPath)
-await builder.build()
-console.log('content-collections: build complete')
+const builder = await createBuilder(configurationPath);
+await builder.build();
+console.log("content-collections: build complete");

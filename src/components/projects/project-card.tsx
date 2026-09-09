@@ -1,23 +1,23 @@
-import { memo } from 'react'
-import { ExternalLink, FolderGit2 } from 'lucide-react'
-import { TiltCard } from '@/components/animations/tilt-card'
-import { AnimatedBorder } from '@/components/animations/animated-border'
-import { NeonButton } from '@/components/animations/neon-button'
-import { BrowserFrame } from '@/components/projects/browser-frame'
-import { GitHubIcon } from '@/components/ui/brand-icons'
-import { ResponsiveImage } from '@/components/ui/responsive-image'
-import { CATEGORY_LABELS } from '@/lib/constants'
-import type { Project } from '@/types'
+import { memo } from "react";
+import { ExternalLink, FolderGit2 } from "lucide-react";
+import { TiltCard } from "@/components/animations/tilt-card";
+import { AnimatedBorder } from "@/components/animations/animated-border";
+import { NeonButton } from "@/components/animations/neon-button";
+import { BrowserFrame } from "@/components/projects/browser-frame";
+import { GitHubIcon } from "@/components/ui/brand-icons";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { CATEGORY_LABELS } from "@/lib/constants";
+import type { Project } from "@/types";
 
 function domainOf(title: string, demo?: string) {
   if (demo) {
     try {
-      return new URL(demo).hostname.replace(/^www\./, '')
+      return new URL(demo).hostname.replace(/^www\./, "");
     } catch {
       /* fall through */
     }
   }
-  return `${title.toLowerCase().replace(/[^a-z0-9]+/g, '')}.dev`
+  return `${title.toLowerCase().replace(/[^a-z0-9]+/g, "")}.dev`;
 }
 
 /**
@@ -98,5 +98,5 @@ export const ProjectCard = memo(function ProjectCard({ project }: { project: Pro
         </article>
       </AnimatedBorder>
     </TiltCard>
-  )
-})
+  );
+});

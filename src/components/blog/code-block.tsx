@@ -1,37 +1,37 @@
-'use client'
+"use client";
 
-import { Check, Copy } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Check, Copy } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 // Lazy per-language Shiki grammars (no ~0.6 MB oniguruma WASM umbrella).
 const LANGUAGE_MODULES = {
-  bash: { load: () => import('@shikijs/langs/bash'), id: 'bash' },
-  sh: { load: () => import('@shikijs/langs/bash'), id: 'bash' },
-  shell: { load: () => import('@shikijs/langs/bash'), id: 'bash' },
-  'shell-session': { load: () => import('@shikijs/langs/shell'), id: 'shell' },
-  console: { load: () => import('@shikijs/langs/shell'), id: 'shell' },
-  javascript: { load: () => import('@shikijs/langs/javascript'), id: 'javascript' },
-  js: { load: () => import('@shikijs/langs/javascript'), id: 'javascript' },
-  typescript: { load: () => import('@shikijs/langs/typescript'), id: 'typescript' },
-  ts: { load: () => import('@shikijs/langs/typescript'), id: 'typescript' },
-  vim: { load: () => import('@shikijs/langs/viml'), id: 'viml' },
-  viml: { load: () => import('@shikijs/langs/viml'), id: 'viml' },
-  scss: { load: () => import('@shikijs/langs/scss'), id: 'scss' },
-  dockerfile: { load: () => import('@shikijs/langs/dockerfile'), id: 'dockerfile' },
-  json: { load: () => import('@shikijs/langs/json'), id: 'json' },
-  go: { load: () => import('@shikijs/langs/go'), id: 'go' },
+  bash: { load: () => import("@shikijs/langs/bash"), id: "bash" },
+  sh: { load: () => import("@shikijs/langs/bash"), id: "bash" },
+  shell: { load: () => import("@shikijs/langs/bash"), id: "bash" },
+  "shell-session": { load: () => import("@shikijs/langs/shell"), id: "shell" },
+  console: { load: () => import("@shikijs/langs/shell"), id: "shell" },
+  javascript: { load: () => import("@shikijs/langs/javascript"), id: "javascript" },
+  js: { load: () => import("@shikijs/langs/javascript"), id: "javascript" },
+  typescript: { load: () => import("@shikijs/langs/typescript"), id: "typescript" },
+  ts: { load: () => import("@shikijs/langs/typescript"), id: "typescript" },
+  vim: { load: () => import("@shikijs/langs/viml"), id: "viml" },
+  viml: { load: () => import("@shikijs/langs/viml"), id: "viml" },
+  scss: { load: () => import("@shikijs/langs/scss"), id: "scss" },
+  dockerfile: { load: () => import("@shikijs/langs/dockerfile"), id: "dockerfile" },
+  json: { load: () => import("@shikijs/langs/json"), id: "json" },
+  go: { load: () => import("@shikijs/langs/go"), id: "go" },
   // Common extras — small on-demand chunks, fetched only when used.
-  python: { load: () => import('@shikijs/langs/python'), id: 'python' },
-  css: { load: () => import('@shikijs/langs/css'), id: 'css' },
-  html: { load: () => import('@shikijs/langs/html'), id: 'html' },
-  xml: { load: () => import('@shikijs/langs/xml'), id: 'xml' },
-  yaml: { load: () => import('@shikijs/langs/yaml'), id: 'yaml' },
-  sql: { load: () => import('@shikijs/langs/sql'), id: 'sql' },
-  markdown: { load: () => import('@shikijs/langs/markdown'), id: 'markdown' },
-  rust: { load: () => import('@shikijs/langs/rust'), id: 'rust' },
-}
+  python: { load: () => import("@shikijs/langs/python"), id: "python" },
+  css: { load: () => import("@shikijs/langs/css"), id: "css" },
+  html: { load: () => import("@shikijs/langs/html"), id: "html" },
+  xml: { load: () => import("@shikijs/langs/xml"), id: "xml" },
+  yaml: { load: () => import("@shikijs/langs/yaml"), id: "yaml" },
+  sql: { load: () => import("@shikijs/langs/sql"), id: "sql" },
+  markdown: { load: () => import("@shikijs/langs/markdown"), id: "markdown" },
+  rust: { load: () => import("@shikijs/langs/rust"), id: "rust" },
+};
 
 // Shiki-highlights code client-side; falls back to a plain <pre> on failure.
 export function CodeBlock({
@@ -39,89 +39,89 @@ export function CodeBlock({
   lang,
   className,
 }: {
-  code: string
-  lang?: string
-  className?: string
+  code: string;
+  lang?: string;
+  className?: string;
 }) {
-  const [html, setHtml] = useState<string | null>(null)
-  const [copied, setCopied] = useState(false)
+  const [html, setHtml] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    let cancelled = false
-    const key = lang && lang !== 'txt' && lang !== 'text' ? lang.toLowerCase() : null
-    const grammar = key ? LANGUAGE_MODULES[key as keyof typeof LANGUAGE_MODULES] : null
+    let cancelled = false;
+    const key = lang && lang !== "txt" && lang !== "text" ? lang.toLowerCase() : null;
+    const grammar = key ? LANGUAGE_MODULES[key as keyof typeof LANGUAGE_MODULES] : null;
 
     const highlight = async () => {
       try {
         // Start the language chunk in parallel with the core bundle — the
         // grammar module doesn't depend on createHighlighterCore, so awaiting
         // it after would serialize two network fetches (a waterfall).
-        const grammarModule = grammar?.load() ?? null
+        const grammarModule = grammar?.load() ?? null;
         // Consume early rejections so a fast chunk failure isn't reported as
         // unhandled before the await below attaches; the inner try/catch
         // still handles it at that point.
-        grammarModule?.catch(() => {})
+        grammarModule?.catch(() => {});
         const [
           { createHighlighterCore, createCssVariablesTheme },
           { createJavaScriptRegexEngine },
-        ] = await Promise.all([import('@shikijs/core'), import('@shikijs/engine-javascript')])
+        ] = await Promise.all([import("@shikijs/core"), import("@shikijs/engine-javascript")]);
         // CSS-variables theme: token colors are `var(--shiki-*)`, resolved from
         // the active palette in globals.css — code blocks re-theme live when the
         // palette/mode changes, with no re-highlighting or extra theme chunks.
-        const cssTheme = createCssVariablesTheme()
+        const cssTheme = createCssVariablesTheme();
         // Core + JS regex engine only, so no WASM fetch.
         const highlighter = await createHighlighterCore({
           themes: [cssTheme],
           langs: [],
           engine: createJavaScriptRegexEngine(),
-        })
+        });
 
         try {
           if (grammarModule) {
-            await highlighter.loadLanguage((await grammarModule).default)
+            await highlighter.loadLanguage((await grammarModule).default);
           }
         } catch {
           // Unsupported language — render the plain fallback.
-          if (!cancelled) setHtml(null)
-          highlighter.dispose()
-          return
+          if (!cancelled) setHtml(null);
+          highlighter.dispose();
+          return;
         }
         if (cancelled) {
-          highlighter.dispose()
-          return
+          highlighter.dispose();
+          return;
         }
 
         const out = highlighter.codeToHtml(code, {
-          lang: grammar?.id ?? 'text',
+          lang: grammar?.id ?? "text",
           theme: cssTheme,
-        })
-        highlighter.dispose()
-        if (!cancelled) setHtml(out)
+        });
+        highlighter.dispose();
+        if (!cancelled) setHtml(out);
       } catch {
-        if (!cancelled) setHtml(null)
+        if (!cancelled) setHtml(null);
       }
-    }
+    };
 
-    void highlight()
+    void highlight();
     return () => {
-      cancelled = true
-    }
-  }, [code, lang])
+      cancelled = true;
+    };
+  }, [code, lang]);
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(code)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
       /* clipboard unavailable — ignore */
     }
-  }
+  };
 
   return (
     <div
       className={cn(
-        'group relative my-4 overflow-hidden rounded-lg border border-border',
+        "group relative my-4 overflow-hidden rounded-lg border border-border",
         className,
       )}
     >
@@ -130,7 +130,7 @@ export function CodeBlock({
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-primary/70 via-accent-secondary/50 to-transparent"
       />
       <div className="flex items-center justify-between border-b border-border bg-muted/60 px-3 py-1.5">
-        <span className="font-mono text-xs text-muted-foreground">{lang ?? 'code'}</span>
+        <span className="font-mono text-xs text-muted-foreground">{lang ?? "code"}</span>
         <Button
           type="button"
           variant="ghost"
@@ -153,5 +153,5 @@ export function CodeBlock({
         </pre>
       )}
     </div>
-  )
+  );
 }

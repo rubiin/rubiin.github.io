@@ -1,45 +1,45 @@
-'use client'
+"use client";
 
-import { useRef } from 'react'
-import { motion, useScroll, useReducedMotion, useSpring } from 'motion/react'
-import { Briefcase, CheckCircle2 } from 'lucide-react'
+import { useRef } from "react";
+import { motion, useScroll, useReducedMotion, useSpring } from "motion/react";
+import { Briefcase, CheckCircle2 } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Badge } from '@/components/ui/badge'
-import { Reveal } from '@/components/animations/reveal'
-import { ChapterHeading } from '@/components/home/chapter-heading'
-import { ScrollScrubbedParagraph } from '@/components/home/scroll-scrubbed-paragraph'
-import { experience } from '@/data/experience'
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Reveal } from "@/components/animations/reveal";
+import { ChapterHeading } from "@/components/home/chapter-heading";
+import { ScrollScrubbedParagraph } from "@/components/home/scroll-scrubbed-paragraph";
+import { experience } from "@/data/experience";
 
 /** Per-role story phrases that light up in the gradient as you read. */
 const ROLE_STORY_HIGHLIGHTS: Record<string, { description: string[]; achievements: string[] }> = {
-  'Takeo.ai': {
-    description: ['modern, performant, maintainable code', 'client and internal projects'],
-    achievements: ['multi-disciplinary teams'],
+  "Takeo.ai": {
+    description: ["modern, performant, maintainable code", "client and internal projects"],
+    achievements: ["multi-disciplinary teams"],
   },
-  'EB Pearls': {
-    description: ['Node.js, MongoDB, and Express applications'],
-    achievements: ['user authentication and authorization'],
+  "EB Pearls": {
+    description: ["Node.js, MongoDB, and Express applications"],
+    achievements: ["user authentication and authorization"],
   },
-  'Rosebay Consult': {
-    description: ['distributed applications'],
-    achievements: ['Solidity', 'vulnerabilities'],
+  "Rosebay Consult": {
+    description: ["distributed applications"],
+    achievements: ["Solidity", "vulnerabilities"],
   },
-  'Cheetah Webtech': {
-    description: ['PHP and WordPress'],
-    achievements: ['CMS and inventory-management projects'],
+  "Cheetah Webtech": {
+    description: ["PHP and WordPress"],
+    achievements: ["CMS and inventory-management projects"],
   },
-  'Hitech Nepal': {
-    description: ['restaurant-management mobile app'],
-    achievements: ['project-management skills'],
+  "Hitech Nepal": {
+    description: ["restaurant-management mobile app"],
+    achievements: ["project-management skills"],
   },
-}
+};
 
-const NO_PHRASES: string[] = []
+const NO_PHRASES: string[] = [];
 
 /**
  * Vertical experience timeline: a gradient line grows as the section
@@ -47,13 +47,13 @@ const NO_PHRASES: string[] = []
  * Cards lift with a soft glow on hover.
  */
 export function ExperienceSection() {
-  const lineRef = useRef<HTMLDivElement>(null)
-  const reduced = useReducedMotion()
+  const lineRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: lineRef,
-    offset: ['start 80%', 'end 60%'],
-  })
-  const scaleY = useSpring(scrollYProgress, { stiffness: 90, damping: 25 })
+    offset: ["start 80%", "end 60%"],
+  });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 90, damping: 25 });
 
   return (
     <section id="experience" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-24 sm:px-6">
@@ -109,7 +109,7 @@ export function ExperienceSection() {
                           )}
                         </span>
                         <span className="text-sm text-muted-foreground">
-                          {item.company} · {item.start} — {item.end ?? 'Present'}
+                          {item.company} · {item.start} — {item.end ?? "Present"}
                         </span>
                       </span>
                     </AccordionTrigger>
@@ -125,7 +125,7 @@ export function ExperienceSection() {
                         />
                         {/* The role's achievements — one read-along stream */}
                         <ScrollScrubbedParagraph
-                          text={item.achievements.join('\n\n')}
+                          text={item.achievements.join("\n\n")}
                           highlights={
                             ROLE_STORY_HIGHLIGHTS[item.company]?.achievements ?? NO_PHRASES
                           }
@@ -149,5 +149,5 @@ export function ExperienceSection() {
         </ol>
       </div>
     </section>
-  )
+  );
 }

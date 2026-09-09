@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { Palette } from 'lucide-react'
-import { useTheme } from '@/hooks/use-theme'
-import { Button } from '@/components/ui/button'
+import { Palette } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { cn } from '@/lib/utils'
-import { PALETTES } from '@/stores/theme-store'
+} from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { PALETTES } from "@/stores/theme-store";
 
 export function PaletteToggle({ className, tooltip }: { className?: string; tooltip?: string }) {
-  const { palette, setPalette } = useTheme()
+  const { palette, setPalette } = useTheme();
 
   return (
     <DropdownMenu>
@@ -26,7 +26,7 @@ export function PaletteToggle({ className, tooltip }: { className?: string; tool
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={cn('size-9', className)}
+                  className={cn("size-9", className)}
                   aria-label="Choose color theme"
                 >
                   <Palette className="size-4" />
@@ -41,7 +41,7 @@ export function PaletteToggle({ className, tooltip }: { className?: string; tool
           <Button
             variant="ghost"
             size="icon"
-            className={cn('size-9', className)}
+            className={cn("size-9", className)}
             aria-label="Choose color theme"
           >
             <Palette className="size-4" />
@@ -53,7 +53,7 @@ export function PaletteToggle({ className, tooltip }: { className?: string; tool
           <DropdownMenuItem
             key={value}
             onClick={() => setPalette(value)}
-            className={cn(value === palette && 'font-medium text-primary')}
+            className={cn(value === palette && "font-medium text-primary")}
           >
             <span className="flex shrink-0 items-center gap-0.5" aria-hidden>
               {swatch.map((color) => (
@@ -70,5 +70,5 @@ export function PaletteToggle({ className, tooltip }: { className?: string; tool
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

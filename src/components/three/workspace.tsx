@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { useRef, type ReactNode } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { Group, MathUtils, Mesh } from 'three'
-import { pointerState } from '@/components/three/pointer-state'
+import { useRef, type ReactNode } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Group, MathUtils, Mesh } from "three";
+import { pointerState } from "@/components/three/pointer-state";
 
 // Dependency-free <Float> reimplementation (keeps drei out of the hero chunk).
 function FloatGroup({
@@ -12,45 +12,45 @@ function FloatGroup({
   floatIntensity = 1,
   children,
 }: {
-  speed?: number
-  rotationIntensity?: number
-  floatIntensity?: number
-  children?: ReactNode
+  speed?: number;
+  rotationIntensity?: number;
+  floatIntensity?: number;
+  children?: ReactNode;
 }) {
-  const ref = useRef<Group>(null)
-  const offset = useRef(Math.random() * 10000)
+  const ref = useRef<Group>(null);
+  const offset = useRef(Math.random() * 10000);
 
   useFrame((state) => {
-    const group = ref.current
-    if (!group) return
-    const t = offset.current + state.clock.elapsedTime
-    group.rotation.x = (Math.cos((t / 4) * speed) / 8) * rotationIntensity
-    group.rotation.y = (Math.sin((t / 4) * speed) / 8) * rotationIntensity
-    group.rotation.z = (Math.sin((t / 4) * speed) / 20) * rotationIntensity
-    group.position.y = (Math.sin((t / 4) * speed) / 10) * floatIntensity
-  })
+    const group = ref.current;
+    if (!group) return;
+    const t = offset.current + state.clock.elapsedTime;
+    group.rotation.x = (Math.cos((t / 4) * speed) / 8) * rotationIntensity;
+    group.rotation.y = (Math.sin((t / 4) * speed) / 8) * rotationIntensity;
+    group.rotation.z = (Math.sin((t / 4) * speed) / 20) * rotationIntensity;
+    group.position.y = (Math.sin((t / 4) * speed) / 10) * floatIntensity;
+  });
 
-  return <group ref={ref}>{children}</group>
+  return <group ref={ref}>{children}</group>;
 }
 
 // Floating monitor, keyboard, and an icosahedron tracking the window cursor.
 export function Workspace() {
-  const icosaRef = useRef<Mesh>(null)
+  const icosaRef = useRef<Mesh>(null);
 
   useFrame((_, delta) => {
-    const mesh = icosaRef.current
-    if (!mesh) return
-    mesh.rotation.y += delta * 0.25
+    const mesh = icosaRef.current;
+    if (!mesh) return;
+    mesh.rotation.y += delta * 0.25;
     // Track the window cursor (R3F's own pointer never fires — canvas is behind content).
-    const targetX = pointerState.x * 0.35
-    const targetY = pointerState.y * 0.25
-    mesh.rotation.x = MathUtils.lerp(mesh.rotation.x, targetY, 0.04)
-    mesh.position.x = MathUtils.lerp(mesh.position.x, targetX, 0.04)
+    const targetX = pointerState.x * 0.35;
+    const targetY = pointerState.y * 0.25;
+    mesh.rotation.x = MathUtils.lerp(mesh.rotation.x, targetY, 0.04);
+    mesh.position.x = MathUtils.lerp(mesh.position.x, targetX, 0.04);
     // Breathing pulse keeps the object alive without hover events.
-    const pulse = 1 + Math.sin(Date.now() * 0.0012) * 0.06
-    const scale = MathUtils.lerp(mesh.scale.x, pulse, 0.05)
-    mesh.scale.setScalar(scale)
-  })
+    const pulse = 1 + Math.sin(Date.now() * 0.0012) * 0.06;
+    const scale = MathUtils.lerp(mesh.scale.x, pulse, 0.05);
+    mesh.scale.setScalar(scale);
+  });
 
   return (
     <group>
@@ -99,5 +99,5 @@ export function Workspace() {
         <meshBasicMaterial color="#000000" transparent opacity={0.12} />
       </mesh>
     </group>
-  )
+  );
 }

@@ -1,26 +1,26 @@
-import { ArrowRight, ExternalLink, FolderGit2 } from 'lucide-react'
-import { Reveal } from '@/components/animations/reveal'
-import { TiltCard } from '@/components/animations/tilt-card'
-import { AnimatedBorder } from '@/components/animations/animated-border'
-import { NeonButton } from '@/components/animations/neon-button'
-import { GitHubIcon } from '@/components/ui/brand-icons'
-import { BrowserFrame } from '@/components/projects/browser-frame'
-import { ResponsiveImage } from '@/components/ui/responsive-image'
-import { ChapterHeading } from '@/components/home/chapter-heading'
-import { CATEGORY_LABELS } from '@/lib/constants'
-import { projects } from '@/data/projects'
+import { ArrowRight, ExternalLink, FolderGit2 } from "lucide-react";
+import { Reveal } from "@/components/animations/reveal";
+import { TiltCard } from "@/components/animations/tilt-card";
+import { AnimatedBorder } from "@/components/animations/animated-border";
+import { NeonButton } from "@/components/animations/neon-button";
+import { GitHubIcon } from "@/components/ui/brand-icons";
+import { BrowserFrame } from "@/components/projects/browser-frame";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { ChapterHeading } from "@/components/home/chapter-heading";
+import { CATEGORY_LABELS } from "@/lib/constants";
+import { projects } from "@/data/projects";
 
-const FEATURED = projects.filter((p) => p.featured).slice(0, 3)
+const FEATURED = projects.filter((p) => p.featured).slice(0, 3);
 
 function domainOf(title: string, demo?: string) {
   if (demo) {
     try {
-      return new URL(demo).hostname.replace(/^www\./, '')
+      return new URL(demo).hostname.replace(/^www\./, "");
     } catch {
       /* fall through */
     }
   }
-  return `${title.toLowerCase().replace(/[^a-z0-9]+/g, '')}.dev`
+  return `${title.toLowerCase().replace(/[^a-z0-9]+/g, "")}.dev`;
 }
 
 /**
@@ -127,5 +127,5 @@ export function ProjectsSection() {
         </NeonButton>
       </Reveal>
     </section>
-  )
+  );
 }

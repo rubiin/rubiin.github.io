@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import { Search, X } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
+import { useEffect, useRef, useState } from "react";
+import { Search, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 /**
  * Debounced search input, controlled via props so the route owns the
@@ -12,40 +12,40 @@ import { cn } from '@/lib/utils'
 export function BlogSearch({
   query,
   onQueryChange,
-  placeholder = 'Search articles…',
-  ariaLabel = 'Search articles',
+  placeholder = "Search articles…",
+  ariaLabel = "Search articles",
   className,
 }: {
-  query: string
-  onQueryChange: (query: string) => void
-  placeholder?: string
-  ariaLabel?: string
-  className?: string
+  query: string;
+  onQueryChange: (query: string) => void;
+  placeholder?: string;
+  ariaLabel?: string;
+  className?: string;
 }) {
-  const [draft, setDraft] = useState(query)
+  const [draft, setDraft] = useState(query);
 
   // Latest callback ref so the debounce effect never re-arms on a fresh
   // inline closure from the parent (advanced-use-latest).
-  const onQueryChangeRef = useRef(onQueryChange)
-  onQueryChangeRef.current = onQueryChange
+  const onQueryChangeRef = useRef(onQueryChange);
+  onQueryChangeRef.current = onQueryChange;
 
   // Sync external query changes (filter chips, clear) into the draft during
   // render — not in an effect, so in-flight typing is never clobbered and
   // there's no extra render cycle (rerender-derived-state-no-effect).
-  const prevQuery = useRef(query)
+  const prevQuery = useRef(query);
   if (prevQuery.current !== query) {
-    prevQuery.current = query
-    setDraft(query)
+    prevQuery.current = query;
+    setDraft(query);
   }
 
   useEffect(() => {
-    if (draft === query) return
-    const id = setTimeout(() => onQueryChangeRef.current(draft), 250)
-    return () => clearTimeout(id)
-  }, [draft, query])
+    if (draft === query) return;
+    const id = setTimeout(() => onQueryChangeRef.current(draft), 250);
+    return () => clearTimeout(id);
+  }, [draft, query]);
 
   return (
-    <div className={cn('relative w-full lg:w-72', className)}>
+    <div className={cn("relative w-full lg:w-72", className)}>
       <Search
         className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
         aria-hidden
@@ -60,7 +60,7 @@ export function BlogSearch({
       {draft && (
         <button
           type="button"
-          onClick={() => onQueryChange('')}
+          onClick={() => onQueryChange("")}
           aria-label="Clear search"
           className="absolute top-1/2 right-3 -translate-y-1/2 rounded p-0.5 text-muted-foreground transition-colors hover:text-foreground"
         >
@@ -68,5 +68,5 @@ export function BlogSearch({
         </button>
       )}
     </div>
-  )
+  );
 }

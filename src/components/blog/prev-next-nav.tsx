@@ -1,16 +1,16 @@
-import { Link } from '@tanstack/react-router'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import type { PostSummary } from '@/server/blog'
+import { Link } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import type { PostSummary } from "@/server/blog";
 
 /** Previous / next article footer links (by date). */
 export function PrevNextNav({
   prev,
   next,
 }: {
-  prev?: PostSummary | null
-  next?: PostSummary | null
+  prev?: PostSummary | null;
+  next?: PostSummary | null;
 }) {
-  if (!prev && !next) return null
+  if (!prev && !next) return null;
 
   return (
     <nav
@@ -46,5 +46,5 @@ export function PrevNextNav({
         <span className="hidden sm:block" />
       )}
     </nav>
-  )
+  );
 }

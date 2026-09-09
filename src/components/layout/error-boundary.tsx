@@ -1,6 +1,6 @@
-import { Link } from '@tanstack/react-router'
-import { RefreshCw, TriangleAlert } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Link } from "@tanstack/react-router";
+import { RefreshCw, TriangleAlert } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /** Friendly route-level error page with a reload action. */
 export function ErrorComponent({ error }: { error: Error }) {
@@ -11,7 +11,7 @@ export function ErrorComponent({ error }: { error: Error }) {
       </span>
       <h1 className="text-3xl font-semibold tracking-tight">Something went wrong</h1>
       <p className="max-w-md text-muted-foreground">
-        {error.message || 'An unexpected error occurred. Please try again.'}
+        {error.message || "An unexpected error occurred. Please try again."}
       </p>
       <div className="flex flex-wrap justify-center gap-3">
         <Button variant="outline" className="gap-2" onClick={() => window.location.reload()}>
@@ -23,5 +23,5 @@ export function ErrorComponent({ error }: { error: Error }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }

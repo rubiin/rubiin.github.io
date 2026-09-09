@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * Accessibility skip link — first focusable element on the page, lets
@@ -12,5 +12,5 @@ export function SkipLink() {
     >
       Skip to content
     </a>
-  )
+  );
 }

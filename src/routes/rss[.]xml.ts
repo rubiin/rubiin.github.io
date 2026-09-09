@@ -1,14 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { siteConfig } from '@/data/site'
-import { getPosts } from '@/server/blog'
-import { absoluteUrl, xmlEscape } from '@/lib/seo'
+import { createFileRoute } from "@tanstack/react-router";
+import { siteConfig } from "@/data/site";
+import { getPosts } from "@/server/blog";
+import { absoluteUrl, xmlEscape } from "@/lib/seo";
 
 function rssDate(date: string) {
-  return new Date(date).toUTCString()
+  return new Date(date).toUTCString();
 }
 
 async function rssXml() {
-  const posts = await getPosts()
+  const posts = await getPosts();
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -17,7 +17,7 @@ async function rssXml() {
   <link>${xmlEscape(siteConfig.url)}</link>
   <description>${xmlEscape(siteConfig.seo.description)}</description>
   <language>en</language>
-  <atom:link href="${xmlEscape(absoluteUrl('/rss.xml'))}" rel="self" type="application/rss+xml" />
+  <atom:link href="${xmlEscape(absoluteUrl("/rss.xml"))}" rel="self" type="application/rss+xml" />
   ${posts
     .map(
       (post) => `  <item>
@@ -29,21 +29,21 @@ async function rssXml() {
     <category>${xmlEscape(post.category)}</category>
   </item>`,
     )
-    .join('\n')}
+    .join("\n")}
 </channel>
-</rss>`
+</rss>`;
 }
 
-export const Route = createFileRoute('/rss.xml')({
+export const Route = createFileRoute("/rss.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const xml = await rssXml()
+        const xml = await rssXml();
         return new Response(xml, {
-          headers: { 'Content-Type': 'application/rss+xml; charset=utf-8' },
-        })
+          headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
+        });
       },
     },
   },
   component: () => null,
-})
+});

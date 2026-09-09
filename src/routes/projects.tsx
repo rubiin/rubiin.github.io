@@ -1,51 +1,51 @@
-import { startTransition, useMemo } from 'react'
-import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
-import { ProjectCard } from '@/components/projects/project-card'
-import { ProjectFilters, type ProjectFilter } from '@/components/projects/project-filters'
-import { AnimatedGrid } from '@/components/animations/animated-grid'
-import { NeonButton } from '@/components/animations/neon-button'
-import { Skeleton } from '@/components/ui/skeleton'
-import { SectionHeading } from '@/components/home/section-heading'
-import { PROJECT_CATEGORIES } from '@/lib/constants'
-import { buildMeta } from '@/lib/seo'
-import { projects } from '@/data/projects'
-import type { Project } from '@/types'
+import { startTransition, useMemo } from "react";
+import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
+import { ProjectCard } from "@/components/projects/project-card";
+import { ProjectFilters, type ProjectFilter } from "@/components/projects/project-filters";
+import { AnimatedGrid } from "@/components/animations/animated-grid";
+import { NeonButton } from "@/components/animations/neon-button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { SectionHeading } from "@/components/home/section-heading";
+import { PROJECT_CATEGORIES } from "@/lib/constants";
+import { buildMeta } from "@/lib/seo";
+import { projects } from "@/data/projects";
+import type { Project } from "@/types";
 
 interface ProjectsSearch {
-  category: ProjectFilter
-  q: string
+  category: ProjectFilter;
+  q: string;
 }
 
-const CATEGORY_VALUES = PROJECT_CATEGORIES.map((c) => c.value)
+const CATEGORY_VALUES = PROJECT_CATEGORIES.map((c) => c.value);
 
 // Stable renderItem — module scope so the reference never changes across re-renders.
 function renderProjectCard(project: Project) {
-  return <ProjectCard project={project} />
+  return <ProjectCard project={project} />;
 }
 
-export const Route = createFileRoute('/projects')({
+export const Route = createFileRoute("/projects")({
   validateSearch: (search: Record<string, unknown>): ProjectsSearch => {
-    const category = search.category as ProjectFilter | undefined
-    const q = typeof search.q === 'string' ? search.q : ''
+    const category = search.category as ProjectFilter | undefined;
+    const q = typeof search.q === "string" ? search.q : "";
     return {
       category:
         category && CATEGORY_VALUES.includes(category as (typeof CATEGORY_VALUES)[number])
           ? category
-          : 'all',
+          : "all",
       q,
-    }
+    };
   },
   head: () => ({
     meta: buildMeta({
-      title: 'Projects — Rubin Bhandari',
+      title: "Projects — Rubin Bhandari",
       description:
-        'Selected open-source projects by Rubin Bhandari — NestJS modules, CLI tools, and Android apps.',
-      path: '/projects',
+        "Selected open-source projects by Rubin Bhandari — NestJS modules, CLI tools, and Android apps.",
+      path: "/projects",
     }),
   }),
   pendingComponent: ProjectsSkeleton,
   component: ProjectsPage,
-})
+});
 
 function ProjectsSkeleton() {
   return (
@@ -74,42 +74,42 @@ function ProjectsSkeleton() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function ProjectsPage() {
-  const { category, q } = useSearch({ from: '/projects' })
-  const navigate = useNavigate()
+  const { category, q } = useSearch({ from: "/projects" });
+  const navigate = useNavigate();
 
   // Non-urgent filter updates (use-transitions): the URL change + grid
   // re-render run as transitions, so typing/clicks stay responsive.
   const setCategory = (next: ProjectFilter) => {
     startTransition(() => {
-      void navigate({ to: '/projects', search: { category: next, q } })
-    })
-  }
+      void navigate({ to: "/projects", search: { category: next, q } });
+    });
+  };
 
   const setQuery = (next: string) => {
     startTransition(() => {
-      void navigate({ to: '/projects', search: { category, q: next } })
-    })
-  }
+      void navigate({ to: "/projects", search: { category, q: next } });
+    });
+  };
 
   const clearFilters = () => {
     startTransition(() => {
-      void navigate({ to: '/projects', search: { category: 'all', q: '' } })
-    })
-  }
+      void navigate({ to: "/projects", search: { category: "all", q: "" } });
+    });
+  };
 
   const filtered = useMemo(() => {
-    const needle = q.trim().toLowerCase()
+    const needle = q.trim().toLowerCase();
     return projects.filter((p) => {
-      if (category !== 'all' && p.category !== category) return false
-      if (!needle) return true
-      const haystack = [p.title, p.tagline, p.description, ...p.tech].join(' ').toLowerCase()
-      return haystack.includes(needle)
-    })
-  }, [category, q])
+      if (category !== "all" && p.category !== category) return false;
+      if (!needle) return true;
+      const haystack = [p.title, p.tagline, p.description, ...p.tech].join(" ").toLowerCase();
+      return haystack.includes(needle);
+    });
+  }, [category, q]);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -142,5 +142,5 @@ function ProjectsPage() {
         />
       )}
     </div>
-  )
+  );
 }

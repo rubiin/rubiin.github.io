@@ -1,5 +1,5 @@
-import { MDXContent as ContentCollectionsMDX } from '@content-collections/mdx/react'
-import { mdxComponents } from '@/components/blog/mdx-components'
+import { MDXContent as ContentCollectionsMDX } from "@content-collections/mdx/react";
+import { mdxComponents } from "@/components/blog/mdx-components";
 
 /**
  * Renders a compiled MDX module string produced by content-collections'
@@ -7,5 +7,5 @@ import { mdxComponents } from '@/components/blog/mdx-components'
  * `_jsx_runtime` plumbing and hydration correctly).
  */
 export function MDXContent({ code }: { code: string }) {
-  return <ContentCollectionsMDX code={code} components={mdxComponents} />
+  return <ContentCollectionsMDX code={code} components={mdxComponents} />;
 }

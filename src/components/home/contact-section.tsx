@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, Check, Clock, Mail, MapPin, type LucideIcon } from 'lucide-react'
-import { useToast } from '@/hooks/use-toast'
-import { MagneticButton } from '@/components/animations/magnetic-button'
-import { NeonButton } from '@/components/animations/neon-button'
-import { ChapterHeading } from '@/components/home/chapter-heading'
-import { siteConfig } from '@/data/site'
-import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
-import { cn } from '@/lib/utils'
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Check, Clock, Mail, MapPin, type LucideIcon } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { MagneticButton } from "@/components/animations/magnetic-button";
+import { NeonButton } from "@/components/animations/neon-button";
+import { ChapterHeading } from "@/components/home/chapter-heading";
+import { siteConfig } from "@/data/site";
+import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/ui/brand-icons";
+import { cn } from "@/lib/utils";
 
 const SOCIALS = [
-  { label: 'GitHub', href: siteConfig.socials.github, icon: GitHubIcon },
-  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
-  { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
-  { label: 'Email', href: siteConfig.socials.email, icon: Mail },
-]
+  { label: "GitHub", href: siteConfig.socials.github, icon: GitHubIcon },
+  { label: "LinkedIn", href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+  { label: "X", href: siteConfig.socials.twitter, icon: XIcon },
+  { label: "Email", href: siteConfig.socials.email, icon: Mail },
+];
 
 /** Static detail row — icon square, tiny label, muted value. */
 function InfoRow({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
@@ -31,7 +31,7 @@ function InfoRow({ icon: Icon, label, value }: { icon: LucideIcon; label: string
         <span className="truncate text-muted-foreground">{value}</span>
       </span>
     </li>
-  )
+  );
 }
 
 /**
@@ -45,16 +45,16 @@ function CopyEmailRow({ copied, onCopy }: { copied: boolean; onCopy: () => void 
       <button
         type="button"
         onClick={onCopy}
-        aria-label={copied ? 'Email copied' : 'Copy email address'}
+        aria-label={copied ? "Email copied" : "Copy email address"}
         className="group flex w-full cursor-pointer items-center gap-3 text-left text-sm"
       >
         <span
           aria-hidden
           className={cn(
-            'flex size-10 shrink-0 items-center justify-center rounded-xl text-primary transition-all duration-300',
-            'glass group-hover:rounded-full group-hover:shadow-[0_0_20px_-6px_color-mix(in_oklab,var(--primary)_70%,transparent)]',
+            "flex size-10 shrink-0 items-center justify-center rounded-xl text-primary transition-all duration-300",
+            "glass group-hover:rounded-full group-hover:shadow-[0_0_20px_-6px_color-mix(in_oklab,var(--primary)_70%,transparent)]",
             copied &&
-              'rounded-full bg-gradient-to-br from-primary to-accent-secondary text-primary-foreground shadow-[0_0_20px_-6px_color-mix(in_oklab,var(--primary)_80%,transparent)]',
+              "rounded-full bg-gradient-to-br from-primary to-accent-secondary text-primary-foreground shadow-[0_0_20px_-6px_color-mix(in_oklab,var(--primary)_80%,transparent)]",
           )}
         >
           {copied ? <Check className="size-4" /> : <Mail className="size-4" />}
@@ -70,15 +70,15 @@ function CopyEmailRow({ copied, onCopy }: { copied: boolean; onCopy: () => void 
         <span
           aria-hidden
           className={cn(
-            'ml-1 text-[0.65rem] font-semibold tracking-wider text-primary/70 uppercase transition-opacity duration-200',
-            copied ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
+            "ml-1 text-[0.65rem] font-semibold tracking-wider text-primary/70 uppercase transition-opacity duration-200",
+            copied ? "opacity-100" : "opacity-0 group-hover:opacity-100",
           )}
         >
-          {copied ? 'Copied' : 'Copy'}
+          {copied ? "Copied" : "Copy"}
         </span>
       </button>
     </li>
-  )
+  );
 }
 
 /**
@@ -88,41 +88,41 @@ function CopyEmailRow({ copied, onCopy }: { copied: boolean; onCopy: () => void 
  * row copies the address to the clipboard with live feedback.
  */
 export function ContactSection() {
-  const { toast } = useToast()
-  const [copied, setCopied] = useState(false)
-  const resetTimer = useRef<number | null>(null)
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+  const resetTimer = useRef<number | null>(null);
 
   // Clear the 2s "copied" reset if the section unmounts first.
   useEffect(
     () => () => {
-      if (resetTimer.current) window.clearTimeout(resetTimer.current)
+      if (resetTimer.current) window.clearTimeout(resetTimer.current);
     },
     [],
-  )
+  );
 
   const copyEmail = useCallback(() => {
     const write = async () => {
       try {
-        await navigator.clipboard.writeText(siteConfig.email)
+        await navigator.clipboard.writeText(siteConfig.email);
       } catch {
         // Clipboard API needs a secure context; fall back to a hidden textarea.
-        const el = document.createElement('textarea')
-        el.value = siteConfig.email
-        el.setAttribute('readonly', '')
-        el.style.position = 'fixed'
-        el.style.opacity = '0'
-        document.body.appendChild(el)
-        el.select()
-        document.execCommand('copy')
-        document.body.removeChild(el)
+        const el = document.createElement("textarea");
+        el.value = siteConfig.email;
+        el.setAttribute("readonly", "");
+        el.style.position = "fixed";
+        el.style.opacity = "0";
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
       }
-      setCopied(true)
-      toast({ title: 'Email copied', description: 'Paste it anywhere to get in touch.' })
-      if (resetTimer.current) window.clearTimeout(resetTimer.current)
-      resetTimer.current = window.setTimeout(() => setCopied(false), 2000)
-    }
-    void write()
-  }, [toast])
+      setCopied(true);
+      toast({ title: "Email copied", description: "Paste it anywhere to get in touch." });
+      if (resetTimer.current) window.clearTimeout(resetTimer.current);
+      resetTimer.current = window.setTimeout(() => setCopied(false), 2000);
+    };
+    void write();
+  }, [toast]);
 
   return (
     <section id="contact" className="relative mx-auto max-w-6xl scroll-mt-20 px-4 py-24 sm:px-6">
@@ -155,7 +155,7 @@ export function ContactSection() {
                 />
                 <span className="relative inline-flex size-2 rounded-full bg-primary" />
               </span>
-              {siteConfig.availability ? 'Available for freelance' : 'Not currently available'}
+              {siteConfig.availability ? "Available for freelance" : "Not currently available"}
             </span>
 
             <ul className="flex flex-col gap-4">
@@ -188,8 +188,8 @@ export function ContactSection() {
                 <a
                   key={label}
                   href={href}
-                  target={href.startsWith('http') ? '_blank' : undefined}
-                  rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noreferrer" : undefined}
                   aria-label={label}
                   title={label}
                   className="glass group flex size-12 items-center justify-center rounded-xl text-muted-foreground transition-all duration-500 hover:rounded-full hover:border-transparent hover:bg-gradient-to-br hover:from-primary hover:to-accent-secondary hover:text-primary-foreground hover:shadow-[0_0_28px_-6px_color-mix(in_oklab,var(--primary)_80%,transparent)]"
@@ -202,5 +202,5 @@ export function ContactSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

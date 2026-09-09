@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import { Heart, Mail, Rss } from 'lucide-react'
-import { siteConfig } from '@/data/site'
-import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
+import { Heart, Mail, Rss } from "lucide-react";
+import { siteConfig } from "@/data/site";
+import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/ui/brand-icons";
 
 const SOCIALS = [
-  { label: 'GitHub', href: siteConfig.socials.github, icon: GitHubIcon },
-  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
-  { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
-  { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },
-  { label: 'Email', href: siteConfig.socials.email, icon: Mail },
-]
+  { label: "GitHub", href: siteConfig.socials.github, icon: GitHubIcon },
+  { label: "LinkedIn", href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+  { label: "X", href: siteConfig.socials.twitter, icon: XIcon },
+  { label: "RSS", href: siteConfig.socials.rss, icon: Rss },
+  { label: "Email", href: siteConfig.socials.email, icon: Mail },
+];
 
 export function SiteFooter() {
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 
   return (
     <footer className="border-t bg-muted/30">
@@ -38,8 +38,8 @@ export function SiteFooter() {
               <a
                 key={label}
                 href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
-                rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noreferrer" : undefined}
                 aria-label={label}
                 className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
@@ -59,7 +59,7 @@ export function SiteFooter() {
             © {year} {siteConfig.name}. All rights reserved.
           </p>
           <p className="flex items-center gap-1">
-            Crafted with <Heart className="size-3.5 text-primary" aria-hidden /> in{' '}
+            Crafted with <Heart className="size-3.5 text-primary" aria-hidden /> in{" "}
             {siteConfig.location}.
           </p>
           <div className="flex items-center gap-4">
@@ -73,5 +73,5 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

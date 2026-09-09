@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
-import { Lock } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import type { ReactNode } from "react";
+import { Lock } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 /**
  * Browser-chrome frame for project previews: traffic lights + a URL pill
@@ -11,12 +11,12 @@ export function BrowserFrame({
   children,
   className,
 }: {
-  url: string
-  children: ReactNode
-  className?: string
+  url: string;
+  children: ReactNode;
+  className?: string;
 }) {
   return (
-    <div className={cn('relative flex flex-col overflow-hidden bg-muted/40', className)}>
+    <div className={cn("relative flex flex-col overflow-hidden bg-muted/40", className)}>
       <span
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-primary/70 via-accent-secondary/50 to-transparent"
@@ -37,5 +37,5 @@ export function BrowserFrame({
       {/* Page area */}
       <div className="relative flex-1">{children}</div>
     </div>
-  )
+  );
 }

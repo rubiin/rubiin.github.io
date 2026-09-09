@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import type { ReactNode } from 'react'
-import { Reveal } from '@/components/animations/reveal'
-import { cn } from '@/lib/utils'
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+import { Reveal } from "@/components/animations/reveal";
+import { cn } from "@/lib/utils";
 
-const EASE = [0.22, 1, 0.36, 1] as const
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
  * Filterable card grid with reflow animation: cards glide to their new grid
@@ -18,12 +18,12 @@ export function AnimatedGrid<T extends { slug: string }>({
   renderItem,
   className,
 }: {
-  items: T[]
-  renderItem: (item: T, index: number) => ReactNode
+  items: T[];
+  renderItem: (item: T, index: number) => ReactNode;
   /** Grid template classes, e.g. 'sm:grid-cols-2 lg:grid-cols-3'. */
-  className?: string
+  className?: string;
 }) {
-  const reduced = useReducedMotion()
+  const reduced = useReducedMotion();
 
   const cards = items.map((item, i) => {
     // Reduced motion: Reveal renders a bare wrapper div (no animation), so
@@ -37,13 +37,13 @@ export function AnimatedGrid<T extends { slug: string }>({
         <div key={item.slug} className="h-full">
           {renderItem(item, i)}
         </div>
-      )
+      );
     }
     const inner = (
       <Reveal delay={(i % 3) * 0.06} className="h-full">
         {renderItem(item, i)}
       </Reveal>
-    )
+    );
     return (
       <motion.div
         key={item.slug}
@@ -56,11 +56,11 @@ export function AnimatedGrid<T extends { slug: string }>({
       >
         {inner}
       </motion.div>
-    )
-  })
+    );
+  });
 
   return (
-    <div className={cn('grid gap-6', className)}>
+    <div className={cn("grid gap-6", className)}>
       {reduced ? (
         cards
       ) : (
@@ -69,5 +69,5 @@ export function AnimatedGrid<T extends { slug: string }>({
         </AnimatePresence>
       )}
     </div>
-  )
+  );
 }

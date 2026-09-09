@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useEffect, useId, useRef } from 'react'
-import { animate, useInView, useReducedMotion } from 'motion/react'
-import { cn } from '@/lib/utils'
+import { useEffect, useId, useRef } from "react";
+import { animate, useInView, useReducedMotion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 /**
  * Animated proficiency ring: a gradient-stroked SVG circle that fills to
@@ -19,48 +19,48 @@ export function ProgressCircle({
   stroke = 7,
   className,
 }: {
-  value: number
-  label?: string
-  size?: number
-  stroke?: number
-  className?: string
+  value: number;
+  label?: string;
+  size?: number;
+  stroke?: number;
+  className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const circleRef = useRef<SVGCircleElement>(null)
-  const numberRef = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-40px' })
-  const reduced = useReducedMotion()
-  const gradientId = useId()
+  const ref = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<SVGCircleElement>(null);
+  const numberRef = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduced = useReducedMotion();
+  const gradientId = useId();
 
-  const radius = (size - stroke) / 2
-  const circumference = 2 * Math.PI * radius
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
 
   useEffect(() => {
-    if (!inView) return
+    if (!inView) return;
     const setProgress = (p: number) => {
       if (circleRef.current) {
-        circleRef.current.style.strokeDashoffset = String(circumference * (1 - p / 100))
+        circleRef.current.style.strokeDashoffset = String(circumference * (1 - p / 100));
       }
-      if (numberRef.current) numberRef.current.textContent = String(Math.round(p))
-    }
+      if (numberRef.current) numberRef.current.textContent = String(Math.round(p));
+    };
     if (reduced) {
-      setProgress(value)
-      return
+      setProgress(value);
+      return;
     }
     const controls = animate(0, value, {
       duration: 1.1,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: setProgress,
-    })
-    return () => controls.stop()
-  }, [inView, value, reduced, circumference])
+    });
+    return () => controls.stop();
+  }, [inView, value, reduced, circumference]);
 
   return (
     <div
       ref={ref}
       role="img"
       aria-label={label ? `${label}: ${value}%` : `${value}%`}
-      className={cn('relative inline-flex shrink-0 items-center justify-center', className)}
+      className={cn("relative inline-flex shrink-0 items-center justify-center", className)}
       style={{ width: size, height: size }}
     >
       <svg width={size} height={size} className="-rotate-90">
@@ -92,7 +92,7 @@ export function ProgressCircle({
           strokeDasharray={circumference}
           strokeDashoffset={circumference}
           style={{
-            filter: 'drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 55%, transparent))',
+            filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 55%, transparent))",
           }}
         />
       </svg>
@@ -103,5 +103,5 @@ export function ProgressCircle({
         </span>
       </div>
     </div>
-  )
+  );
 }

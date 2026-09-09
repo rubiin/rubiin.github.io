@@ -1,23 +1,23 @@
-'use client'
+"use client";
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
 // Decorative parallax aurora blobs, mouse glow, grid, particles, streaks, grain.
 export function AmbientBackground() {
-  const rootRef = useRef<HTMLDivElement>(null)
-  const [mounted, setMounted] = useState(false)
-  const reduced = useReducedMotion()
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const reduced = useReducedMotion();
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => setMounted(true), []);
 
   // Deterministic field seeded from the index — stable across SSR/client.
   const particles = useMemo(
     () =>
       Array.from({ length: 22 }, (_, i) => {
-        const seed = (i * 2654435761) % 10000
+        const seed = (i * 2654435761) % 10000;
         const rand = (min: number, max: number) =>
-          min + (((seed * (i + 7)) % 997) / 997) * (max - min)
+          min + (((seed * (i + 7)) % 997) / 997) * (max - min);
         return {
           left: rand(2, 98),
           top: rand(4, 96),
@@ -25,45 +25,45 @@ export function AmbientBackground() {
           duration: rand(9, 20),
           delay: -rand(0, 12),
           hue: i % 3,
-        }
+        };
       }),
     [],
-  )
+  );
 
   // Scroll-driven parallax at different depths; zeroed under reduced motion.
-  const { scrollY } = useScroll()
-  const yBlobs = useTransform(scrollY, [0, 2400], reduced ? [0, 0] : [0, -140])
-  const yGrid = useTransform(scrollY, [0, 2400], reduced ? [0, 0] : [0, 70])
-  const yParticles = useTransform(scrollY, [0, 2400], reduced ? [0, 0] : [0, -240])
+  const { scrollY } = useScroll();
+  const yBlobs = useTransform(scrollY, [0, 2400], reduced ? [0, 0] : [0, -140]);
+  const yGrid = useTransform(scrollY, [0, 2400], reduced ? [0, 0] : [0, 70]);
+  const yParticles = useTransform(scrollY, [0, 2400], reduced ? [0, 0] : [0, -240]);
 
   // One pointer listener drives both glow layers via CSS vars on the root.
   useEffect(() => {
-    if (!mounted) return
-    if (reduced) return
-    let raf = 0
+    if (!mounted) return;
+    if (reduced) return;
+    let raf = 0;
     const onMove = (e: PointerEvent) => {
-      cancelAnimationFrame(raf)
+      cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        const el = rootRef.current
-        if (!el) return
-        el.style.setProperty('--mx', `${e.clientX}px`)
-        el.style.setProperty('--my', `${e.clientY}px`)
-      })
-    }
-    window.addEventListener('pointermove', onMove, { passive: true })
+        const el = rootRef.current;
+        if (!el) return;
+        el.style.setProperty("--mx", `${e.clientX}px`);
+        el.style.setProperty("--my", `${e.clientY}px`);
+      });
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('pointermove', onMove)
-    }
-  }, [mounted, reduced])
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+    };
+  }, [mounted, reduced]);
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   const particleColors = [
-    'color-mix(in oklab, var(--primary) 70%, transparent)',
-    'color-mix(in oklab, var(--accent-secondary) 70%, transparent)',
-    'color-mix(in oklab, var(--chart-3) 60%, transparent)',
-  ]
+    "color-mix(in oklab, var(--primary) 70%, transparent)",
+    "color-mix(in oklab, var(--accent-secondary) 70%, transparent)",
+    "color-mix(in oklab, var(--chart-3) 60%, transparent)",
+  ];
 
   return (
     <div
@@ -82,7 +82,7 @@ export function AmbientBackground() {
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--accent-secondary) 12%, transparent), transparent 70%)',
+            "radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--accent-secondary) 12%, transparent), transparent 70%)",
         }}
       />
 
@@ -116,5 +116,5 @@ export function AmbientBackground() {
 
       <div className="noise-bg absolute -inset-[30%] opacity-[0.04] mix-blend-overlay motion-reduce:animate-none animate-[grain-shift_1.1s_steps(4)_infinite]" />
     </div>
-  )
+  );
 }

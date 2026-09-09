@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Brain,
@@ -13,36 +13,36 @@ import {
   Database,
   TerminalSquare,
   Cpu,
-} from 'lucide-react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Reveal } from '@/components/animations/reveal'
-import { ProgressCircle } from '@/components/animations/progress-circle'
-import { ChapterHeading } from '@/components/home/chapter-heading'
-import { SkillsOrbit } from '@/components/home/skills-orbit'
-import { skillCategories } from '@/data/skills'
-import { yearsSince } from '@/lib/constants'
-import type { Skill } from '@/types'
+} from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Reveal } from "@/components/animations/reveal";
+import { ProgressCircle } from "@/components/animations/progress-circle";
+import { ChapterHeading } from "@/components/home/chapter-heading";
+import { SkillsOrbit } from "@/components/home/skills-orbit";
+import { skillCategories } from "@/data/skills";
+import { yearsSince } from "@/lib/constants";
+import type { Skill } from "@/types";
 
 const CATEGORY_ICONS: Record<string, typeof Layout> = {
   Frontend: Layout,
   Backend: Server,
-  'AI / ML': Brain,
+  "AI / ML": Brain,
   DevOps: Cloud,
   Mobile: Smartphone,
-  'Full Stack': Layers,
-}
+  "Full Stack": Layers,
+};
 
 /** Floating tech-logos strip under the rings — decorative (`aria-hidden`). */
 const FLOATING_LOGOS = [
-  { icon: Braces, label: 'TypeScript' },
-  { icon: Atom, label: 'React' },
-  { icon: Server, label: 'NestJS' },
-  { icon: Container, label: 'Docker' },
-  { icon: Database, label: 'PostgreSQL' },
-  { icon: Cpu, label: 'Golang' },
-  { icon: TerminalSquare, label: 'Linux' },
-]
+  { icon: Braces, label: "TypeScript" },
+  { icon: Atom, label: "React" },
+  { icon: Server, label: "NestJS" },
+  { icon: Container, label: "Docker" },
+  { icon: Database, label: "PostgreSQL" },
+  { icon: Cpu, label: "Golang" },
+  { icon: TerminalSquare, label: "Linux" },
+];
 
 function SkillTile({ skill }: { skill: Skill }) {
   return (
@@ -60,15 +60,15 @@ function SkillTile({ skill }: { skill: Skill }) {
         <div className="space-y-1">
           <p className="font-semibold">{yearsSince(skill.since)} years of experience</p>
           {skill.technologies && (
-            <p className="text-muted-foreground">{skill.technologies.join(' · ')}</p>
+            <p className="text-muted-foreground">{skill.technologies.join(" · ")}</p>
           )}
           {skill.relatedProjects && skill.relatedProjects.length > 0 && (
-            <p className="text-muted-foreground">Used in: {skill.relatedProjects.join(', ')}</p>
+            <p className="text-muted-foreground">Used in: {skill.relatedProjects.join(", ")}</p>
           )}
         </div>
       </TooltipContent>
     </Tooltip>
-  )
+  );
 }
 
 export function SkillsSection() {
@@ -92,7 +92,7 @@ export function SkillsSection() {
                 className="mb-10 h-auto flex-wrap gap-1.5 rounded-full border border-border/40 bg-muted/30 p-1.5 backdrop-blur-sm"
               >
                 {skillCategories.map((cat) => {
-                  const Icon = CATEGORY_ICONS[cat.name] ?? Layout
+                  const Icon = CATEGORY_ICONS[cat.name] ?? Layout;
                   return (
                     <TabsTrigger
                       key={cat.name}
@@ -102,7 +102,7 @@ export function SkillsSection() {
                       <Icon />
                       {cat.name}
                     </TabsTrigger>
-                  )
+                  );
                 })}
               </TabsList>
 
@@ -136,5 +136,5 @@ export function SkillsSection() {
         </Reveal>
       </div>
     </section>
-  )
+  );
 }

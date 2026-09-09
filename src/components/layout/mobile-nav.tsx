@@ -1,35 +1,35 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Link, useLocation } from '@tanstack/react-router'
-import { Download, Mail, Menu, Rss } from 'lucide-react'
-import { navItems } from '@/data/nav'
-import { siteConfig } from '@/data/site'
-import { GitHubIcon, LinkedInIcon, XIcon } from '@/components/ui/brand-icons'
-import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useState } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
+import { Download, Mail, Menu, Rss } from "lucide-react";
+import { navItems } from "@/data/nav";
+import { siteConfig } from "@/data/site";
+import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/ui/brand-icons";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/sheet'
-import { ThemeToggle } from '@/components/layout/theme-toggle'
-import { PaletteToggle } from '@/components/layout/palette-toggle'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { PaletteToggle } from "@/components/layout/palette-toggle";
+import { cn } from "@/lib/utils";
 
 const SOCIALS = [
-  { label: 'GitHub', href: siteConfig.socials.github, icon: GitHubIcon },
-  { label: 'LinkedIn', href: siteConfig.socials.linkedin, icon: LinkedInIcon },
-  { label: 'X', href: siteConfig.socials.twitter, icon: XIcon },
-  { label: 'RSS', href: siteConfig.socials.rss, icon: Rss },
-  { label: 'Email', href: siteConfig.socials.email, icon: Mail },
-]
+  { label: "GitHub", href: siteConfig.socials.github, icon: GitHubIcon },
+  { label: "LinkedIn", href: siteConfig.socials.linkedin, icon: LinkedInIcon },
+  { label: "X", href: siteConfig.socials.twitter, icon: XIcon },
+  { label: "RSS", href: siteConfig.socials.rss, icon: Rss },
+  { label: "Email", href: siteConfig.socials.email, icon: Mail },
+];
 
 export function MobileNav() {
-  const [open, setOpen] = useState(false)
-  const location = useLocation()
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <>
@@ -76,24 +76,24 @@ export function MobileNav() {
                     <Download className="size-4" aria-hidden />
                     {item.label}
                   </a>
-                )
+                );
               }
-              const active = !item.href.startsWith('/#') && location.pathname === item.href
+              const active = !item.href.startsWith("/#") && location.pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   to={item.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    'rounded-md px-3 py-2.5 text-base font-medium transition-colors',
+                    "rounded-md px-3 py-2.5 text-base font-medium transition-colors",
                     active
-                      ? 'bg-accent text-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
+                      ? "bg-accent text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {item.label}
                 </Link>
-              )
+              );
             })}
           </nav>
 
@@ -110,8 +110,8 @@ export function MobileNav() {
                 <a
                   key={label}
                   href={href}
-                  target={href.startsWith('http') ? '_blank' : undefined}
-                  rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noreferrer" : undefined}
                   aria-label={label}
                   className="flex size-11 items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 >
@@ -123,5 +123,5 @@ export function MobileNav() {
         </SheetContent>
       </Sheet>
     </>
-  )
+  );
 }

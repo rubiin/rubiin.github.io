@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { Suspense, lazy, useRef, useEffect, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform, AnimatePresence } from 'motion/react'
+import { Suspense, lazy, useRef, useEffect, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import {
   ArrowDown,
   Atom,
@@ -14,39 +14,39 @@ import {
   Mail,
   Server,
   TerminalSquare,
-} from 'lucide-react'
-import { Counter } from '@/components/animations/counter'
-import { MagneticButton } from '@/components/animations/magnetic-button'
-import { NeonButton } from '@/components/animations/neon-button'
-import { TextReveal } from '@/components/animations/text-reveal'
-import { AnimatedBorder } from '@/components/animations/animated-border'
-import { profile } from '@/data/profile'
-import { siteConfig } from '@/data/site'
-import { updatePointerState } from '@/components/three/pointer-state'
+} from "lucide-react";
+import { Counter } from "@/components/animations/counter";
+import { MagneticButton } from "@/components/animations/magnetic-button";
+import { NeonButton } from "@/components/animations/neon-button";
+import { TextReveal } from "@/components/animations/text-reveal";
+import { AnimatedBorder } from "@/components/animations/animated-border";
+import { profile } from "@/data/profile";
+import { siteConfig } from "@/data/site";
+import { updatePointerState } from "@/components/three/pointer-state";
 
 // Three.js is heavy — only load on pages that render the hero.
 const HeroScene = lazy(() =>
-  import('@/components/three/hero-scene').then((m) => ({ default: m.HeroScene })),
-)
+  import("@/components/three/hero-scene").then((m) => ({ default: m.HeroScene })),
+);
 
-const ROLES = ['React Developer', 'TypeScript Advocate', 'Creative Developer']
+const ROLES = ["React Developer", "TypeScript Advocate", "Creative Developer"];
 
 const STATS = [
-  { label: 'Years experience', to: 8 },
-  { label: 'Projects shipped', to: 40 },
-  { label: 'GitHub stars', to: 4000, suffix: '+' },
-]
+  { label: "Years experience", to: 8 },
+  { label: "Projects shipped", to: 40 },
+  { label: "GitHub stars", to: 4000, suffix: "+" },
+];
 
 /** Floating tech chips orbiting the portrait — decorative, CSS-driven float. */
 const FLOATING_TECH = [
-  { icon: Braces, label: 'TypeScript', className: '-top-6 -left-6 sm:-left-10', delay: '0s' },
-  { icon: Atom, label: 'React', className: '-top-3 right-0 sm:right-4', delay: '1.4s' },
-  { icon: Server, label: 'NestJS', className: 'top-[38%] -right-9 sm:-right-12', delay: '2.2s' },
-  { icon: Database, label: 'PostgreSQL', className: '-bottom-7 left-2', delay: '0.7s' },
-  { icon: Container, label: 'Docker', className: '-bottom-5 -left-8 sm:-left-12', delay: '1.8s' },
-  { icon: Cloud, label: 'AWS', className: 'right-8 -bottom-3', delay: '2.8s' },
-  { icon: TerminalSquare, label: 'Linux', className: '-left-8 top-1/4 sm:-left-14', delay: '3.4s' },
-]
+  { icon: Braces, label: "TypeScript", className: "-top-6 -left-6 sm:-left-10", delay: "0s" },
+  { icon: Atom, label: "React", className: "-top-3 right-0 sm:right-4", delay: "1.4s" },
+  { icon: Server, label: "NestJS", className: "top-[38%] -right-9 sm:-right-12", delay: "2.2s" },
+  { icon: Database, label: "PostgreSQL", className: "-bottom-7 left-2", delay: "0.7s" },
+  { icon: Container, label: "Docker", className: "-bottom-5 -left-8 sm:-left-12", delay: "1.8s" },
+  { icon: Cloud, label: "AWS", className: "right-8 -bottom-3", delay: "2.8s" },
+  { icon: TerminalSquare, label: "Linux", className: "-left-8 top-1/4 sm:-left-14", delay: "3.4s" },
+];
 
 /**
  * Mouse parallax: translates the 3D layer imperatively (no re-renders)
@@ -54,44 +54,44 @@ const FLOATING_TECH = [
  * the cursor. Disabled for reduced motion.
  */
 function useMouseParallax() {
-  const layerRef = useRef<HTMLDivElement>(null)
-  const reduced = useReducedMotion()
+  const layerRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) return
-    let raf = 0
+    if (reduced) return;
+    let raf = 0;
     const onPointerMove = (e: PointerEvent) => {
-      const { clientX, clientY } = e
-      cancelAnimationFrame(raf)
+      const { clientX, clientY } = e;
+      cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        updatePointerState(clientX, clientY)
-        if (!layerRef.current) return
-        const { innerWidth: w, innerHeight: h } = window
-        const x = (clientX / w - 0.5) * 2 * 10
-        const y = (clientY / h - 0.5) * 2 * 10
-        layerRef.current.style.transform = `translate(${x}px, ${y}px)`
-      })
-    }
-    window.addEventListener('pointermove', onPointerMove, { passive: true })
+        updatePointerState(clientX, clientY);
+        if (!layerRef.current) return;
+        const { innerWidth: w, innerHeight: h } = window;
+        const x = (clientX / w - 0.5) * 2 * 10;
+        const y = (clientY / h - 0.5) * 2 * 10;
+        layerRef.current.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    };
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
     return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('pointermove', onPointerMove)
-    }
-  }, [reduced])
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onPointerMove);
+    };
+  }, [reduced]);
 
-  return { layerRef }
+  return { layerRef };
 }
 
 /** Rotating role line with a blinking caret. */
 function RotatingRole() {
-  const reduced = useReducedMotion()
-  const [roleIndex, setRoleIndex] = useState(0)
+  const reduced = useReducedMotion();
+  const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
-    if (reduced) return
-    const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 2400)
-    return () => clearInterval(id)
-  }, [reduced])
+    if (reduced) return;
+    const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 2400);
+    return () => clearInterval(id);
+  }, [reduced]);
 
   return (
     <div className="flex min-h-[2.5rem] items-center">
@@ -112,15 +112,15 @@ function RotatingRole() {
         </motion.p>
       </AnimatePresence>
     </div>
-  )
+  );
 }
 
 /** Glowing portrait placeholder with orbiting tech chips. */
 function PortraitPlaceholder() {
   const nameInitials = profile.name
-    .split(' ')
+    .split(" ")
     .map((part) => part[0])
-    .join('')
+    .join("");
 
   return (
     <div className="relative mx-auto mt-16 w-fit lg:mt-0">
@@ -160,43 +160,43 @@ function PortraitPlaceholder() {
         </span>
       ))}
     </div>
-  )
+  );
 }
 
 export function Hero() {
-  const { layerRef } = useMouseParallax()
-  const reduced = useReducedMotion()
-  const sectionRef = useRef<HTMLElement>(null)
-  const [sceneReady, setSceneReady] = useState(false)
+  const { layerRef } = useMouseParallax();
+  const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [sceneReady, setSceneReady] = useState(false);
 
   useEffect(() => {
-    const enable = () => setSceneReady(true)
-    if (typeof requestIdleCallback === 'function') {
-      const id = requestIdleCallback(enable, { timeout: 3000 })
-      return () => cancelIdleCallback(id)
+    const enable = () => setSceneReady(true);
+    if (typeof requestIdleCallback === "function") {
+      const id = requestIdleCallback(enable, { timeout: 3000 });
+      return () => cancelIdleCallback(id);
     }
-    const id = setTimeout(enable, 3000)
-    return () => clearTimeout(id)
-  }, [])
+    const id = setTimeout(enable, 3000);
+    return () => clearTimeout(id);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-  const sceneOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
-  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.94])
+    offset: ["start start", "end start"],
+  });
+  const sceneOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
 
   // Scroll-scrubbed exit: as the hero scrolls away, the headline column
   // drifts up, shrinks, and fades — dissolving into the marquee below.
   // Static transforms for reduced motion (plain document-flow exit).
-  const textY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -110])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.55], reduced ? [1, 1] : [1, 0])
-  const textScale = useTransform(scrollYProgress, [0, 1], reduced ? [1, 1] : [1, 0.97])
+  const textY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -110]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.55], reduced ? [1, 1] : [1, 0]);
+  const textScale = useTransform(scrollYProgress, [0, 1], reduced ? [1, 1] : [1, 0.97]);
   // Portrait trails at its own slower rate for depth.
-  const portraitY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -60])
-  const portraitOpacity = useTransform(scrollYProgress, [0, 0.6], reduced ? [1, 1] : [1, 0])
+  const portraitY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -60]);
+  const portraitOpacity = useTransform(scrollYProgress, [0, 0.6], reduced ? [1, 1] : [1, 0]);
   // Scroll indicator fades away early, once scrolling starts.
-  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.25], reduced ? [1, 1] : [1, 0])
+  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.25], reduced ? [1, 1] : [1, 0]);
 
   return (
     <section ref={sectionRef} className="relative flex min-h-[92svh] flex-col overflow-hidden">
@@ -206,17 +206,17 @@ export function Hero() {
         <motion.div
           className="absolute -top-32 -left-24 size-[28rem] rounded-full bg-primary/10 blur-3xl"
           animate={reduced ? undefined : { opacity: [0.5, 0.9, 0.5], scale: [1, 1.15, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute top-1/3 -right-24 size-[24rem] rounded-full bg-accent-secondary/15 blur-3xl"
           animate={reduced ? undefined : { opacity: [0.4, 0.8, 0.4], scale: [1.1, 1, 1.1] }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-0 left-1/3 size-[20rem] rounded-full bg-chart-3/10 blur-3xl"
           animate={reduced ? undefined : { opacity: [0.5, 0.8, 0.5], scale: [1, 1.1, 1] }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
@@ -256,9 +256,9 @@ export function Hero() {
 
           <TextReveal
             as="h1"
-            text={profile.name.split(' ').join('\n')}
+            text={profile.name.split(" ").join("\n")}
             className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
-            lineClassNames={['', 'text-gradient']}
+            lineClassNames={["", "text-gradient"]}
           />
 
           <RotatingRole />
@@ -310,7 +310,7 @@ export function Hero() {
               <div key={label} className="flex flex-col">
                 <dt className="order-2 text-xs text-muted-foreground">{label}</dt>
                 <dd className="order-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                  <Counter to={to} suffix={suffix ?? ''} />
+                  <Counter to={to} suffix={suffix ?? ""} />
                 </dd>
               </div>
             ))}
@@ -335,7 +335,7 @@ export function Hero() {
         aria-label="Scroll to content"
         className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground transition-colors hover:text-foreground"
         animate={reduced ? undefined : { y: [0, 8, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         style={{ opacity: indicatorOpacity }}
       >
         <ArrowDown className="size-5" />
@@ -343,5 +343,5 @@ export function Hero() {
 
       <span className="sr-only">{siteConfig.role}</span>
     </section>
-  )
+  );
 }

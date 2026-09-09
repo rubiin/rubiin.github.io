@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import type { RefObject } from 'react'
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
+import type { RefObject } from "react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 
 /**
  * Scroll-driven reading progress: as the article is read, soft mint glows
@@ -10,21 +10,21 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'mo
  * screens and rendered statically under reduced motion.
  */
 export function BlogReadingGlow({ targetRef }: { targetRef: RefObject<HTMLElement | null> }) {
-  const reduced = useReducedMotion()
+  const reduced = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start 0.9', 'end 0.25'],
-  })
-  const spineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 26 })
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.1, 0.12, 0.18])
+    offset: ["start 0.9", "end 0.25"],
+  });
+  const spineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 26 });
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.1, 0.12, 0.18]);
   // Live percentage label — a string MotionValue rendered as children, so
   // the text updates on scroll with zero re-renders. Clamped: the spring can
   // overshoot past 1 on fast scrolls.
   const percent = useTransform(spineScale, (v) => {
-    const pct = Math.min(100, Math.max(0, Math.round(v * 100)))
-    return `${pct}%`
-  })
+    const pct = Math.min(100, Math.max(0, Math.round(v * 100)));
+    return `${pct}%`;
+  });
 
   return (
     <>
@@ -96,5 +96,5 @@ export function BlogReadingGlow({ targetRef }: { targetRef: RefObject<HTMLElemen
         )}
       </motion.div>
     </>
-  )
+  );
 }

@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
 
 const ITEMS = [
-  'TypeScript',
-  'React',
-  'Node.js',
-  'Three.js',
-  'TanStack Start',
-  'Uno CSS',
-  'PostgreSQL',
-  'Prisma',
-  'Motion',
-  'MDX',
-]
+  "TypeScript",
+  "React",
+  "Node.js",
+  "Three.js",
+  "TanStack Start",
+  "Uno CSS",
+  "PostgreSQL",
+  "Prisma",
+  "Motion",
+  "MDX",
+];
 
 /**
  * Infinite scrolling strip of technologies — a glass band with soft edge
@@ -22,13 +22,13 @@ const ITEMS = [
  * (`aria-hidden`).
  */
 export function Marquee({ className }: { className?: string }) {
-  const row = [...ITEMS, ...ITEMS]
+  const row = [...ITEMS, ...ITEMS];
 
   return (
     <div
       aria-hidden
       className={cn(
-        'relative overflow-hidden border-y border-border/40 bg-muted/20 py-4 backdrop-blur-sm motion-reduce:overflow-x-auto',
+        "relative overflow-hidden border-y border-border/40 bg-muted/20 py-4 backdrop-blur-sm motion-reduce:overflow-x-auto",
         className,
       )}
     >
@@ -49,5 +49,5 @@ export function Marquee({ className }: { className?: string }) {
         ))}
       </div>
     </div>
-  )
+  );
 }

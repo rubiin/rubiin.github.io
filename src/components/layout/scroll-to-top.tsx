@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { useId, useState } from 'react'
+import { useId, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -8,13 +8,13 @@ import {
   useReducedMotion,
   useScroll,
   useSpring,
-} from 'motion/react'
-import { ArrowUp } from 'lucide-react'
-import { lenisScrollTo } from '@/hooks/use-lenis'
-import { cn } from '@/lib/utils'
+} from "motion/react";
+import { ArrowUp } from "lucide-react";
+import { lenisScrollTo } from "@/hooks/use-lenis";
+import { cn } from "@/lib/utils";
 
 /** Pixels scrolled before the button appears (roughly one viewport). */
-const SHOW_AFTER = 320
+const SHOW_AFTER = 320;
 
 /**
  * Modern scroll-to-top button: a frosted-glass disc pinned bottom-right
@@ -24,15 +24,15 @@ const SHOW_AFTER = 320
  * the site's smooth-scroll engine and falls back to native scrolling.
  */
 export function ScrollToTop() {
-  const { scrollY, scrollYProgress } = useScroll()
-  const reduced = useReducedMotion()
-  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.001 })
-  const [visible, setVisible] = useState(false)
-  const gradientId = useId()
+  const { scrollY, scrollYProgress } = useScroll();
+  const reduced = useReducedMotion();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.001 });
+  const [visible, setVisible] = useState(false);
+  const gradientId = useId();
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setVisible(latest > SHOW_AFTER)
-  })
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setVisible(latest > SHOW_AFTER);
+  });
 
   return (
     <AnimatePresence>
@@ -43,17 +43,17 @@ export function ScrollToTop() {
           title="Scroll to top"
           onClick={() => lenisScrollTo(0)}
           className={cn(
-            'group fixed right-6 z-40 grid size-12 place-items-center rounded-full',
+            "group fixed right-6 z-40 grid size-12 place-items-center rounded-full",
             // Safe-area aware on notched devices (underscores → spaces in calc)
-            'bottom-[calc(1.5rem_+_env(safe-area-inset-bottom))]',
-            'border border-border/70 bg-card/70 shadow-lg shadow-black/10 backdrop-blur-xl',
-            'transition-[border-color,box-shadow]',
-            'hover:border-primary/60 hover:shadow-[0_0_28px_-6px_color-mix(in_oklab,var(--primary)_55%,transparent)]',
+            "bottom-[calc(1.5rem_+_env(safe-area-inset-bottom))]",
+            "border border-border/70 bg-card/70 shadow-lg shadow-black/10 backdrop-blur-xl",
+            "transition-[border-color,box-shadow]",
+            "hover:border-primary/60 hover:shadow-[0_0_28px_-6px_color-mix(in_oklab,var(--primary)_55%,transparent)]",
           )}
           initial={reduced ? false : { opacity: 0, y: 16, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduced ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+          transition={{ type: "spring", stiffness: 320, damping: 28 }}
           whileHover={reduced ? undefined : { scale: 1.06 }}
           whileTap={reduced ? undefined : { scale: 0.94 }}
         >
@@ -95,5 +95,5 @@ export function ScrollToTop() {
         </motion.button>
       )}
     </AnimatePresence>
-  )
+  );
 }

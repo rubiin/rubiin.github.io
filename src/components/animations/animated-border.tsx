@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
-import { cn } from '@/lib/utils'
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 /**
  * Animated gradient border wrapper. A rotating conic gradient (CSS-driven
@@ -14,17 +14,17 @@ export function AnimatedBorder({
   surfaceClassName,
   always = false,
 }: {
-  children: ReactNode
-  className?: string
-  surfaceClassName?: string
+  children: ReactNode;
+  className?: string;
+  surfaceClassName?: string;
   /** Keep the rotating border fully lit even without hover. */
-  always?: boolean
+  always?: boolean;
 }) {
   return (
-    <div data-always={always || undefined} className={cn('animated-border rounded-2xl', className)}>
-      <div className={cn('relative h-full w-full rounded-[inherit] bg-card', surfaceClassName)}>
+    <div data-always={always || undefined} className={cn("animated-border rounded-2xl", className)}>
+      <div className={cn("relative h-full w-full rounded-[inherit] bg-card", surfaceClassName)}>
         {children}
       </div>
     </div>
-  )
+  );
 }

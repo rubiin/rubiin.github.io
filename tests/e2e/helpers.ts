@@ -1,7 +1,7 @@
-import type { Page } from '@playwright/test'
+import type { Page } from "@playwright/test";
 
-const BASE_URL = process.env.SNAPSHOT_EXTERNAL ?? 'http://localhost:3000'
-const BASE_HOST = new URL(BASE_URL).host
+const BASE_URL = process.env.SNAPSHOT_EXTERNAL ?? "http://localhost:3000";
+const BASE_HOST = new URL(BASE_URL).host;
 
 /**
  * Prepare a page for a deterministic screenshot:
@@ -16,25 +16,25 @@ const BASE_HOST = new URL(BASE_URL).host
  *  4. Wait for hydration + lazy chunks (network idle), fonts, and a settle
  *     window before the screenshot is taken.
  */
-export async function prepareScreenshot(page: Page, path: string, theme: 'light' | 'dark') {
-  await page.route('**/*', (route) => {
-    const url = route.request().url()
-    if (url.startsWith('http') && new URL(url).host !== BASE_HOST) return route.abort()
-    return route.continue()
-  })
+export async function prepareScreenshot(page: Page, path: string, theme: "light" | "dark") {
+  await page.route("**/*", (route) => {
+    const url = route.request().url();
+    if (url.startsWith("http") && new URL(url).host !== BASE_HOST) return route.abort();
+    return route.continue();
+  });
 
   await page.addInitScript((t) => {
-    localStorage.setItem('pf:theme:v1', t)
-    const style = document.createElement('style')
-    style.textContent = '*,*::before,*::after{animation:none!important;transition:none!important}'
-    document.head.appendChild(style)
-  }, theme)
+    localStorage.setItem("pf:theme:v1", t);
+    const style = document.createElement("style");
+    style.textContent = "*,*::before,*::after{animation:none!important;transition:none!important}";
+    document.head.appendChild(style);
+  }, theme);
 
-  await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' })
+  await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
 
-  await page.goto(`${BASE_URL}${path}`, { waitUntil: 'load', timeout: 30_000 })
-  await page.waitForLoadState('networkidle', { timeout: 30_000 })
-  await page.evaluate(() => document.fonts.ready)
+  await page.goto(`${BASE_URL}${path}`, { waitUntil: "load", timeout: 30_000 });
+  await page.waitForLoadState("networkidle", { timeout: 30_000 });
+  await page.evaluate(() => document.fonts.ready);
   // Settle lazy imports (3D scene, mermaid, katex css) and hydration paint.
-  await page.waitForTimeout(1200)
+  await page.waitForTimeout(1200);
 }

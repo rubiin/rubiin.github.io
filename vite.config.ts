@@ -1,11 +1,11 @@
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import { defineConfig } from 'vite'
-import viteReact from '@vitejs/plugin-react'
-import { nitro } from 'nitro/vite'
-import contentCollections from '@content-collections/vite'
-import unocssPostcss from '@unocss/postcss'
-import type { Root } from 'postcss'
-import { cloudflare } from '@cloudflare/vite-plugin'
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { defineConfig } from "vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import contentCollections from "@content-collections/vite";
+import unocssPostcss from "@unocss/postcss";
+import type { Root } from "postcss";
+import { cloudflare } from "@cloudflare/vite-plugin";
 /**
  * PostCSS plugin: replaces `color-mix(in srgb, …)` with `in oklab` so the
  * rendered colors stay pixel-identical to the previous Tailwind v4 build.
@@ -15,25 +15,25 @@ import { cloudflare } from '@cloudflare/vite-plugin'
  * catches every declaration in the output.
  */
 const colorMixOklab = () => ({
-  postcssPlugin: 'color-mix-oklab',
+  postcssPlugin: "color-mix-oklab",
   OnceExit(root: Root) {
     root.walkDecls((decl) => {
-      if (decl.value?.includes('color-mix(in srgb,')) {
-        decl.value = decl.value.replaceAll('color-mix(in srgb,', 'color-mix(in oklab,')
+      if (decl.value?.includes("color-mix(in srgb,")) {
+        decl.value = decl.value.replaceAll("color-mix(in srgb,", "color-mix(in oklab,");
       }
-    })
+    });
   },
-})
-colorMixOklab.postcss = true
+});
+colorMixOklab.postcss = true;
 
 export default defineConfig(({ command }) => ({
   server: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 3000,
     strictPort: true,
   },
   preview: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 4173,
     strictPort: true,
   },
@@ -41,7 +41,7 @@ export default defineConfig(({ command }) => ({
     tsconfigPaths: true,
   },
   build: {
-    target: 'es2022',
+    target: "es2022",
     minify: true,
     chunkSizeWarningLimit: 2000,
     sourcemap: false,
@@ -51,10 +51,10 @@ export default defineConfig(({ command }) => ({
   // optimizeDeps (discovery from the client/server entries), which replaces
   // the top-level config — and react/react-dom are CJS, so the browser needs
   // them pre-bundled in dev regardless.
-  ...(command === 'build'
+  ...(command === "build"
     ? {
         optimizeDeps: {
-          include: ['react', 'react-dom', '@tanstack/react-router', '@tanstack/react-query'],
+          include: ["react", "react-dom", "@tanstack/react-router", "@tanstack/react-query"],
         },
       }
     : {}),
@@ -69,10 +69,10 @@ export default defineConfig(({ command }) => ({
   },
   plugins: [
     contentCollections({
-      configPath: './content-collections.config.ts',
+      configPath: "./content-collections.config.ts",
     }),
     tanstackStart({
-      srcDirectory: 'src',
+      srcDirectory: "src",
     }),
 
     viteReact(),
@@ -93,10 +93,10 @@ export default defineConfig(({ command }) => ({
       //  - /sw.js: no-cache so browsers always check for service-worker
       //    updates — a stale SW would delay new content from going live.
       routeRules: {
-        '/**': {
+        "/**": {
           headers: {
-            'Cache-Control':
-              'public, s-maxage=3600, stale-while-revalidate=86400, max-age=0, must-revalidate',
+            "Cache-Control":
+              "public, s-maxage=3600, stale-while-revalidate=86400, max-age=0, must-revalidate",
             // Content-Security-Policy: nonce-free, strict policy that blocks
             // inline scripts except the few the app needs (theme-prepaint,
             // boot-loader, JSON-LD). Giscus injects via DOM, not <script>.
@@ -105,22 +105,22 @@ export default defineConfig(({ command }) => ({
             // 'unsafe-eval' is REQUIRED: @content-collections/mdx evaluates
             // each post's compiled MDX bundle via Function() on the client,
             // so every blog route would otherwise crash into the error UI.
-            'Content-Security-Policy': [
+            "Content-Security-Policy": [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://www.google-analytics.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://github.com https://avatars.githubusercontent.com https://www.google-analytics.com",
               "font-src 'self'",
               "connect-src 'self' https://giscus.app https://www.google-analytics.com",
-              'frame-src https://giscus.app',
+              "frame-src https://giscus.app",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
-              'upgrade-insecure-requests',
-            ].join('; '),
+              "upgrade-insecure-requests",
+            ].join("; "),
           },
         },
-        '/sw.js': { headers: { 'Cache-Control': 'no-cache' } },
+        "/sw.js": { headers: { "Cache-Control": "no-cache" } },
       },
       // All content is static build-time data (content-collections), so
       // prerender every route to static HTML at build: Nitro then serves the
@@ -129,7 +129,7 @@ export default defineConfig(({ command }) => ({
       // prev/next chains. Server functions and any path not prerendered still
       // fall back to the SSR server at runtime.
       prerender: {
-        routes: ['/', '/blog/tags', '/blog/categories', '/terminal', '/rss.xml', '/sitemap.xml'],
+        routes: ["/", "/blog/tags", "/blog/categories", "/terminal", "/rss.xml", "/sitemap.xml"],
         crawlLinks: true,
         ignore: [
           // /blog and /projects 307 to their canonical search-param URL
@@ -138,9 +138,9 @@ export default defineConfig(({ command }) => ({
           // the bare paths so the build doesn't EISDIR trying to write them;
           // they stay SSR'd at runtime (fast, in-memory static data). Posts
           // are still discovered via the categories page + prev/next chains.
-          (route: string) => route === '/blog' || route === '/projects',
+          (route: string) => route === "/blog" || route === "/projects",
         ],
       },
     }),
   ],
-}))
+}));

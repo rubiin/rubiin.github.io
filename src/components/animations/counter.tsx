@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { useEffect, useRef } from 'react'
-import { animate, useInView, useReducedMotion } from 'motion/react'
+import { useEffect, useRef } from "react";
+import { animate, useInView, useReducedMotion } from "motion/react";
 
 /**
  * Animated count-up. Starts when scrolled into view; jumps straight to the
@@ -10,38 +10,38 @@ import { animate, useInView, useReducedMotion } from 'motion/react'
 export function Counter({
   to,
   duration = 1.4,
-  suffix = '',
+  suffix = "",
   className,
 }: {
-  to: number
-  duration?: number
-  suffix?: string
-  className?: string
+  to: number;
+  duration?: number;
+  suffix?: string;
+  className?: string;
 }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-40px' })
-  const reduced = useReducedMotion()
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduced = useReducedMotion();
 
   useEffect(() => {
-    const el = ref.current
-    if (!el || !inView) return
+    const el = ref.current;
+    if (!el || !inView) return;
     if (reduced) {
-      el.textContent = `${to}${suffix}`
-      return
+      el.textContent = `${to}${suffix}`;
+      return;
     }
     const controls = animate(0, to, {
       duration,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (v) => {
-        el.textContent = `${Math.round(v)}${suffix}`
+        el.textContent = `${Math.round(v)}${suffix}`;
       },
-    })
-    return () => controls.stop()
-  }, [inView, to, duration, suffix, reduced])
+    });
+    return () => controls.stop();
+  }, [inView, to, duration, suffix, reduced]);
 
   return (
     <span ref={ref} className={className}>
       0{suffix}
     </span>
-  )
+  );
 }
