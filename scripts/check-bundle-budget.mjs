@@ -15,9 +15,12 @@ import { gzipSync } from "node:zlib";
 
 // ── Budgets (bytes, gzip) ───────────────────────────────────────────────────
 // Individual chunk budget — anything over this is a hard fail.
-const CHUNK_BUDGET = 250_000; // 250 KiB gzip — catches regressions while allowing lazy Three.js / mermaid chunks
+// mermaid 12 bundles the ELK layout engine as its own lazy chunk (~436 KiB
+// gzip) that is only fetched when a diagram explicitly requests ELK layout,
+// so the per-chunk ceiling has to clear it.
+const CHUNK_BUDGET = 500_000; // 500 KiB gzip — catches regressions while allowing lazy Three.js / mermaid+ELK chunks
 // Total client JS budget — sum of all .js chunks (lazy diagram libs included).
-const TOTAL_BUDGET = 2_000_000; // 2 MiB gzip
+const TOTAL_BUDGET = 2_250_000; // 2.25 MiB gzip
 
 // ── Scan ────────────────────────────────────────────────────────────────────
 const dir = process.argv[2] || ".output/public/assets";
