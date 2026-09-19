@@ -1,0 +1,99 @@
+---
+title: "Go's context, explained for Node developers"
+date: "2026-05-28"
+description: "In Node, cancellation is an AbortSignal you opt into. In Go, context is the convention the whole ecosystem is built on. Same idea, different plumbing."
+tags: ["golang", "nodejs", "concurrency"]
+category: "golang"
+featured: false
+views: 70
+---
+
+When I wrote about goroutines for beginners, the `context.Context` parameter threaded through every function signature was the part that looked strangest. Coming from Node, you know the problem it solves, you just solve it with different plumbing. So let's map one onto the other.
+
+## The problem: stopping work you no longer need
+
+A client disconnects mid-request. Do you keep querying the database for a response nobody will read? In Node you know this shape:
+
+```js
+const controller = new AbortController();
+setTimeout(() => controller.abort(), 2000);
+
+fetch(url, { signal: controller.signal });
+```
+
+The signal is a cancellation token you create, pass explicitly, and every async call that accepts it can stop early. Go's context is that same token, plus two things Node's `AbortSignal` doesn't carry: deadlines and request-scoped values.
+
+## The shape of it
+
+`context.Context` is an interface with three methods you'll actually use:
+
+```go
+func handle(ctx context.Context, req Request) {
+    ctx.Done()      // a channel, closed on cancel (the "abort" event)
+    ctx.Err()       // why: context.Canceled or context.DeadlineExceeded
+    ctx.Value(key)  // request-scoped data, use sparingly
+}
+```
+
+The idiomatic signature is `ctx context.Context` as the first parameter, and the convention is enforced socially: the entire standard library and every serious Go library takes it. That's the real difference from Node. In Node, cancellation support is per-library opt-in. In Go, if your function does I/O and doesn't take a context, reviewers will ask why.
+
+## Creating and deriving
+
+Contexts form a tree. You create a root, usually per request, and derive children that cancel with their parent:
+
+```go
+ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
+defer cancel()
+```
+
+`WithTimeout` returns a child that cancels itself at the deadline, or earlier if the parent cancels. The `defer cancel()` releases resources even when the function returns before the deadline. Every `With...` must be paired with a `cancel`, and `go vet` warns when you forget.
+
+Node's equivalent shape:
+
+| Node | Go |
+| --- | --- |
+| `new AbortController()` | `context.WithCancel(parent)` |
+| `setTimeout(() => c.abort(), ms)` | `context.WithTimeout(parent, d)` |
+| `controller.signal` | the `ctx` you pass down |
+| `signal.addEventListener("abort", ...)` | `<-ctx.Done()` |
+| no direct equivalent | `context.WithValue` |
+
+## What it looks like in practice
+
+A handler with a 2-second budget that spawns three concurrent fetches:
+
+```go
+func recommendations(ctx context.Context) ([]Item, error) {
+    ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
+    defer cancel()
+
+    g, ctx := errgroup.WithContext(ctx)
+    var (
+        items   []Item
+        profile Profile
+    )
+    g.Go(func() error { return fetchItems(ctx, &items) })
+    g.Go(func() error { return fetchProfile(ctx, &profile) })
+    return items, g.Wait()
+}
+```
+
+When the deadline hits, `ctx` cancels, and both fetches see it, because they receive the same derived context. The HTTP calls in flight get their bodies closed, the goroutines return, the whole branch of work stops. In Node you'd get this with `AbortSignal.any([...])` combining a timeout signal with the request's signal, plus `Promise.allSettled`. Same destination, Go just routes every call through the one explicit parameter.
+
+## Values: the part to be suspicious of
+
+`context.WithValue` carries request-scoped data: trace IDs, auth principals, cancellation reasons. It's typed by a custom key type, not a string. It is not a settings bag. Anything a function would list in its parameters shouldn't ride in a context; the community's shorthand is "values are for cross-cutting concerns, not dependencies." Node has no equivalent, which is honestly a feature: request-scoped data in Node tends to live in explicit middleware objects or, dangerously, in AsyncLocalStorage.
+
+## The rules worth internalizing
+
+1. I/O functions take `ctx` first. Non-negotiable in Go codebases.
+2. Never store a context in a struct long-term. Contexts are call-scoped.
+3. Pass ctx down, don't derive a fresh `context.Background()` mid-chain, that orphans the deadline and cancellation.
+4. Every `WithTimeout`/`WithCancel` gets a `defer cancel()`.
+5. Check `ctx.Err()` in loops. A context doesn't stop goroutines by itself, cancellation is cooperative: the goroutine has to be looking.
+
+That last one is the mental shift. An `AbortSignal` doesn't kill a `fetch`, it just lets the fetch notice. Context doesn't kill goroutines either. Both systems stop work only where the work agrees to listen.
+
+## Conclusion
+
+If you know `AbortController`, you know 80% of context. The other 20% is convention: first parameter, always threaded, always derived from the parent, deadline first-class instead of bolted on. The next time a Go signature's `ctx context.Context` looks like noise, remember it's the abort signal your whole call chain is required to accept.

@@ -1,0 +1,63 @@
+---
+title: "A B-tree is just a library"
+date: "2026-08-31"
+description: "Your index works. But what does it look like on disk? Pages, branching factors and page splits, explained with a library."
+tags: ["sql", "database"]
+category: "sql"
+featured: false
+views: 160
+---
+
+I wrote before about what indexes do: a sorted copy of a column, so the database jumps straight to the match instead of scanning the table. That's the user manual. This post is the machine room. What does the index physically look like on disk, and why does that explain most of the performance advice you've heard?
+
+A B-tree looks intimidating in textbooks. It's a library.
+
+## The card catalog and the stacks
+
+A library has two parts. The stacks, where books live in whatever order they arrived. And the catalog, sorted by title, where each entry points at a shelf location.
+
+Your table is the stacks. Rows land on disk roughly in insert order. The index is the catalog: sorted by the indexed column, every entry pointing at a row.
+
+## Everything is a page
+
+Postgres reads and writes disk in 8 KB pages. InnoDB uses 16 KB. A B-tree is a tree of pages, not a tree of individual keys.
+
+Leaf pages hold sorted key-plus-pointer entries, dozens to hundreds per page depending on key size. Above them sit branch pages, holding only keys and child pointers. At the top, one root page.
+
+Some numbers to make this concrete. With a small integer key, a leaf page holds roughly 300 entries and a branch page holds roughly 300 child pointers. So one root, 300 branches, 300 leaves each:
+
+300 × 300 × 300 ≈ 27 million rows, reachable in three page reads. One more level and you're at 8 billion. This is why index lookups barely care how big the table is. A point lookup on 27 million rows and on 270 million rows differ by one page read.
+
+## Range scans ride a linked list
+
+Leaf pages link to their neighbors. A range query like `WHERE created_at BETWEEN a AND b` finds the first matching leaf, then walks right through pages in order. Sequential reads are the cheap kind of disk access, which is why an indexed range on a large table can be orders of magnitude cheaper than the same filter without an index.
+
+## Why inserts slow down
+
+Every insert touches the tree: find the leaf, add the entry. If the leaf is full, the database splits it into two pages and pushes a key up to the parent. Splits cascade, dirty pages, and generate WAL traffic.
+
+This is the physical reason behind advice you've already heard:
+
+- Random UUID primary keys scatter inserts across leaves, causing splits everywhere.
+- Auto-increment keys append to the rightmost leaf, which is about as cheap as it gets.
+- Every extra index is another tree to update on each write.
+
+If bulk loading is suddenly slow, count your indexes before blaming your query.
+
+## Clustered or not
+
+MySQL's InnoDB stores the row itself inside the primary key index. That's called a clustered index, and secondary indexes point at primary keys, so a lookup through one does two traversals. Postgres keeps the table as a plain heap and every index points at heap locations. One extra hop for Postgres, no double-write cost for the heap. Neither design is wrong, but they fail differently, and "why is this MySQL query doing two index lookups" has its answer here.
+
+## Covering indexes skip the stacks
+
+If the index already contains every column the query needs, the database never visits the table at all:
+
+```sql
+CREATE INDEX ON orders (customer_id) INCLUDE (total);
+```
+
+`SELECT total FROM orders WHERE customer_id = ?` is now answered from the index alone. The catalog card had the price written on it. No trip to the shelves.
+
+## Conclusion
+
+None of this changes when to add an index. It changes how you read the symptoms. Page splits explain slow bulk inserts. The linked list explains fast ranges. The branching factor explains why point lookups don't care about table size. When someone says "B-tree, logarithmic lookup", picture the library: three card drawers and a short walk to the shelf.

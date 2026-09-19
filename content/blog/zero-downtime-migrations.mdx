@@ -1,0 +1,72 @@
+---
+title: "Zero-downtime database migrations"
+date: "2026-09-17"
+description: "ALTER TABLE locks your biggest table and your deploy waits. The expand/contract pattern migrates a live table without an outage window."
+tags: ["database", "sql", "deployment"]
+category: "database"
+featured: false
+views: 75
+---
+
+The migration works perfectly in staging. Then it runs against production, hits the 80-million-row orders table, and takes a lock the API can't survive. Every deploy that touches the schema carries this risk, and "we'll do it at 3am" is a countdown timer, not a fix.
+
+The core problem: old code and new code run at the same time for minutes or hours. Rolling deploys mean instances running version N and version N+1 serve traffic simultaneously. So the rule of zero-downtime migrations is simple to state: **every intermediate schema state must work with both code versions.** The expand/contract pattern is how you get there.
+
+## Expand, migrate, contract
+
+Three phases, each independently deployable.
+
+**Expand.** Add the new column, table, or index, but write to nothing exclusively yet. Additive changes are usually safe: `ALTER TABLE orders ADD COLUMN status_v2 text;` is instant in Postgres, no table rewrite.
+
+**Migrate.** Copy data from old to new while traffic flows, in batches:
+
+```sql
+-- run in a loop until no rows update
+UPDATE orders
+SET status_v2 = old_status
+WHERE id IN (
+  SELECT id FROM orders
+  WHERE status_v2 IS NULL AND old_status IS NOT NULL
+  LIMIT 1000
+);
+```
+
+Small batches keep each transaction short, avoid long lock queues, and let replication keep up. If the deploy crashes halfway, the loop just continues; rows already copied are skipped.
+
+**Contract.** Once the backfill is complete and both code paths have been writing to the new column for a release cycle, drop the old one:
+
+```sql
+ALTER TABLE orders DROP COLUMN old_status;
+```
+
+Each phase ships separately. A migration that used to be one terrifying deploy becomes three boring ones.
+
+## The traps inside each phase
+
+**Backfills lock less than you think, if batched.** A single `UPDATE ... WHERE status_v2 IS NULL` on 80 million rows is one long transaction: it holds locks, bloats the table, and saturates replication lag. Batched, each 1000-row update is a blip.
+
+**NOT NULL is a two-release change.** Adding `NOT NULL` requires a full table scan to verify, which is the lock you were avoiding. Do it in stages: add the column nullable, backfill it, add a `CHECK (col IS NOT NULL) NOT VALID` constraint (instant, enforced on new writes), `VALIDATE CONSTRAINT` later (light lock), and only in a final release promote it to a real `NOT NULL` after the check has run in production for a while.
+
+**Indexes: build them `CONCURRENTLY`.** `CREATE INDEX` takes a write lock for the duration of the build. `CREATE INDEX CONCURRENTLY` in Postgres builds without blocking writes, takes longer, and can't run inside a transaction. If it fails it leaves an `INVALID` index behind; drop it and retry. MySQL's InnoDB performs online index builds by default since 5.6, but watch `innodb_online_alter_log_max_size` on busy tables.
+
+**Columns don't disappear when you drop them.** `DROP COLUMN` is metadata-only in Postgres; the data lingers until the table is rewritten (any future `VACUUM FULL`, or an `ALTER TABLE ... SET NOT NULL` type rewrite). This is usually fine, just don't expect disk back immediately.
+
+## Changing column types without an outage
+
+Rename or type changes can't be additive, so you use the same pattern one level up:
+
+1. Expand: add `status_v2` with the new type.
+2. Dual-write: application code writes both columns in the same transaction.
+3. Backfill old rows.
+4. Read-switch: code reads `status_v2` (ship behind a config flag if you want a rollback path).
+5. Contract: drop `old_status` a release or two later.
+
+Dual-write is the price of admission for non-additive changes on live tables. Skip step 2 and writes that landed between backfill and cutover are silently lost.
+
+## Postgres and MySQL differences worth knowing
+
+Postgres 11+ adds columns with a default value in metadata-only time, no rewrite, so the old advice "adding a column with DEFAULT takes a full rewrite" is outdated. MySQL 8.0 supports `INSTANT` ADD COLUMN, mostly equivalent. Where they differ sharply: Postgres has `CREATE INDEX CONCURRENTLY` and `ALTER TABLE ... VALIDATE CONSTRAINT` as first-class low-lock tools, while MySQL's strength is online DDL on indexes and a mature ecosystem of gh-ost/pt-online-schema-change, tools that copy the table in the background and swap when done. On very large MySQL tables, reach for gh-ost before writing your own batcher.
+
+## Conclusion
+
+None of this needs a maintenance window. It needs releases: one to expand, one to migrate (or just a script), one to contract. The habit that makes it work is shipping the contract phase late and boringly, after the new shape has been both written and read in production for a while. Boring is the goal.

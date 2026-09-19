@@ -1,0 +1,100 @@
+---
+title: "Rate limiting, compared: token bucket, sliding window and friends"
+date: "2026-09-08"
+description: "Four rate limiting algorithms, how each one fails, and which to pick for your API. With a working token bucket in Express."
+tags: ["api", "backend", "express"]
+category: "architecture"
+featured: false
+views: 110
+---
+
+Sooner or later someone's script hammers your API, or one frontend bug fires a request on every keystroke, and you need rate limiting. Then you discover there are four common algorithms and nobody agrees which one. They differ in two things: how precisely they count, and how badly they behave at window boundaries. Let's compare them, then build the one I'd actually ship.
+
+## Fixed window: simple, and lies at the edges
+
+Keep a counter per client per minute. Reset every minute. Done.
+
+The problem is the boundary. A client can send 100 requests at 11:59:59 and 100 more at 12:00:01. Two minutes, two full allowances, 200 requests in two seconds. Your "100 per minute" limiter permits bursts of twice the rate across any reset point.
+
+It's fine for coarse protection, like stopping a script from doing 10,000 requests a minute. It's wrong anywhere the burst itself is the problem.
+
+## Sliding window log: exact and expensive
+
+Keep a timestamp for every request, drop the ones older than the window, count the rest. Perfectly accurate: exactly 100 requests in any rolling 60 seconds, no boundary exploit.
+
+The cost is memory. A client at 100 requests per minute stores 100 timestamps. Multiply by clients and endpoints and the limiter itself becomes a load. Redis makes the bookkeeping easy, but you're paying storage to be exact.
+
+## Sliding window counter: the pragmatic middle
+
+Approximate the rolling rate with two fixed windows. If we're 40% into the current window, the estimate is:
+
+```text
+rate = 0.6 × previous window count + 0.4 × current window count
+```
+
+One number per window per client, so memory stays flat, and the boundary burst shrinks to nearly nothing. The estimate can be slightly off, but off by a request or two is exactly the precision trade most APIs should make. This is what Cloudflare's edge rate limiter is built on, scaled to billions of requests.
+
+## Token bucket: bursts are a feature
+
+Here's the model: a bucket holds tokens, capacity B. A refill adds R tokens per second, continuously. Each request takes one token. Empty bucket, request refused.
+
+Two knobs, and they mean real things:
+
+- R, the refill rate, is your sustained rate.
+- B, the capacity, is how much burst you tolerate.
+
+R = 10/s with B = 50 allows a client to fire 50 requests instantly, then settle to 10 per second. That matches how clients actually behave: page load bursts, then steady polling. Refusing a 30-request burst that arrives in one second is usually more harmful than serving it, and token bucket is the only algorithm here that prices bursts in deliberately.
+
+## The implementation
+
+Token bucket in an Express middleware, ~30 lines:
+
+```ts
+type Bucket = { tokens: number; last: number };
+
+const buckets = new Map<string, Bucket>();
+const CAPACITY = 50;
+const REFILL_PER_SEC = 10;
+
+function takeToken(key: string): boolean {
+  const now = Date.now();
+  const bucket = buckets.get(key) ?? { tokens: CAPACITY, last: now };
+  const elapsed = (now - bucket.last) / 1000;
+  bucket.tokens = Math.min(CAPACITY, bucket.tokens + elapsed * REFILL_PER_SEC);
+  bucket.last = now;
+
+  if (bucket.tokens < 1) {
+    buckets.set(key, bucket);
+    return false;
+  }
+  bucket.tokens -= 1;
+  buckets.set(key, bucket);
+  return true;
+}
+
+export function rateLimit(req, res, next) {
+  const key = req.ip;
+  if (!takeToken(key)) {
+    res.set("Retry-After", String(Math.ceil(1 / REFILL_PER_SEC)));
+    return res.status(429).json({ error: "Too many requests" });
+  }
+  next();
+}
+```
+
+Note the refill is computed from elapsed time, not on a timer. No `setInterval`, and it works correctly across processes if you store buckets in Redis instead of a Map. In Redis the whole thing is one Lua script or, these days, a `SET` with expiry plus a float, per key.
+
+In production you'd also sweep stale buckets occasionally, or rely on Redis TTLs. A Map that only grows is a memory leak with extra steps.
+
+## Choosing
+
+- Need simple protection against abuse: fixed window. Accept the boundary burst.
+- Need exact counts, low traffic, or compliance demands it: sliding window log.
+- Need a limiter at the edge with flat memory: sliding window counter.
+- Have clients that legitimately burst: token bucket.
+
+If you only remember one thing: pick by burst behavior, not by accuracy tables. The algorithm that matches how your clients actually call you will feel invisible. The wrong one generates support tickets.
+
+## Conclusion
+
+Whichever you choose, send the standard headers. `RateLimit-Limit`, `RateLimit-Remaining` and `RateLimit-Reset` are now an IETF spec, and clients that back off automatically will find your API friendlier than one that just returns 429 and goes quiet.

@@ -1,0 +1,131 @@
+---
+title: "Go channel gotchas: deadlocks, nil channels and the select trap"
+date: "2026-05-31"
+description: "Channels are simple until they deadlock. The five mistakes everyone makes with goroutines, and the rules that prevent them."
+tags: ["golang", "concurrency"]
+category: "golang"
+featured: false
+views: 65
+---
+
+My goroutines post covered the happy path. Then you write a real pipeline, run it, and get `fatal error: all goroutines are asleep - deadlock!`. Channels are simple primitives with sharp edges. These are the five cuts, roughly in order of how often I've seen them.
+
+## 1. The unbuffered channel standoff
+
+An unbuffered send blocks until someone receives. So this deadlocks, always:
+
+```go
+func main() {
+    ch := make(chan int)
+    ch <- 1      // blocks forever: nobody is receiving yet
+    fmt.Println(<-ch)
+}
+```
+
+The main goroutine blocks on the send before it can ever reach the receive. It's the same shape as awaiting a promise that resolves from an event that only that same promise's continuation can fire.
+
+Fix: do the send from another goroutine, or buffer the channel if the volume is known and small:
+
+```go
+ch := make(chan int, 1)
+ch <- 1
+fmt.Println(<-ch)
+```
+
+Buffering trades the block for capacity. A buffer of 1 is fine here; a buffer "big enough" is how you hide a slow consumer until production traffic finds it.
+
+## 2. Ranging over a channel nobody closes
+
+```go
+for v := range ch {
+    process(v)
+}
+```
+
+The loop ends only when `ch` is closed. If the producer forgot `close(ch)`, the consumer waits forever. And closing has rules that trip people:
+
+- Only the sender closes. Closing from the receiver side is a design smell.
+- Send on a closed channel panics.
+- Close is not required for garbage collection, only for signaling "no more values."
+
+The clean pattern for fan-out, multiple senders, one receiver: don't close the data channel from any single sender. Wrap each sender in the sync.WaitGroup and close after `wg.Wait()`:
+
+```go
+var wg sync.WaitGroup
+for _, src := range sources {
+    wg.Add(1)
+    go func(s Source) {
+        defer wg.Done()
+        sendAll(ch, s)
+    }(src)
+}
+go func() {
+    wg.Wait()
+    close(ch)
+}()
+```
+
+## 3. Nil channels block forever (and that's a feature)
+
+Sending or receiving on a nil channel blocks forever. Zero-value channels are nil, so a struct with an unset channel field, or a channel variable that never got assigned, will silently hang instead of panicking.
+
+But in a `select`, that behavior becomes a tool. A nil channel's case is never ready, so setting a channel to nil *disables* its case:
+
+```go
+for a != nil || b != nil {
+    select {
+    case v, ok := <-a:
+        if !ok { a = nil; continue } // stop selecting on closed a
+        handleA(v)
+    case v, ok := <-b:
+        if !ok { b = nil; continue }
+        handleB(v)
+    }
+}
+```
+
+Without the nil-ing, a closed channel is always ready and yields zero values in a hot loop, pegging a CPU. That's gotcha 3b: the "closed channel spins the select" bug, which looks like a busy loop at 100% CPU with no stack doing anything useful.
+
+## 4. The select default busy-loop
+
+```go
+for {
+    select {
+    case v := <-ch:
+        handle(v)
+    default:
+        // no message yet
+    }
+}
+```
+
+That default makes the loop spin at full CPU whenever the channel is momentarily empty. If you need non-blocking behavior, you usually want a `time.Tick` on the default, or better, to block: let the runtime park your goroutine until the channel is ready. Blocking is the default and it's cheap. Busy loops in Go are almost always a design smell.
+
+## 5. Goroutine leaks: the cost of nobody listening
+
+A goroutine blocked on a send that nobody will ever receive is leaked. It holds its stack, whatever it captured, and any channels it holds. One slow path that abandons a request without draining its worker's channel, repeated per request, and your memory graph climbs like stairs.
+
+The fix is a consistent ownership story: whoever spawns the goroutine is responsible for giving it an exit. Usually a `done` channel or, better, a context:
+
+```go
+func worker(ctx context.Context, ch <-chan Job) {
+    for {
+        select {
+        case <-ctx.Done():
+            return
+        case job := <-ch:
+            process(job)
+        }
+    }
+}
+```
+
+`go vet` catches some of this. `goleak` in tests catches more, and it's the first thing I add to a package that spawns goroutines.
+
+## A note on ordering
+
+People expect channel sends to preserve *which* sender went first. Unbuffered channels preserve ordering per sender, but with multiple senders racing, arrival order is scheduling luck. If your pipeline's correctness depends on interleaving, encode the order in the data (sequence numbers) or serialize through one sender. I've debugged two "flaky" bugs that were both this.
+
+## Conclusion
+
+The mental model that keeps channels sane: a channel is a rendezvous, not a queue. Sends and receives are two parties meeting; blocking is the feature, and every deadlock is a meeting where one side never showed up. When a channel misbehaves, the question is always "who was supposed to show up, and did they exit?"

@@ -1,0 +1,60 @@
+---
+title: "HTTP caching, explained with a grocery store"
+date: "2026-09-02"
+description: "Your pantry, the corner store and the farm. A mental model for Cache-Control, ETags, 304s and stale-while-revalidate that sticks."
+tags: ["http", "api", "caching"]
+category: "architecture"
+featured: false
+views: 140
+---
+
+Every response crosses three storage points before it reaches your code, and each one behaves exactly like food storage. The browser cache is your pantry. The CDN is the corner store. The origin server is the farm. Once that clicks, the cache headers stop being a checklist to memorize and start being labels on the milk.
+
+## The pantry: your private cache
+
+You keep milk at home so you don't walk to the farm for every glass. The browser does the same with images, fonts, and any API response you told it was reusable. Pantry contents are private, one household, so browsers will happily store personal stuff there when the headers allow it.
+
+`Cache-Control: max-age=3600` means "fresh for an hour". During that window the browser sends nothing at all. Fastest possible path, zero server config.
+
+## The corner store: shared caches
+
+A CDN is a shop between your house and the farm. It buys in bulk and serves the whole neighborhood. Same milk, way fewer trips to the farm.
+
+Shared caches follow an extra rule: they refuse to store a response that was made with an `Authorization` header unless you say `Cache-Control: public` and give them a way to tell customers apart. That's the store refusing to sell you someone else's groceries.
+
+`Cache-Control: s-maxage=600` sets the shop's freshness separately from yours. A common combo is `max-age=60, s-maxage=86400`: your pantry copy goes stale in a minute, the store restocks daily.
+
+## Expiry dates and asking the farm
+
+When your copy expires, you don't throw it out. You ask whether anything newer exists, and you show what you have:
+
+```text
+GET /api/products/42
+If-None-Match: "v7c3f"
+```
+
+The farm compares the ETag, a fingerprint of the content, against its current version. Unchanged? It answers `304 Not Modified` with no body. You keep your copy and the clock resets. The response still travels, but it's a few hundred bytes instead of a product catalog.
+
+If the content changed, you get `200` with the new body and a new fingerprint for next time. `Last-Modified` with `If-Modified-Since` is the older, cruder version of the same dance: dates instead of fingerprints.
+
+## Stale-while-revalidate: sell the old milk while restocking
+
+```text
+Cache-Control: max-age=300, stale-while-revalidate=60
+```
+
+For five minutes, serve from cache. For the next minute, serve the stale copy immediately and refresh it in the background. The current user gets an instant response, the next one gets fresh data. Perfect for dashboards and lists where slightly-old data is fine and a spinner is not.
+
+## Vary: separate shelves per customer
+
+`Vary: Accept-Encoding` tells a shared cache to keep separate stock per value of that request header. Compressed response for browsers that accept gzip, plain for the rest.
+
+Forget `Vary` on something that differs per request header and the store starts handing out the wrong bag. The classic version of this bug: caching HTML without accounting for cookies, and one user receives another user's session page. At that point it's not a caching bug anymore. It's a security incident.
+
+## What never goes in shared storage
+
+Anything personalized, authenticated, or paid for. For those: `Cache-Control: no-store` means never save it, and `private, no-cache` means the pantry may keep a copy but must check with the farm before every use. Authenticated API responses sent with `Authorization` are already refused by CDNs by default. Keep it that way.
+
+## Conclusion
+
+You can debug most cache problems from this model. Response not caching? Figure out which store refused it and why. Response too old? Shorten the expiry or add revalidation. Wrong user's data? Some shelf was shared that should have been private. The headers aren't magic. They're expiry dates, fingerprint checks and shelf labels.

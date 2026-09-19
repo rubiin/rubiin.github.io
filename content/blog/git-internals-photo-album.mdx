@@ -1,0 +1,68 @@
+---
+title: "Git internals, explained with photo albums"
+date: "2026-09-05"
+description: "Commits are pages, branches are sticky notes. What a commit actually is, and why reflog can bring pages back after you threw them away."
+tags: ["git", "terminal"]
+category: "git"
+featured: false
+views: 130
+---
+
+Most Git confusion comes from treating a commit as a diff. A commit is closer to a full photograph of your project, pasted into an album, with a caption naming the page that came before it. Once that clicks, rebase, reset and reflog stop being magic.
+
+## The four objects
+
+Git's entire database is four object types under `.git/objects`.
+
+A **blob** is a photo of one file's content. Not the filename, not the path, just content. Two identical files anywhere in the repo share one blob.
+
+A **tree** is an album page. A list of entries: a filename plus which blob it shows, or which child tree for a directory.
+
+A **commit** is a captioned page. It points at one tree, at one parent commit (the previous page), and carries author, date and message.
+
+A **tag**, the annotated kind, is a laminated label pointing at a commit, with its own message and date.
+
+You can watch this directly:
+
+```bash
+echo "hello" > demo.txt
+git add demo.txt
+git commit -m "demo"
+git cat-file -p HEAD^{tree}
+```
+
+## The fingerprint is the address
+
+Every object is named by the hash of its content. The hash isn't a label attached to the object. The hash is the object's address. Change one byte and the address changes, which is why nobody can quietly rewrite a page: identity and content are the same thing.
+
+This is also why Git stores so little. Ten files containing the same license text? One blob, referenced ten times. Content addressing gives you deduplication for free.
+
+## Branches are sticky notes
+
+This is the part that surprises people: a branch is a 41-byte file containing one commit hash. That's the whole thing. `main` is a sticky note on a page. `feature/auth` is another sticky note. Creating a branch writes one small file, which is why it's instant.
+
+```bash
+cat .git/refs/heads/main
+# e8f4a2b...  that's the entire branch
+```
+
+When you commit on `main`, Git creates the new commit with the old hash as its parent, then moves the sticky note. Commits form the chain, branches just mark positions in it. `HEAD` is a sticky note pointing at your current sticky note. Detached HEAD is what happens when it points straight at a page instead.
+
+## Why rewriting history rewrites descendants
+
+Amend the tip commit and you don't change it. You build a second page with the same photo and caption but a different fingerprint, and move the sticky note to it. Anything that used the old page as its parent now dangles, unreferenced. That's why amending a pushed, shared commit causes pain for everyone who built on the old page.
+
+The old pages still exist, by the way. That's what reflog is for.
+
+## The trash can is bigger than you think
+
+"Deleted" commits are pages nobody points at anymore. Git keeps them for about two weeks by default before the garbage collector prunes them. `git reflog` lists the recent positions of HEAD, and `git reset --hard <hash>` re-points your sticky note at any of them. My earlier post covers recovery step by step; the model explains why it works at all. The photo was never thrown away, just unstuck from the album.
+
+```bash
+git reflog
+git reset --hard HEAD@{2}
+```
+
+## Conclusion
+
+With a diff-based mental model, rebase feels like dangerous arithmetic. With a snapshot model, rebase just rebuilds a chain of pages and moves sticky notes, and anything left behind sits in the trash until `git gc` walks by. The garbage collector isn't a mystery either. It's the cleaning crew, and it only takes pages with no note pointing at them.

@@ -1,0 +1,74 @@
+---
+title: "The outbox pattern: events you can't lose"
+date: "2026-09-11"
+description: "Saving to the database and publishing to Kafka are two systems pretending to be one transaction. The outbox pattern makes the pretense honest."
+tags: ["architecture", "events", "backend"]
+category: "architecture"
+featured: false
+views: 95
+---
+
+Here's a bug that every event-driven system ships with at first. Your service saves an order and publishes an `OrderCreated` event. Two systems, one logical operation. Then one day the database commit succeeds and the publish fails: broker restart, network blip, process killed between the two lines. The order exists. No downstream service ever hears about it. Nobody's invoice goes out, and the bug only shows up days later in a reconciliation spreadsheet.
+
+The naive fixes each fail in a familiar way.
+
+- Publish first, then save. Now a failed save leaves a phantom event for an order that doesn't exist.
+- Publish, save, and roll back the publish on failure. Databases can't publish to Kafka inside a rollback. It's not one transaction and no amount of try/catch makes it one.
+- Save, then publish from the error handler. A crash between the two lines skips the handler. Remember, the process can die at literally any instruction boundary.
+
+The outbox pattern accepts the constraint instead of fighting it. You can't make two systems transactional, so you write both the data and the event in the one transaction you already have, and publish as a separate step.
+
+## The mechanics
+
+Same database, same transaction:
+
+```sql
+BEGIN;
+
+INSERT INTO orders (id, customer_id, total)
+VALUES ('ord_1042', 'cus_77', 4999);
+
+INSERT INTO outbox (id, topic, payload, created_at)
+VALUES ('evt_9a1f', 'orders.events', '{"type":"OrderCreated","orderId":"ord_1042"}', now());
+
+COMMIT;
+```
+
+Either both rows land or neither does. The event is now ordinary data, subject to ordinary backups, replication and constraints. Then a separate process, the relay, reads the outbox and publishes to the broker.
+
+```sql
+SELECT * FROM outbox WHERE published_at IS NULL ORDER BY created_at LIMIT 100;
+-- publish each to the broker
+UPDATE outbox SET published_at = now() WHERE id IN (...);
+```
+
+The failure mode you were worried about becomes benign: relay crashes after publishing but before the UPDATE, and on restart it publishes again. Which brings up the catch.
+
+## Yes, consumers see duplicates
+
+At-least-once delivery is the contract. The relay can't know whether a publish reached the broker before it died, so it must retry, and retries mean the same event can arrive twice. Every consumer has to tolerate that.
+
+This is where idempotency keys, which I covered before, do their job from the other side. Give every event a stable ID at creation time and have consumers track what they've processed. Duplicate `evt_9a1f` arrives, consumer checks its processed-events table, skips. End to end, the same idea: make repeats harmless instead of trying to prevent them.
+
+## Getting the reading order right
+
+Events for one order should apply in order, but a naive relay loses that. Relay A reads event 5, relay B reads event 6, B publishes first. Downstream sees `Shipped` before `Created`.
+
+Fixes, in increasing complexity:
+
+- One relay process, `ORDER BY created_at`. Fine at modest volume, and honestly fine longer than people expect.
+- Partition the outbox by aggregate ID so one order's events always land in one queue partition, and process each partition serially.
+
+What you can't do is scale with N independent readers over one unordered table and hope. Ordering is a per-aggregate guarantee you either build or don't have.
+
+## Cleanup
+
+The outbox grows forever unless you prune it. A nightly `DELETE FROM outbox WHERE published_at < now() - interval '7 days'` is enough, plus an index on `published_at` that isn't partial. Keep the index filtered to `WHERE published_at IS NULL` for the relay's queries and let the cleanup use the full one.
+
+## When to reach for it
+
+Not every service needs this. If losing an event occasionally is acceptable, or the operation fits in one database and never needed a broker, skip the machinery. Outbox earns its keep when downstream systems must eventually see every event: billing, emails, analytics, anything someone reconciles against later. You're trading one extra table and a relay process for the elimination of an entire class of silently-missing-data bugs.
+
+## Conclusion
+
+The outbox pattern doesn't defeat the two-databases problem. It reorders work so the atomic part happens in the one transaction you control, and makes the non-atomic part safe through retries and idempotent consumers. Save the event with the data. Publish it whenever. Let consumers expect repeats.

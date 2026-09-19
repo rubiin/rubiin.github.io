@@ -1,0 +1,91 @@
+---
+title: "Branded types: making invalid states unrepresentable"
+date: "2026-09-13"
+description: "UserId and OrderId are both strings, until you pass one where the other belongs. Nominal typing with brands, and the parse-at-the-boundary pattern that makes it work."
+tags: ["typescript", "types", "architecture"]
+category: "typescript"
+featured: false
+views: 105
+---
+
+Here's a bug I've shipped more than once: a function takes `orderId` and `userId`, both `string`. The call site has them swapped. They're both strings, the compiler shrugs, and somewhere a customer's order history shows another person's purchases. TypeScript is structurally typed, so two type aliases for `string` are interchangeable. Branded types fix exactly this.
+
+## The brand
+
+The trick: give each ID a fake property that exists only in the type system.
+
+```ts
+type UserId = string & { readonly __brand: "UserId" };
+type OrderId = string & { readonly __brand: "OrderId" };
+```
+
+At runtime these are plain strings, zero cost. In the type system, `UserId` and `OrderId` are distinct: you can't pass one where the other is expected, and you can't pass a bare `string` to either. Intersecting with an object type means a plain string literal doesn't satisfy the brand.
+
+```ts
+function cancelOrder(orderId: OrderId) {}
+
+cancelOrder("ord_1042" as OrderId); // fine, but that cast is a smell (below)
+cancelOrder("usr_77" as OrderId);   // compiles, still bad: the cast lies
+```
+
+The whole point is to make the *cast* rare and checked.
+
+## Parse at the boundary, brand inside
+
+A brand is only worth anything if untrusted strings go through one door. That door is a function that validates and returns the branded type:
+
+```ts
+function asUserId(s: string): UserId {
+  if (!s.startsWith("usr_")) throw new Error(`not a user id: ${s}`);
+  return s as UserId;
+}
+```
+
+Every cast in the codebase collapses into these boundary functions. Inside the system, values already carry their brand, so call sites can't swap them:
+
+```ts
+const userId = asUserId(row.user_id);
+const orderId = asOrderId(req.params.id);
+
+cancelOrder(orderId); // compiles
+cancelOrder(userId);  // TypeError: UserId is not assignable to OrderId
+```
+
+The swapped-arguments bug now fails the build instead of failing a customer.
+
+## Brands beyond IDs
+
+The same trick marks anything where "it's a string" isn't enough:
+
+```ts
+type Email = string & { readonly __brand: "Email" };
+type HexColor = string & { readonly __brand: "HexColor" };
+type NonEmptyString = string & { readonly __brand: "NonEmpty" };
+```
+
+For constraints like "non-empty", the parser encodes the rule:
+
+```ts
+function nonEmpty(s: string): NonEmptyString {
+  if (s.trim() === "") throw new Error("empty string");
+  return s as NonEmptyString;
+}
+```
+
+After that, functions can *require* a `NonEmptyString` and the check happens once, at the door, instead of being re-implemented (or forgotten) in every function that cares.
+
+This pairs naturally with Zod at the real edges. A `.brand<"UserId">()` on a Zod schema produces the branded type straight from parsed input, so API responses and form data come in already branded. I've found that's where most of the value is: the parser is the only place that knows what a valid ID looks like.
+
+## The costs, honestly
+
+**Boundary functions everywhere.** Every place an ID enters the system needs its parser. Miss one and unbranded strings leak inward, which usually shows up as a wall of `as` casts. Treat a growing `as` count as the smell it is.
+
+**JSON round-trips lose the brand.** `JSON.parse` returns plain strings. Values that go out to the client and come back need re-parsing. This is correct, the client could have changed the string, but it's friction.
+
+**Interoperability.** Passing branded values to libraries expecting `string` just works (brands are structural), but the reverse, receiving a bare string from a library, needs a parse.
+
+The failure mode to avoid: branding everything. If your team brands twelve types in a weekend and the boundary functions are all `return s as X` with no check, you've built bureaucracy with no safety. Brand the IDs that have actually been swapped, the inputs that have actually arrived wrong. Start with `UserId` and `OrderId` and let the compiler's first caught swap sell the rest.
+
+## Conclusion
+
+Structural typing is a feature. Sometimes two structurally identical values are semantically different, and the type system should keep them apart. A one-field intersection is the cheapest way to get there: parse at the boundary, brand the value, and let every call site after that be checked for free.

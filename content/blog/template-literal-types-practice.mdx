@@ -1,0 +1,98 @@
+---
+title: "Template literal types in practice"
+date: "2026-09-16"
+description: "String types that compile. Building event names, CSS variable keys and route patterns out of unions, with the four built-in helpers that do the trimming."
+tags: ["typescript", "types"]
+category: "typescript"
+featured: false
+views: 90
+---
+
+I'd written about the `satisfies` operator and lookup types before. This one completes the set: template literal types let you describe *shapes of strings*, not just exact ones, and they turn a bunch of stringly-typed code into things the compiler checks.
+
+## The basic idea
+
+```ts
+type Greeting = `hello ${string}`;
+```
+
+`Greeting` accepts `"hello world"`, `"hello 42"`, any string starting with `hello `. The power comes when you substitute a union instead of `string`:
+
+```ts
+type Lang = "en" | "de" | "fr";
+type Greeting = `hello-${Lang}`;
+// "hello-en" | "hello-de" | "hello-fr"
+```
+
+A union inside the template cross-products with every other union in the same template. Two unions of 3 and 4 members give you a 12-member union. The compiler builds it for you.
+
+## Event names, typed
+
+Say events are named `domain.action`:
+
+```ts
+type Domain = "order" | "user" | "payment";
+type Action = "created" | "updated" | "deleted";
+
+type EventName = `${Domain}:${Action}`;
+// "order:created" | "order:updated" | ... 9 members
+
+function on(name: EventName, fn: () => void) {}
+
+on("order:created", () => {});
+on("order:craeted", () => {});
+//                        ~ TypeError: typo caught at compile time
+```
+
+The typo that used to surface as a silently-dead listener is now a red squiggle. Multiply by every string constant in your codebase and this starts paying rent.
+
+## The four built-in helpers
+
+`Uppercase`, `Lowercase`, `Capitalize`, `Uncapitalize` transform literals inside templates:
+
+```ts
+type Route = "home" | "about";
+type ComponentName = Capitalize<Route>;
+// "Home" | "About"
+
+type EnvVar = Uppercase<Route>;
+// "HOME" | "ABOUT"
+```
+
+Combined with lookup types you can generate code-adjacent names from data:
+
+```ts
+const routes = {
+  home: "/",
+  about: "/about",
+  blog: "/blog",
+} as const;
+
+type RouteName = keyof typeof routes;              // "home" | "about" | "blog"
+type Handler = `handle${Capitalize<RouteName>}`;   // "handleHome" | "handleAbout" | "handleBlog"
+```
+
+Add a route to the object and `Handler` grows automatically. No separate list to keep in sync.
+
+## Extract: templates in reverse
+
+`Extract` plus a template pattern pulls matching members out of a union:
+
+```ts
+type T = `${"get" | "post"}-${string}` | "ping";
+
+type Http = Extract<T, `${string}-${string}`>;
+// "get-..." | "post-..." patterns match; "ping" doesn't
+```
+
+This reads backwards at first. Think of it as "keep only members that fit this shape."
+
+## Where I stop
+
+Template literal types can express parsers. People write full CSS-calc evaluators and JSON-path type parsers in them. I've tried; the error messages become unreadable fast, and a union type with 5,000 computed members slows the compiler down for everyone on the team.
+
+My rule: templates for *names* (events, props, env vars, route keys), where the string has structure the compiler can check. When the string is genuinely free-form user data, it's a `string` and no template type will change that. The moment the type is doing substring arithmetic to verify business logic, a small runtime check (`Zod`, a regex at startup) is clearer, faster to compile, and has better error messages.
+
+## Conclusion
+
+Start with one place: event names or message keys. Pattern of `A.B` or `domain.action`, both halves as unions, one template type. The typos it catches in the first month are usually enough to convert the rest of the team.

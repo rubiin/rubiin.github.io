@@ -1,0 +1,123 @@
+---
+title: "cURL cheatsheet for API developers"
+date: "2026-09-18"
+description: "The curl flags that cover 95% of API work: methods, headers, bodies, auth, and debugging redirects and TLS. Bookmark it."
+tags: ["api", "terminal", "http"]
+category: "api"
+featured: false
+views: 120
+---
+
+Every HTTP client library is a wrapper around what curl does with a couple of flags. Postman is great until you're on a server with no GUI, writing a CI smoke test, or pasting a reproducible request into a bug report. That's when curl earns its keep. This is the subset I use daily, leaving out the 200 other flags.
+
+## The everyday request
+
+```bash
+# GET is the default
+curl https://api.example.com/users/42
+
+# POST with a JSON body (the flag combo I type most)
+curl -X POST https://api.example.com/users \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Ada", "role": "admin"}'
+
+# Other methods
+curl -X PUT https://api.example.com/users/42 -d '{"role": "user"}'
+curl -X DELETE https://api.example.com/users/42
+```
+
+Note the single quotes around the JSON. Double quotes make your shell eat the inner ones, and the error you get back is confusingly about the server. This is the most common "curl doesn't work" cause I've debugged for other people.
+
+## Reading the response
+
+```bash
+# Status code only, no body
+curl -s -o /dev/null -w "%{http_code}" https://api.example.com/health
+
+# Headers + body, like a verbose GET
+curl -i https://api.example.com/users/42
+
+# Everything the connection did (see below)
+curl -v https://api.example.com/users/42
+```
+
+`-w` (write-out) has a long list of variables. The timing trio I paste into dashboards:
+
+```bash
+curl -o /dev/null -s -w "dns:%{time_namelookup} connect:%{time_connect} tls:%{time_appconnect} ttfb:%{time_starttransfer} total:%{time_total}\n" \
+  https://api.example.com/users/42
+```
+
+That one line tells you whether latency is DNS, handshake, server think-time, or transfer. Half the "the API is slow" conversations end right here.
+
+## Auth
+
+```bash
+# Bearer token
+curl -H "Authorization: Bearer $TOKEN" https://api.example.com/me
+
+# Basic auth
+curl -u user:pass https://api.example.com/me
+
+# OAuth2 client-credentials flow, end to end
+curl -s -X POST https://auth.example.com/oauth/token \
+  -d grant_type=client_credentials \
+  -u "$CLIENT_ID:$CLIENT_SECRET"
+```
+
+## Uploads, downloads and forms
+
+```bash
+# Download with resume
+curl -C - -O https://example.com/big-file.iso
+
+# Upload a file (multipart, like a form)
+curl -F "file=@photo.jpg" https://api.example.com/upload
+
+# Raw body from a file (handy for big payloads)
+curl -X POST -H "Content-Type: application/json" --data @order.json \
+  https://api.example.com/orders
+```
+
+`@filename` works in both `-d` and `-F`. Reading the body from a file avoids all shell-quoting problems with large JSON.
+
+## Debugging: the flags that answer "why"
+
+```bash
+# Follow redirects, showing each hop
+curl -L -s -o /dev/null -w "%{url_effective} -> %{http_code}\n" https://example.com
+
+# Show the TLS handshake and certificate
+curl -v https://api.example.com 2>&1 | grep -E "subject|issuer|expire|SSL"
+
+# Send a Host header (testing vhosts before DNS cutover)
+curl --resolve api.example.com:443:203.0.113.10 https://api.example.com/health
+
+# Ignore TLS errors, ONLY for local debugging
+curl -k https://localhost:8443/health
+```
+
+`--resolve` is the sleeper hit. It pins a hostname to an IP for one request, which is exactly what you want when testing a new server behind the same hostname before flipping DNS.
+
+## Reusable requests
+
+```bash
+# Save a request as a template
+curl --request-template https://api.example.com/orders -o order.curl
+# ... edit order.curl, then replay it
+curl -K order.curl
+```
+
+More practically, most teams just export curl commands from browser DevTools ("Copy as cURL") and replay them with edits. A copied request with the session cookie intact is the fastest way to reproduce a "works in the app, fails in my script" bug: nine times out of ten, the script is missing a header the browser sends for free.
+
+## Proxies
+
+```bash
+curl -x http://proxy.corp:8080 https://api.example.com
+# Behind a corporate MITM proxy, add its CA:
+curl --cacert corp-root.pem https://api.example.com
+```
+
+## Conclusion
+
+Curl's interface is 40 years old and still the shortest path from "I wonder what this endpoint does" to an answer. Learn `-X`, `-H`, `-d`, `-w` and `--resolve`, and you can debug most API problems with nothing but a shell.

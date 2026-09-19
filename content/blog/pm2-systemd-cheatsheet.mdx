@@ -1,0 +1,134 @@
+---
+title: "PM2 and systemd for Node apps: a practical cheatsheet"
+date: "2026-09-19"
+description: "Two ways to keep a Node app running after you log out. Commands, unit files, and when to pick which."
+tags: ["nodejs", "deployment", "devops"]
+category: "devops"
+featured: false
+views: 60
+---
+
+You deploy your Node app, it runs, you close the laptop, and it dies. You need something to keep it alive, restart it on crashes, and start it on boot. The two answers you'll actually encounter are PM2 and systemd. Here's the working subset of both, and how I choose.
+
+## PM2: process manager for Node people
+
+```bash
+npm install -g pm2
+
+# Start and name an app
+pm2 start app.js --name api
+
+# With cluster mode (one process per CPU core)
+pm2 start app.js -i max --name api
+
+# From your package.json script
+pm2 start npm --name api -- run start
+
+# The commands you'll type daily
+pm2 status
+pm2 logs api
+pm2 restart api
+pm2 stop api
+pm2 delete api        # remove from the list entirely
+pm2 monit             # live CPU/memory dashboard
+```
+
+Cluster mode deserves a note: `-i max` forks one process per core with the load balancer built in, zero code changes. For an Express app on a 4-core box, that's usually a free 3-4x throughput win, bounded by your database, not your framework.
+
+### Surviving reboots
+
+PM2 keeps its own process list, and boot startup is two commands:
+
+```bash
+pm2 save                  # snapshot the current process list
+pm2 startup systemd       # prints a command; run it. Creates the systemd unit FOR pm2
+```
+
+Yes, PM2's boot persistence is itself a systemd unit. Which brings up the question.
+
+### Ecosystem files
+
+For anything beyond one app, check the config into the repo:
+
+```js
+// ecosystem.config.js
+module.exports = {
+  apps: [
+    {
+      name: "api",
+      script: "dist/server.js",
+      instances: "max",
+      exec_mode: "cluster",
+      env_production: {
+        NODE_ENV: "production",
+        PORT: 3000,
+      },
+      max_memory_restart: "512M",
+    },
+  ],
+};
+```
+
+```bash
+pm2 start ecosystem.config.js --env production
+```
+
+`max_memory_restart` is the seatbelt for slow leaks: PM2 restarts the app when it crosses the line, which turns a next-Tuesday OOM kill into a one-second blip at 3am that nobody notices.
+
+## systemd: the boring, correct default
+
+systemd is already on your server. No npm install, no extra layer, and it restarts things with the same discipline it applies to sshd. A production unit file for a Node app:
+
+```ini
+# /etc/systemd/system/api.service
+[Unit]
+Description=API server
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/srv/api
+ExecStart=/usr/bin/node dist/server.js
+Environment=NODE_ENV=production
+EnvironmentFile=/srv/api/.env
+Restart=always
+RestartSec=3
+
+# Start anyway if the target is late, but not before the network
+# Memory and file descriptor ceilings
+MemoryMax=1G
+LimitNOFILE=65536
+
+# Hardening: run with least privilege
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload     # after editing the unit file
+sudo systemctl enable --now api  # start now + on every boot
+sudo systemctl status api
+journalctl -u api -f             # logs, live
+journalctl -u api --since "1 hour ago"
+```
+
+`EnvironmentFile` reads a `.env` directly, no dotenv needed in the app. `Restart=always` with a short `RestartSec` covers crashes; systemd does not care what language you wrote it in.
+
+## Which one?
+
+My honest rule:
+
+- **One server, one app, you control the box:** systemd. Fewer layers, hardened by default, logs in journald, and the skills transfer to every other daemon you'll ever run.
+- **Multiple Node apps on one box, or you want cluster mode without a reverse proxy setup:** PM2. The process list, `pm2 logs`, and cluster mode are genuinely convenient.
+- **Kubernetes, Fly, Render, Cloud Run:** neither. The platform does restarts and health checks; adding PM2 inside the container just obscures the process tree.
+
+One failure mode to know regardless of layer: an app that traps SIGTERM and keeps running means `systemctl restart` hangs until the kill timer fires. Pair either manager with the graceful shutdown handling from my earlier post, or the manager's restart will work and your in-flight requests will still die.
+
+## Conclusion
+
+Both tools solve the same three problems: stay alive, restart on crash, start on boot. systemd does it with what's already installed; PM2 does it with better Node ergonomics. Pick one deliberately, check its config into the repo, and never let production depend on your tmux session staying open.
