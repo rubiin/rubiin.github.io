@@ -24,6 +24,8 @@ import { ErrorComponent } from "@/components/layout/error-boundary";
 import { Toaster } from "@/components/ui/toaster";
 import { PageLoader, PendingLoader } from "@/components/layout/page-loader";
 import { AmbientBackground } from "@/components/layout/ambient-background";
+import { CustomCursor } from "@/components/layout/custom-cursor";
+import { CursorTrail } from "@/components/animations/cursor-trail";
 import { AnimatedFavicon } from "@/components/layout/animated-favicon";
 import { FloatingDock } from "@/components/layout/floating-dock";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
@@ -128,6 +130,8 @@ export const Route = createRootRoute({
       <SkipLink />
       <PageLoader />
       <AmbientBackground />
+      <CustomCursor />
+      <CursorTrail />
       <AnimatedFavicon />
       <EasterEggs />
       <LenisProvider>

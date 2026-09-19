@@ -730,6 +730,30 @@ html[data-theme="everforest"].dark {
   background-size: 56px 56px;
 }
 
+/* Pointer-follow spotlight inside cards (driven by --spot-x/--spot-y,
+   set by <HoverSpotlight>; --spot-o fades it in/out on hover). */
+.hover-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--spot-o, 0);
+  transition: opacity 240ms ease;
+  background: radial-gradient(
+    320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in oklab, var(--primary) 10%, transparent),
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-spotlight::before {
+    display: none;
+  }
+}
+
 /* Radial mouse-follow glow (driven by --mx/--my) */
 .mouse-glow {
   background: radial-gradient(
