@@ -461,6 +461,30 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "shelf",
+    title: "Shelf",
+    tagline: "A shell plugin manager for bash and zsh, written in Go.",
+    description:
+      "Shelf is a fast, configurable shell plugin manager for bash and zsh, inspired by sheldon, zinit, and zplug. Plugins come from GitHub, Gists, GitLab, Bitbucket, Codeberg, any git URL, a remote file, a local path, or inline shell code in TOML — with per-plugin globs, exclusions, build steps, profiles, and apply templates. A revision manifest makes installs reproducible, a runtime lock keeps startup fast, and the `defer` and `zcompile` templates push the slow work past your first prompt. Roughly twice as fast as sheldon, packaged for Arch, Debian, RPM, and Alpine.",
+    category: "terminal",
+    year: "2026",
+    tech: ["Go", "Bash", "Zsh", "TOML", "CLI"],
+    image: "/projects/shelf.webp",
+    github: "https://github.com/rubiin/shelf",
+    demo: "https://github.com/rubiin/shelf/wiki",
+    featured: true,
+    challenges: [
+      "Splitting the lockfile in two — a committable revision manifest and a machine-local runtime lock — so shell startup does no work",
+      "Rendering identical, correct shell code for both bash and zsh, where zsh-only features like defer and zcompile must degrade instead of break",
+      "Making the output byte-identical to sheldon's while still beating it on startup, and proving it with a benchmark harness",
+    ],
+    lessons: [
+      "A plugin manager is mostly bookkeeping — bookkeeping deserves a fast-starting language",
+      "The fastest shell startup comes from doing nothing, not from doing less",
+      "One config that degrades gracefully across shells beats two configs that stay fast",
+    ],
+  },
+  {
     slug: "vscode-nestjs-snippets",
     title: "NestJS Snippets for VS Code",
     tagline: "Snippets for common NestJS operations in VS Code.",

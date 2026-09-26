@@ -1,0 +1,198 @@
+---
+title: "Shelf: a shell plugin manager in Go"
+date: "2026-09-25"
+description: "A quarter second every time I opened a terminal. Shelf is the Go rewrite that made it 10ms — the backstory, the design, and the numbers."
+tags: ["terminal", "shell", "zsh", "go", "oss"]
+category: "linux"
+featured: false
+coverImage: "/blog/shelf-shell-plugin-manager/cover.webp"
+views: 60
+---
+
+Every new terminal window cost me a third of a second. Not the terminal, not the font rendering, not the SSH handshake. The plugins. Twenty of them, each one a `git clone` or a `source` line or a slow binary, all of it running before I could type.
+
+That is a strange thing to accept in 2026. A plugin manager does almost nothing: it fetches some repos once, writes a list of `source` lines, and prints them. The actual work is a handful of network round-trips, a few hundred file reads, and a template. And yet every implementation I tried spent longer deciding what to print than the shell spent running it.
+
+So I wrote my own. It's called [shelf](https://github.com/rubiin/shelf), it's a single Go binary, and it does the same job in about 10ms.
+
+## The backstory, briefly
+
+My dotfiles have been through every era of shell tooling. Oh-my-zsh was the first "real" setup, and it was transformative — good prompt, good completions, hundreds of plugins I didn't use. It was also ~300ms of startup, and the cure was worse than the disease.
+
+Zinit came next and taught me what lazy loading actually buys you. Zsh's own plugin system is fast if you don't source everything, so Zinit mostly works by deferring work until a key is pressed. It's excellent, and it is also a small compiler you now maintain: a syntax error in a snippet, a hook you forgot to wire up, an upstream update that quietly breaks a keybinding.
+
+Then I found [sheldon](https://github.com/rossmacarthur/sheldon), and for a while that was the answer. Config in TOML. One binary. `eval "$(sheldon source)"` in your `.zshrc`, nothing else. Sheldon is well designed and I still like it.
+
+What bothered me was the floor. Sheldon is written in Rust, and it was the fastest option I'd measured, and it still cost 13–17ms before it printed a single `source` line. For a machine that's already spending 30ms waking up, that's a third of the budget spent on bookkeeping.
+
+The other thing: my work laptop is bash. My personal machine is zsh. Both read the same dotfiles through Chezmoi. A plugin manager that only supports zsh is a plugin manager I can't use at work, so "supports both shells" was a hard requirement, not a nice-to-have.
+
+## What it does
+
+Shelf reads one `config.toml`, installs what isn't installed, resolves the files each plugin should load, and prints shell code. That's the whole job.
+
+```shell-session
+shelf init          # write a starter config.toml
+shelf lock          # install plugins, write the lockfiles
+eval "$(shelf source)"   # print the shell code
+```
+
+You put the `eval` line in `.zshrc` (or `.bashrc`) once. After that you only re-run `shelf lock` when the config changes.
+
+A plugin entry sets exactly one source:
+
+```toml
+shell = "zsh"
+
+[env]
+ZSH_THEME = "robbyrussell"
+
+[plugins.fzf]
+github = "junegunn/fzf"
+build = ["make install"]
+dir = "shell"
+use = ["*.bash", "*.zsh"]
+
+[plugins.zoxide]
+github = "ajeetdsouza/zoxide"
+use = ["init.zsh", "init.bash"]
+
+[plugins.my-plugin]
+github = "owner/repo"
+ignore = ["**/test*", "**/tests/*"]
+frozen = true
+```
+
+Nine source types are supported: `github`, `gist`, `gitlab`, `bitbucket`, `codeberg`, `git`, `remote`, `local`, and `inline`. `inline` is the one I use most — a function I wrote myself doesn't need a repository:
+
+```toml
+[plugins.gitprompt]
+inline = """
+gitprompt() {
+  PS1=\"$(git prompt)\"
+}
+"""
+```
+
+## The design
+
+Everything funnels through one pipeline, and each stage has exactly one job.
+
+```mermaid
+flowchart LR
+    C["config.toml"] --> L["shelf lock"]
+    L --> S["clone / fetch / download"]
+    S --> RL["runtime lock"]
+    C --> RL
+    RL --> D["shelf source"]
+    D --> E["eval"]
+```
+
+The part I spent the most time on is the split between two lockfiles, which is the thing I keep explaining to people.
+
+**The revision manifest** lives next to your config, in `~/.config/shelf/plugins.lock`, and holds nothing but plugin names and the commit each one resolved to. That file goes in version control, next to `config.toml`. Fresh machine, new laptop, teammate's dotfiles — `shelf lock` reproduces the exact same versions you had. This is the file that makes the setup reproducible.
+
+**The runtime lock** lives in `~/.local/share/shelf/plugins.lock` and holds everything needed to render: resolved templates, absolute install paths, and the exact file list each plugin contributes. It is machine state, not source, so it never gets committed. `shelf source` verifies it — config, profile, shell, installed files — and regenerates it only when something actually drifted.
+
+The result is that a normal shell startup does no work. It reads a lock, prints `source` lines, done. Fetching and template resolution happen at `lock` time, and only again when the config changes.
+
+```shell-session
+shelf source              # fast path: warm lock, print shell code
+shelf source --relock     # config changed, re-resolve
+shelf source --update     # fetch latest, re-resolve, print
+```
+
+That distinction is the whole performance story. There's nothing clever about it, which is why it works.
+
+## Templates, because a `source` line isn't always enough
+
+Most plugin managers generate a fixed script: `[env]`, then `source` every file. Shelf makes the script a template instead, with `{{ }}` expressions, `| nl` filters, `{% if %}` blocks, and `{% for %}` loops.
+
+Two templates ship built in, and both exist for a reason.
+
+`defer` doesn't source a plugin immediately. It queues the `source` lines and runs them the first time zle goes idle — right after your first prompt, when you can't see the cost. Shelf embeds a tiny scheduler in the rendered script to do it, so there's no external helper to install.
+
+```toml
+[plugins.slow]
+github = "user/slow-plugin"
+apply = ["defer"]
+```
+
+The honest part: this is zsh-only, because it's built on zle. Non-interactive zsh never draws a prompt, so deferred plugins stay unloaded there, and in bash the template degrades to a plain `source`. One config, both shells, graceful degradation rather than a hard failure.
+
+`zcompile` is the other one, and it's the reason my shell is fast even on a cold cache:
+
+```toml
+[plugins.demo]
+github = "user/repo"
+apply = ["zcompile"]
+```
+
+For every file a plugin loads, it emits a guarded `zcompile` line, then `source`s the file — which zsh loads from the fresh bytecode. If the `.zwc` is missing or older than the source, it compiles first. Your prompt, syntax highlighting, and completions are precompiled zsh, and the plugin isn't paying for it at startup.
+
+## The numbers
+
+`scripts/bench-vs-sheldon.sh` builds both binaries, writes one config into a temporary `HOME` that both tools read, locks both, checks that they render identical scripts, and times with [hyperfine](https://github.com/sharkdp/hyperfine). Your real config is never touched.
+
+Measured on a Ryzen 7 5700U, hyperfine 1.20.0, sheldon 0.8.5, 20 plugins (12 local, 8 inline):
+
+| command | sheldon | shelf |
+| --- | --- | --- |
+| startup (`version`) | 13.4 ms | 5.6 ms |
+| `source`, warm lock | 14.5 ms | 7.3 ms |
+| `eval "$(… source)"` in bash | 16.9 ms | 10.2 ms |
+
+The identical-output check is the important part of that table. Both tools produce the same script, so the gap isn't a cleverer config format or a luckier template. It's the overhead before shelf opens your config file: process startup, TOML parsing, lock verification, and rendering in a language whose runtime doesn't need to boot first.
+
+That caveat matters more than the table. This is one machine, one config, one comparison. Take the shape of the result, not the digits.
+
+## Details I didn't plan
+
+A few things turned up while building it that I'd defend as the best parts:
+
+- **Concurrency.** `lock` installs up to eight plugins at once by default (`--concurrency N` to change it). With 20 plugins, the network round-trips used to be strictly serial. Now they're not.
+- **Conditional downloads.** A `remote` plugin records the response `ETag` and sends `If-None-Match` on later runs, so an unchanged file is a `304` instead of a download.
+- **`frozen = true`.** A plugin that must not move — a pin, a fork, something that broke upstream — holds its revision until you explicitly `--force` or `--reinstall` it. It's recorded in the lock, so it survives on a fresh machine too.
+- **Profiles.** `profiles = ["work"]` loads only under `--profile work` or `SHELF_PROFILE=work`. Plugins without profiles always load, and a profile that matches nothing warns you, which catches most typos.
+- **`shelf doctor`.** When your shell is doing something strange, the first question is always "what does shelf think is installed". Now there's a command that answers it.
+- **Pruning.** Remove a plugin from the config and `lock`, `update`, or `source --relock` deletes the directory it left behind. Plugin managers are bad at this and it's a permanent source of disk.
+- **`self-update`.** It fetches the latest release, verifies the archive against the published sha256, and replaces the binary atomically. Package-manager installs keep updating through the package manager.
+
+## The parts I don't like yet
+
+This is a week-old project with three stars, so treat it accordingly.
+
+**Bash is the compromise.** Everything zsh-specific — `defer`, `zcompile` — silently becomes a plain `source` in bash. The output is correct, just less clever. I'd rather degrade than fail, but it means my work shell gets the slow version.
+
+**Config editing is minimally destructive, not truly non-destructive.** `shelf add` and `shelf remove` preserve your comments and unrelated TOML, but the rewriting is textual, and I haven't fuzzed it. A weird formatting habit in a hand-edited config is the most likely way to lose something.
+
+**Everything is one author.** No second pair of eyes on the lock format, no field reports from someone else's dotfiles. The renderer is the part I'd most want a second opinion on, because "works on my machine" is exactly how shell bugs survive.
+
+**It's GPL-3.0.** Fine for a personal tool, relevant if you ever wanted to vendor it.
+
+## Try it
+
+Arch, with completions included:
+
+```shell-session
+yay -S shelf-sh-bin
+```
+
+Anywhere else, grab a `.deb`, `.rpm`, or `.apk` from the [latest release](https://github.com/rubiin/shelf/releases/latest), or a tarball if you'd rather not involve a package manager. Or from source, if you have Go 1.26:
+
+```shell-session
+git clone https://github.com/rubiin/shelf.git
+cd shelf
+just build
+install -Dm755 shelf "$HOME/.local/bin/shelf"
+```
+
+Then `shelf init`, add a couple of plugins to `config.toml`, `shelf lock`, and put `eval "$(shelf source)"` in your rc file. The [wiki](https://github.com/rubiin/shelf/wiki) has the full command reference, recipes, and troubleshooting.
+
+## Conclusion
+
+A quarter second is not a big deal until you open forty terminals a day. Then it's eight seconds of your life, every day, spent waiting for a shell that is already running.
+
+None of that time was in the plugins. It was in the plumbing around them. Shelf is what you get when you take the plumbing seriously: split the lock in two so a normal startup does nothing, do the network work concurrently, compile the slow parts, and let the fast path stay fast. The output is the same script every other manager would have printed. It just gets there in a tenth of the time.
+
+If it's useful to you, the [AUR package](https://aur.archlinux.org/packages/shelf-sh-bin) and the [repo](https://github.com/rubiin/shelf) are both open. Issues about what broke in your setup are the most useful thing you can send.

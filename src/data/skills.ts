@@ -63,7 +63,7 @@ export const skillCategories: SkillCategory[] = [
         level: 78,
         since: 2022,
         technologies: ["CLI", "Concurrency", "HTTP servers"],
-        relatedProjects: ["projecto"],
+        relatedProjects: ["projecto", "shelf", "pokego", "gitignorer"],
       },
       {
         name: "GraphQL",
@@ -138,7 +138,7 @@ export const skillCategories: SkillCategory[] = [
         level: 85,
         since: 2019,
         technologies: ["Shell scripting", "Neovim"],
-        relatedProjects: ["fortune-nvim"],
+        relatedProjects: ["fortune-nvim", "shelf", "dotfiles", "init-lua"],
       },
     ],
   },
