@@ -118,10 +118,15 @@ export function CodeBlock({
     }
   };
 
+  // Shared by the highlighted and fallback paths so the block never reflows
+  // when Shiki resolves after first paint.
+  const bodyClassName =
+    "overflow-x-auto px-8 py-6 text-[13px] leading-relaxed [tab-size:2] [scrollbar-width:thin] selection:bg-primary/25";
+
   return (
     <div
       className={cn(
-        "group relative my-4 overflow-hidden rounded-lg border border-border",
+        "code-card group relative my-4 overflow-hidden rounded-xl border border-border/70 bg-card shadow-[0_12px_32px_-24px_color-mix(in_oklab,var(--primary)_55%,transparent)]",
         className,
       )}
     >
@@ -129,29 +134,47 @@ export function CodeBlock({
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-primary/70 via-accent-secondary/50 to-transparent"
       />
-      <div className="flex items-center justify-between border-b border-border bg-muted/60 px-3 py-1.5">
-        <span className="font-mono text-xs text-muted-foreground">{lang ?? "code"}</span>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -top-16 -right-10 size-40 rounded-full bg-primary/10 blur-3xl"
+      />
+      <div className="relative flex items-center justify-between gap-3 border-b border-border/70 bg-muted/40 px-8 py-2">
+        {/* Full-strength foreground: `muted-foreground` falls below 4.5:1 on
+            the pill in 13 of the 16 palette/mode combinations. */}
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-muted/60 px- py-0.5 font-mono text-[11px] tracking-wider text-foreground uppercase">
+          <span aria-hidden className="size-1.5 rounded-full bg-primary/60" />
+          {lang ?? "code"}
+        </span>
         <Button
           type="button"
           variant="ghost"
-          size="icon"
-          className="size-7 opacity-70 transition-opacity group-hover:opacity-100"
+          size="xs"
+          className="text-muted-foreground opacity-80 transition-opacity group-hover:opacity-100"
           onClick={copy}
           aria-label="Copy code"
         >
           {copied ? <Check className="size-3.5 text-primary" /> : <Copy className="size-3.5" />}
+          <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
         </Button>
       </div>
-      {html ? (
-        <div
-          className="overflow-x-auto p-4 text-sm [&_pre]:!bg-transparent [&_code]:font-mono"
-          dangerouslySetInnerHTML={{ __html: html }}
+      <div className="relative">
+        {/* Both paths render the same shape — padded scroller wrapping a bare
+            `pre` — so the prose `pre` shell can be neutralised in one place
+            (`.code-card pre` in globals.css) and the two never diverge. */}
+        <div className={cn(bodyClassName, "[&_pre]:!bg-transparent [&_code]:font-mono")}>
+          {html ? (
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+          ) : (
+            <pre>
+              <code>{code}</code>
+            </pre>
+          )}
+        </div>
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent opacity-0 transition-opacity group-hover:opacity-100"
         />
-      ) : (
-        <pre className="overflow-x-auto p-4 font-mono text-sm">
-          <code>{code}</code>
-        </pre>
-      )}
+      </div>
     </div>
   );
 }

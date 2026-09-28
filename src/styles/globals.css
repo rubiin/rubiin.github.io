@@ -66,13 +66,13 @@
   --shiki-token-link: var(--primary);
   --shiki-token-deleted: var(--destructive);
   /* Default palette — futuristic blue/purple (overridden per palette). */
-  --shiki-token-keyword: #7c5cf0;
-  --shiki-token-string: #059669;
-  --shiki-token-string-expression: #059669;
-  --shiki-token-constant: #d946ef;
-  --shiki-token-function: #3b6ef6;
-  --shiki-token-inserted: #059669;
-  --shiki-token-changed: #0891b2;
+  --shiki-token-keyword: #7a5bec;
+  --shiki-token-string: #04865d;
+  --shiki-token-string-expression: #04865d;
+  --shiki-token-constant: #b83ccb;
+  --shiki-token-function: #3a6bf0;
+  --shiki-token-inserted: #04865d;
+  --shiki-token-changed: #07809d;
   /* Shell output (ANSI) — aliased to the syntax accents above. */
   --shiki-ansi-black: var(--background);
   --shiki-ansi-red: var(--shiki-token-deleted);
@@ -134,6 +134,11 @@
    dark (`.dark`) variant; the mode toggle picks which applies.
    Kept above the `[data-retro]` override so the Konami easter
    egg still wins at equal specificity.
+
+   Syntax accents are held to ≥4.5:1 against the code surface
+   (`--card`, where code blocks render) per palette and mode;
+   `--shiki-token-comment`/`-punctuation` are deliberately muted
+   roles and only need the ≥3.2:1 non-text floor.
    ============================================================ */
 /* Catppuccin — Latte (light) / Mocha (dark) */
 html[data-theme="catppuccin"] {
@@ -163,12 +168,12 @@ html[data-theme="catppuccin"] {
   --chart-5: #fe640b;
   --accent-secondary: #8839ef;
   --shiki-token-keyword: #8839ef;
-  --shiki-token-string: #40a02b;
-  --shiki-token-string-expression: #40a02b;
-  --shiki-token-constant: #fe640b;
+  --shiki-token-string: #358524;
+  --shiki-token-string-expression: #358524;
+  --shiki-token-constant: #c74e09;
   --shiki-token-function: #1e66f5;
-  --shiki-token-inserted: #40a02b;
-  --shiki-token-changed: #df8e1d;
+  --shiki-token-inserted: #358524;
+  --shiki-token-changed: #a36815;
 }
 
 html[data-theme="catppuccin"].dark {
@@ -233,13 +238,14 @@ html[data-theme="rosepine"] {
   --chart-4: #ea9d34;
   --chart-5: #d7827e;
   --accent-secondary: #56949f;
-  --shiki-token-keyword: #907aa9;
-  --shiki-token-string: #56949f;
-  --shiki-token-string-expression: #56949f;
-  --shiki-token-constant: #ea9d34;
-  --shiki-token-function: #d7827e;
-  --shiki-token-inserted: #56949f;
-  --shiki-token-changed: #ea9d34;
+  --shiki-token-keyword: #806d96;
+  --shiki-token-string: #497d86;
+  --shiki-token-string-expression: #497d86;
+  --shiki-token-constant: #9e6a23;
+  --shiki-token-function: #a46360;
+  --shiki-token-inserted: #497d86;
+  --shiki-token-changed: #9e6a23;
+  --shiki-token-deleted: #aa5e73;
 }
 
 html[data-theme="rosepine"].dark {
@@ -275,6 +281,7 @@ html[data-theme="rosepine"].dark {
   --shiki-token-function: #ebbcba;
   --shiki-token-inserted: #9ccfd8;
   --shiki-token-changed: #f6c177;
+  --shiki-token-deleted: #b67587;
 }
 
 /* Nord — Snow Storm (light) / Polar Night (dark) */
@@ -304,13 +311,14 @@ html[data-theme="nord"] {
   --chart-4: #ebcb8b;
   --chart-5: #b48ead;
   --accent-secondary: #8fbcbb;
-  --shiki-token-keyword: #5e81ac;
-  --shiki-token-string: #a3be8c;
-  --shiki-token-string-expression: #a3be8c;
-  --shiki-token-constant: #b48ead;
-  --shiki-token-function: #81a1c1;
-  --shiki-token-inserted: #a3be8c;
-  --shiki-token-changed: #ebcb8b;
+  --shiki-token-keyword: #57779f;
+  --shiki-token-string: #697b5a;
+  --shiki-token-string-expression: #697b5a;
+  --shiki-token-constant: #896c83;
+  --shiki-token-function: #5f778f;
+  --shiki-token-inserted: #697b5a;
+  --shiki-token-changed: #85734f;
+  --shiki-token-deleted: #b25a63;
 }
 
 html[data-theme="nord"].dark {
@@ -339,13 +347,14 @@ html[data-theme="nord"].dark {
   --chart-4: #ebcb8b;
   --chart-5: #b48ead;
   --accent-secondary: #81a1c1;
-  --shiki-token-keyword: #81a1c1;
+  --shiki-token-keyword: #98b2cc;
   --shiki-token-string: #a3be8c;
   --shiki-token-string-expression: #a3be8c;
-  --shiki-token-constant: #b48ead;
+  --shiki-token-constant: #c5a7bf;
   --shiki-token-function: #88c0d0;
   --shiki-token-inserted: #a3be8c;
   --shiki-token-changed: #ebcb8b;
+  --shiki-token-deleted: #d9a2a7;
 }
 
 /* Dracula — light variant is community-derived (Dracula ships dark only) */
@@ -375,13 +384,13 @@ html[data-theme="dracula"] {
   --chart-4: #16a34a;
   --chart-5: #ca8a04;
   --accent-secondary: #db2777;
-  --shiki-token-keyword: #db2777;
-  --shiki-token-string: #ca8a04;
-  --shiki-token-string-expression: #ca8a04;
+  --shiki-token-keyword: #da2776;
+  --shiki-token-string: #9d6b03;
+  --shiki-token-string-expression: #9d6b03;
   --shiki-token-constant: #7c3aed;
-  --shiki-token-function: #16a34a;
-  --shiki-token-inserted: #16a34a;
-  --shiki-token-changed: #d97706;
+  --shiki-token-function: #12863d;
+  --shiki-token-inserted: #12863d;
+  --shiki-token-changed: #b06005;
 }
 
 html[data-theme="dracula"].dark {
@@ -446,13 +455,14 @@ html[data-theme="tokyonight"] {
   --chart-4: #587539;
   --chart-5: #b15c00;
   --accent-secondary: #9854f1;
-  --shiki-token-keyword: #9854f1;
+  --shiki-token-keyword: #9251e7;
   --shiki-token-string: #587539;
   --shiki-token-string-expression: #587539;
   --shiki-token-constant: #b15c00;
-  --shiki-token-function: #2e7de9;
+  --shiki-token-function: #2a73d6;
   --shiki-token-inserted: #2e7c6b;
   --shiki-token-changed: #8c6c3e;
+  --shiki-token-deleted: #de265b;
 }
 
 html[data-theme="tokyonight"].dark {
@@ -488,6 +498,10 @@ html[data-theme="tokyonight"].dark {
   --shiki-token-function: #7aa2f7;
   --shiki-token-inserted: #73daca;
   --shiki-token-changed: #e0af68;
+  --shiki-token-deleted: #e34774;
+  /* Below the 3:1 floor otherwise (theme ships this as #565f89). */
+  --shiki-token-comment: #5e668e;
+  --shiki-token-punctuation: #5e668e;
 }
 
 /* Gruvbox — light (medium) / dark (medium) */
@@ -523,7 +537,7 @@ html[data-theme="gruvbox"] {
   --shiki-token-constant: #8f3f71;
   --shiki-token-function: #076678;
   --shiki-token-inserted: #79740e;
-  --shiki-token-changed: #b57614;
+  --shiki-token-changed: #a16912;
 }
 
 html[data-theme="gruvbox"].dark {
@@ -552,13 +566,17 @@ html[data-theme="gruvbox"].dark {
   --chart-4: #b8bb26;
   --chart-5: #fe8019;
   --accent-secondary: #d3869b;
-  --shiki-token-keyword: #fb4934;
+  --shiki-token-keyword: #fc7e6f;
   --shiki-token-string: #b8bb26;
   --shiki-token-string-expression: #b8bb26;
-  --shiki-token-constant: #d3869b;
-  --shiki-token-function: #83a598;
+  --shiki-token-constant: #d790a3;
+  --shiki-token-function: #8aaa9e;
   --shiki-token-inserted: #b8bb26;
   --shiki-token-changed: #fabd2f;
+  --shiki-token-deleted: #fc7e6f;
+  /* Below the 3:1 floor otherwise (theme ships this as #928374). */
+  --shiki-token-comment: #938475;
+  --shiki-token-punctuation: #938475;
 }
 
 /* Everforest — light (medium) / dark (medium) */
@@ -588,13 +606,16 @@ html[data-theme="everforest"] {
   --chart-4: #8da101;
   --chart-5: #f57d26;
   --accent-secondary: #35a77c;
-  --shiki-token-keyword: #f85552;
-  --shiki-token-string: #8da101;
-  --shiki-token-string-expression: #8da101;
-  --shiki-token-constant: #df69ba;
-  --shiki-token-function: #8da101;
-  --shiki-token-inserted: #8da101;
-  --shiki-token-changed: #dfa000;
+  --shiki-token-keyword: #cd4644;
+  --shiki-token-string: #6d7c01;
+  --shiki-token-string-expression: #6d7c01;
+  --shiki-token-constant: #b15394;
+  --shiki-token-function: #6d7c01;
+  --shiki-token-inserted: #6d7c01;
+  --shiki-token-changed: #996e00;
+  --shiki-token-deleted: #cd4644;
+  --shiki-token-comment: #879285;
+  --shiki-token-punctuation: #879285;
 }
 
 html[data-theme="everforest"].dark {
@@ -623,13 +644,14 @@ html[data-theme="everforest"].dark {
   --chart-4: #a7c080;
   --chart-5: #e69875;
   --accent-secondary: #83c092;
-  --shiki-token-keyword: #e67e80;
+  --shiki-token-keyword: #ea9192;
   --shiki-token-string: #a7c080;
   --shiki-token-string-expression: #a7c080;
   --shiki-token-constant: #d699b6;
   --shiki-token-function: #a7c080;
   --shiki-token-inserted: #a7c080;
   --shiki-token-changed: #dbbc7f;
+  --shiki-token-deleted: #ea9192;
 }
 
 /* UnoCSS's preflight resets borders to `0 solid` (currentcolor). Restore the
@@ -1045,6 +1067,14 @@ html[data-retro="true"] {
   }
   .prose pre {
     @apply overflow-x-auto rounded-lg border border-border bg-muted/50 p-4 font-mono text-sm;
+  }
+  /* The blog CodeBlock builds its own frame, so the bare-prose `pre` shell
+     must not double up inside it: the card owns the corners and the card's
+     scroller owns the scrolling. Without this the `pre`'s own 16px radius
+     clips the first and last code lines — it has no padding of its own, so
+     its content starts flush against that curve. */
+  .prose .code-card pre {
+    @apply overflow-visible rounded-none border-0 bg-transparent p-0 font-mono text-[13px] leading-relaxed;
   }
   .prose table {
     @apply w-full border-collapse text-sm;
