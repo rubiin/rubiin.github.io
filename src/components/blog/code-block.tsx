@@ -37,10 +37,13 @@ const LANGUAGE_MODULES = {
 export function CodeBlock({
   code,
   lang,
+  title,
   className,
 }: {
   code: string;
   lang?: string;
+  /** File name from the fence's `title="…"` meta (see remark-code-title). */
+  title?: string;
   className?: string;
 }) {
   const [html, setHtml] = useState<string | null>(null);
@@ -139,12 +142,19 @@ export function CodeBlock({
         className="pointer-events-none absolute -top-16 -right-10 size-40 rounded-full bg-primary/10 blur-3xl"
       />
       <div className="relative flex items-center justify-between gap-3 border-b border-border/70 bg-muted/40 px-8 py-2">
-        {/* Full-strength foreground: `muted-foreground` falls below 4.5:1 on
-            the pill in 13 of the 16 palette/mode combinations. */}
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-muted/60 px- py-0.5 font-mono text-[11px] tracking-wider text-foreground uppercase">
-          <span aria-hidden className="size-1.5 rounded-full bg-primary/60" />
-          {lang ?? "code"}
-        </span>
+        <div className="flex min-w-0 items-center gap-2.5">
+          {/* Full-strength foreground: `muted-foreground` falls below 4.5:1 on
+              the pill in 13 of the 16 palette/mode combinations. */}
+          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border/70 bg-muted/60 px-2 py-0.5 font-mono text-[11px] tracking-wider text-foreground uppercase">
+            <span aria-hidden className="size-1.5 rounded-full bg-primary/60" />
+            {lang ?? "code"}
+          </span>
+          {title ? (
+            <span className="truncate font-mono text-xs text-foreground" title={title}>
+              {title}
+            </span>
+          ) : null}
+        </div>
         <Button
           type="button"
           variant="ghost"

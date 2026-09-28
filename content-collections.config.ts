@@ -4,6 +4,7 @@ import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkMath from "remark-math";
 import { z } from "zod";
+import { remarkCodeTitle } from "./scripts/remark-code-title";
 import { remarkMermaid } from "./scripts/remark-mermaid";
 import { extractToc } from "./src/server/blog-utils";
 
@@ -30,7 +31,7 @@ export const posts = defineCollection({
   }),
   transform: async (document, context) => {
     const mdx = await compileMDX(context, document, {
-      remarkPlugins: [remarkMath, remarkMermaid],
+      remarkPlugins: [remarkMath, remarkCodeTitle, remarkMermaid],
       rehypePlugins: [rehypeKatex, rehypeSlug],
     });
     // `_meta` is collection-internal metadata; it must not leak into the

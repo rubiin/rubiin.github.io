@@ -98,6 +98,7 @@ The app needs no environment variables — all content, fonts, and imagery are b
    ---
    ```
 3. Write the body. Supported out of the box: Shiki code fences, KaTeX math (`$$...$$`), Mermaid diagrams (```mermaid), standard markdown, custom `Mermaid` component.
+   - A fence can carry a `title` meta — `title="src/lib/utils.ts"` after the language — and the code block header shows it as the file name next to the language pill.
 4. Run `pnpm content:build` — the post appears automatically at `/blog/my-post`. No routing or registration changes.
 
 ## Editing Content

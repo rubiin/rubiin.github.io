@@ -25,11 +25,16 @@ export const mdxComponents = {
     );
   },
   pre: ({ children, className }: ComponentPropsWithoutRef<"pre">) => {
-    const child = children as ReactNode & { props?: { children?: string; className?: string } };
+    const child = children as ReactNode & {
+      props?: { children?: string; className?: string; "data-title"?: string };
+    };
     const rawCode = child?.props?.children;
     const rawLang = /language-([\w+-]+)/.exec(child?.props?.className ?? "")?.[1];
+    // `data-title` is set by scripts/remark-code-title.ts from a fence's
+    // `title="…"` meta.
+    const title = child?.props?.["data-title"];
     if (typeof rawCode === "string") {
-      return <CodeBlock code={rawCode} lang={rawLang} className={className} />;
+      return <CodeBlock code={rawCode} lang={rawLang} title={title} className={className} />;
     }
     return <pre className={cn("overflow-x-auto", className)}>{children}</pre>;
   },
