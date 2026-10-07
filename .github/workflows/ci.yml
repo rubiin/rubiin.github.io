@@ -18,10 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      # No `version:` here on purpose — pnpm/action-setup falls back to the
+      # `packageManager` field in package.json, so CI can never drift from it.
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 12.8.1
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -58,8 +58,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 12.8.1
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -87,8 +85,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 12.8.1
 
       - name: Setup Node.js
         uses: actions/setup-node@v7

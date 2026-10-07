@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, type ErrorComponentProps } from "@tanstack/react-router";
 import { CalendarDays, Clock, Hash, User } from "lucide-react";
 import { MDXContent } from "@/components/blog/mdx-content";
 import { TableOfContents } from "@/components/blog/table-of-contents";
@@ -223,12 +223,14 @@ function PostSkeleton() {
   );
 }
 
-function PostError({ error }: { error: Error }) {
+function PostError({ error }: ErrorComponentProps) {
+  const message = error instanceof Error ? error.message : "";
+
   return (
     <div className="mx-auto flex max-w-xl flex-col items-center gap-4 px-4 py-24 text-center">
       <h1 className="text-2xl font-semibold">Something went wrong</h1>
       <p className="text-muted-foreground">
-        {error.message || "This article could not be loaded. Please try again."}
+        {message || "This article could not be loaded. Please try again."}
       </p>
       <Button asChild variant="outline">
         <a href="/blog">Back to blog</a>
