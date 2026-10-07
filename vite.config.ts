@@ -6,6 +6,50 @@ import contentCollections from "@content-collections/vite";
 import unocssPostcss from "@unocss/postcss";
 import type { Root } from "postcss";
 import { cloudflare } from "@cloudflare/vite-plugin";
+import type { Plugin } from "vite";
+
+/**
+ * Labels rolldown code-splitting groups whose `name` is a function.
+ *
+ * Nitro builds its server bundle with
+ * `output.codeSplitting.groups = [{ test: NODE_MODULES_RE, name: (id) => libChunkName(id) }]`
+ * (node_modules/nitro/dist/vite.mjs). A functional `name` is fine for
+ * chunking, but rolldown has no label to show for it in the bundler timing
+ * report, so it warns on every `vite build`:
+ *
+ *   `output.codeSplitting.groups[0].name` is a function. Set
+ *   `output.codeSplitting.groups[0].debugName` so the bundler timing report can
+ *   identify this group.
+ *
+ * `debugName` only affects the timing report labels, never chunk contents, so
+ * adding it here is behaviourally inert. Applied per environment (after nitro
+ * has contributed its config) because the group only exists on `nitro`.
+ */
+const labelCodeSplittingGroups = (): Plugin => ({
+  name: "label-code-splitting-groups",
+  configEnvironment(_name, config) {
+    // `output` is `OutputOptions | OutputOptions[]` in rolldown's types; this
+    // project (and nitro) only ever uses the single-object form.
+    const output = config.build?.rolldownOptions?.output;
+    if (!output || Array.isArray(output)) return;
+    // `codeSplitting` is `boolean | CodeSplittingOptions`; `false` means the
+    // bundler does its own splitting, so there is nothing to label.
+    const codeSplitting = output.codeSplitting;
+    if (!codeSplitting || typeof codeSplitting === "boolean") return;
+    const groups = codeSplitting.groups;
+    if (!Array.isArray(groups)) return;
+    for (const [index, group] of groups.entries()) {
+      if (
+        group &&
+        typeof group === "object" &&
+        typeof group.name === "function" &&
+        !group.debugName
+      ) {
+        group.debugName = `group[${index}]`;
+      }
+    }
+  },
+});
 /**
  * PostCSS plugin: replaces `color-mix(in srgb, …)` with `in oklab` so the
  * rendered colors stay pixel-identical to the previous Tailwind v4 build.
@@ -45,6 +89,21 @@ export default defineConfig(({ command }) => ({
     minify: true,
     chunkSizeWarningLimit: 2000,
     sourcemap: false,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Silence the "use client" module level directive warning
+        if (warning.code === "MODULE_LEVEL_DIRECTIVE") {
+          return;
+        }
+        warn(warning);
+      },
+      onLog(level, log, handler) {
+        if (log.code === "MODULE_LEVEL_DIRECTIVE") {
+          return;
+        }
+        handler(level, log);
+      },
+    },
   },
   // Only force-include deps for the production build. During `vite dev` this
   // block is inert: the TanStack Start plugin injects its own per-environment
@@ -74,6 +133,8 @@ export default defineConfig(({ command }) => ({
     tanstackStart({
       srcDirectory: "src",
     }),
+
+    labelCodeSplittingGroups(),
 
     viteReact(),
     cloudflare(),
