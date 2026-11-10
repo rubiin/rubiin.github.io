@@ -59,7 +59,7 @@ export function TestimonialsSection() {
         {/* Ambient glow behind the card */}
         <div
           aria-hidden
-          className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/15 via-transparent to-accent-secondary/15 blur-2xl"
+          className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/15 via-transparent to-accent-secondary/15 blur-2xl"
         />
 
         <div className="glass-strong relative overflow-hidden rounded-3xl p-8 sm:p-12">
