@@ -80,13 +80,13 @@ export function ScrollScrubbedParagraph({
 
   const paragraphs = useMemo(() => text.split("\n\n").filter(Boolean), [text]);
   const rows = useMemo(() => {
-    let gi = 0;
-    return paragraphs.map((p) =>
-      p
-        .split(/\s+/)
-        .filter(Boolean)
-        .map((word) => ({ word, gi: gi++ })),
+    const groups = paragraphs.map((p) => p.split(/\s+/).filter(Boolean));
+    // starts[i] = global index of paragraph i's first word (prefix sums).
+    const starts = groups.reduce<number[]>(
+      (acc, group) => [...acc, (acc[acc.length - 1] ?? 0) + group.length],
+      [0],
     );
+    return groups.map((words, i) => words.map((word, wi) => ({ word, gi: (starts[i] ?? 0) + wi })));
   }, [paragraphs]);
   const wordList = useMemo(() => rows.flatMap((row) => row.map((w) => w.word)), [rows]);
   const total = wordList.length;
