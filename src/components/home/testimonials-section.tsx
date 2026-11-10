@@ -100,14 +100,16 @@ export function TestimonialsSection() {
 
         {/* Controls */}
         <div className="mt-6 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={() => go(index - 1)}
-            aria-label="Previous testimonial"
-            className="glass flex size-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_18px_-6px_color-mix(in_oklab,var(--primary)_70%,transparent)]"
-          >
-            <ChevronLeft className="size-4" />
-          </button>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => go(index - 1)}
+              aria-label="Previous testimonial"
+              className="flex items-center justify-center rounded-full text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_18px_-6px_color-mix(in_oklab,var(--primary)_80%,transparent)]"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+          </div>
 
           <div className="flex items-center gap-2" role="group" aria-label="Choose testimonial">
             {testimonials.map((t, i) => (
@@ -131,7 +133,7 @@ export function TestimonialsSection() {
             type="button"
             onClick={() => go(index + 1)}
             aria-label="Next testimonial"
-            className="glass flex size-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_18px_-6px_color-mix(in_oklab,var(--primary)_70%,transparent)]"
+            className="glass flex size-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_18px_-6px_color-mix(in_oklab,var(--primary)_80%,transparent)]"
           >
             <ChevronRight className="size-4" />
           </button>
