@@ -19,8 +19,8 @@ minimumReleaseAge: 0
 # versions. Scoped with `parent>child` where a global bump would break another
 # consumer (gray-matter needs js-yaml v3's safeLoad, mermaid pins katex ^0.18).
 overrides:
-  seroval: ^1.6.11
-  serialize-javascript: ^7.1.3
+  seroval: ^1.8.1
+  serialize-javascript: ^7.1.4
   zod: ^4.6.7
   "mdx-bundler>uuid": ^11.1.1
   "remark-mdx-frontmatter>toml": ^5.0.1
